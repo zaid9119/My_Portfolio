@@ -339,6 +339,67 @@ tailwind.config = {
     </div>
   </div>
 </div>
+  </div>
+  <form id="contactForm" class="mt-12 grid gap-4 md:grid-cols-2" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+  <!-- FormSubmit configuration -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
+
+  <input required name="name" placeholder="Your Name *" class="rounded-2xl p-4">
+  <input required type="email" name="email" placeholder="Email Address *" class="rounded-2xl p-4">
+  <input name="project" placeholder="Project Type (YouTube / Gaming / etc.)" class="rounded-2xl p-4">
+  <input name="budget" placeholder="Budget Range (optional)" class="rounded-2xl p-4">
+  <textarea required name="message" rows="5" placeholder="Tell me about your project, deadline and any references..." class="rounded-2xl p-4 md:col-span-2"></textarea>
+  
+  <button type="submit" id="submitBtn" class="magnetic rounded-2xl bg-white p-4 font-bold text-black md:col-span-2 transition duration-300 hover:bg-violet-400 hover:text-white">SEND PROJECT REQUEST ↗</button>
+</form>
+  $("contactForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const btn = $("submitBtn");
+  
+  // Show loading state
+  btn.textContent = "SENDING...";
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      $("formStatus").classList.remove("hidden");
+      $("formStatus").className = "mt-5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-200";
+      $("formStatus").textContent = "Success! Your message has been sent directly to your Gmail.";
+      form.reset();
+    } else {
+      throw new Error("Network response was not ok.");
+    }
+  } catch (error) {
+    $("formStatus").classList.remove("hidden");
+    $("formStatus").className = "mt-5 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200";
+    $("formStatus").textContent = "Oops! Something went wrong. Please try emailing directly using the button above.";
+  } finally {
+    // Reset button state
+    btn.textContent = "SEND PROJECT REQUEST ↗";
+    btn.disabled = false;
+  }
+};
+  <!-- Floating Admin Edit Button -->
+<button id="adminEditBtn" class="fixed bottom-6 right-6 z-[110] flex h-14 w-14 items-center justify-center rounded-full bg-violet-600/80 shadow-[0_0_20px_rgba(139,92,246,0.3)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-violet-500 group">
+  <svg class="h-6 w-6 text-white transition-transform duration-500 group-hover:rotate-90" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+  </svg>
+</button>
+  $("adminEditBtn").onclick = () => {
+  if (sessionStorage.getItem("zr_admin") === "1") openAdmin();
+  else $("adminLogin").classList.add("open");
+};
+  <div>
 
 <!-- ADMIN PANEL -->
 <div id="adminPanel" class="admin-panel fixed inset-0 z-[190] items-start justify-center bg-black/90 p-3 md:p-6 backdrop-blur-xl overflow-auto">

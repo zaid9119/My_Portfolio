@@ -3,25 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ZAID RAZA — Visual Designer</title>
-
-<meta name="description"
-content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
-
+<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
 <script src="https://cdn.tailwindcss.com"></script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: #f4f3ef;
@@ -30,2014 +19,369 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-.display {
-  font-family: 'Space Grotesk', sans-serif;
-}
+h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
+.serif { font-family: Georgia, serif; font-style: italic; }
+::selection { background: #111; color: #fff; }
 
-.serif {
-  font-family: Georgia, serif;
-  font-style: italic;
-}
-
-::selection {
-  background: #111;
-  color: #fff;
-}
-
-/* =========================
-   CURSOR
-========================= */
-
+/* CURSOR */
 .cursor {
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
-  width: 12px;
-  height: 12px;
-  background: #111;
-  border-radius: 50%;
+  position: fixed; z-index: 9999; pointer-events: none;
+  width: 12px; height: 12px; background: #111; border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition:
-    width .2s,
-    height .2s,
-    background .2s;
+  transition: width .2s, height .2s, background .2s;
 }
+.cursor.big { width: 48px; height: 48px; mix-blend-mode: difference; background: #fff;}
 
-.cursor.big {
-  width: 48px;
-  height: 48px;
-  background: #111;
-  mix-blend-mode: difference;
-}
-
-/* =========================
-   NAVBAR
-========================= */
-
-nav {
-  transition: .3s;
-}
-
-.nav-scrolled {
-  background: rgba(244,243,239,.86);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid #ddd;
-}
-
-/* =========================
-   HERO
-========================= */
-
+/* NAVBAR & HERO */
+nav { transition: .3s; }
+.nav-scrolled { background: rgba(244,243,239,.86); backdrop-filter: blur(18px); border-bottom: 1px solid #ddd; }
 .hero-grid {
-  background-image:
-    linear-gradient(#deddd8 1px, transparent 1px),
-    linear-gradient(90deg, #deddd8 1px, transparent 1px);
-
+  background-image: linear-gradient(#deddd8 1px, transparent 1px), linear-gradient(90deg, #deddd8 1px, transparent 1px);
   background-size: 80px 80px;
 }
-
-.photo {
-  background:
-    linear-gradient(135deg, #d9d6cf, #a8a49b);
-
-  filter: grayscale(100%);
-  position: relative;
-}
-
+.photo { background: linear-gradient(135deg, #d9d6cf, #a8a49b); filter: grayscale(100%); position: relative; }
 .photo:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      135deg,
-      transparent 45%,
-      rgba(255,255,255,.35)
-    );
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,.35));
 }
 
-/* =========================
-   MARQUEE
-========================= */
+/* MARQUEE & CARDS */
+.marquee { white-space: nowrap; overflow: hidden; border-top: 1px solid #111; border-bottom: 1px solid #111; }
+.marquee span { display: inline-block; animation: move 22s linear infinite; }
+@keyframes move { to { transform: translateX(-50%); } }
+.work-card { border: 1px solid rgba(0,0,0,.08); border-radius: 28px; overflow: hidden; background: #ebeae5; transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s; }
+.work-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px #0001; }
+.work-img { transition: transform .7s; }
+.work-card:hover .work-img { transform: scale(1.05); }
 
-.marquee {
-  white-space: nowrap;
-  overflow: hidden;
+/* REVEAL & UTILS */
+.reveal { opacity: 0; transform: translateY(30px); transition: .8s ease; }
+.reveal.show { opacity: 1; transform: none; }
+.number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(4rem,10vw,9rem); line-height: .8; color: #111; }
 
-  border-top: 1px solid #111;
-  border-bottom: 1px solid #111;
-}
+/* FORMS */
+input, textarea { background: #ebeae5; border: 1px solid #cbc9c1; outline: none; }
+input:focus, textarea:focus { border-color: #111; }
 
-.marquee span {
-  display: inline-block;
-
-  animation:
-    move 22s linear infinite;
-}
-
-@keyframes move {
-
-  to {
-    transform: translateX(-50%);
-  }
-
-}
-
-/* =========================
-   WORK CARDS
-========================= */
-
-.work-card {
-
-  border: 1px solid rgba(0,0,0,.08);
-
-  border-radius: 28px;
-
-  overflow: hidden;
-
-  background: #ebeae5;
-
-  transition:
-    transform .45s cubic-bezier(.2,.8,.2,1),
-    box-shadow .45s;
-}
-
-.work-card:hover {
-
-  transform:
-    translateY(-8px);
-
-  box-shadow:
-    0 25px 50px #0001;
-}
-
-.work-img {
-
-  transition:
-    transform .7s;
-}
-
-.work-card:hover .work-img {
-
-  transform:
-    scale(1.05);
-}
-
-/* =========================
-   REVEAL
-========================= */
-
-.reveal {
-
-  opacity: 0;
-
-  transform:
-    translateY(30px);
-
-  transition:
-    .8s ease;
-}
-
-.reveal.show {
-
-  opacity: 1;
-
-  transform: none;
-}
-
-/* =========================
-   BIG NUMBER
-========================= */
-
-.number {
-
-  font-family:
-    'Space Grotesk',
-    sans-serif;
-
-  font-size:
-    clamp(4rem,10vw,9rem);
-
-  line-height:
-    .8;
-
-  color:
-    #111;
-}
-
-/* =========================
-   FORM
-========================= */
-
-input,
-textarea {
-
-  background:
-    #ebeae5;
-
-  border:
-    1px solid #cbc9c1;
-
-  outline:
-    none;
-}
-
-input:focus,
-textarea:focus {
-
-  border-color:
-    #111;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin {
-
-  background:
-    #111;
-
-  color:
-    #fff;
-}
-
-.modal {
-  display:
-    none;
-}
-
-.modal.open {
-  display:
-    flex;
-}
-
-/* =========================
-   MOBILE
-========================= */
+/* ADMIN MODALS */
+.modal { display: none; opacity: 0; transition: opacity 0.3s ease; }
+.modal.open { display: flex; opacity: 1; }
+.admin-bg { background: #1a1a1a; color: #f4f3ef; }
+.admin-input { background: #2a2a2a; border: 1px solid #333; color: white; }
+.admin-input:focus { border-color: #f4f3ef; }
 
 @media(max-width:800px) {
-
-  .cursor {
-    display:
-      none;
-  }
-
-  .hero-grid {
-    background-size:
-      45px 45px;
-  }
-
+  .cursor { display: none; }
+  .hero-grid { background-size: 45px 45px; }
 }
 </style>
 </head>
-
-
 <body>
 
-<!-- =========================
-     CURSOR
-========================= -->
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
 
-<div
-  class="cursor"
-  id="cursor">
-</div>
-
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
-<nav
-  id="nav"
-  class="fixed top-0 left-0 right-0 z-50">
-
-  <div
-    class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
-
-    <!-- ADMIN TRIGGER -->
-    <a
-      href="#"
-      id="adminTrigger"
-      class="font-bold tracking-tight text-xl">
-
-      ZAID<span class="text-zinc-400">/</span>RAZA
-
-    </a>
-
-
-    <!-- DESKTOP NAV -->
-
-    <div
-      class="hidden md:flex items-center gap-9 text-sm font-medium">
-
-      <a href="#work">
-        Work
-      </a>
-
-      <a href="#services">
-        Services
-      </a>
-
-      <a href="#about">
-        About
-      </a>
-
+<!-- NAVBAR -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
+    <a href="#" id="adminTrigger" class="font-bold tracking-tight text-xl">ZAID<span class="text-zinc-400">/</span>RAZA</a>
+    <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
     </div>
-
-
-    <!-- CONTACT -->
-
-    <a
-      href="#contact"
-      class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">
-
-      Let's talk ↗
-
-    </a>
-
+    <a href="#contact" class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">Let's talk ↗</a>
   </div>
-
 </nav>
 
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<header
-  class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
-
-  <div
-    class="max-w-7xl mx-auto w-full">
-
-    <div
-      class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
-
-
-      <!-- HERO TEXT -->
-
-      <div
-        class="reveal">
-
-        <p
-          class="text-xs tracking-[.3em] uppercase font-bold mb-8">
-
-          Thumbnail Designer · Visual Creator
-
-        </p>
-
-
-        <h1
-          id="heroHeadline"
-          class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
-
-          I MAKE
-          <br>
-
-          <span class="serif font-normal">
-            VISUALS
-          </span>
-
-          <br>
-
-          MOVE.
-
+<!-- HERO -->
+<header class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
+      <div class="reveal">
+        <p class="text-xs tracking-[.3em] uppercase font-bold mb-8">Thumbnail Designer · Visual Creator</p>
+        <h1 id="displayHeroHeadline" class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
+          <!-- Populated by JS -->
         </h1>
-
-
-        <p
-          id="heroBio"
-          class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600">
-
-          I turn ordinary ideas into clear,
-          high-impact visuals built to stop
-          the scroll and communicate instantly.
-
-        </p>
-
-
-        <div
-          class="flex flex-wrap gap-3 mt-9">
-
-          <a
-            href="#work"
-            class="bg-black text-white rounded-full px-7 py-4 font-semibold">
-
-            Explore my work ↓
-
-          </a>
-
-
-          <a
-            href="#contact"
-            class="border border-black rounded-full px-7 py-4 font-semibold">
-
-            Start a project ↗
-
-          </a>
-
+        <p id="displayHeroBio" class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600"></p>
+        <div class="flex flex-wrap gap-3 mt-9">
+          <a href="#work" class="bg-black text-white rounded-full px-7 py-4 font-semibold">Explore my work ↓</a>
+          <a href="#contact" class="border border-black rounded-full px-7 py-4 font-semibold">Start a project ↗</a>
         </div>
-
       </div>
-
-
-
-      <!-- HERO PROFILE -->
-
-      <div
-        class="reveal">
-
-        <div
-          class="relative max-w-md mx-auto lg:ml-auto">
-
-
-          <div
-            class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
-
-
-            <div
-              class="absolute inset-0 flex items-center justify-center">
-
-              <div
-                class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">
-
-                ZR
-
-              </div>
-
+      <div class="reveal">
+        <div class="relative max-w-md mx-auto lg:ml-auto">
+          <div class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">ZR</div>
             </div>
-
-
-            <div
-              class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">
-
-              BASED IN INDIA
-
-            </div>
-
-
-            <div
-              class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">
-
-              AVAILABLE ↗
-
-            </div>
-
+            <div class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">BASED IN INDIA</div>
+            <div class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">AVAILABLE ↗</div>
           </div>
-
-
-          <div
-            class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
-
-            DESIGN
-            <br>
-            WITH
-            <br>
-            INTENT
-
+          <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
+            DESIGN<br>WITH<br>INTENT
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </header>
 
-
-
-<!-- =========================
-     MARQUEE
-========================= -->
-
-<div
-  class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
-
+<!-- MARQUEE -->
+<div class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
   <span>
-
-    THUMBNAILS ✦
-    YOUTUBE ✦
-    GAMING ✦
-    SOCIAL MEDIA ✦
-    POSTERS ✦
-    VISUAL STORYTELLING ✦
-
-    THUMBNAILS ✦
-    YOUTUBE ✦
-    GAMING ✦
-    SOCIAL MEDIA ✦
-    POSTERS ✦
-    VISUAL STORYTELLING ✦
-
+    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
+    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
   </span>
-
 </div>
 
-
-
-<!-- =========================
-     WORK
-========================= -->
-
-<section
-  id="work"
-  class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-
-
-  <div
-    class="flex justify-between items-end mb-14 reveal">
-
+<!-- WORK -->
+<section id="work" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+  <div class="flex justify-between items-end mb-14 reveal">
     <div>
-
-      <p
-        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
-
-        01 / Selected work
-
-      </p>
-
-
-      <h2
-        class="text-5xl md:text-7xl font-bold tracking-tight mt-3">
-
-        The work.
-
-      </h2>
-
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">01 / Selected work</p>
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-3">The work.</h2>
     </div>
-
-
-    <p
-      class="hidden md:block max-w-xs text-sm text-zinc-500">
-
-      A selection of visual concepts across
-      different niches and content styles.
-
-    </p>
-
+    <p class="hidden md:block max-w-xs text-sm text-zinc-500">A selection of visual concepts across different niches and content styles.</p>
   </div>
-
-
-  <div
-    id="grid"
-    class="grid md:grid-cols-2 gap-6">
-
-  </div>
-
+  <div id="grid" class="grid md:grid-cols-2 gap-6"></div>
 </section>
 
-
-
-<!-- =========================
-     SERVICES
-========================= -->
-
-<section
-  id="services"
-  class="bg-[#111] text-white py-28">
-
-  <div
-    class="max-w-7xl mx-auto px-5 md:px-8">
-
-
-    <div
-      class="reveal">
-
-      <p
-        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
-
-        02 / Services
-
-      </p>
-
-
-      <h2
-        class="text-5xl md:text-7xl font-bold mt-3">
-
-        What I do.
-
-      </h2>
-
+<!-- SERVICES (Static for now to keep it clean, but you can expand logic later) -->
+<section id="services" class="bg-[#111] text-white py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="reveal">
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">02 / Services</p>
+      <h2 class="text-5xl md:text-7xl font-bold mt-3">What I do.</h2>
     </div>
-
-
-    <div
-      class="grid md:grid-cols-3 gap-4 mt-16">
-
-
-      <!-- SERVICE 1 -->
-
-      <div
-        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-
-        <span
-          class="text-zinc-500">
-
-          01
-
-        </span>
-
-
-        <h3
-          class="text-2xl font-bold mt-12">
-
-          YouTube
-          <br>
-          Thumbnails
-
-        </h3>
-
-
-        <p
-          class="text-zinc-400 mt-5 leading-6">
-
-          Strong hierarchy,
-          expressive composition and
-          clear visual storytelling designed
-          for the click.
-
-        </p>
-
+    <div class="grid md:grid-cols-3 gap-4 mt-16">
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">01</span>
+        <h3 class="text-2xl font-bold mt-12">YouTube<br>Thumbnails</h3>
+        <p class="text-zinc-400 mt-5 leading-6">Strong hierarchy, expressive composition and clear visual storytelling designed for the click.</p>
       </div>
-
-
-
-      <!-- SERVICE 2 -->
-
-      <div
-        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-
-        <span
-          class="text-zinc-500">
-
-          02
-
-        </span>
-
-
-        <h3
-          class="text-2xl font-bold mt-12">
-
-          Social
-          <br>
-          Visuals
-
-        </h3>
-
-
-        <p
-          class="text-zinc-400 mt-5 leading-6">
-
-          Clean, recognizable graphics
-          for reels, posts, campaigns,
-          events and digital brands.
-
-        </p>
-
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">02</span>
+        <h3 class="text-2xl font-bold mt-12">Social<br>Visuals</h3>
+        <p class="text-zinc-400 mt-5 leading-6">Clean, recognizable graphics for reels, posts, campaigns, events and digital brands.</p>
       </div>
-
-
-
-      <!-- SERVICE 3 -->
-
-      <div
-        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-
-        <span
-          class="text-zinc-500">
-
-          03
-
-        </span>
-
-
-        <h3
-          class="text-2xl font-bold mt-12">
-
-          Creative
-          <br>
-          Direction
-
-        </h3>
-
-
-        <p
-          class="text-zinc-400 mt-5 leading-6">
-
-          From the first idea to the final
-          frame, I help shape a visual
-          direction that makes sense.
-
-        </p>
-
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">03</span>
+        <h3 class="text-2xl font-bold mt-12">Creative<br>Direction</h3>
+        <p class="text-zinc-400 mt-5 leading-6">From the first idea to the final frame, I help shape a visual direction that makes sense.</p>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section
-  id="about"
-  class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-
-  <div
-    class="grid lg:grid-cols-2 gap-16 items-center">
-
-
-    <div
-      class="reveal">
-
-      <p
-        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
-
-        03 / About
-
-      </p>
-
-
-      <div
-        class="number mt-8">
-
-        ZR.
-
-      </div>
-
+<!-- ABOUT -->
+<section id="about" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+  <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">03 / About</p>
+      <div class="number mt-8">ZR.</div>
     </div>
-
-
-    <div
-      class="reveal">
-
-
-      <h2
-        class="text-4xl md:text-6xl font-bold tracking-tight">
-
-        Design isn't decoration.
-
-        <br>
-
-        <span class="serif font-normal">
-
-          It's communication.
-
-        </span>
-
-      </h2>
-
-
-      <p
-        class="text-zinc-600 leading-7 mt-7 max-w-xl">
-
-        I'm Md Zaid Raza, a thumbnail designer
-        and visual content creator. I care about
-        the first impression: what people notice,
-        what they understand and what makes them
-        want to look twice.
-
-      </p>
-
-
-      <div
-        class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
-
-
+    <div class="reveal">
+      <h2 id="displayAboutHeadline" class="text-4xl md:text-6xl font-bold tracking-tight"></h2>
+      <p id="displayAboutBio" class="text-zinc-600 leading-7 mt-7 max-w-xl"></p>
+      
+      <div class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
         <div>
-
-          <b
-            class="text-4xl">
-
-            2+
-
-          </b>
-
-
-          <p
-            class="text-xs uppercase tracking-widest text-zinc-500 mt-2">
-
-            Years creating
-
-          </p>
-
+          <b id="displayStat1Num" class="text-4xl"></b>
+          <p id="displayStat1Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
         </div>
-
-
         <div>
-
-          <b
-            class="text-4xl">
-
-            50+
-
-          </b>
-
-
-          <p
-            class="text-xs uppercase tracking-widest text-zinc-500 mt-2">
-
-            Projects & concepts
-
-          </p>
-
+          <b id="displayStat2Num" class="text-4xl"></b>
+          <p id="displayStat2Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
         </div>
-
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =========================
-     CONTACT
-========================= -->
-
-<section
-  id="contact"
-  class="bg-[#dddcd5] py-28">
-
-  <div
-    class="max-w-7xl mx-auto px-5 md:px-8">
-
-
-    <div
-      class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
-
-
-      <div
-        class="reveal">
-
-        <p
-          class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
-
-          04 / Contact
-
-        </p>
-
-
-        <h2
-          class="text-5xl md:text-7xl font-bold tracking-tight mt-5">
-
-          Let's make
-
-          <br>
-
-          <span class="serif font-normal">
-
-            something
-
-          </span>
-
-          <br>
-
-          stand out.
-
-        </h2>
-
+<!-- CONTACT -->
+<section id="contact" class="bg-[#dddcd5] py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
+      <div class="reveal">
+        <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">04 / Contact</p>
+        <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-5">Let's make<br><span class="serif font-normal">something</span><br>stand out.</h2>
       </div>
-
-
-
-      <form
-        action="https://formsubmit.co/mdzaidraza9119@gmail.com"
-        method="POST"
-        class="reveal grid gap-4">
-
-
-        <input
-          type="hidden"
-          name="_captcha"
-          value="false">
-
-
-        <input
-          type="hidden"
-          name="_subject"
-          value="New Portfolio Inquiry — Zaid Raza">
-
-
-        <input
-          required
-          name="name"
-          placeholder="Your name *"
-          class="p-5 rounded-2xl">
-
-
-        <input
-          required
-          type="email"
-          name="email"
-          placeholder="Email address *"
-          class="p-5 rounded-2xl">
-
-
-        <input
-          name="project"
-          placeholder="What do you need? (Thumbnail / Social / Poster)"
-          class="p-5 rounded-2xl">
-
-
-        <textarea
-          required
-          name="message"
-          rows="6"
-          placeholder="Tell me about the project..."
-          class="p-5 rounded-2xl"></textarea>
-
-
-        <button
-          class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">
-
-          SEND INQUIRY ↗
-
-        </button>
-
-
+      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="reveal grid gap-4">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
+        <input required name="name" placeholder="Your name *" class="p-5 rounded-2xl">
+        <input required type="email" name="email" placeholder="Email address *" class="p-5 rounded-2xl">
+        <input name="project" placeholder="What do you need? (Thumbnail / Social / Poster)" class="p-5 rounded-2xl">
+        <textarea required name="message" rows="6" placeholder="Tell me about the project..." class="p-5 rounded-2xl"></textarea>
+        <button class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">SEND INQUIRY ↗</button>
       </form>
-
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer
-  class="bg-black text-white px-5 md:px-8 py-10">
-
-  <div
-    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
-
-
-    <b
-      class="text-lg">
-
-      ZAID/RAZA
-
-    </b>
-
-
-    <p
-      class="text-xs text-zinc-500">
-
-      © 2026 — VISUAL DESIGNER
-
-    </p>
-
-
-    <p
-      class="text-xs text-zinc-500">
-
-      Made to be noticed.
-
-    </p>
-
+<!-- FOOTER -->
+<footer class="bg-black text-white px-5 md:px-8 py-10">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
+    <b class="text-lg">ZAID/RAZA</b>
+    <p class="text-xs text-zinc-500">© 2026 — VISUAL DESIGNER</p>
+    <p class="text-xs text-zinc-500">Made to be noticed.</p>
   </div>
-
 </footer>
 
-
-
-<!-- =========================
-     PROJECT PREVIEW
-========================= -->
-
-<div
-  id="preview"
-  class="modal fixed inset-0 z-[100] bg-black/90 items-center justify-center p-5">
-
-
-  <div
-    class="max-w-5xl w-full">
-
-
-    <button
-      id="closePreview"
-      class="float-right mb-3 bg-white text-black rounded-full w-10 h-10 font-bold">
-
-      ×
-
-    </button>
-
-
-    <img
-      id="previewImg"
-      class="w-full max-h-[82vh] object-contain rounded-2xl">
-
-
-    <div
-      id="previewTitle"
-      class="text-white font-bold text-xl mt-4">
-
-    </div>
-
+<!-- PROJECT PREVIEW MODAL -->
+<div id="preview" class="modal fixed inset-0 z-[100] bg-black/95 items-center justify-center p-5">
+  <div class="max-w-5xl w-full">
+    <button id="closePreview" class="float-right mb-3 text-white text-3xl font-bold hover:text-zinc-400 transition">&times;</button>
+    <img id="previewImg" class="w-full max-h-[82vh] object-contain rounded-2xl">
+    <div id="previewTitle" class="text-white font-bold text-xl mt-4"></div>
   </div>
-
 </div>
 
-
-
-<!-- =========================
-     ADMIN LOGIN
-========================= -->
-
-<div
-  id="login"
-  class="modal fixed inset-0 z-[200] bg-black/90 items-center justify-center p-5">
-
-
-  <div
-    class="admin max-w-sm w-full p-8 rounded-[28px]">
-
-
-    <button
-      id="closeLogin"
-      class="float-right">
-
-      ✕
-
-    </button>
-
-
-    <p
-      class="text-xs text-zinc-500 tracking-widest mt-4">
-
-      PRIVATE ACCESS
-
-    </p>
-
-
-    <h2
-      class="text-3xl font-bold mt-2 mb-7">
-
-      Admin
-
-    </h2>
-
-
-    <input
-      id="user"
-      class="w-full p-4 text-black mb-3 rounded-xl"
-      placeholder="Username">
-
-
-    <input
-      id="pass"
-      type="password"
-      class="w-full p-4 text-black rounded-xl"
-      placeholder="Password">
-
-
-    <p
-      id="err"
-      class="text-red-400 text-xs mt-3 hidden">
-
-      Invalid login.
-
-    </p>
-
-
-    <button
-      id="loginBtn"
-      class="w-full bg-white text-black p-4 mt-5 font-bold rounded-xl">
-
-      ENTER
-
-    </button>
-
+<!-- ADMIN LOGIN -->
+<div id="login" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-5">
+  <div class="admin-bg max-w-sm w-full p-8 rounded-[28px] border border-white/10 shadow-2xl">
+    <button id="closeLogin" class="float-right text-xl text-zinc-400 hover:text-white">&times;</button>
+    <p class="text-xs text-zinc-500 tracking-widest mt-4 uppercase">Private Access</p>
+    <h2 class="text-3xl font-bold mt-2 mb-7 font-['Space_Grotesk']">Studio Admin</h2>
+    <input id="user" class="admin-input w-full p-4 mb-3 rounded-xl transition" placeholder="Username">
+    <input id="pass" type="password" class="admin-input w-full p-4 rounded-xl transition" placeholder="Password">
+    <p id="err" class="text-red-400 text-xs mt-3 hidden">Invalid credentials.</p>
+    <button id="loginBtn" class="w-full bg-[#f4f3ef] text-black p-4 mt-5 font-bold rounded-xl hover:bg-white transition">ENTER DASHBOARD</button>
   </div>
-
 </div>
 
-
-
-<!-- =========================
-     ADMIN DASHBOARD
-========================= -->
-
-<div
-  id="dash"
-  class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
-
-
-  <div
-    class="admin max-w-5xl w-full p-6 md:p-10 rounded-[30px]">
-
-
-    <!-- DASHBOARD HEADER -->
-
-    <div
-      class="flex justify-between border-b border-white/15 pb-5">
-
-
+<!-- ADMIN DASHBOARD -->
+<div id="dash" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
+  <div class="admin-bg max-w-6xl w-full p-6 md:p-10 rounded-[30px] border border-white/10 my-10">
+    
+    <div class="flex justify-between items-center border-b border-white/10 pb-5 mb-8">
       <div>
-
-        <h2
-          class="text-3xl font-bold">
-
-          Dashboard
-
-        </h2>
-
-
-        <p
-          class="text-xs text-zinc-500 mt-1">
-
-          YOUR WEBSITE CONTENT
-
-        </p>
-
+        <h2 class="text-3xl font-bold font-['Space_Grotesk']">Control Panel</h2>
+        <p class="text-xs text-zinc-400 mt-1 uppercase tracking-widest">Manage your portfolio content</p>
       </div>
-
-
-      <button
-        id="logout"
-        class="border border-white/20 px-4 py-2 rounded-full text-xs">
-
-        LOGOUT
-
-      </button>
-
+      <div class="flex gap-3">
+        <button id="saveAllBtn" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-full text-sm font-bold transition">SAVE ALL CHANGES</button>
+        <button id="logout" class="border border-white/20 hover:bg-white/10 px-6 py-2 rounded-full text-sm font-bold transition">LOGOUT</button>
+      </div>
     </div>
 
-
-
-    <div
-      class="grid md:grid-cols-2 gap-8 mt-8">
-
-
-      <!-- HERO EDITOR -->
-
-      <div>
-
-        <h3
-          class="font-bold mb-4">
-
-          Hero Content
-
-        </h3>
-
-
-        <textarea
-          id="headline"
-          rows="4"
-          class="w-full p-4 text-black mb-3 rounded-xl"></textarea>
-
-
-        <textarea
-          id="bio"
-          rows="4"
-          class="w-full p-4 text-black rounded-xl"></textarea>
-
-
-        <button
-          id="save"
-          class="w-full bg-white text-black p-4 mt-3 font-bold rounded-xl">
-
-          SAVE CHANGES
-
-        </button>
-
-      </div>
-
-
-
-      <!-- PROJECT MANAGER -->
-
-      <div>
-
-        <h3
-          class="font-bold mb-4">
-
-          Add Project
-
-        </h3>
-
-
-        <input
-          id="pimg"
-          class="w-full p-4 text-black mb-3 rounded-xl"
-          placeholder="Image URL">
-
-
-        <input
-          id="ptitle"
-          class="w-full p-4 text-black mb-3 rounded-xl"
-          placeholder="Project title">
-
-
-        <input
-          id="ptag"
-          class="w-full p-4 text-black mb-3 rounded-xl"
-          placeholder="Category">
-
-
-        <button
-          id="add"
-          class="w-full bg-white text-black p-4 font-bold rounded-xl">
-
-          ADD TO PORTFOLIO
-
-        </button>
-
-
-        <div
-          id="manage"
-          class="mt-6 space-y-2">
-
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- LEFT COL: TEXT CONTENT -->
+      <div class="space-y-8">
+        <div>
+          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Hero Section</h3>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
+          <textarea id="editHeroHeadline" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Sub-bio</label>
+          <textarea id="editHeroBio" rows="2" class="admin-input w-full p-4 rounded-xl"></textarea>
         </div>
 
+        <div>
+          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">About Section</h3>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
+          <textarea id="editAboutHeadline" rows="2" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Biography</label>
+          <textarea id="editAboutBio" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Number)</label>
+              <input id="editStat1Num" class="admin-input w-full p-4 mb-2 rounded-xl">
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Label)</label>
+              <input id="editStat1Text" class="admin-input w-full p-4 rounded-xl">
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Number)</label>
+              <input id="editStat2Num" class="admin-input w-full p-4 mb-2 rounded-xl">
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Label)</label>
+              <input id="editStat2Text" class="admin-input w-full p-4 rounded-xl">
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- RIGHT COL: PORTFOLIO MANAGER -->
+      <div>
+        <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Portfolio Manager</h3>
+        <div class="bg-white/5 p-5 rounded-2xl border border-white/5 mb-6">
+          <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Add New Project</h4>
+          <input id="pimg" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Image URL (Unsplash or direct link)">
+          <input id="ptitle" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Project Title">
+          <input id="ptag" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Category Tag (e.g., YOUTUBE)">
+          <button id="add" class="w-full bg-[#f4f3ef] text-black p-3 font-bold rounded-xl hover:bg-white transition text-sm">ADD TO PORTFOLIO</button>
+        </div>
+
+        <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Current Projects</h4>
+        <div id="manage" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+          <!-- Populated by JS -->
+        </div>
+      </div>
     </div>
-
   </div>
-
 </div>
 
-
-
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
+<!-- JAVASCRIPT -->
 <script>
-
-/* =====================================
-   ADMIN CREDENTIALS
-===================================== */
-
+/* --- CONFIG & STATE --- */
 const USERNAME = "ZAIDX9119";
-
 const PASSWORD = "Zaid@9119";
 
-
-/* =====================================
-   DEFAULT PORTFOLIO
-===================================== */
-
-const defaultProjects = [
-
-  {
-    title: "Cinematic Visual Concept",
-    tag: "YOUTUBE",
-    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop"
-  },
-
-  {
-    title: "Gaming — High Energy",
-    tag: "GAMING",
-    img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop"
-  },
-
-  {
-    title: "Creative Campaign",
-    tag: "SOCIAL",
-    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop"
-  },
-
-  {
-    title: "Digital Storytelling",
-    tag: "YOUTUBE",
-    img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop"
-  }
-
-];
-
-
-/* =====================================
-   LOAD PROJECTS
-===================================== */
-
-let projects =
-  JSON.parse(
-    localStorage.getItem("zaidProjects")
-  ) || defaultProjects;
-
-
-/* =====================================
-   LOAD HERO
-===================================== */
-
-let savedHero =
-  JSON.parse(
-    localStorage.getItem("zaidHero")
-  );
-
-
-if (savedHero) {
-
-  document.getElementById("heroHeadline")
-    .innerHTML =
-    savedHero.headline;
-
-  document.getElementById("heroBio")
-    .textContent =
-    savedHero.bio;
-
-}
-
-
-/* =====================================
-   ESCAPE HTML
-===================================== */
-
-function escapeHTML(value) {
-
-  return String(value)
-    .replace(/[&<>"']/g, function(char) {
-
-      return {
-
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-
-      }[char];
-
-    });
-
-}
-
-
-/* =====================================
-   RENDER PORTFOLIO
-===================================== */
-
-function renderProjects() {
-
-  const grid =
-    document.getElementById("grid");
-
-
-  grid.innerHTML =
-    projects.map(function(project, index) {
-
-      return `
-
-        <article
-          class="work-card reveal show cursor-pointer"
-          onclick="openProject(${index})">
-
-
-          <div
-            class="aspect-[16/10] overflow-hidden bg-zinc-200">
-
-
-            <img
-              class="work-img w-full h-full object-cover"
-              loading="lazy"
-              src="${escapeHTML(project.img)}"
-              alt="${escapeHTML(project.title)}">
-
-
-          </div>
-
-
-          <div
-            class="flex justify-between items-center py-5 px-5 border-b border-black/15">
-
-
-            <div>
-
-
-              <p
-                class="text-[10px] tracking-[.25em] font-bold text-zinc-500">
-
-                ${escapeHTML(project.tag)}
-
-              </p>
-
-
-              <h3
-                class="text-xl font-bold mt-1">
-
-                ${escapeHTML(project.title)}
-
-              </h3>
-
-
-            </div>
-
-
-            <span
-              class="text-xl">
-
-              ↗
-
-            </span>
-
-
-          </div>
-
-
-        </article>
-
-      `;
-
-    }).join("");
-
-}
-
-
-renderProjects();
-
-
-/* =====================================
-   PROJECT PREVIEW
-===================================== */
-
-function openProject(index) {
-
-  const project =
-    projects[index];
-
-
-  document.getElementById("previewImg")
-    .src =
-    project.img;
-
-
-  document.getElementById("previewTitle")
-    .textContent =
-    project.title;
-
-
-  document.getElementById("preview")
-    .classList
-    .add("open");
-
-}
-
-
-document.getElementById("closePreview")
-  .onclick = function() {
-
-    document.getElementById("preview")
-      .classList
-      .remove("open");
-
-  };
-
-
-/* =====================================
-   ADMIN TRIGGER
-===================================== */
-
-let clickCount = 0;
-
-let clickTimer;
-
-
-document.getElementById("adminTrigger")
-  .addEventListener("click", function(event) {
-
-    event.preventDefault();
-
-    clickCount++;
-
-    clearTimeout(clickTimer);
-
-
-    if (clickCount === 4) {
-
-      document.getElementById("login")
-        .classList
-        .add("open");
-
-      clickCount = 0;
-
-    }
-
-
-    clickTimer =
-      setTimeout(function() {
-
-        clickCount = 0;
-
-      }, 1200);
-
+const defaultData = {
+  heroHeadline: "I MAKE<br><span class='serif font-normal'>VISUALS</span><br>MOVE.",
+  heroBio: "I turn ordinary ideas into clear, high-impact visuals built to stop the scroll and communicate instantly.",
+  aboutHeadline: "Design isn't decoration.<br><span class='serif font-normal'>It's communication.</span>",
+  aboutBio: "I'm Md Zaid Raza, a thumbnail designer and visual content creator. I care about the first impression: what people notice, what they understand and what makes them want to look twice.",
+  stat1Num: "2+", stat1Text: "Years creating",
+  stat2Num: "50+", stat2Text: "Projects & concepts",
+  projects: [
+    { title: "Cinematic Visual Concept", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Gaming — High Energy", tag: "GAMING", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Creative Campaign", tag: "SOCIAL", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Digital Storytelling", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop" }
+  ]
+};
+
+// Load state from local storage or use defaults
+let siteData = JSON.parse(localStorage.getItem("zaidPortfolioData")) || defaultData;
+
+/* --- UI RENDERING --- */
+function renderSite() {
+  // Update Text Elements
+  document.getElementById('displayHeroHeadline').innerHTML = siteData.heroHeadline;
+  document.getElementById('displayHeroBio').innerText = siteData.heroBio;
+  document.getElementById('displayAboutHeadline').innerHTML = siteData.aboutHeadline;
+  document.getElementById('displayAboutBio').innerText = siteData.aboutBio;
+  document.getElementById('displayStat1Num').innerText = siteData.stat1Num;
+  document.getElementById('displayStat1Text').innerText = siteData.stat1Text;
+  document.getElementById('displayStat2Num').innerText = siteData.stat2Num;
+  document.getElementById('displayStat2Text').innerText = siteData.stat2Text;
+
+  // Update Portfolio Grid
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  
+  siteData.projects.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "work-card cursor-pointer group";
+    card.onclick = () => openPreview(p.img, p.title);
+    card.innerHTML = `
+      <div class="aspect-[4/3] overflow-hidden bg-black">
+        <img src="${p.img}" class="work-img w-full h-full object-cover opacity-90 group-hover:opacity-100">
+      </div>
+      <div class="p-6 md:p-8 flex justify-between items-center bg-[#ebeae5]">
+        <h3 class="font-bold text-xl md:text-2xl">${p.title}</h3>
+        <span class="text-[10px] font-bold tracking-widest bg-black text-white px-3 py-1 rounded-full">${p.tag}</span>
+      </div>
+    `;
+    grid.appendChild(card);
   });
-
-
-/* =====================================
-   CLOSE LOGIN
-===================================== */
-
-document.getElementById("closeLogin")
-  .onclick = function() {
-
-    document.getElementById("login")
-      .classList
-      .remove("open");
-
-  };
-
-
-/* =====================================
-   LOGIN
-===================================== */
-
-document.getElementById("loginBtn")
-  .onclick = function() {
-
-    const user =
-      document.getElementById("user")
-        .value;
-
-    const pass =
-      document.getElementById("pass")
-        .value;
-
-
-    if (
-      user === USERNAME &&
-      pass === PASSWORD
-    ) {
-
-      document.getElementById("err")
-        .classList
-        .add("hidden");
-
-
-      document.getElementById("login")
-        .classList
-        .remove("open");
-
-
-      document.getElementById("dash")
-        .classList
-        .add("open");
-
-
-      loadDashboard();
-
-    }
-
-    else {
-
-      document.getElementById("err")
-        .classList
-        .remove("hidden");
-
-    }
-
-  };
-
-
-/* =====================================
-   ENTER KEY LOGIN
-===================================== */
-
-document.getElementById("pass")
-  .addEventListener("keydown", function(event) {
-
-    if (event.key === "Enter") {
-
-      document.getElementById("loginBtn")
-        .click();
-
-    }
-
-  });
-
-
-/* =====================================
-   LOAD DASHBOARD
-===================================== */
-
-function loadDashboard() {
-
-  document.getElementById("headline")
-    .value =
-    document.getElementById("heroHeadline")
-      .innerHTML;
-
-
-  document.getElementById("bio")
-    .value =
-    document.getElementById("heroBio")
-      .textContent;
-
-
-  renderAdminProjects();
-
 }
 
-
-/* =====================================
-   RENDER ADMIN PROJECTS
-===================================== */
-
-function renderAdminProjects() {
-
-  const container =
-    document.getElementById("manage");
-
-
-  container.innerHTML =
-    projects.map(function(project, index) {
-
-      return `
-
-        <div
-          class="flex justify-between items-center gap-3 bg-white/5 p-3 rounded-xl">
-
-
-          <span
-            class="text-xs truncate">
-
-            ${escapeHTML(project.title)}
-
-          </span>
-
-
-          <button
-            onclick="deleteProject(${index})"
-            class="text-red-400 text-xs font-bold">
-
-            DELETE
-
-          </button>
-
-
-        </div>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =====================================
-   SAVE HERO
-===================================== */
-
-document.getElementById("save")
-  .onclick = function() {
-
-    const headline =
-      document.getElementById("headline")
-        .value;
-
-
-    const bio =
-      document.getElementById("bio")
-        .value;
-
-
-    document.getElementById("heroHeadline")
-      .innerHTML =
-      headline;
-
-
-    document.getElementById("heroBio")
-      .textContent =
-      bio;
-
-
-    localStorage.setItem(
-
-      "zaidHero",
-
-      JSON.stringify({
-
-        headline: headline,
-
-        bio: bio
-
-      })
-
-    );
-
-
-    this.textContent =
-      "SAVED ✓";
-
-
-    setTimeout(() => {
-
-      this.textContent =
-        "SAVE CHANGES";
-
-    }, 1200);
-
-  };
-
-
-/* =====================================
-   ADD PROJECT
-===================================== */
-
-document.getElementById("add")
-  .onclick = function() {
-
-    const image =
-      document.getElementById("pimg")
-        .value
-        .trim();
-
-
-    const title =
-      document.getElementById("ptitle")
-        .value
-        .trim();
-
-
-    const tag =
-      (
-        document.getElementById("ptag")
-          .value
-          .trim() ||
-        "OTHER"
-      )
-      .toUpperCase();
-
-
-    if (!image || !title) {
-
-      alert(
-        "Please enter an image URL and project title."
-      );
-
-      return;
-
-    }
-
-
-    projects.unshift({
-
-      img: image,
-
-      title: title,
-
-      tag: tag
-
-    });
-
-
-    localStorage.setItem(
-
-      "zaidProjects",
-
-      JSON.stringify(projects)
-
-    );
-
-
-    document.getElementById("pimg")
-      .value = "";
-
-    document.getElementById("ptitle")
-      .value = "";
-
-    document.getElementById("ptag")
-      .value = "";
-
-
-    renderProjects();
-
-    renderAdminProjects();
-
-
-    this.textContent =
-      "PROJECT ADDED ✓";
-
-
-    setTimeout(() => {
-
-      this.textContent =
-        "ADD TO PORTFOLIO";
-
-    }, 1200);
-
-  };
-
-
-/* =====================================
-   DELETE PROJECT
-===================================== */
-
-function deleteProject(index) {
-
-  if (
-    !confirm(
-      "Delete this project?"
-    )
-  ) {
-
-    return;
-
-  }
-
-
-  projects.splice(index, 1);
-
-
-  localStorage.setItem(
-
-    "zaidProjects",
-
-    JSON.stringify(projects)
-
-  );
-
-
-  renderProjects();
-
-  renderAdminProjects();
-
-}
-
-
-/* =====================================
-   LOGOUT
-===================================== */
-
-document.getElementById("logout")
-  .onclick = function() {
-
-    document.getElementById("dash")
-      .classList
-      .remove("open");
-
-    document.getElementById("user")
-      .value = "";
-
-    document.getElementById("pass")
-      .value = "";
-
-  };
-
-
-/* =====================================
-   NAVBAR SCROLL
-===================================== */
-
-window.addEventListener(
-  "scroll",
-  function() {
-
-    document.getElementById("nav")
-      .classList
-      .toggle(
-        "nav-scrolled",
-        window.scrollY > 30
-      );
-
-  }
-);
-
-
-/* =====================================
-   SCROLL REVEAL
-===================================== */
-
-const observer =
-  new IntersectionObserver(
-
-    function(entries) {
-
-      entries.forEach(function(entry) {
-
-        if (entry.isIntersecting) {
-
-          entry.target
-            .classList
-            .add("show");
-
-        }
-
-      });
-
-    },
-
-    {
-      threshold: .12
-    }
-
-  );
-
-
-document
-  .querySelectorAll(".reveal")
-  .forEach(function(element) {
-
-    observer.observe(element);
-
-  });
-
-
-/* =====================================
-   CUSTOM CURSOR
-===================================== */
-
-if (
-  window.matchMedia(
-    "(pointer:fine)"
-  ).matches
-) {
-
-  const cursor =
-    document.getElementById("cursor");
-
-
-  window.addEventListener(
-    "mousemove",
-    function(event) {
-
-      cursor.style.left =
-        event.clientX + "px";
-
-
-      cursor.style.top =
-        event.clientY + "px";
-
-    }
-  );
-
-
-  document
-    .querySelectorAll(
-      "a,button,.work-card,input,textarea"
-    )
-    .forEach(function(element) {
-
-      element.addEventListener(
-        "mouseenter",
-        function() {
-
-          cursor.classList.add("big");
-
-        }
-      );
-
-
-      element.addEventListener(
-        "mouseleave",
-        function() {
-
-          cursor.classList.remove("big");
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =====================================
-   CLOSE PREVIEW ON BACKDROP
-===================================== */
-
-document.getElementById("preview")
-  .addEventListener(
-    "click",
-    function(event) {
-
-      if (
-        event.target === this
-      ) {
-
-        this.classList.remove("open");
-
-      }
-
-    }
-  );
-
-
-</script>
-
-</body>
-</html>
+function renderAdmin() {
+  // Populate Admin Inputs
+  document.getElementById('editHeroHeadline').value = siteData.heroHeadline;
+  document.getElementById('editHeroBio').value = siteData.heroBio;
+  document.getElementById('editAboutHeadline').value = siteData.aboutHeadline;
+  document.getElementById('editAboutBio').value = siteData.aboutBio;
+  document.getElementById('editStat1

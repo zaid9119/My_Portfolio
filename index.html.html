@@ -2,386 +2,1304 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAID RAZA — Visual Designer</title>
-<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: #f4f3ef;
-  color: #101010;
-  font-family: 'DM Sans', sans-serif;
-  overflow-x: hidden;
+<title>ZAID/RAZA — Visual Designer</title>
+
+<meta name="description"
+content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
 }
 
-h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
-.serif { font-family: Georgia, serif; font-style: italic; }
-::selection { background: #111; color: #fff; }
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+background:#f4f3ef;
+color:#111;
+font-family:"DM Sans",sans-serif;
+overflow-x:hidden;
+}
+
+h1,h2,h3,h4,.display{
+font-family:"Space Grotesk",sans-serif;
+}
+
+.serif{
+font-family:Georgia,serif;
+font-style:italic;
+}
+
+::selection{
+background:#111;
+color:#fff;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
 
 /* CURSOR */
-.cursor {
-  position: fixed; z-index: 9999; pointer-events: none;
-  width: 12px; height: 12px; background: #111; border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width .2s, height .2s, background .2s;
-}
-.cursor.big { width: 48px; height: 48px; mix-blend-mode: difference; background: #fff;}
 
-/* NAVBAR & HERO */
-nav { transition: .3s; }
-.nav-scrolled { background: rgba(244,243,239,.86); backdrop-filter: blur(18px); border-bottom: 1px solid #ddd; }
-.hero-grid {
-  background-image: linear-gradient(#deddd8 1px, transparent 1px), linear-gradient(90deg, #deddd8 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-.photo { background: linear-gradient(135deg, #d9d6cf, #a8a49b); filter: grayscale(100%); position: relative; }
-.photo:after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,.35));
+.cursor{
+position:fixed;
+width:10px;
+height:10px;
+background:#111;
+border-radius:50%;
+pointer-events:none;
+z-index:99999;
+transform:translate(-50%,-50%);
+transition:.2s;
 }
 
-/* MARQUEE & CARDS */
-.marquee { white-space: nowrap; overflow: hidden; border-top: 1px solid #111; border-bottom: 1px solid #111; }
-.marquee span { display: inline-block; animation: move 22s linear infinite; }
-@keyframes move { to { transform: translateX(-50%); } }
-.work-card { border: 1px solid rgba(0,0,0,.08); border-radius: 28px; overflow: hidden; background: #ebeae5; transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s; }
-.work-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px #0001; }
-.work-img { transition: transform .7s; }
-.work-card:hover .work-img { transform: scale(1.05); }
-
-/* REVEAL & UTILS */
-.reveal { opacity: 0; transform: translateY(30px); transition: .8s ease; }
-.reveal.show { opacity: 1; transform: none; }
-.number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(4rem,10vw,9rem); line-height: .8; color: #111; }
-
-/* FORMS */
-input, textarea { background: #ebeae5; border: 1px solid #cbc9c1; outline: none; }
-input:focus, textarea:focus { border-color: #111; }
-
-/* ADMIN MODALS */
-.modal { display: none; opacity: 0; transition: opacity 0.3s ease; }
-.modal.open { display: flex; opacity: 1; }
-.admin-bg { background: #1a1a1a; color: #f4f3ef; }
-.admin-input { background: #2a2a2a; border: 1px solid #333; color: white; }
-.admin-input:focus { border-color: #f4f3ef; }
-
-@media(max-width:800px) {
-  .cursor { display: none; }
-  .hero-grid { background-size: 45px 45px; }
+.cursor.big{
+width:50px;
+height:50px;
+mix-blend-mode:difference;
+background:#fff;
 }
+
+/* NAV */
+
+.nav{
+transition:.35s;
+}
+
+.nav.scrolled{
+background:rgba(244,243,239,.82);
+backdrop-filter:blur(20px);
+border-bottom:1px solid #ddd;
+}
+
+/* GRID */
+
+.hero-grid{
+background-image:
+linear-gradient(#deddd8 1px,transparent 1px),
+linear-gradient(90deg,#deddd8 1px,transparent 1px);
+background-size:80px 80px;
+}
+
+/* REVEAL */
+
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:.8s ease;
+}
+
+.reveal.show{
+opacity:1;
+transform:none;
+}
+
+/* BUTTON */
+
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+}
+
+/* PROFILE */
+
+.profile-wrap{
+position:relative;
+}
+
+.profile{
+position:relative;
+aspect-ratio:4/5;
+border-radius:36px;
+overflow:hidden;
+background:#d0cec7;
+box-shadow:0 30px 80px #0002;
+}
+
+.profile img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:grayscale(10%);
+}
+
+.profile-placeholder{
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:9rem;
+font-family:"Space Grotesk";
+font-weight:700;
+color:#fff;
+}
+
+/* FLOATING CIRCLE */
+
+.spin{
+animation:spin 18s linear infinite;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
+
+/* MARQUEE */
+
+.marquee{
+overflow:hidden;
+white-space:nowrap;
+}
+
+.marquee-track{
+display:inline-flex;
+animation:marquee 25s linear infinite;
+}
+
+@keyframes marquee{
+to{
+transform:translateX(-50%);
+}
+}
+
+/* WORK */
+
+.work-card{
+border:1px solid #00000012;
+border-radius:30px;
+overflow:hidden;
+background:#ebeae5;
+transition:.5s cubic-bezier(.2,.8,.2,1);
+cursor:pointer;
+}
+
+.work-card:hover{
+transform:translateY(-10px);
+box-shadow:0 30px 60px #0002;
+}
+
+.work-image{
+aspect-ratio:16/10;
+overflow:hidden;
+background:#ddd;
+}
+
+.work-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.7s;
+}
+
+.work-card:hover img{
+transform:scale(1.07);
+}
+
+/* SERVICES */
+
+.service-card{
+transition:.4s;
+}
+
+.service-card:hover{
+transform:translateY(-7px);
+background:#ffffff0d;
+}
+
+/* NUMBER */
+
+.number{
+font-family:"Space Grotesk";
+font-size:clamp(5rem,12vw,11rem);
+font-weight:700;
+line-height:.8;
+}
+
+/* INPUT */
+
+input,
+textarea,
+select{
+font-family:inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+outline:none;
+border-color:#111;
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+}
+
+.modal.open{
+display:flex;
+}
+
+/* ADMIN */
+
+.admin-overlay{
+background:#050505;
+}
+
+.admin-panel{
+background:#101010;
+color:#fff;
+border:1px solid #ffffff12;
+}
+
+.admin-input{
+background:#191919;
+border:1px solid #ffffff16;
+color:#fff;
+}
+
+.admin-input:focus{
+border-color:#fff;
+}
+
+/* ADMIN SIDEBAR */
+
+.admin-nav button{
+transition:.25s;
+}
+
+.admin-nav button:hover,
+.admin-nav button.active{
+background:#fff;
+color:#111;
+}
+
+/* ADMIN SECTION */
+
+.editor-section{
+display:none;
+}
+
+.editor-section.active{
+display:block;
+}
+
+/* TOAST */
+
+#toast{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:999999;
+transform:translateY(100px);
+opacity:0;
+transition:.4s;
+}
+
+#toast.show{
+transform:none;
+opacity:1;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+.cursor{
+display:none;
+}
+
+.hero-grid{
+background-size:45px 45px;
+}
+
+.profile{
+border-radius:28px;
+}
+
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#f4f3ef;
+}
+
+::-webkit-scrollbar-thumb{
+background:#111;
+border-radius:20px;
+}
+
 </style>
 </head>
+
 <body>
 
 <!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
 
-<!-- NAVBAR -->
-<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
-    <a href="#" id="adminTrigger" class="font-bold tracking-tight text-xl">ZAID<span class="text-zinc-400">/</span>RAZA</a>
-    <div class="hidden md:flex items-center gap-9 text-sm font-medium">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-    </div>
-    <a href="#contact" class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">Let's talk ↗</a>
-  </div>
+<div id="cursor" class="cursor"></div>
+
+
+<!-- =========================
+NAVIGATION
+========================= -->
+
+<nav id="nav" class="nav fixed top-0 left-0 right-0 z-50">
+
+<div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
+
+<a href="#" id="logo"
+class="font-bold text-xl tracking-tight">
+ZAID<span class="text-zinc-400">/</span>RAZA
+</a>
+
+<div class="hidden md:flex gap-9 text-sm font-semibold">
+
+<a href="#work">Work</a>
+<a href="#services">Services</a>
+<a href="#about">About</a>
+
+</div>
+
+<a href="#contact"
+class="border border-black rounded-full px-5 py-2 text-sm font-bold btn">
+Let's talk ↗
+</a>
+
+</div>
+
 </nav>
 
-<!-- HERO -->
-<header class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
-  <div class="max-w-7xl mx-auto w-full">
-    <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
-      <div class="reveal">
-        <p class="text-xs tracking-[.3em] uppercase font-bold mb-8">Thumbnail Designer · Visual Creator</p>
-        <h1 id="displayHeroHeadline" class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
-          <!-- Populated by JS -->
-        </h1>
-        <p id="displayHeroBio" class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600"></p>
-        <div class="flex flex-wrap gap-3 mt-9">
-          <a href="#work" class="bg-black text-white rounded-full px-7 py-4 font-semibold">Explore my work ↓</a>
-          <a href="#contact" class="border border-black rounded-full px-7 py-4 font-semibold">Start a project ↗</a>
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="relative max-w-md mx-auto lg:ml-auto">
-          <div class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">ZR</div>
-            </div>
-            <div class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">BASED IN INDIA</div>
-            <div class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">AVAILABLE ↗</div>
-          </div>
-          <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
-            DESIGN<br>WITH<br>INTENT
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<!-- =========================
+HERO
+========================= -->
+
+<header class="hero-grid min-h-screen pt-32 px-5 md:px-8 flex items-center">
+
+<div class="max-w-7xl mx-auto w-full">
+
+<div class="grid lg:grid-cols-[1.1fr_.9fr] gap-14 items-center">
+
+<div class="reveal">
+
+<p id="heroEyebrow"
+class="text-xs tracking-[.3em] uppercase font-bold mb-8">
+THUMBNAIL DESIGNER · VISUAL CREATOR
+</p>
+
+<h1 id="heroHeadline"
+class="text-[15vw] lg:text-[9.3rem] leading-[.77] tracking-[-.07em] font-bold">
+I MAKE
+<br>
+<span class="serif font-normal">VISUALS</span>
+<br>
+MOVE.
+</h1>
+
+<p id="heroBio"
+class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600">
+I turn ordinary ideas into clear, high-impact visuals built to stop the scroll and communicate instantly.
+</p>
+
+<div class="flex flex-wrap gap-3 mt-9">
+
+<a href="#work"
+id="heroPrimary"
+class="bg-black text-white rounded-full px-7 py-4 font-bold btn">
+Explore my work ↓
+</a>
+
+<a href="#contact"
+id="heroSecondary"
+class="border border-black rounded-full px-7 py-4 font-bold btn">
+Start a project ↗
+</a>
+
+</div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div class="reveal">
+
+<div class="profile-wrap max-w-md mx-auto lg:ml-auto">
+
+<div class="profile">
+
+<img id="profileImage"
+src=""
+alt="Md Zaid Raza"
+style="display:none">
+
+<div id="profilePlaceholder"
+class="profile-placeholder">
+ZR
+</div>
+
+<div id="locationBadge"
+class="absolute left-4 top-4 bg-white px-4 py-2 text-xs font-bold">
+BASED IN INDIA
+</div>
+
+<div id="availabilityBadge"
+class="absolute bottom-4 right-4 bg-black text-white px-4 py-2 text-xs font-bold">
+AVAILABLE ↗
+</div>
+
+</div>
+
+<div class="absolute -bottom-8 -left-8 w-28 h-28 bg-[#f4f3ef] border border-black rounded-full flex items-center justify-center text-[10px] text-center font-bold spin">
+DESIGN<br>WITH<br>INTENT
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </header>
 
-<!-- MARQUEE -->
-<div class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
-  <span>
-    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
-    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
-  </span>
+
+<!-- =========================
+MARQUEE
+========================= -->
+
+<div class="marquee mx-3 md:mx-6 rounded-[25px] bg-black text-white py-5">
+
+<div id="marqueeTrack"
+class="marquee-track gap-8 text-sm font-bold tracking-[.25em]">
+
 </div>
 
-<!-- WORK -->
-<section id="work" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-  <div class="flex justify-between items-end mb-14 reveal">
-    <div>
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">01 / Selected work</p>
-      <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-3">The work.</h2>
-    </div>
-    <p class="hidden md:block max-w-xs text-sm text-zinc-500">A selection of visual concepts across different niches and content styles.</p>
-  </div>
-  <div id="grid" class="grid md:grid-cols-2 gap-6"></div>
+</div>
+
+
+<!-- =========================
+WORK
+========================= -->
+
+<section id="work"
+class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+
+<div class="flex justify-between items-end mb-14 reveal">
+
+<div>
+
+<p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+01 / SELECTED WORK
+</p>
+
+<h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-3">
+The work.
+</h2>
+
+</div>
+
+<p class="hidden md:block max-w-xs text-sm text-zinc-500">
+A selection of visual concepts across different niches and content styles.
+</p>
+
+</div>
+
+
+<!-- FILTER -->
+
+<div id="filters"
+class="flex flex-wrap gap-2 mb-8">
+</div>
+
+
+<div id="grid"
+class="grid md:grid-cols-2 gap-6">
+</div>
+
 </section>
 
-<!-- SERVICES (Static for now to keep it clean, but you can expand logic later) -->
-<section id="services" class="bg-[#111] text-white py-28">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="reveal">
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">02 / Services</p>
-      <h2 class="text-5xl md:text-7xl font-bold mt-3">What I do.</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-4 mt-16">
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">01</span>
-        <h3 class="text-2xl font-bold mt-12">YouTube<br>Thumbnails</h3>
-        <p class="text-zinc-400 mt-5 leading-6">Strong hierarchy, expressive composition and clear visual storytelling designed for the click.</p>
-      </div>
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">02</span>
-        <h3 class="text-2xl font-bold mt-12">Social<br>Visuals</h3>
-        <p class="text-zinc-400 mt-5 leading-6">Clean, recognizable graphics for reels, posts, campaigns, events and digital brands.</p>
-      </div>
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">03</span>
-        <h3 class="text-2xl font-bold mt-12">Creative<br>Direction</h3>
-        <p class="text-zinc-400 mt-5 leading-6">From the first idea to the final frame, I help shape a visual direction that makes sense.</p>
-      </div>
-    </div>
-  </div>
+
+<!-- =========================
+SERVICES
+========================= -->
+
+<section id="services"
+class="bg-[#111] text-white py-28">
+
+<div class="max-w-7xl mx-auto px-5 md:px-8">
+
+<div class="reveal">
+
+<p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+02 / SERVICES
+</p>
+
+<h2 class="text-5xl md:text-7xl font-bold mt-3">
+What I do.
+</h2>
+
+</div>
+
+<div id="servicesGrid"
+class="grid md:grid-cols-3 gap-4 mt-16">
+</div>
+
+</div>
+
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-  <div class="grid lg:grid-cols-2 gap-16 items-center">
-    <div class="reveal">
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">03 / About</p>
-      <div class="number mt-8">ZR.</div>
-    </div>
-    <div class="reveal">
-      <h2 id="displayAboutHeadline" class="text-4xl md:text-6xl font-bold tracking-tight"></h2>
-      <p id="displayAboutBio" class="text-zinc-600 leading-7 mt-7 max-w-xl"></p>
-      
-      <div class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
-        <div>
-          <b id="displayStat1Num" class="text-4xl"></b>
-          <p id="displayStat1Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
-        </div>
-        <div>
-          <b id="displayStat2Num" class="text-4xl"></b>
-          <p id="displayStat2Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<!-- =========================
+ABOUT
+========================= -->
+
+<section id="about"
+class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+
+<div class="reveal">
+
+<p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+03 / ABOUT
+</p>
+
+<div class="number mt-8">
+ZR.
+</div>
+
+</div>
+
+<div class="reveal">
+
+<h2 id="aboutTitle"
+class="text-4xl md:text-6xl font-bold tracking-tight">
+Design isn't decoration.
+<br>
+<span class="serif font-normal">
+It's communication.
+</span>
+</h2>
+
+<p id="aboutText"
+class="text-zinc-600 leading-7 mt-7 max-w-xl">
+I'm Md Zaid Raza, a thumbnail designer and visual content creator. I care about the first impression: what people notice, what they understand and what makes them want to look twice.
+</p>
+
+<div id="stats"
+class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="bg-[#dddcd5] py-28">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
-      <div class="reveal">
-        <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">04 / Contact</p>
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-5">Let's make<br><span class="serif font-normal">something</span><br>stand out.</h2>
-      </div>
-      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="reveal grid gap-4">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
-        <input required name="name" placeholder="Your name *" class="p-5 rounded-2xl">
-        <input required type="email" name="email" placeholder="Email address *" class="p-5 rounded-2xl">
-        <input name="project" placeholder="What do you need? (Thumbnail / Social / Poster)" class="p-5 rounded-2xl">
-        <textarea required name="message" rows="6" placeholder="Tell me about the project..." class="p-5 rounded-2xl"></textarea>
-        <button class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">SEND INQUIRY ↗</button>
-      </form>
-    </div>
-  </div>
+
+<!-- =========================
+CONTACT
+========================= -->
+
+<section id="contact"
+class="bg-[#dddcd5] py-28">
+
+<div class="max-w-7xl mx-auto px-5 md:px-8">
+
+<div class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
+
+<div class="reveal">
+
+<p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+04 / CONTACT
+</p>
+
+<h2 id="contactTitle"
+class="text-5xl md:text-7xl font-bold tracking-tight mt-5">
+Let's make
+<br>
+<span class="serif font-normal">something</span>
+<br>
+stand out.
+</h2>
+
+<div class="mt-8 space-y-3 text-sm">
+
+<p id="contactEmail"></p>
+<p id="contactLocation"></p>
+
+</div>
+
+</div>
+
+
+<form
+action="https://formsubmit.co/mdzaidraza9119@gmail.com"
+method="POST"
+class="reveal grid gap-4">
+
+<input type="hidden"
+name="_captcha"
+value="false">
+
+<input type="hidden"
+name="_subject"
+value="New Portfolio Inquiry — Zaid Raza">
+
+<input required
+name="name"
+placeholder="Your name *"
+class="p-5 rounded-2xl bg-[#ebeae5] border border-[#cbc9c1]">
+
+<input required
+type="email"
+name="email"
+placeholder="Email address *"
+class="p-5 rounded-2xl bg-[#ebeae5] border border-[#cbc9c1]">
+
+<input
+name="project"
+placeholder="What do you need?"
+class="p-5 rounded-2xl bg-[#ebeae5] border border-[#cbc9c1]">
+
+<textarea required
+name="message"
+rows="6"
+placeholder="Tell me about the project..."
+class="p-5 rounded-2xl bg-[#ebeae5] border border-[#cbc9c1]"></textarea>
+
+<button
+class="bg-black text-white rounded-2xl p-5 font-bold text-left btn">
+SEND INQUIRY ↗
+</button>
+
+</form>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- FOOTER -->
+
+<!-- =========================
+FOOTER
+========================= -->
+
 <footer class="bg-black text-white px-5 md:px-8 py-10">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
-    <b class="text-lg">ZAID/RAZA</b>
-    <p class="text-xs text-zinc-500">© 2026 — VISUAL DESIGNER</p>
-    <p class="text-xs text-zinc-500">Made to be noticed.</p>
-  </div>
+
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
+
+<b id="footerLogo"
+class="text-lg">
+ZAID/RAZA
+</b>
+
+<p id="footerCopyright"
+class="text-xs text-zinc-500">
+© 2026 — VISUAL DESIGNER
+</p>
+
+<div id="socialLinks"
+class="flex gap-5 text-xs text-zinc-400">
+</div>
+
+<p id="footerTagline"
+class="text-xs text-zinc-500">
+Made to be noticed.
+</p>
+
+</div>
+
 </footer>
 
-<!-- PROJECT PREVIEW MODAL -->
-<div id="preview" class="modal fixed inset-0 z-[100] bg-black/95 items-center justify-center p-5">
-  <div class="max-w-5xl w-full">
-    <button id="closePreview" class="float-right mb-3 text-white text-3xl font-bold hover:text-zinc-400 transition">&times;</button>
-    <img id="previewImg" class="w-full max-h-[82vh] object-contain rounded-2xl">
-    <div id="previewTitle" class="text-white font-bold text-xl mt-4"></div>
-  </div>
+
+<!-- =========================
+PROJECT PREVIEW
+========================= -->
+
+<div id="preview"
+class="modal fixed inset-0 z-[100] bg-black/90 items-center justify-center p-5">
+
+<div class="max-w-5xl w-full">
+
+<button
+id="closePreview"
+class="float-right mb-3 bg-white text-black rounded-full w-10 h-10 font-bold">
+×
+</button>
+
+<img id="previewImg"
+class="w-full max-h-[75vh] object-contain rounded-2xl">
+
+<h3 id="previewTitle"
+class="text-white font-bold text-2xl mt-5">
+</h3>
+
+<p id="previewDescription"
+class="text-zinc-400 mt-2">
+</p>
+
 </div>
 
-<!-- ADMIN LOGIN -->
-<div id="login" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-5">
-  <div class="admin-bg max-w-sm w-full p-8 rounded-[28px] border border-white/10 shadow-2xl">
-    <button id="closeLogin" class="float-right text-xl text-zinc-400 hover:text-white">&times;</button>
-    <p class="text-xs text-zinc-500 tracking-widest mt-4 uppercase">Private Access</p>
-    <h2 class="text-3xl font-bold mt-2 mb-7 font-['Space_Grotesk']">Studio Admin</h2>
-    <input id="user" class="admin-input w-full p-4 mb-3 rounded-xl transition" placeholder="Username">
-    <input id="pass" type="password" class="admin-input w-full p-4 rounded-xl transition" placeholder="Password">
-    <p id="err" class="text-red-400 text-xs mt-3 hidden">Invalid credentials.</p>
-    <button id="loginBtn" class="w-full bg-[#f4f3ef] text-black p-4 mt-5 font-bold rounded-xl hover:bg-white transition">ENTER DASHBOARD</button>
-  </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
-<div id="dash" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
-  <div class="admin-bg max-w-6xl w-full p-6 md:p-10 rounded-[30px] border border-white/10 my-10">
-    
-    <div class="flex justify-between items-center border-b border-white/10 pb-5 mb-8">
-      <div>
-        <h2 class="text-3xl font-bold font-['Space_Grotesk']">Control Panel</h2>
-        <p class="text-xs text-zinc-400 mt-1 uppercase tracking-widest">Manage your portfolio content</p>
-      </div>
-      <div class="flex gap-3">
-        <button id="saveAllBtn" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-full text-sm font-bold transition">SAVE ALL CHANGES</button>
-        <button id="logout" class="border border-white/20 hover:bg-white/10 px-6 py-2 rounded-full text-sm font-bold transition">LOGOUT</button>
-      </div>
-    </div>
 
-    <div class="grid lg:grid-cols-2 gap-12">
-      <!-- LEFT COL: TEXT CONTENT -->
-      <div class="space-y-8">
-        <div>
-          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Hero Section</h3>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
-          <textarea id="editHeroHeadline" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Sub-bio</label>
-          <textarea id="editHeroBio" rows="2" class="admin-input w-full p-4 rounded-xl"></textarea>
-        </div>
+<!-- =========================
+ADMIN LOGIN
+========================= -->
 
-        <div>
-          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">About Section</h3>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
-          <textarea id="editAboutHeadline" rows="2" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Biography</label>
-          <textarea id="editAboutBio" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Number)</label>
-              <input id="editStat1Num" class="admin-input w-full p-4 mb-2 rounded-xl">
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Label)</label>
-              <input id="editStat1Text" class="admin-input w-full p-4 rounded-xl">
-            </div>
-            <div>
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Number)</label>
-              <input id="editStat2Num" class="admin-input w-full p-4 mb-2 rounded-xl">
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Label)</label>
-              <input id="editStat2Text" class="admin-input w-full p-4 rounded-xl">
-            </div>
-          </div>
-        </div>
-      </div>
+<div id="login"
+class="modal fixed inset-0 z-[200] bg-black/90 items-center justify-center p-5">
 
-      <!-- RIGHT COL: PORTFOLIO MANAGER -->
-      <div>
-        <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Portfolio Manager</h3>
-        <div class="bg-white/5 p-5 rounded-2xl border border-white/5 mb-6">
-          <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Add New Project</h4>
-          <input id="pimg" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Image URL (Unsplash or direct link)">
-          <input id="ptitle" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Project Title">
-          <input id="ptag" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Category Tag (e.g., YOUTUBE)">
-          <button id="add" class="w-full bg-[#f4f3ef] text-black p-3 font-bold rounded-xl hover:bg-white transition text-sm">ADD TO PORTFOLIO</button>
-        </div>
+<div class="admin-panel max-w-md w-full p-8 rounded-[30px]">
 
-        <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Current Projects</h4>
-        <div id="manage" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </div>
-  </div>
+<button id="closeLogin"
+class="float-right text-zinc-400">
+✕
+</button>
+
+<p class="text-xs text-zinc-500 tracking-[.3em] mt-4">
+PRIVATE ACCESS
+</p>
+
+<h2 class="text-4xl font-bold mt-2">
+Admin
+</h2>
+
+<p class="text-zinc-500 text-sm mt-2">
+Manage your entire portfolio.
+</p>
+
+<input
+id="user"
+class="admin-input w-full p-4 mt-7 rounded-xl"
+placeholder="Username">
+
+<input
+id="pass"
+type="password"
+class="admin-input w-full p-4 mt-3 rounded-xl"
+placeholder="Password">
+
+<p id="err"
+class="text-red-400 text-xs mt-3 hidden">
+Invalid login.
+</p>
+
+<button
+id="loginBtn"
+class="w-full bg-white text-black p-4 mt-5 font-bold rounded-xl btn">
+ENTER DASHBOARD
+</button>
+
 </div>
 
-<!-- JAVASCRIPT -->
+</div>
+
+
+<!-- =========================
+ADMIN DASHBOARD
+========================= -->
+
+<div id="dash"
+class="modal fixed inset-0 z-[200] admin-overlay p-3 md:p-6 overflow-y-auto">
+
+<div class="max-w-7xl mx-auto admin-panel rounded-[30px] min-h-[90vh] overflow-hidden">
+
+<!-- ADMIN HEADER -->
+
+<header class="px-6 md:px-10 py-6 border-b border-white/10 flex flex-wrap justify-between items-center gap-5">
+
+<div>
+
+<p class="text-xs text-zinc-500 tracking-[.3em]">
+ZAID/RAZA CMS
+</p>
+
+<h2 class="text-3xl font-bold">
+Control Center
+</h2>
+
+</div>
+
+<div class="flex gap-2">
+
+<button
+id="previewSite"
+class="border border-white/15 px-5 py-3 rounded-full text-xs font-bold">
+VIEW WEBSITE ↗
+</button>
+
+<button
+id="logout"
+class="bg-white text-black px-5 py-3 rounded-full text-xs font-bold">
+LOGOUT
+</button>
+
+</div>
+
+</header>
+
+
+<div class="grid lg:grid-cols-[240px_1fr]">
+
+<!-- SIDEBAR -->
+
+<aside class="admin-nav p-4 border-r border-white/10">
+
+<button data-tab="overview"
+class="active w-full text-left p-4 rounded-xl text-sm font-bold">
+Overview
+</button>
+
+<button data-tab="hero"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Hero
+</button>
+
+<button data-tab="profile"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Profile
+</button>
+
+<button data-tab="about"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+About & Stats
+</button>
+
+<button data-tab="services"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Services
+</button>
+
+<button data-tab="projects"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Portfolio
+</button>
+
+<button data-tab="contact"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Contact
+</button>
+
+<button data-tab="social"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Social Links
+</button>
+
+<button data-tab="footer"
+class="w-full text-left p-4 rounded-xl text-sm font-bold">
+Footer
+</button>
+
+<div class="border-t border-white/10 mt-5 pt-5">
+
+<button id="resetSite"
+class="w-full text-left p-4 rounded-xl text-sm font-bold text-red-400">
+Reset Website
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- EDITOR -->
+
+<main class="p-6 md:p-10">
+
+
+<!-- OVERVIEW -->
+
+<section data-section="overview"
+class="editor-section active">
+
+<p class="text-xs text-zinc-500 tracking-[.3em]">
+WELCOME
+</p>
+
+<h2 class="text-5xl font-bold mt-3">
+Your website.
+</h2>
+
+<p class="text-zinc-400 max-w-2xl mt-5 leading-7">
+Everything displayed on the public portfolio can be controlled from this dashboard. Edit a section, save it, then open the website to see the changes.
+</p>
+
+<div class="grid md:grid-cols-3 gap-4 mt-10">
+
+<div class="bg-white/5 rounded-2xl p-6">
+<p class="text-zinc-500 text-xs">
+PROJECTS
+</p>
+<b id="statProjects"
+class="text-4xl block mt-3">
+0
+</b>
+</div>
+
+<div class="bg-white/5 rounded-2xl p-6">
+<p class="text-zinc-500 text-xs">
+SERVICES
+</p>
+<b id="statServices"
+class="text-4xl block mt-3">
+0
+</b>
+</div>
+
+<div class="bg-white/5 rounded-2xl p-6">
+<p class="text-zinc-500 text-xs">
+STATUS
+</p>
+<b class="text-4xl block mt-3">
+LIVE
+</b>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HERO -->
+
+<section data-section="hero"
+class="editor-section">
+
+<EditorTitle title="Hero Section" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editEyebrow"
+label="Eyebrow" />
+
+<AdminTextarea id="editHeadline"
+label="Headline"
+rows="4" />
+
+<AdminTextarea id="editBio"
+label="Description"
+rows="5" />
+
+<AdminInput id="editPrimary"
+label="Primary Button" />
+
+<AdminInput id="editSecondary"
+label="Secondary Button" />
+
+<button id="saveHero"
+class="admin-save">
+SAVE HERO
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section data-section="profile"
+class="editor-section">
+
+<EditorTitle title="Profile Section" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editProfileImage"
+label="Profile Image URL" />
+
+<AdminInput id="editLocation"
+label="Location Badge" />
+
+<AdminInput id="editAvailability"
+label="Availability Badge" />
+
+<button id="saveProfile"
+class="admin-save">
+SAVE PROFILE
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section data-section="about"
+class="editor-section">
+
+<EditorTitle title="About & Statistics" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editAboutTitle"
+label="About Heading" />
+
+<AdminTextarea id="editAboutText"
+label="About Description"
+rows="6" />
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-4 mt-4">
+
+<div class="bg-white/5 rounded-2xl p-5">
+
+<p class="text-xs text-zinc-500 mb-3">
+STAT 1
+</p>
+
+<input id="stat1Number"
+class="admin-input w-full p-4 rounded-xl"
+placeholder="2+">
+
+<input id="stat1Label"
+class="admin-input w-full p-4 rounded-xl mt-2"
+placeholder="Years creating">
+
+</div>
+
+<div class="bg-white/5 rounded-2xl p-5">
+
+<p class="text-xs text-zinc-500 mb-3">
+STAT 2
+</p>
+
+<input id="stat2Number"
+class="admin-input w-full p-4 rounded-xl"
+placeholder="50+">
+
+<input id="stat2Label"
+class="admin-input w-full p-4 rounded-xl mt-2"
+placeholder="Projects">
+
+</div>
+
+</div>
+
+<button id="saveAbout"
+class="admin-save mt-4">
+SAVE ABOUT
+</button>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section data-section="services"
+class="editor-section">
+
+<EditorTitle title="Services" />
+
+<div id="serviceEditor"
+class="space-y-4">
+</div>
+
+<button id="addService"
+class="admin-outline mt-5">
++ ADD SERVICE
+</button>
+
+<button id="saveServices"
+class="admin-save mt-3">
+SAVE SERVICES
+</button>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section data-section="projects"
+class="editor-section">
+
+<EditorTitle title="Portfolio Projects" />
+
+<div class="bg-white/5 rounded-2xl p-5">
+
+<h3 class="font-bold">
+Add New Project
+</h3>
+
+<div class="grid md:grid-cols-2 gap-3 mt-4">
+
+<input id="newImg"
+class="admin-input p-4 rounded-xl"
+placeholder="Image URL">
+
+<input id="newTitle"
+class="admin-input p-4 rounded-xl"
+placeholder="Project title">
+
+<input id="newTag"
+class="admin-input p-4 rounded-xl"
+placeholder="Category">
+
+<input id="newDescription"
+class="admin-input p-4 rounded-xl"
+placeholder="Description">
+
+</div>
+
+<button id="addProject"
+class="admin-save mt-4">
+ADD PROJECT
+</button>
+
+</div>
+
+<div id="projectEditor"
+class="space-y-4 mt-6">
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section data-section="contact"
+class="editor-section">
+
+<EditorTitle title="Contact Section" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editContactTitle"
+label="Contact Heading" />
+
+<AdminInput id="editEmail"
+label="Email" />
+
+<AdminInput id="editContactLocation"
+label="Location" />
+
+<button id="saveContact"
+class="admin-save">
+SAVE CONTACT
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SOCIAL -->
+
+<section data-section="social"
+class="editor-section">
+
+<EditorTitle title="Social Links" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editInstagram"
+label="Instagram URL" />
+
+<AdminInput id="editYoutube"
+label="YouTube URL" />
+
+<AdminInput id="editDrive"
+label="Portfolio / Drive URL" />
+
+<button id="saveSocial"
+class="admin-save">
+SAVE SOCIAL LINKS
+</button>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<section data-section="footer"
+class="editor-section">
+
+<EditorTitle title="Footer" />
+
+<div class="grid gap-4">
+
+<AdminInput id="editFooterLogo"
+label="Footer Logo" />
+
+<AdminInput id="editFooterCopyright"
+label="Copyright" />
+
+<AdminInput id="editFooterTagline"
+la
 <script>
-/* --- CONFIG & STATE --- */
-const USERNAME = "ZAIDX9119";
-const PASSWORD = "Zaid@9119";
 
-const defaultData = {
-  heroHeadline: "I MAKE<br><span class='serif font-normal'>VISUALS</span><br>MOVE.",
-  heroBio: "I turn ordinary ideas into clear, high-impact visuals built to stop the scroll and communicate instantly.",
-  aboutHeadline: "Design isn't decoration.<br><span class='serif font-normal'>It's communication.</span>",
-  aboutBio: "I'm Md Zaid Raza, a thumbnail designer and visual content creator. I care about the first impression: what people notice, what they understand and what makes them want to look twice.",
-  stat1Num: "2+", stat1Text: "Years creating",
-  stat2Num: "50+", stat2Text: "Projects & concepts",
-  projects: [
-    { title: "Cinematic Visual Concept", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Gaming — High Energy", tag: "GAMING", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Creative Campaign", tag: "SOCIAL", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Digital Storytelling", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop" }
-  ]
-};
+function AdminInput({id,label}){
 
-// Load state from local storage or use defaults
-let siteData = JSON.parse(localStorage.getItem("zaidPortfolioData")) || defaultData;
+return `
+<div>
+<label class="block text-xs text-zinc-500 uppercase tracking-widest mb-2">
+${label}
+</label>
 
-/* --- UI RENDERING --- */
-function renderSite() {
-  // Update Text Elements
-  document.getElementById('displayHeroHeadline').innerHTML = siteData.heroHeadline;
-  document.getElementById('displayHeroBio').innerText = siteData.heroBio;
-  document.getElementById('displayAboutHeadline').innerHTML = siteData.aboutHeadline;
-  document.getElementById('displayAboutBio').innerText = siteData.aboutBio;
-  document.getElementById('displayStat1Num').innerText = siteData.stat1Num;
-  document.getElementById('displayStat1Text').innerText = siteData.stat1Text;
-  document.getElementById('displayStat2Num').innerText = siteData.stat2Num;
-  document.getElementById('displayStat2Text').innerText = siteData.stat2Text;
+<input
+id="${id}"
+class="admin-input w-full p-4 rounded-xl"
+>
+</div>
+`;
 
-  // Update Portfolio Grid
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  
-  siteData.projects.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "work-card cursor-pointer group";
-    card.onclick = () => openPreview(p.img, p.title);
-    card.innerHTML = `
-      <div class="aspect-[4/3] overflow-hidden bg-black">
-        <img src="${p.img}" class="work-img w-full h-full object-cover opacity-90 group-hover:opacity-100">
-      </div>
-      <div class="p-6 md:p-8 flex justify-between items-center bg-[#ebeae5]">
-        <h3 class="font-bold text-xl md:text-2xl">${p.title}</h3>
-        <span class="text-[10px] font-bold tracking-widest bg-black text-white px-3 py-1 rounded-full">${p.tag}</span>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
 }
 
-function renderAdmin() {
-  // Populate Admin Inputs
-  document.getElementById('editHeroHeadline').value = siteData.heroHeadline;
-  document.getElementById('editHeroBio').value = siteData.heroBio;
-  document.getElementById('editAboutHeadline').value = siteData.aboutHeadline;
-  document.getElementById('editAboutBio').value = siteData.aboutBio;
-  document.getElementById('editStat1
+
+function AdminTextarea({id,label,rows=4}){
+
+return `
+<div>
+<label class="block text-xs text-zinc-500 uppercase tracking-widest mb-2">
+${label}
+</label>
+
+<textarea
+id="${id}"
+rows="${rows}"
+class="admin-input w-full p-4 rounded-xl"
+></textarea>
+</div>
+`;
+
+}
+
+</script>

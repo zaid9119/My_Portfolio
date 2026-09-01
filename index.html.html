@@ -354,10 +354,7 @@ tailwind.config = {
   
   <button type="submit" id="submitBtn" class="magnetic rounded-2xl bg-white p-4 font-bold text-black md:col-span-2 transition duration-300 hover:bg-violet-400 hover:text-white">SEND PROJECT REQUEST ↗</button>
 </form>
-  $("contactForm").onsubmit = async (e) => {
-  
-  }
-};
+
   <!-- Floating Admin Edit Button -->
 <button id="adminEditBtn" class="fixed bottom-6 right-6 z-[110] flex h-14 w-14 items-center justify-center rounded-full bg-violet-600/80 shadow-[0_0_20px_rgba(139,92,246,0.3)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-violet-500 group">
   <svg class="h-6 w-6 text-white transition-transform duration-500 group-hover:rotate-90" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -365,10 +362,7 @@ tailwind.config = {
     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
   </svg>
 </button>
-  $("adminEditBtn").onclick = () => {
-  if (sessionStorage.getItem("zr_admin") === "1") openAdmin();
-  else $("adminLogin").classList.add("open");
-};
+
   <div>
 
 <!-- ADMIN PANEL -->

@@ -2,374 +2,2042 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Md Zaid Raza — Motion & Thumbnail Designer</title>
-<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator. I turn ideas into scroll-stopping thumbnails that get clicks.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZAID RAZA — Visual Designer</title>
+
+<meta name="description"
+content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
+
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: { sans: ['Inter', 'system-ui', 'Arial', 'sans-serif'] },
-      colors: {
-        designer: { 900: '#0b0a14', 800: '#141226', accent: '#a78bfa' }
-      }
-    }
-  }
-}
-</script>
+
 <style>
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    /* Deep aesthetic designer background instead of pure black */
-    background: #0b0a14;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(167, 139, 250, 0.08) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(120, 100, 255, 0.08) 0px, transparent 50%);
-    color: #fff;
-    font-family: Inter, system-ui, Arial, sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
-  
-  /* Original Noise & Grid Overlay */
-  body:before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
-    background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size: 28px 28px; opacity: .8;
-  }
-  .noise {
-    position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: .04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f4f3ef;
+  color: #101010;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.serif {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+::selection {
+  background: #111;
+  color: #fff;
+}
+
+/* =========================
+   CURSOR
+========================= */
+
+.cursor {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  width: 12px;
+  height: 12px;
+  background: #111;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    width .2s,
+    height .2s,
+    background .2s;
+}
+
+.cursor.big {
+  width: 48px;
+  height: 48px;
+  background: #111;
+  mix-blend-mode: difference;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+  transition: .3s;
+}
+
+.nav-scrolled {
+  background: rgba(244,243,239,.86);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #ddd;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero-grid {
+  background-image:
+    linear-gradient(#deddd8 1px, transparent 1px),
+    linear-gradient(90deg, #deddd8 1px, transparent 1px);
+
+  background-size: 80px 80px;
+}
+
+.photo {
+  background:
+    linear-gradient(135deg, #d9d6cf, #a8a49b);
+
+  filter: grayscale(100%);
+  position: relative;
+}
+
+.photo:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      transparent 45%,
+      rgba(255,255,255,.35)
+    );
+}
+
+/* =========================
+   MARQUEE
+========================= */
+
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+.marquee span {
+  display: inline-block;
+
+  animation:
+    move 22s linear infinite;
+}
+
+@keyframes move {
+
+  to {
+    transform: translateX(-50%);
   }
 
-  /* Original Custom Cursors */
-  .cursor-dot {
-    position: fixed; width: 8px; height: 8px; background: #fff; border-radius: 50%;
-    pointer-events: none; z-index: 9999; mix-blend-mode: difference;
-    transition: transform .15s ease, width .2s, height .2s;
-  }
-  .cursor-ring {
-    position: fixed; width: 36px; height: 36px; border: 1.5px solid rgba(255,255,255,.45);
-    border-radius: 50%; pointer-events: none; z-index: 9998;
-    transition: transform .35s cubic-bezier(.2,.8,.2,1), width .25s, height .25s, border-color .25s;
-  }
-  .cursor-dot.hover, .cursor-ring.hover { transform: scale(1.8); }
-  .cursor-ring.hover { border-color: rgba(140,120,255,.9); width: 52px; height: 52px; }
-  @media (max-width: 900px), (pointer: coarse) {
-    .cursor-dot, .cursor-ring { display: none !important; }
-    body { cursor: auto; }
+}
+
+/* =========================
+   WORK CARDS
+========================= */
+
+.work-card {
+
+  border: 1px solid rgba(0,0,0,.08);
+
+  border-radius: 28px;
+
+  overflow: hidden;
+
+  background: #ebeae5;
+
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    box-shadow .45s;
+}
+
+.work-card:hover {
+
+  transform:
+    translateY(-8px);
+
+  box-shadow:
+    0 25px 50px #0001;
+}
+
+.work-img {
+
+  transition:
+    transform .7s;
+}
+
+.work-card:hover .work-img {
+
+  transform:
+    scale(1.05);
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal {
+
+  opacity: 0;
+
+  transform:
+    translateY(30px);
+
+  transition:
+    .8s ease;
+}
+
+.reveal.show {
+
+  opacity: 1;
+
+  transform: none;
+}
+
+/* =========================
+   BIG NUMBER
+========================= */
+
+.number {
+
+  font-family:
+    'Space Grotesk',
+    sans-serif;
+
+  font-size:
+    clamp(4rem,10vw,9rem);
+
+  line-height:
+    .8;
+
+  color:
+    #111;
+}
+
+/* =========================
+   FORM
+========================= */
+
+input,
+textarea {
+
+  background:
+    #ebeae5;
+
+  border:
+    1px solid #cbc9c1;
+
+  outline:
+    none;
+}
+
+input:focus,
+textarea:focus {
+
+  border-color:
+    #111;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin {
+
+  background:
+    #111;
+
+  color:
+    #fff;
+}
+
+.modal {
+  display:
+    none;
+}
+
+.modal.open {
+  display:
+    flex;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px) {
+
+  .cursor {
+    display:
+      none;
   }
 
-  /* Glassmorphism */
-  .glass {
-    background: rgba(255,255,255,.03);
-    border: 1px solid rgba(255,255,255,.08);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    box-shadow: 0 20px 70px rgba(0,0,0,.3);
-  }
-  .glow { box-shadow: 0 0 80px rgba(120,100,255,.15); }
-  
-  .gradient {
-    background: linear-gradient(105deg, #fff 0%, #a78bfa 45%, #fff 90%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+  .hero-grid {
+    background-size:
+      45px 45px;
   }
 
-  /* Profile Animations */
-  .orbit { animation: spin 22s linear infinite; }
-  .orbit2 { animation: spin 34s linear infinite reverse; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  
-  /* Scroll Progress */
-  #scrollProgress {
-    position: fixed; top: 0; left: 0; height: 2px;
-    background: linear-gradient(90deg, #a78bfa, #fff); z-index: 200; width: 0%;
-  }
-
-  /* Forms & Inputs */
-  input, textarea, select {
-    background: rgba(255,255,255,.03) !important;
-    border: 1px solid rgba(255,255,255,.1) !important;
-    color: #fff !important;
-  }
-  input:focus, textarea:focus {
-    outline: none; border-color: rgba(167,139,250,.5) !important;
-    background: rgba(255,255,255,.06) !important;
-  }
-
-  /* Hide scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+}
 </style>
 </head>
-<body>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="noise"></div>
-<div id="scrollProgress"></div>
 
-<!-- NAVBAR -->
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-designer-900/60 backdrop-blur-2xl">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-    <!-- 4 CLICK ADMIN TRIGGER -->
-    <div id="logoTrigger" class="font-black tracking-tight text-xl select-none cursor-pointer hover:scale-105 transition-transform text-white">
-      ZAID<span class="text-designer-accent">.</span>
+
+<body>
+
+<!-- =========================
+     CURSOR
+========================= -->
+
+<div
+  class="cursor"
+  id="cursor">
+</div>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav
+  id="nav"
+  class="fixed top-0 left-0 right-0 z-50">
+
+  <div
+    class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
+
+    <!-- ADMIN TRIGGER -->
+    <a
+      href="#"
+      id="adminTrigger"
+      class="font-bold tracking-tight text-xl">
+
+      ZAID<span class="text-zinc-400">/</span>RAZA
+
+    </a>
+
+
+    <!-- DESKTOP NAV -->
+
+    <div
+      class="hidden md:flex items-center gap-9 text-sm font-medium">
+
+      <a href="#work">
+        Work
+      </a>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
     </div>
-    
-    <div class="hidden md:flex gap-8 text-[12px] font-semibold tracking-widest text-zinc-400">
-      <a href="#work" class="hover:text-white transition magnetic uppercase">Work</a>
-      <a href="#services" class="hover:text-white transition magnetic uppercase">Services</a>
-      <a href="#contact" class="hover:text-white transition magnetic uppercase">Contact</a>
-    </div>
-    <a href="#contact" class="magnetic rounded-full bg-white px-6 py-2.5 text-xs font-black text-black hover:scale-105 transition">HIRE ME ↗</a>
+
+
+    <!-- CONTACT -->
+
+    <a
+      href="#contact"
+      class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">
+
+      Let's talk ↗
+
+    </a>
+
   </div>
+
 </nav>
 
-<!-- HERO SECTION (Based on your original structure) -->
-<main>
-  <section class="relative min-h-screen overflow-hidden pt-32 pb-20 flex flex-col justify-center items-center">
-    <!-- Soft Glow Behind Profile -->
-    <div class="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none"></div>
-    
-    <div class="relative z-10 mx-auto flex flex-col items-center justify-center px-5 text-center w-full">
-      
-      <div class="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 glass px-5 py-2 text-[10px] font-bold tracking-[.25em] text-zinc-300">
-        <span class="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        AVAILABLE FOR PROJECTS
-      </div>
 
-      <!-- ORIGINAL ROTATING PROFILE DESIGN -->
-      <div class="relative profile mb-12 h-56 w-56 md:h-72 md:w-72">
-        <div class="absolute inset-[-30px] rounded-full border border-dashed border-white/20 orbit pointer-events-none"></div>
-        <div class="absolute inset-[-58px] rounded-full border border-white/10 orbit2 pointer-events-none"></div>
-        
-        <div class="absolute left-[-30px] top-1/3 -translate-y-1/2 glass flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl text-xs font-bold">PS</div>
-        <div class="absolute right-[-30px] top-2/3 -translate-y-1/2 glass flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl text-xs font-bold">PR</div>
-        
-        <div class="relative h-full w-full overflow-hidden rounded-full border border-white/20 bg-designer-800 shadow-[0_0_80px_rgba(140,120,255,.2)] flex items-center justify-center">
-          <div class="text-6xl md:text-8xl font-black text-white/5 tracking-tighter">ZR</div>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header
+  class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
+
+  <div
+    class="max-w-7xl mx-auto w-full">
+
+    <div
+      class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
+
+
+      <!-- HERO TEXT -->
+
+      <div
+        class="reveal">
+
+        <p
+          class="text-xs tracking-[.3em] uppercase font-bold mb-8">
+
+          Thumbnail Designer · Visual Creator
+
+        </p>
+
+
+        <h1
+          id="heroHeadline"
+          class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
+
+          I MAKE
+          <br>
+
+          <span class="serif font-normal">
+            VISUALS
+          </span>
+
+          <br>
+
+          MOVE.
+
+        </h1>
+
+
+        <p
+          id="heroBio"
+          class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600">
+
+          I turn ordinary ideas into clear,
+          high-impact visuals built to stop
+          the scroll and communicate instantly.
+
+        </p>
+
+
+        <div
+          class="flex flex-wrap gap-3 mt-9">
+
+          <a
+            href="#work"
+            class="bg-black text-white rounded-full px-7 py-4 font-semibold">
+
+            Explore my work ↓
+
+          </a>
+
+
+          <a
+            href="#contact"
+            class="border border-black rounded-full px-7 py-4 font-semibold">
+
+            Start a project ↗
+
+          </a>
+
         </div>
+
       </div>
 
-      <div class="text-[12px] font-bold tracking-[.4em] text-zinc-500 mb-4">MD ZAID RAZA</div>
-      <h1 id="live-hero-title" class="max-w-5xl text-5xl font-black leading-[1.1] tracking-tight md:text-7xl lg:text-[5.5rem] text-white">
-        I DESIGN <span class="gradient">THUMBNAILS</span><br>THAT GET CLICKS.
-      </h1>
-      
-      <p id="live-hero-bio" class="mt-8 max-w-2xl text-sm leading-relaxed text-zinc-400 md:text-base">
-        Visual Content Creator & Designer. I turn ordinary ideas into scroll-stopping artwork for YouTube, gaming, and digital storytelling.
+
+
+      <!-- HERO PROFILE -->
+
+      <div
+        class="reveal">
+
+        <div
+          class="relative max-w-md mx-auto lg:ml-auto">
+
+
+          <div
+            class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
+
+
+            <div
+              class="absolute inset-0 flex items-center justify-center">
+
+              <div
+                class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">
+
+                ZR
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">
+
+              BASED IN INDIA
+
+            </div>
+
+
+            <div
+              class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">
+
+              AVAILABLE ↗
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
+
+            DESIGN
+            <br>
+            WITH
+            <br>
+            INTENT
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     MARQUEE
+========================= -->
+
+<div
+  class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
+
+  <span>
+
+    THUMBNAILS ✦
+    YOUTUBE ✦
+    GAMING ✦
+    SOCIAL MEDIA ✦
+    POSTERS ✦
+    VISUAL STORYTELLING ✦
+
+    THUMBNAILS ✦
+    YOUTUBE ✦
+    GAMING ✦
+    SOCIAL MEDIA ✦
+    POSTERS ✦
+    VISUAL STORYTELLING ✦
+
+  </span>
+
+</div>
+
+
+
+<!-- =========================
+     WORK
+========================= -->
+
+<section
+  id="work"
+  class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+
+
+  <div
+    class="flex justify-between items-end mb-14 reveal">
+
+    <div>
+
+      <p
+        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+
+        01 / Selected work
+
       </p>
-      
-      <div class="mt-12 flex flex-wrap justify-center gap-4 w-full">
-        <a href="#work" class="magnetic rounded-full bg-white px-8 py-4 text-sm font-bold text-black hover:bg-zinc-200 transition">VIEW MY WORK ↗</a>
-        <a href="#contact" class="magnetic glass rounded-full px-8 py-4 text-sm font-bold hover:bg-white/10 transition">LET'S TALK</a>
-      </div>
+
+
+      <h2
+        class="text-5xl md:text-7xl font-bold tracking-tight mt-3">
+
+        The work.
+
+      </h2>
+
     </div>
-  </section>
 
-  <!-- PORTFOLIO SECTION -->
-  <section id="work" class="mx-auto max-w-7xl px-5 py-24 relative z-10">
-    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-12">
-      <div>
-        <div class="text-[11px] font-bold tracking-[.35em] text-zinc-500">SELECTED WORK</div>
-        <h2 class="mt-3 text-4xl font-black md:text-6xl text-white">My <span class="gradient">creations.</span></h2>
-      </div>
+
+    <p
+      class="hidden md:block max-w-xs text-sm text-zinc-500">
+
+      A selection of visual concepts across
+      different niches and content styles.
+
+    </p>
+
+  </div>
+
+
+  <div
+    id="grid"
+    class="grid md:grid-cols-2 gap-6">
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section
+  id="services"
+  class="bg-[#111] text-white py-28">
+
+  <div
+    class="max-w-7xl mx-auto px-5 md:px-8">
+
+
+    <div
+      class="reveal">
+
+      <p
+        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+
+        02 / Services
+
+      </p>
+
+
+      <h2
+        class="text-5xl md:text-7xl font-bold mt-3">
+
+        What I do.
+
+      </h2>
+
     </div>
-    
-    <!-- GRID (Dynamically updated via Admin Panel) -->
-    <div id="portfolioGrid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-      <!-- Item 1: ZEDITZ -->
-      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
-        <div class="aspect-video bg-designer-800 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
-        </div>
-        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">ZEDITZ Visuals</div>
-          <h3 class="text-xl font-bold text-white mt-1">Motion Graphics Demo</h3>
-        </div>
+
+
+    <div
+      class="grid md:grid-cols-3 gap-4 mt-16">
+
+
+      <!-- SERVICE 1 -->
+
+      <div
+        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+
+        <span
+          class="text-zinc-500">
+
+          01
+
+        </span>
+
+
+        <h3
+          class="text-2xl font-bold mt-12">
+
+          YouTube
+          <br>
+          Thumbnails
+
+        </h3>
+
+
+        <p
+          class="text-zinc-400 mt-5 leading-6">
+
+          Strong hierarchy,
+          expressive composition and
+          clear visual storytelling designed
+          for the click.
+
+        </p>
+
       </div>
 
-      <!-- Item 2: ARTS FEST -->
-      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
-        <div class="aspect-video bg-designer-800 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
-        </div>
-        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">Event Promo</div>
-          <h3 class="text-xl font-bold text-white mt-1">2025 ARTS FEST</h3>
-        </div>
+
+
+      <!-- SERVICE 2 -->
+
+      <div
+        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+
+        <span
+          class="text-zinc-500">
+
+          02
+
+        </span>
+
+
+        <h3
+          class="text-2xl font-bold mt-12">
+
+          Social
+          <br>
+          Visuals
+
+        </h3>
+
+
+        <p
+          class="text-zinc-400 mt-5 leading-6">
+
+          Clean, recognizable graphics
+          for reels, posts, campaigns,
+          events and digital brands.
+
+        </p>
+
       </div>
-      
-      <!-- Item 3: QuizOff -->
-      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
-        <div class="aspect-video bg-designer-800 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
-        </div>
-        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">AI Competition</div>
-          <h3 class="text-xl font-bold text-white mt-1">QuizOff 2026 Visuals</h3>
-        </div>
+
+
+
+      <!-- SERVICE 3 -->
+
+      <div
+        class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+
+        <span
+          class="text-zinc-500">
+
+          03
+
+        </span>
+
+
+        <h3
+          class="text-2xl font-bold mt-12">
+
+          Creative
+          <br>
+          Direction
+
+        </h3>
+
+
+        <p
+          class="text-zinc-400 mt-5 leading-6">
+
+          From the first idea to the final
+          frame, I help shape a visual
+          direction that makes sense.
+
+        </p>
+
       </div>
+
     </div>
-  </section>
 
-  <!-- CONTACT SECTION (FormSubmit) -->
-  <section id="contact" class="mx-auto max-w-5xl px-5 py-24 relative z-10">
-    <div class="glass rounded-[2rem] p-8 md:p-14 border border-white/10 relative overflow-hidden">
-      <!-- Inner Glow -->
-      <div class="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+  </div>
 
-      <div class="text-[11px] font-bold tracking-[.35em] text-zinc-500">LET'S WORK TOGETHER</div>
-      <h2 class="mt-4 text-4xl font-black leading-tight md:text-5xl text-white">Ready for thumbnails that<br><span class="gradient">actually get clicks?</span></h2>
-      
-      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="mt-12 grid gap-5 md:grid-cols-2 relative z-10">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New Portfolio Inquiry from Zaid's Website!">
-        
-        <input required name="name" placeholder="Your Name *" class="rounded-2xl p-4 md:p-5 text-sm">
-        <input required type="email" name="email" placeholder="Email Address *" class="rounded-2xl p-4 md:p-5 text-sm">
-        <input name="project" placeholder="Project Type (YouTube / Gaming / etc.)" class="rounded-2xl p-4 md:p-5 text-sm md:col-span-2">
-        <textarea required name="message" rows="5" placeholder="Tell me about your project, deadline and references..." class="rounded-2xl p-4 md:p-5 text-sm md:col-span-2 resize-none"></textarea>
-        
-        <button type="submit" class="magnetic rounded-2xl bg-white p-5 font-bold text-black md:col-span-2 text-sm hover:bg-zinc-200 transition uppercase tracking-wider">
-          Send Project Request ↗
+</section>
+
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+  id="about"
+  class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+
+  <div
+    class="grid lg:grid-cols-2 gap-16 items-center">
+
+
+    <div
+      class="reveal">
+
+      <p
+        class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+
+        03 / About
+
+      </p>
+
+
+      <div
+        class="number mt-8">
+
+        ZR.
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="reveal">
+
+
+      <h2
+        class="text-4xl md:text-6xl font-bold tracking-tight">
+
+        Design isn't decoration.
+
+        <br>
+
+        <span class="serif font-normal">
+
+          It's communication.
+
+        </span>
+
+      </h2>
+
+
+      <p
+        class="text-zinc-600 leading-7 mt-7 max-w-xl">
+
+        I'm Md Zaid Raza, a thumbnail designer
+        and visual content creator. I care about
+        the first impression: what people notice,
+        what they understand and what makes them
+        want to look twice.
+
+      </p>
+
+
+      <div
+        class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
+
+
+        <div>
+
+          <b
+            class="text-4xl">
+
+            2+
+
+          </b>
+
+
+          <p
+            class="text-xs uppercase tracking-widest text-zinc-500 mt-2">
+
+            Years creating
+
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <b
+            class="text-4xl">
+
+            50+
+
+          </b>
+
+
+          <p
+            class="text-xs uppercase tracking-widest text-zinc-500 mt-2">
+
+            Projects & concepts
+
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+  id="contact"
+  class="bg-[#dddcd5] py-28">
+
+  <div
+    class="max-w-7xl mx-auto px-5 md:px-8">
+
+
+    <div
+      class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
+
+
+      <div
+        class="reveal">
+
+        <p
+          class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">
+
+          04 / Contact
+
+        </p>
+
+
+        <h2
+          class="text-5xl md:text-7xl font-bold tracking-tight mt-5">
+
+          Let's make
+
+          <br>
+
+          <span class="serif font-normal">
+
+            something
+
+          </span>
+
+          <br>
+
+          stand out.
+
+        </h2>
+
+      </div>
+
+
+
+      <form
+        action="https://formsubmit.co/mdzaidraza9119@gmail.com"
+        method="POST"
+        class="reveal grid gap-4">
+
+
+        <input
+          type="hidden"
+          name="_captcha"
+          value="false">
+
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="New Portfolio Inquiry — Zaid Raza">
+
+
+        <input
+          required
+          name="name"
+          placeholder="Your name *"
+          class="p-5 rounded-2xl">
+
+
+        <input
+          required
+          type="email"
+          name="email"
+          placeholder="Email address *"
+          class="p-5 rounded-2xl">
+
+
+        <input
+          name="project"
+          placeholder="What do you need? (Thumbnail / Social / Poster)"
+          class="p-5 rounded-2xl">
+
+
+        <textarea
+          required
+          name="message"
+          rows="6"
+          placeholder="Tell me about the project..."
+          class="p-5 rounded-2xl"></textarea>
+
+
+        <button
+          class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">
+
+          SEND INQUIRY ↗
+
         </button>
+
+
       </form>
-    </div>
-  </section>
 
-  <footer class="border-t border-white/5 px-5 py-10 z-10 relative">
-    <div class="mx-auto flex max-w-7xl flex-col gap-2 items-center justify-center text-center">
-      <b class="text-lg tracking-widest text-white">ZAID RAZA</b>
-      <div class="text-xs font-semibold text-zinc-600 uppercase tracking-widest">© 2026. All rights reserved.</div>
     </div>
-  </footer>
-</main>
 
-<!-- ========================================== -->
-<!-- 1. LOGIN MODAL (Strict Access) -->
-<!-- ========================================== -->
-<div id="adminLoginModal" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-5 backdrop-blur-xl opacity-0 hidden transition-opacity duration-300">
-  <div class="glass w-full max-w-sm rounded-3xl p-8 border border-white/10 relative">
-    <div class="absolute top-4 right-5 text-zinc-500 cursor-pointer text-xl font-bold" id="closeLogin">✕</div>
-    <div class="text-[10px] font-bold tracking-[.3em] text-designer-accent mb-2">RESTRICTED AREA</div>
-    <h3 class="text-2xl font-black text-white mb-6">Admin Login</h3>
-    
-    <input id="adminUser" class="w-full rounded-xl p-4 text-sm mb-4" placeholder="Username" autocomplete="off">
-    <input id="adminPass" type="password" class="w-full rounded-xl p-4 text-sm mb-2" placeholder="Password">
-    
-    <p id="loginError" class="text-xs text-red-400 font-bold mb-4 hidden">Invalid Username or Password.</p>
-    
-    <button id="enterAdminBtn" class="w-full rounded-xl bg-white p-4 font-bold text-black text-sm uppercase tracking-wider mt-2 hover:bg-zinc-200 transition">Authenticate</button>
   </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer
+  class="bg-black text-white px-5 md:px-8 py-10">
+
+  <div
+    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
+
+
+    <b
+      class="text-lg">
+
+      ZAID/RAZA
+
+    </b>
+
+
+    <p
+      class="text-xs text-zinc-500">
+
+      © 2026 — VISUAL DESIGNER
+
+    </p>
+
+
+    <p
+      class="text-xs text-zinc-500">
+
+      Made to be noticed.
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =========================
+     PROJECT PREVIEW
+========================= -->
+
+<div
+  id="preview"
+  class="modal fixed inset-0 z-[100] bg-black/90 items-center justify-center p-5">
+
+
+  <div
+    class="max-w-5xl w-full">
+
+
+    <button
+      id="closePreview"
+      class="float-right mb-3 bg-white text-black rounded-full w-10 h-10 font-bold">
+
+      ×
+
+    </button>
+
+
+    <img
+      id="previewImg"
+      class="w-full max-h-[82vh] object-contain rounded-2xl">
+
+
+    <div
+      id="previewTitle"
+      class="text-white font-bold text-xl mt-4">
+
+    </div>
+
+  </div>
+
 </div>
 
-<!-- ========================================== -->
-<!-- 2. ADMIN DASHBOARD (Edit Text & Add Photos) -->
-<!-- ========================================== -->
-<div id="adminDashboard" class="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/95 p-4 md:p-10 backdrop-blur-3xl opacity-0 hidden transition-opacity duration-300 overflow-y-auto">
-  <div class="glass w-full max-w-4xl rounded-[2rem] p-6 md:p-10 border border-designer-accent/30 relative">
-    
-    <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
-      <div>
-        <h2 class="text-3xl font-black text-white">System Dashboard</h2>
-        <p class="text-designer-accent text-xs font-bold tracking-widest uppercase mt-1">Live Editor Active</p>
-      </div>
-      <button id="logoutBtn" class="rounded-full border border-white/20 px-5 py-2 text-xs font-bold text-white hover:bg-white/10">LOGOUT</button>
-    </div>
 
-    <div class="grid md:grid-cols-2 gap-10">
-      
-      <!-- Edit Hero Content -->
-      <div>
-        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">📝 Edit Main Text</h3>
-        <label class="block text-[10px] font-bold text-zinc-500 mb-2 tracking-widest">HEADLINE (USE &lt;br&gt; FOR NEW LINE)</label>
-        <input id="editHeadline" type="text" class="w-full rounded-xl p-4 text-sm mb-4">
-        
-        <label class="block text-[10px] font-bold text-zinc-500 mb-2 tracking-widest">SUB-BIOGRAPHY</label>
-        <textarea id="editBio" rows="4" class="w-full rounded-xl p-4 text-sm mb-6 resize-none"></textarea>
-        
-        <button id="saveTextBtn" class="w-full rounded-xl bg-designer-accent p-4 font-bold text-white text-sm uppercase hover:bg-violet-400 transition">Save Live Text</button>
-      </div>
 
-      <!-- Add Portfolio Item -->
-      <div class="bg-white/5 border border-white/5 rounded-2xl p-6">
-        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">🖼️ Add Portfolio Image</h3>
-        <p class="text-xs text-zinc-400 mb-4 leading-relaxed">Paste an image URL to add a new project to the top of your portfolio grid.</p>
-        
-        <input id="newImgUrl" type="text" class="w-full rounded-xl p-3 text-sm mb-3" placeholder="Image URL (e.g. https://link.com/img.jpg)">
-        <input id="newImgTitle" type="text" class="w-full rounded-xl p-3 text-sm mb-3" placeholder="Project Title (e.g. Call of Duty Thumbnail)">
-        <input id="newImgTag" type="text" class="w-full rounded-xl p-3 text-sm mb-5" placeholder="Small Tag (e.g. GAMING)">
-        
-        <button id="addProjectBtn" class="w-full rounded-xl bg-white p-4 font-bold text-black text-sm uppercase hover:bg-zinc-200 transition">Publish to Website</button>
-      </div>
+<!-- =========================
+     ADMIN LOGIN
+========================= -->
 
-    </div>
+<div
+  id="login"
+  class="modal fixed inset-0 z-[200] bg-black/90 items-center justify-center p-5">
+
+
+  <div
+    class="admin max-w-sm w-full p-8 rounded-[28px]">
+
+
+    <button
+      id="closeLogin"
+      class="float-right">
+
+      ✕
+
+    </button>
+
+
+    <p
+      class="text-xs text-zinc-500 tracking-widest mt-4">
+
+      PRIVATE ACCESS
+
+    </p>
+
+
+    <h2
+      class="text-3xl font-bold mt-2 mb-7">
+
+      Admin
+
+    </h2>
+
+
+    <input
+      id="user"
+      class="w-full p-4 text-black mb-3 rounded-xl"
+      placeholder="Username">
+
+
+    <input
+      id="pass"
+      type="password"
+      class="w-full p-4 text-black rounded-xl"
+      placeholder="Password">
+
+
+    <p
+      id="err"
+      class="text-red-400 text-xs mt-3 hidden">
+
+      Invalid login.
+
+    </p>
+
+
+    <button
+      id="loginBtn"
+      class="w-full bg-white text-black p-4 mt-5 font-bold rounded-xl">
+
+      ENTER
+
+    </button>
+
   </div>
+
 </div>
 
-<!-- SCRIPTS -->
+
+
+<!-- =========================
+     ADMIN DASHBOARD
+========================= -->
+
+<div
+  id="dash"
+  class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
+
+
+  <div
+    class="admin max-w-5xl w-full p-6 md:p-10 rounded-[30px]">
+
+
+    <!-- DASHBOARD HEADER -->
+
+    <div
+      class="flex justify-between border-b border-white/15 pb-5">
+
+
+      <div>
+
+        <h2
+          class="text-3xl font-bold">
+
+          Dashboard
+
+        </h2>
+
+
+        <p
+          class="text-xs text-zinc-500 mt-1">
+
+          YOUR WEBSITE CONTENT
+
+        </p>
+
+      </div>
+
+
+      <button
+        id="logout"
+        class="border border-white/20 px-4 py-2 rounded-full text-xs">
+
+        LOGOUT
+
+      </button>
+
+    </div>
+
+
+
+    <div
+      class="grid md:grid-cols-2 gap-8 mt-8">
+
+
+      <!-- HERO EDITOR -->
+
+      <div>
+
+        <h3
+          class="font-bold mb-4">
+
+          Hero Content
+
+        </h3>
+
+
+        <textarea
+          id="headline"
+          rows="4"
+          class="w-full p-4 text-black mb-3 rounded-xl"></textarea>
+
+
+        <textarea
+          id="bio"
+          rows="4"
+          class="w-full p-4 text-black rounded-xl"></textarea>
+
+
+        <button
+          id="save"
+          class="w-full bg-white text-black p-4 mt-3 font-bold rounded-xl">
+
+          SAVE CHANGES
+
+        </button>
+
+      </div>
+
+
+
+      <!-- PROJECT MANAGER -->
+
+      <div>
+
+        <h3
+          class="font-bold mb-4">
+
+          Add Project
+
+        </h3>
+
+
+        <input
+          id="pimg"
+          class="w-full p-4 text-black mb-3 rounded-xl"
+          placeholder="Image URL">
+
+
+        <input
+          id="ptitle"
+          class="w-full p-4 text-black mb-3 rounded-xl"
+          placeholder="Project title">
+
+
+        <input
+          id="ptag"
+          class="w-full p-4 text-black mb-3 rounded-xl"
+          placeholder="Category">
+
+
+        <button
+          id="add"
+          class="w-full bg-white text-black p-4 font-bold rounded-xl">
+
+          ADD TO PORTFOLIO
+
+        </button>
+
+
+        <div
+          id="manage"
+          class="mt-6 space-y-2">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
 <script>
-  // 1. Custom Cursor Logic (Maintained from your original code)
-  const cursorDot = document.getElementById("cursorDot");
-  const cursorRing = document.getElementById("cursorRing");
-  
-  if (window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener("mousemove", (e) => {
-      cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
-      cursorRing.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
-    });
-    document.querySelectorAll('a, button, input, textarea, .magnetic, #logoTrigger').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursorDot.classList.add('hover'); cursorRing.classList.add('hover'); });
-      el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hover'); cursorRing.classList.remove('hover'); });
-    });
+
+/* =====================================
+   ADMIN CREDENTIALS
+===================================== */
+
+const USERNAME = "ZAIDX9119";
+
+const PASSWORD = "Zaid@9119";
+
+
+/* =====================================
+   DEFAULT PORTFOLIO
+===================================== */
+
+const defaultProjects = [
+
+  {
+    title: "Cinematic Visual Concept",
+    tag: "YOUTUBE",
+    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop"
+  },
+
+  {
+    title: "Gaming — High Energy",
+    tag: "GAMING",
+    img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop"
+  },
+
+  {
+    title: "Creative Campaign",
+    tag: "SOCIAL",
+    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop"
+  },
+
+  {
+    title: "Digital Storytelling",
+    tag: "YOUTUBE",
+    img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop"
   }
 
-  // 2. Scroll Progress
-  window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
-  });
+];
 
-  // 3. ADMIN PANEL LOGIC (4 Clicks on Logo)
-  let logoClicks = 0;
-  let clickTimer;
-  
-  const logoTrigger = document.getElementById('logoTrigger');
-  const loginModal = document.getElementById('adminLoginModal');
-  const dashboard = document.getElementById('adminDashboard');
-  
-  // Show/Hide Helpers
-  const showModal = (el) => { el.classList.remove('hidden'); setTimeout(() => el.classList.remove('opacity-0'), 10); };
-  const hideModal = (el) => { el.classList.add('opacity-0'); setTimeout(() => el.classList.add('hidden'), 300); };
 
-  // Trigger Login
-  logoTrigger.addEventListener('click', () => {
-    logoClicks++;
+/* =====================================
+   LOAD PROJECTS
+===================================== */
+
+let projects =
+  JSON.parse(
+    localStorage.getItem("zaidProjects")
+  ) || defaultProjects;
+
+
+/* =====================================
+   LOAD HERO
+===================================== */
+
+let savedHero =
+  JSON.parse(
+    localStorage.getItem("zaidHero")
+  );
+
+
+if (savedHero) {
+
+  document.getElementById("heroHeadline")
+    .innerHTML =
+    savedHero.headline;
+
+  document.getElementById("heroBio")
+    .textContent =
+    savedHero.bio;
+
+}
+
+
+/* =====================================
+   ESCAPE HTML
+===================================== */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/[&<>"']/g, function(char) {
+
+      return {
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+
+      }[char];
+
+    });
+
+}
+
+
+/* =====================================
+   RENDER PORTFOLIO
+===================================== */
+
+function renderProjects() {
+
+  const grid =
+    document.getElementById("grid");
+
+
+  grid.innerHTML =
+    projects.map(function(project, index) {
+
+      return `
+
+        <article
+          class="work-card reveal show cursor-pointer"
+          onclick="openProject(${index})">
+
+
+          <div
+            class="aspect-[16/10] overflow-hidden bg-zinc-200">
+
+
+            <img
+              class="work-img w-full h-full object-cover"
+              loading="lazy"
+              src="${escapeHTML(project.img)}"
+              alt="${escapeHTML(project.title)}">
+
+
+          </div>
+
+
+          <div
+            class="flex justify-between items-center py-5 px-5 border-b border-black/15">
+
+
+            <div>
+
+
+              <p
+                class="text-[10px] tracking-[.25em] font-bold text-zinc-500">
+
+                ${escapeHTML(project.tag)}
+
+              </p>
+
+
+              <h3
+                class="text-xl font-bold mt-1">
+
+                ${escapeHTML(project.title)}
+
+              </h3>
+
+
+            </div>
+
+
+            <span
+              class="text-xl">
+
+              ↗
+
+            </span>
+
+
+          </div>
+
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+
+renderProjects();
+
+
+/* =====================================
+   PROJECT PREVIEW
+===================================== */
+
+function openProject(index) {
+
+  const project =
+    projects[index];
+
+
+  document.getElementById("previewImg")
+    .src =
+    project.img;
+
+
+  document.getElementById("previewTitle")
+    .textContent =
+    project.title;
+
+
+  document.getElementById("preview")
+    .classList
+    .add("open");
+
+}
+
+
+document.getElementById("closePreview")
+  .onclick = function() {
+
+    document.getElementById("preview")
+      .classList
+      .remove("open");
+
+  };
+
+
+/* =====================================
+   ADMIN TRIGGER
+===================================== */
+
+let clickCount = 0;
+
+let clickTimer;
+
+
+document.getElementById("adminTrigger")
+  .addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    clickCount++;
+
     clearTimeout(clickTimer);
-    if (logoClicks === 4) {
-      showModal(loginModal);
-      logoClicks = 0;
+
+
+    if (clickCount === 4) {
+
+      document.getElementById("login")
+        .classList
+        .add("open");
+
+      clickCount = 0;
+
     }
-    clickTimer = setTimeout(() => { logoClicks = 0; }, 1200);
+
+
+    clickTimer =
+      setTimeout(function() {
+
+        clickCount = 0;
+
+      }, 1200);
+
   });
 
-  document.getElementById('closeLogin').addEventListener('click', () => hideModal(loginModal));
 
-  // Authenticate: ZAIDX9119 / Zaid@9119
-  document.getElementById('enterAdminBtn').addEventListener('click', () => {
-    const user = document.getElementById('adminUser').value;
-    const pass = document.getElementById('adminPass').value;
-    
-    if (user === 'ZAIDX9119' && pass === 'Zaid@9119') {
-      document.getElementById('loginError').classList.add('hidden');
-      hideModal(loginModal);
-      
-      // Load current text into inputs
-      document.getElementById('editHeadline').value = document.getElementById('live-hero-title').innerHTML.trim();
-      document.getElementById('editBio').value = document.getElementById('live-hero-bio
+/* =====================================
+   CLOSE LOGIN
+===================================== */
+
+document.getElementById("closeLogin")
+  .onclick = function() {
+
+    document.getElementById("login")
+      .classList
+      .remove("open");
+
+  };
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+document.getElementById("loginBtn")
+  .onclick = function() {
+
+    const user =
+      document.getElementById("user")
+        .value;
+
+    const pass =
+      document.getElementById("pass")
+        .value;
+
+
+    if (
+      user === USERNAME &&
+      pass === PASSWORD
+    ) {
+
+      document.getElementById("err")
+        .classList
+        .add("hidden");
+
+
+      document.getElementById("login")
+        .classList
+        .remove("open");
+
+
+      document.getElementById("dash")
+        .classList
+        .add("open");
+
+
+      loadDashboard();
+
+    }
+
+    else {
+
+      document.getElementById("err")
+        .classList
+        .remove("hidden");
+
+    }
+
+  };
+
+
+/* =====================================
+   ENTER KEY LOGIN
+===================================== */
+
+document.getElementById("pass")
+  .addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+      document.getElementById("loginBtn")
+        .click();
+
+    }
+
+  });
+
+
+/* =====================================
+   LOAD DASHBOARD
+===================================== */
+
+function loadDashboard() {
+
+  document.getElementById("headline")
+    .value =
+    document.getElementById("heroHeadline")
+      .innerHTML;
+
+
+  document.getElementById("bio")
+    .value =
+    document.getElementById("heroBio")
+      .textContent;
+
+
+  renderAdminProjects();
+
+}
+
+
+/* =====================================
+   RENDER ADMIN PROJECTS
+===================================== */
+
+function renderAdminProjects() {
+
+  const container =
+    document.getElementById("manage");
+
+
+  container.innerHTML =
+    projects.map(function(project, index) {
+
+      return `
+
+        <div
+          class="flex justify-between items-center gap-3 bg-white/5 p-3 rounded-xl">
+
+
+          <span
+            class="text-xs truncate">
+
+            ${escapeHTML(project.title)}
+
+          </span>
+
+
+          <button
+            onclick="deleteProject(${index})"
+            class="text-red-400 text-xs font-bold">
+
+            DELETE
+
+          </button>
+
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================
+   SAVE HERO
+===================================== */
+
+document.getElementById("save")
+  .onclick = function() {
+
+    const headline =
+      document.getElementById("headline")
+        .value;
+
+
+    const bio =
+      document.getElementById("bio")
+        .value;
+
+
+    document.getElementById("heroHeadline")
+      .innerHTML =
+      headline;
+
+
+    document.getElementById("heroBio")
+      .textContent =
+      bio;
+
+
+    localStorage.setItem(
+
+      "zaidHero",
+
+      JSON.stringify({
+
+        headline: headline,
+
+        bio: bio
+
+      })
+
+    );
+
+
+    this.textContent =
+      "SAVED ✓";
+
+
+    setTimeout(() => {
+
+      this.textContent =
+        "SAVE CHANGES";
+
+    }, 1200);
+
+  };
+
+
+/* =====================================
+   ADD PROJECT
+===================================== */
+
+document.getElementById("add")
+  .onclick = function() {
+
+    const image =
+      document.getElementById("pimg")
+        .value
+        .trim();
+
+
+    const title =
+      document.getElementById("ptitle")
+        .value
+        .trim();
+
+
+    const tag =
+      (
+        document.getElementById("ptag")
+          .value
+          .trim() ||
+        "OTHER"
+      )
+      .toUpperCase();
+
+
+    if (!image || !title) {
+
+      alert(
+        "Please enter an image URL and project title."
+      );
+
+      return;
+
+    }
+
+
+    projects.unshift({
+
+      img: image,
+
+      title: title,
+
+      tag: tag
+
+    });
+
+
+    localStorage.setItem(
+
+      "zaidProjects",
+
+      JSON.stringify(projects)
+
+    );
+
+
+    document.getElementById("pimg")
+      .value = "";
+
+    document.getElementById("ptitle")
+      .value = "";
+
+    document.getElementById("ptag")
+      .value = "";
+
+
+    renderProjects();
+
+    renderAdminProjects();
+
+
+    this.textContent =
+      "PROJECT ADDED ✓";
+
+
+    setTimeout(() => {
+
+      this.textContent =
+        "ADD TO PORTFOLIO";
+
+    }, 1200);
+
+  };
+
+
+/* =====================================
+   DELETE PROJECT
+===================================== */
+
+function deleteProject(index) {
+
+  if (
+    !confirm(
+      "Delete this project?"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  projects.splice(index, 1);
+
+
+  localStorage.setItem(
+
+    "zaidProjects",
+
+    JSON.stringify(projects)
+
+  );
+
+
+  renderProjects();
+
+  renderAdminProjects();
+
+}
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+document.getElementById("logout")
+  .onclick = function() {
+
+    document.getElementById("dash")
+      .classList
+      .remove("open");
+
+    document.getElementById("user")
+      .value = "";
+
+    document.getElementById("pass")
+      .value = "";
+
+  };
+
+
+/* =====================================
+   NAVBAR SCROLL
+===================================== */
+
+window.addEventListener(
+  "scroll",
+  function() {
+
+    document.getElementById("nav")
+      .classList
+      .toggle(
+        "nav-scrolled",
+        window.scrollY > 30
+      );
+
+  }
+);
+
+
+/* =====================================
+   SCROLL REVEAL
+===================================== */
+
+const observer =
+  new IntersectionObserver(
+
+    function(entries) {
+
+      entries.forEach(function(entry) {
+
+        if (entry.isIntersecting) {
+
+          entry.target
+            .classList
+            .add("show");
+
+        }
+
+      });
+
+    },
+
+    {
+      threshold: .12
+    }
+
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(function(element) {
+
+    observer.observe(element);
+
+  });
+
+
+/* =====================================
+   CUSTOM CURSOR
+===================================== */
+
+if (
+  window.matchMedia(
+    "(pointer:fine)"
+  ).matches
+) {
+
+  const cursor =
+    document.getElementById("cursor");
+
+
+  window.addEventListener(
+    "mousemove",
+    function(event) {
+
+      cursor.style.left =
+        event.clientX + "px";
+
+
+      cursor.style.top =
+        event.clientY + "px";
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      "a,button,.work-card,input,textarea"
+    )
+    .forEach(function(element) {
+
+      element.addEventListener(
+        "mouseenter",
+        function() {
+
+          cursor.classList.add("big");
+
+        }
+      );
+
+
+      element.addEventListener(
+        "mouseleave",
+        function() {
+
+          cursor.classList.remove("big");
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================
+   CLOSE PREVIEW ON BACKDROP
+===================================== */
+
+document.getElementById("preview")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target === this
+      ) {
+
+        this.classList.remove("open");
+
+      }
+
+    }
+  );
+
+
+</script>
+
+</body>
+</html>

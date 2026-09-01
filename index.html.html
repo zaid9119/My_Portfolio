@@ -3,320 +3,381 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Md Zaid Raza — Thumbnail Designer</title>
-  <meta name="description" content="I turn ideas into scroll-stopping thumbnails that get clicks.">
+  <title>Md Zaid Raza — Motion & Visual Designer</title>
+  <meta name="description" content="I turn ideas into scroll-stopping thumbnails and visual assets.">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  
+  <!-- GSAP & ScrollTrigger for Motion Graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Vanilla Tilt for 3D Cards -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
-          colors: {
-            brand: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' }
-          }
+          fontFamily: { sans: ['"Outfit"', 'sans-serif'] },
+          colors: { accent: '#6366f1', accent2: '#a855f7', dark: '#050507' }
         }
       }
     }
   </script>
+
   <style>
     body {
-      background-color: #0f172a; /* Deep Slate, not pure black */
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
-      background-attachment: fixed;
+      background-color: #050507;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      cursor: none; /* Custom cursor */
     }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Animated Gradient Mesh Background */
+    .bg-mesh {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+      background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+                  radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
     }
-    .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; z-index: -1;
+      animation: float 12s infinite alternate ease-in-out;
     }
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 50px) scale(1.2); }
+    }
+
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
     .text-gradient {
-      background: linear-gradient(135deg, #a5b4fc, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background: linear-gradient(to right, #818cf8, #c084fc, #ec4899);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-size: 200% auto; animation: shine 4s linear infinite;
     }
-    /* Hide scrollbar for clean look */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    @keyframes shine { to { background-position: 200% center; } }
+
+    /* Custom Cursor */
+    .cursor-dot, .cursor-outline {
+      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+      border-radius: 50%; z-index: 9999; pointer-events: none;
+    }
+    .cursor-dot { width: 8px; height: 8px; background-color: white; }
+    .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); transition: width 0.2s, height 0.2s, background-color 0.2s; }
+    @media (max-width: 768px) { .cursor-dot, .cursor-outline { display: none; } body { cursor: auto; } }
+
+    /* 3D Button Hover */
+    .btn-3d {
+      position: relative; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 6px 0 rgba(99, 102, 241, 0.8), 0 15px 20px rgba(0,0,0,0.4);
+    }
+    .btn-3d:active { transform: translateY(6px); box-shadow: 0 0px 0 rgba(99, 102, 241, 0), 0 5px 10px rgba(0,0,0,0.4); }
+
+    /* Hide scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #050507; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
   </style>
 </head>
-<body class="text-slate-200 antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+<body class="antialiased selection:bg-accent2 selection:text-white">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-outline" id="cursor-outline"></div>
+
+  <!-- Background FX -->
+  <div class="bg-mesh"></div>
+  <div class="blob bg-accent w-96 h-96 top-10 left-10"></div>
+  <div class="blob bg-accent2 w-[500px] h-[500px] bottom-10 right-10" style="animation-delay: -5s;"></div>
 
   <!-- NAVIGATION -->
-  <nav class="fixed top-0 w-full z-50 bg-slate-900/70 backdrop-blur-md border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- SECRET ADMIN TRIGGER: Click this logo 4 times -->
-      <a href="#" id="logoTrigger" class="text-2xl font-extrabold tracking-tight text-white select-none cursor-pointer">
-        ZAID<span class="text-brand-400">.</span>
-      </a>
-      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-        <a href="#work" class="hover:text-white transition">Portfolio</a>
-        <a href="#services" class="hover:text-white transition">Services</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
+  <nav class="fixed top-0 w-full z-50 glass border-b-0">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div id="logoTrigger" class="text-3xl font-black tracking-tighter text-white select-none cursor-pointer hover:scale-105 transition-transform z-50 relative">
+        ZAID<span class="text-accent">.</span>
       </div>
-      <a href="#contact" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-brand-500/20">
-        Hire Me
+      <div class="hidden md:flex gap-10 text-sm font-semibold tracking-widest uppercase text-gray-400">
+        <a href="#work" class="hover:text-white transition custom-hover">Work</a>
+        <a href="#expertise" class="hover:text-white transition custom-hover">Expertise</a>
+        <a href="#contact" class="hover:text-white transition custom-hover">Contact</a>
+      </div>
+      <a href="#contact" class="glass px-6 py-2.5 rounded-full text-sm font-bold hover:bg-white hover:text-black transition duration-300 custom-hover">
+        Let's Talk ↗
       </a>
     </div>
   </nav>
 
   <!-- HERO SECTION -->
-  <header class="pt-32 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[85vh]">
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-semibold text-brand-400 mb-8">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      Available for New Projects
+  <header class="relative pt-40 pb-32 px-6 max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen text-center z-10">
+    <div class="gsap-hero inline-flex items-center gap-2 px-5 py-2 rounded-full glass border border-accent/30 text-xs font-bold text-accent2 mb-8 uppercase tracking-widest">
+      <span class="w-2 h-2 rounded-full bg-accent2 animate-pulse"></span> Open to freelance
     </div>
     
-    <h1 id="edit-hero-title" class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-      I design thumbnails that <br class="hidden md:block"/>
-      <span class="text-gradient">actually get clicks.</span>
+    <h1 id="live-hero-title" class="gsap-hero text-6xl md:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
+      I design <span class="text-gradient">visuals</span> <br class="hidden md:block"/> that command attention.
     </h1>
     
-    <p id="edit-hero-bio" class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
-      Visual Content Creator specializing in scroll-stopping artwork for YouTube, Gaming, and Brands. I turn your ideas into high-converting visual assets.
+    <p id="live-hero-bio" class="gsap-hero text-lg md:text-xl text-gray-400 max-w-2xl mb-12 font-light">
+      I'm a visual designer specializing in 3D-integrated thumbnails, motion graphics, and premium digital assets that skyrocket your engagement.
     </p>
     
-    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-      <a href="#work" class="bg-white text-slate-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition">View My Work</a>
-      <a href="#contact" class="glass-card text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition">Start a Project</a>
+    <div class="gsap-hero flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
+      <a href="#work" class="btn-3d bg-white text-black px-10 py-4 rounded-xl font-bold text-lg text-center custom-hover uppercase tracking-wider">
+        Explore Portfolio
+      </a>
     </div>
   </header>
 
-  <!-- SERVICES (Bento Grid Style) -->
-  <section id="services" class="py-20 px-6 max-w-7xl mx-auto w-full">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">What I Do</h2>
-      <p class="text-slate-400">Elevating your digital presence through premium design.</p>
+  <!-- EXPERTISE SECTION (3D Tilt Cards) -->
+  <section id="expertise" class="py-24 px-6 max-w-7xl mx-auto z-10 relative">
+    <div class="gsap-reveal mb-16 text-center md:text-left">
+      <h2 class="text-4xl md:text-6xl font-black text-white">My Expertise</h2>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="glass-card p-8 rounded-3xl">
-        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">📺</div>
-        <h3 class="text-xl font-bold text-white mb-3">YouTube Thumbnails</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">High-CTR designs customized for your niche, increasing your views and channel growth.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="text-5xl mb-6">🎯</div>
+        <h3 class="text-2xl font-bold text-white mb-3">Hyper-Click Thumbnails</h3>
+        <p class="text-gray-400">Psychology-driven designs that maximize your CTR on YouTube and social platforms.</p>
       </div>
-      <div class="glass-card p-8 rounded-3xl">
-        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">🎮</div>
-        <h3 class="text-xl font-bold text-white mb-3">Gaming Graphics</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">Eye-catching, high-energy visuals that make your streams and highlights stand out.</p>
+      <!-- Card 2 -->
+      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="text-5xl mb-6">🪐</div>
+        <h3 class="text-2xl font-bold text-white mb-3">3D & Visual FX</h3>
+        <p class="text-gray-400">Integrating 3D elements and advanced manipulation to make your brand impossible to ignore.</p>
       </div>
-      <div class="glass-card p-8 rounded-3xl">
-        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">📱</div>
-        <h3 class="text-xl font-bold text-white mb-3">Social Media Assets</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">Cohesive banners, profile pictures, and posts tailored for Instagram, Twitter, and more.</p>
+      <!-- Card 3 -->
+      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="text-5xl mb-6">🎬</div>
+        <h3 class="text-2xl font-bold text-white mb-3">Brand Identity</h3>
+        <p class="text-gray-400">Cohesive streaming packages, logos, and banners designed for modern creators.</p>
       </div>
     </div>
   </section>
 
   <!-- PORTFOLIO SECTION -->
-  <section id="work" class="py-20 px-6 max-w-7xl mx-auto w-full">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-      <div>
-        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Selected Work</h2>
-        <p class="text-slate-400">A glimpse into thumbnails that convert.</p>
-      </div>
+  <section id="work" class="py-24 px-6 max-w-7xl mx-auto z-10 relative">
+    <div class="gsap-reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      <h2 class="text-4xl md:text-6xl font-black text-white">Selected Work</h2>
     </div>
     
-    <!-- Gallery Grid -->
-    <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Item 1 -->
-      <div class="glass-card rounded-2xl overflow-hidden group">
-        <div class="aspect-video bg-slate-800 relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1616499370260-485b3e5ed653?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-5">
-          <h4 class="text-white font-bold text-lg">Tech Review Style</h4>
-          <p class="text-slate-400 text-sm mt-1">High Contrast / Clean</p>
-        </div>
-      </div>
-      <!-- Item 2 -->
-      <div class="glass-card rounded-2xl overflow-hidden group">
-        <div class="aspect-video bg-slate-800 relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-5">
-          <h4 class="text-white font-bold text-lg">Gaming Highlights</h4>
-          <p class="text-slate-400 text-sm mt-1">Vibrant / Energetic</p>
+    <!-- Dynamic Portfolio Grid -->
+    <div id="portfolio-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Default Item 1 -->
+      <div class="gsap-reveal group relative rounded-2xl overflow-hidden glass aspect-video cursor-pointer custom-hover">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:blur-sm" alt="Work">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <p class="text-accent2 text-xs font-bold tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition duration-300">3D Abstract</p>
+          <h4 class="text-white font-bold text-2xl transform translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">Neon Concept</h4>
         </div>
       </div>
-      <!-- Item 3 -->
-      <div class="glass-card rounded-2xl overflow-hidden group">
-        <div class="aspect-video bg-slate-800 relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-5">
-          <h4 class="text-white font-bold text-lg">Business & Finance</h4>
-          <p class="text-slate-400 text-sm mt-1">Professional / Trustworthy</p>
+
+      <!-- Default Item 2 -->
+      <div class="gsap-reveal group relative rounded-2xl overflow-hidden glass aspect-video cursor-pointer custom-hover">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:blur-sm" alt="Work">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <p class="text-accent2 text-xs font-bold tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition duration-300">Gaming</p>
+          <h4 class="text-white font-bold text-2xl transform translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">Retro Hardware</h4>
         </div>
       </div>
+
     </div>
   </section>
 
   <!-- CONTACT SECTION -->
-  <section id="contact" class="py-24 px-6 max-w-4xl mx-auto w-full">
-    <div class="glass-card rounded-[2.5rem] p-8 md:p-14 relative overflow-hidden">
-      <!-- Decorative element -->
-      <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px] -z-10"></div>
+  <section id="contact" class="py-32 px-6 max-w-5xl mx-auto z-10 relative">
+    <div class="gsap-reveal glass rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
+      <!-- Glow element inside card -->
+      <div class="absolute top-[-50%] right-[-50%] w-96 h-96 bg-accent/30 rounded-full blur-[100px]"></div>
       
-      <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Let's work together</h2>
-        <p class="text-slate-400">Fill out the form below and I'll get back to you within 24 hours.</p>
+      <div class="text-center mb-12 relative z-10">
+        <h2 class="text-4xl md:text-7xl font-black text-white mb-6">Start a Project.</h2>
+        <p class="text-gray-400 text-lg">Send me a message and let's build something incredible.</p>
       </div>
 
-      <!-- FormSubmit Integration -->
-      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        
+      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
-
-        <input required type="text" name="name" placeholder="Your Name *" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        <input type="hidden" name="_template" value="box">
         
-        <input required type="email" name="email" placeholder="Email Address *" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        <input required type="text" name="name" placeholder="Name" class="w-full glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition custom-hover">
+        <input required type="email" name="email" placeholder="Email" class="w-full glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition custom-hover">
+        <textarea required name="message" rows="4" placeholder="Tell me about your vision..." class="w-full md:col-span-2 glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition resize-none custom-hover"></textarea>
         
-        <input type="text" name="project" placeholder="Project Type (YouTube, Gaming, etc.)" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
-        
-        <input type="text" name="budget" placeholder="Budget Range (Optional)" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
-        
-        <textarea required name="message" rows="4" placeholder="Tell me about your project, ideas, and timeline..." class="w-full md:col-span-2 bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition resize-none"></textarea>
-        
-        <button type="submit" class="w-full md:col-span-2 bg-brand-600 hover:bg-brand-500 text-white font-bold text-lg py-4 rounded-2xl transition shadow-lg shadow-brand-500/25">
-          Send Message ↗
+        <button type="submit" class="w-full md:col-span-2 bg-white text-black font-bold text-xl py-5 rounded-xl hover:bg-gray-200 transition custom-hover">
+          Send Message
         </button>
       </form>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/5 py-8 text-center text-slate-500 text-sm mt-auto">
-    <p>© 2026 Md Zaid Raza. All rights reserved.</p>
+  <footer class="text-center py-10 text-sm font-semibold text-gray-600 tracking-widest uppercase">
+    © 2026 MD ZAID RAZA. 
   </footer>
 
   <!-- ========================================== -->
-  <!-- HIDDEN ADMIN PANEL (Opens on 4 logo clicks)-->
+  <!-- SECURE ADMIN LOGIN MODAL -->
   <!-- ========================================== -->
-  <div id="adminPanel" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-xl hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
-    <div class="glass-card w-full max-w-2xl rounded-3xl p-8 border border-brand-500/30 shadow-2xl shadow-brand-500/20 max-h-[90vh] overflow-y-auto">
+  <div id="loginModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+    <div class="glass w-full max-w-sm rounded-3xl p-8 border border-white/10">
+      <h2 class="text-2xl font-bold text-white mb-6">Admin Access</h2>
+      <input type="text" id="usernameInput" placeholder="Username" class="w-full glass border border-white/10 text-white rounded-xl p-4 mb-4 outline-none focus:border-accent">
+      <input type="password" id="passwordInput" placeholder="Password" class="w-full glass border border-white/10 text-white rounded-xl p-4 mb-6 outline-none focus:border-accent">
+      <p id="loginError" class="text-red-400 text-sm mb-4 hidden">Incorrect credentials.</p>
+      <div class="flex gap-4">
+        <button id="cancelLoginBtn" class="flex-1 glass text-white font-bold py-3 rounded-xl hover:bg-white/5 transition">Cancel</button>
+        <button id="submitLoginBtn" class="flex-1 bg-accent text-white font-bold py-3 rounded-xl hover:bg-accent2 transition">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- ADMIN DASHBOARD (Where you change things) -->
+  <!-- ========================================== -->
+  <div id="adminDashboard" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 md:p-10 opacity-0 transition-opacity duration-300">
+    <div class="glass w-full max-w-4xl rounded-[2rem] p-8 md:p-10 border border-accent/40 shadow-2xl shadow-accent/20 flex flex-col max-h-screen overflow-y-auto">
       
-      <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
+      <div class="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
         <div>
-          <h2 class="text-2xl font-bold text-white">⚙️ Zaid's Admin Panel</h2>
-          <p class="text-brand-400 text-sm mt-1">Live Website Editor</p>
+          <h2 class="text-3xl font-black text-white tracking-tight">System Core</h2>
+          <p class="text-accent font-bold tracking-widest uppercase text-xs mt-1">Live Environment Editor</p>
         </div>
-        <button id="closeAdmin" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">✕</button>
+        <button id="logoutBtn" class="glass px-6 py-2 rounded-full text-white text-sm hover:bg-red-500 hover:border-red-500 transition">Logout</button>
       </div>
 
-      <div class="space-y-6">
-        <!-- Edit Hero -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- Edit Text -->
         <div>
-          <label class="block text-sm font-semibold text-slate-300 mb-2">Main Headline</label>
-          <input type="text" id="admin-headline" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-brand-500">
-        </div>
-        
-        <div>
-          <label class="block text-sm font-semibold text-slate-300 mb-2">Bio / Subheadline</label>
-          <textarea id="admin-bio" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-brand-500"></textarea>
+          <h3 class="text-xl font-bold text-white mb-4">Edit Hero Section</h3>
+          <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Main Headline (Use <br> for break)</label>
+          <input type="text" id="adminHeroTitle" class="w-full glass border border-white/10 rounded-xl p-4 text-white outline-none mb-4 focus:border-accent">
+          
+          <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Biography / Subtext</label>
+          <textarea id="adminHeroBio" rows="4" class="w-full glass border border-white/10 rounded-xl p-4 text-white outline-none mb-6 focus:border-accent resize-none"></textarea>
+          
+          <button id="saveTextBtn" class="w-full bg-accent hover:bg-accent2 text-white font-bold py-4 rounded-xl transition">
+            Update Live Text
+          </button>
         </div>
 
-        <button id="saveChanges" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition">
-          Save Live Changes
-        </button>
-
-        <div class="pt-6 border-t border-white/10 mt-6">
-          <p class="text-xs text-slate-500 text-center">Note: Since this is a static frontend, changes made here will reflect instantly but will reset upon page reload. To make them permanent, connect this form to a database (like Firebase) later.</p>
+        <!-- Add Portfolio Item -->
+        <div class="glass p-6 rounded-2xl border border-white/5 bg-white/5">
+          <h3 class="text-xl font-bold text-white mb-4">Add to Portfolio</h3>
+          <p class="text-xs text-gray-400 mb-4">Paste an image URL to add new work dynamically to the grid.</p>
+          
+          <input type="text" id="newWorkImage" placeholder="Image URL (e.g. https://imgur.com/image.jpg)" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-3 text-sm">
+          <input type="text" id="newWorkTitle" placeholder="Project Title" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-3 text-sm">
+          <input type="text" id="newWorkCat" placeholder="Category (e.g. 3D Render)" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-5 text-sm">
+          
+          <button id="addWorkBtn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition">
+            + Push to Grid
+          </button>
         </div>
       </div>
-
+      
+      <p class="text-center text-xs text-gray-500 mt-10">Note: Frontend changes reset on refresh. Connect a database later for permanent storage.</p>
     </div>
   </div>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // --- 1. Easter Egg Admin Panel Logic ---
+    // --- 1. Custom Cursor ---
+    const cursorDot = document.getElementById("cursor-dot");
+    const cursorOutline = document.getElementById("cursor-outline");
+    const hoverElements = document.querySelectorAll(".custom-hover");
+
+    window.addEventListener("mousemove", (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
+      
+      // Delay for outline
+      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+    });
+
+    hoverElements.forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        cursorOutline.style.width = "60px";
+        cursorOutline.style.height = "60px";
+        cursorOutline.style.backgroundColor = "rgba(255,255,255,0.1)";
+      });
+      el.addEventListener("mouseleave", () => {
+        cursorOutline.style.width = "40px";
+        cursorOutline.style.height = "40px";
+        cursorOutline.style.backgroundColor = "transparent";
+      });
+    });
+
+    // --- 2. GSAP Animations ---
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Hero Entrance
+    gsap.from(".gsap-hero", { y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 });
+    
+    // Scroll Reveals
+    gsap.utils.toArray('.gsap-reveal').forEach(element => {
+      gsap.from(element, {
+        scrollTrigger: { trigger: element, start: "top 85%" },
+        y: 50, opacity: 0, duration: 0.8, ease: "power3.out"
+      });
+    });
+
+    // --- 3. Vanilla Tilt (3D Cards) ---
+    VanillaTilt.init(document.querySelectorAll(".tilt-card"));
+
+    // --- 4. Admin Panel Logic (ZAIDX9119 / Zaid@9119) ---
     let clickCount = 0;
     let clickTimer;
     
-    const logoTrigger = document.getElementById('logoTrigger');
-    const adminPanel = document.getElementById('adminPanel');
-    const closeAdmin = document.getElementById('closeAdmin');
+    const logo = document.getElementById('logoTrigger');
+    const loginModal = document.getElementById('loginModal');
+    const dashboard = document.getElementById('adminDashboard');
     
-    // Live Text Elements
-    const heroTitle = document.getElementById('edit-hero-title');
-    const heroBio = document.getElementById('edit-hero-bio');
-    
-    // Admin Inputs
-    const adminHeadlineInput = document.getElementById('admin-headline');
-    const adminBioInput = document.getElementById('admin-bio');
-    const saveChangesBtn = document.getElementById('saveChanges');
-
-    logoTrigger.addEventListener('click', (e) => {
-      e.preventDefault();
+    // Auth
+    logo.addEventListener('click', () => {
       clickCount++;
-      
       clearTimeout(clickTimer);
-      
-      if (clickCount >= 4) {
-        openAdminPanel();
-        clickCount = 0; // reset
-      }
-      
-      // Reset count if not clicked fast enough (within 1.5 seconds)
-      clickTimer = setTimeout(() => {
+      if (clickCount === 4) {
+        showElement(loginModal);
         clickCount = 0;
-      }, 1500);
+      }
+      clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
     });
 
-    function openAdminPanel() {
-      // Pre-fill inputs with current live text
-      adminHeadlineInput.value = heroTitle.innerText;
-      adminBioInput.value = heroBio.innerText;
+    document.getElementById('cancelLoginBtn').addEventListener('click', () => hideElement(loginModal));
+    
+    document.getElementById('submitLoginBtn').addEventListener('click', () => {
+      const user = document.getElementById('usernameInput').value;
+      const pass = document.getElementById('passwordInput').value;
       
-      adminPanel.classList.remove('hidden');
-      adminPanel.classList.add('flex');
-      // small delay for transition effect
-      setTimeout(() => {
-        adminPanel.classList.remove('opacity-0');
-        adminPanel.classList.add('opacity-100');
-      }, 10);
-    }
-
-    function closeAdminPanel() {
-      adminPanel.classList.remove('opacity-100');
-      adminPanel.classList.add('opacity-0');
-      setTimeout(() => {
-        adminPanel.classList.add('hidden');
-        adminPanel.classList.remove('flex');
-      }, 300);
-    }
-
-    closeAdmin.addEventListener('click', closeAdminPanel);
-
-    // Save Changes (Updates the DOM instantly)
-    saveChangesBtn.addEventListener('click', () => {
-      // Basic formatting to keep the gradient text effect if possible, 
-      // otherwise fallback to clean text
-      heroTitle.innerHTML = adminHeadlineInput.value.replace('\n', '<br/>');
-      heroBio.innerText = adminBioInput.value;
-      
-      saveChangesBtn.innerText = "✓ Saved Successfully!";
-      saveChangesBtn.classList.replace('bg-emerald-500', 'bg-emerald-400');
-      
-      setTimeout(() => {
-        saveChangesBtn.innerText = "Save Live Changes";
-        saveChangesBtn.classList.replace('bg-emerald-400', 'bg-emerald-500');
-        closeAdminPanel();
-      }, 1000);
+      if (user === 'ZAIDX9119' && pass === 'Zaid@9119') {
+        document.getElementById('loginError').classList.add('hidden');
+        hideElement(loginModal);
+        
+        // Setup dashboard data
+        document.getElementById('adminHeroTitle').value = document.getElementById('live-hero-title').innerHTML.trim();
+        document.getElementById('adminHeroBio').value = document.getElementById('live-hero-bio').innerText;
+        
+        setTimeout(() => showElement(dashboard), 300);
+        
+        // Clear inputs for security
+        document.getElementById('usernameInput').value = '';
+        document.getElementById('passwordInput').value = '';
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
     });
 
-  </script>
-</body>
-</html>
+    document.getElementById('logoutBtn').addEventListener('click', () => hideElement(dashboard));
+
+    // Dashboard Functions: Edit Text
+    document.getElementById('saveTextBtn').addEventLi

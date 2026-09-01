@@ -1,998 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Md Zaid Raza — Thumbnail Designer</title>
-<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator. I turn ideas into scroll-stopping thumbnails that get clicks.">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: { sans: ['Inter', 'system-ui', 'Arial', 'sans-serif'] }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md Zaid Raza — Thumbnail Designer</title>
+  <meta name="description" content="I turn ideas into scroll-stopping thumbnails that get clicks.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            brand: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' }
+          }
+        }
+      }
     }
-  }
-}
-</script>
-<style>
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: #030305;
-    color: #fff;
-    font-family: Inter, system-ui, Arial, sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
-  body:before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 100;
-    background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: .06;
-  }
-  .cursor-dot {
-    position: fixed; width: 8px; height: 8px; background: #fff; border-radius: 50%;
-    pointer-events: none; z-index: 9999; mix-blend-mode: difference;
-    transition: transform .15s ease, width .2s, height .2s;
-  }
-  .cursor-ring {
-    position: fixed; width: 36px; height: 36px; border: 1.5px solid rgba(255,255,255,.45);
-    border-radius: 50%; pointer-events: none; z-index: 9998;
-    transition: transform .35s cubic-bezier(.2,.8,.2,1), width .25s, height .25s, border-color .25s;
-  }
-  .cursor-dot.hover, .cursor-ring.hover { transform: scale(1.8); }
-  .cursor-ring.hover { border-color: rgba(140,120,255,.9); width: 52px; height: 52px; }
-  @media (max-width: 900px), (pointer: coarse) {
-    .cursor-dot, .cursor-ring { display: none !important; }
-    body { cursor: auto; }
-  }
-  canvas { position: fixed !important; inset: 0; z-index: -5; }
-  .glass {
-    background: rgba(255,255,255,.045);
-    border: 1px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    box-shadow: 0 20px 70px rgba(0,0,0,.25);
-  }
-  .glow { box-shadow: 0 0 80px rgba(120,100,255,.18); }
-  .gradient {
-    background: linear-gradient(105deg, #fff 0%, #a78bfa 45%, #fff 90%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .orbit { animation: spin 22s linear infinite; }
-  .orbit2 { animation: spin 34s linear infinite reverse; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: .55; transform: scale(1.08); }
-  }
-  .pulse { animation: pulse 2.4s ease-in-out infinite; }
-  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
-  .reveal.show { opacity: 1; transform: none; }
-  .project { transform-style: preserve-3d; perspective: 1000px; transition: transform .4s ease; }
-  .project img { transition: transform .7s cubic-bezier(.2,.8,.2,1); }
-  .project:hover img { transform: scale(1.1); }
-  .project:after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(transparent 35%, rgba(0,0,0,.88));
-    pointer-events: none; border-radius: inherit;
-  }
-  .service-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), background .3s, border-color .3s; }
-  .service-card:hover { transform: translateY(-10px); background: rgba(255,255,255,.08); border-color: rgba(167,139,250,.35); }
-  .modal { display: none; }
-  .modal.open { display: flex; }
-  input, textarea, select {
-    background: rgba(255,255,255,.05) !important;
-    border: 1px solid rgba(255,255,255,.12) !important;
-    color: #fff !important;
-  }
-  input:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: rgba(167,139,250,.55) !important;
-    background: rgba(255,255,255,.08) !important;
-  }
-  .magnetic { transition: transform .25s cubic-bezier(.2,.8,.2,1); }
-  .filter.active { background: #fff; color: #000; border-color: #fff; }
-  #scrollProgress {
-    position: fixed; top: 0; left: 0; height: 2px;
-    background: linear-gradient(90deg, #a78bfa, #fff); z-index: 200; width: 0%;
-  }
-  .floating-cta { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 60; display: none; }
-  @media (max-width: 768px) {
-    .floating-cta { display: block; }
-    .desktop3d { display: none; }
-    .heroTitle { font-size: 3.1rem !important; }
-    .profile { width: 180px !important; height: 180px !important; }
-  }
-  #loadbar { transition: width 1.1s cubic-bezier(.2,.8,.2,1); }
-  .noise {
-    position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: .03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .admin-panel { display: none; }
-  .admin-panel.open { display: flex; }
-  .admin-tab.active { background: #fff; color: #000; }
-  .admin-field { width: 100%; border-radius: 12px; padding: 12px 14px; font-size: 14px; }
-  .admin-row { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 14px; }
-</style>
+  </script>
+  <style>
+    body {
+      background-color: #0f172a; /* Deep Slate, not pure black */
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #a5b4fc, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Hide scrollbar for clean look */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  </style>
 </head>
-<body>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="noise"></div>
-<div id="scrollProgress"></div>
+<body class="text-slate-200 antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
 
-<div id="loader" class="fixed inset-0 z-[200] flex items-center justify-center bg-[#030305] transition-opacity duration-700">
-  <div class="text-center">
-    <div class="text-[10px] tracking-[.5em] text-zinc-500">CREATIVE PORTFOLIO</div>
-    <div class="mt-4 text-4xl font-black tracking-tight">ZAID RAZA</div>
-    <div class="mt-6 h-px w-52 overflow-hidden bg-white/10 mx-auto">
-      <div id="loadbar" class="h-full w-0 bg-gradient-to-r from-violet-400 to-white"></div>
-    </div>
-    <div class="mt-4 text-[10px] tracking-widest text-zinc-600">LOADING EXPERIENCE</div>
-  </div>
-</div>
-
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-2xl">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-    <a href="#" id="logoTrigger" class="font-black tracking-tight text-lg magnetic select-none">ZAID<span class="text-zinc-600">.</span></a>
-    <div class="hidden md:flex gap-8 text-[11px] tracking-widest text-zinc-400">
-      <a href="#about" class="hover:text-white transition magnetic">ABOUT</a>
-      <a href="#services" class="hover:text-white transition magnetic">SERVICES</a>
-      <a href="#work" class="hover:text-white transition magnetic">WORK</a>
-      <a href="#process" class="hover:text-white transition magnetic">PROCESS</a>
-      <a href="#contact" class="hover:text-white transition magnetic">CONTACT</a>
-    </div>
-    <a href="#contact" class="magnetic rounded-full bg-white px-5 py-2.5 text-xs font-black text-black hover:scale-105 transition">HIRE ME ↗</a>
-  </div>
-</nav>
-
-<main>
-  <section class="relative min-h-screen overflow-hidden pt-24">
-    <div class="desktop3d absolute inset-0"><canvas id="webgl"></canvas></div>
-    <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/12 blur-[120px] pointer-events-none"></div>
-    <div class="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl flex-col items-center justify-center px-5 text-center">
-      <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-[10px] tracking-[.28em] text-zinc-300">
-        <span class="pulse inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
-        <span id="availabilityText">AVAILABLE FOR NEW PROJECTS</span>
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 w-full z-50 bg-slate-900/70 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- SECRET ADMIN TRIGGER: Click this logo 4 times -->
+      <a href="#" id="logoTrigger" class="text-2xl font-extrabold tracking-tight text-white select-none cursor-pointer">
+        ZAID<span class="text-brand-400">.</span>
+      </a>
+      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+        <a href="#work" class="hover:text-white transition">Portfolio</a>
+        <a href="#services" class="hover:text-white transition">Services</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
       </div>
-      <div class="relative profile mb-10 h-64 w-64 md:h-72 md:w-72">
-        <div class="absolute inset-[-30px] rounded-full border border-dashed border-white/15 orbit"></div>
-        <div class="absolute inset-[-58px] rounded-full border border-white/6 orbit2"></div>
-        <div class="absolute left-[-40px] top-1/2 -translate-y-1/2 glass flex h-12 w-12 items-center justify-center rounded-xl text-xs font-bold">PS</div>
-        <div class="absolute right-[-40px] top-1/2 -translate-y-1/2 glass flex h-12 w-12 items-center justify-center rounded-xl text-xs font-bold">CA</div>
-        <div class="absolute left-1/2 top-[-44px] -translate-x-1/2 glass flex h-12 w-12 items-center justify-center rounded-xl text-xs font-bold">YT</div>
-        <div class="absolute bottom-[-44px] left-1/2 -translate-x-1/2 glass flex h-12 w-12 items-center justify-center rounded-xl text-sm">✦</div>
-        <div class="relative h-full w-full overflow-hidden rounded-full border border-white/20 bg-zinc-900 shadow-[0_0_120px_rgba(140,120,255,.28)]">
-          <img id="profileImg" src="" alt="Md Zaid Raza" class="hidden h-full w-full object-cover">
-          <div id="profileFallback" class="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-200 via-zinc-600 to-zinc-950 text-7xl font-black text-black">ZR</div>
+      <a href="#contact" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-brand-500/20">
+        Hire Me
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="pt-32 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[85vh]">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-semibold text-brand-400 mb-8">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Available for New Projects
+    </div>
+    
+    <h1 id="edit-hero-title" class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+      I design thumbnails that <br class="hidden md:block"/>
+      <span class="text-gradient">actually get clicks.</span>
+    </h1>
+    
+    <p id="edit-hero-bio" class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
+      Visual Content Creator specializing in scroll-stopping artwork for YouTube, Gaming, and Brands. I turn your ideas into high-converting visual assets.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      <a href="#work" class="bg-white text-slate-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition">View My Work</a>
+      <a href="#contact" class="glass-card text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition">Start a Project</a>
+    </div>
+  </header>
+
+  <!-- SERVICES (Bento Grid Style) -->
+  <section id="services" class="py-20 px-6 max-w-7xl mx-auto w-full">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">What I Do</h2>
+      <p class="text-slate-400">Elevating your digital presence through premium design.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-8 rounded-3xl">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">📺</div>
+        <h3 class="text-xl font-bold text-white mb-3">YouTube Thumbnails</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">High-CTR designs customized for your niche, increasing your views and channel growth.</p>
+      </div>
+      <div class="glass-card p-8 rounded-3xl">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">🎮</div>
+        <h3 class="text-xl font-bold text-white mb-3">Gaming Graphics</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Eye-catching, high-energy visuals that make your streams and highlights stand out.</p>
+      </div>
+      <div class="glass-card p-8 rounded-3xl">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl">📱</div>
+        <h3 class="text-xl font-bold text-white mb-3">Social Media Assets</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Cohesive banners, profile pictures, and posts tailored for Instagram, Twitter, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section id="work" class="py-20 px-6 max-w-7xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Selected Work</h2>
+        <p class="text-slate-400">A glimpse into thumbnails that convert.</p>
+      </div>
+    </div>
+    
+    <!-- Gallery Grid -->
+    <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Item 1 -->
+      <div class="glass-card rounded-2xl overflow-hidden group">
+        <div class="aspect-video bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1616499370260-485b3e5ed653?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+        </div>
+        <div class="p-5">
+          <h4 class="text-white font-bold text-lg">Tech Review Style</h4>
+          <p class="text-slate-400 text-sm mt-1">High Contrast / Clean</p>
         </div>
       </div>
-      <div id="heroName" class="text-[11px] tracking-[.4em] text-zinc-500">MD ZAID RAZA</div>
-      <h1 id="heroTitle" class="heroTitle mt-4 max-w-5xl text-6xl font-black leading-[.9] tracking-[-.06em] md:text-[8.2rem]">
-        I DESIGN<br><span class="gradient">THUMBNAILS</span><br>THAT GET CLICKS.
-      </h1>
-      <p id="heroBio" class="mt-8 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
-        Thumbnail Designer & Visual Content Creator. I turn ordinary ideas into scroll-stopping visuals for YouTube, Instagram, gaming, education, business, Islamic content, motivation and storytelling.
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a href="#work" class="magnetic rounded-full bg-white px-8 py-4 text-sm font-bold text-black">VIEW MY WORK ↗</a>
-        <a href="#contact" class="magnetic glass rounded-full px-8 py-4 text-sm font-bold">LET'S TALK</a>
+      <!-- Item 2 -->
+      <div class="glass-card rounded-2xl overflow-hidden group">
+        <div class="aspect-video bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+        </div>
+        <div class="p-5">
+          <h4 class="text-white font-bold text-lg">Gaming Highlights</h4>
+          <p class="text-slate-400 text-sm mt-1">Vibrant / Energetic</p>
+        </div>
       </div>
-      <a href="#about" class="mt-20 text-[10px] tracking-[.35em] text-zinc-500">SCROLL TO EXPLORE ↓</a>
-    </div>
-  </section>
-
-  <section id="about" class="reveal mx-auto max-w-7xl px-5 py-28 md:py-36">
-    <div class="grid gap-14 md:grid-cols-[1.25fr_.75fr] md:items-center">
-      <div>
-        <div class="text-[11px] tracking-[.35em] text-zinc-500">ABOUT ME</div>
-        <h2 class="mt-4 text-5xl font-black tracking-tight md:text-7xl">Visuals built to<br><span class="gradient">stand out.</span></h2>
-        <p id="aboutText" class="mt-8 max-w-xl leading-8 text-zinc-400"></p>
-        <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4" id="statsGrid"></div>
-      </div>
-      <div class="glass glow rounded-[2rem] p-6">
-        <div class="flex aspect-square items-center justify-center rounded-[1.6rem] border border-white/10 bg-gradient-to-br from-white/10 via-violet-500/5 to-transparent">
-          <div class="text-center">
-            <div class="text-[7.5rem] font-black leading-none text-white/10">ZR</div>
-            <div class="mt-2 text-[11px] tracking-[.3em] text-zinc-500">VISUAL CONTENT CREATOR</div>
-          </div>
+      <!-- Item 3 -->
+      <div class="glass-card rounded-2xl overflow-hidden group">
+        <div class="aspect-video bg-slate-800 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop" alt="Thumbnail" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+        </div>
+        <div class="p-5">
+          <h4 class="text-white font-bold text-lg">Business & Finance</h4>
+          <p class="text-slate-400 text-sm mt-1">Professional / Trustworthy</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="services" class="reveal mx-auto max-w-7xl px-5 py-28">
-    <div class="text-[11px] tracking-[.35em] text-zinc-500">SERVICES</div>
-    <h2 class="mt-4 text-5xl font-black md:text-7xl">What I <span class="gradient">create.</span></h2>
-    <p class="mt-5 max-w-xl text-zinc-400">Every thumbnail is designed with one goal: make people stop and click.</p>
-    <div id="servicesGrid" class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
-  </section>
-
-  <section id="process" class="reveal mx-auto max-w-7xl px-5 py-20">
-    <div class="glass rounded-[2rem] p-8 md:p-14">
-      <div class="text-[11px] tracking-[.35em] text-zinc-500">DESIGN PROCESS</div>
-      <h2 class="mt-4 text-4xl font-black md:text-6xl">From idea to <span class="gradient">impact.</span></h2>
-      <p class="mt-4 max-w-lg text-zinc-400">A clear, collaborative process so you always know what’s happening.</p>
-      <div class="mt-14 grid gap-5 md:grid-cols-4" id="processGrid"></div>
-    </div>
-  </section>
-
-  <section id="work" class="reveal mx-auto max-w-7xl px-5 py-28">
-    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-      <div>
-        <div class="text-[11px] tracking-[.35em] text-zinc-500">SELECTED WORK</div>
-        <h2 class="mt-4 text-5xl font-black md:text-7xl">My <span class="gradient">work.</span></h2>
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="py-24 px-6 max-w-4xl mx-auto w-full">
+    <div class="glass-card rounded-[2.5rem] p-8 md:p-14 relative overflow-hidden">
+      <!-- Decorative element -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px] -z-10"></div>
+      
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Let's work together</h2>
+        <p class="text-slate-400">Fill out the form below and I'll get back to you within 24 hours.</p>
       </div>
-      <div id="filters" class="flex flex-wrap gap-2"></div>
-    </div>
-    <div id="portfolioGrid" class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3"></div>
-  </section>
 
-  <section class="reveal mx-auto max-w-7xl px-5 py-20">
-    <div class="glass rounded-[2rem] p-8 md:p-14">
-      <div class="text-[11px] tracking-[.35em] text-zinc-500">WHY WORK WITH ME</div>
-      <h2 class="mt-4 text-4xl font-black md:text-6xl">Designed for <span class="gradient">results.</span></h2>
-      <div class="mt-12 grid gap-6 md:grid-cols-3" id="whyGrid"></div>
-    </div>
-  </section>
+      <!-- FormSubmit Integration -->
+      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
 
-  <section class="reveal mx-auto max-w-7xl px-5 py-16">
-    <div class="glass rounded-[2rem] p-8 md:p-12">
-      <div class="text-[11px] tracking-[.35em] text-zinc-500">TOOLS</div>
-      <h2 class="mt-4 text-4xl font-black md:text-5xl">My creative <span class="gradient">stack.</span></h2>
-      <div id="toolsGrid" class="mt-10 flex flex-wrap gap-3"></div>
-    </div>
-  </section>
-
-  <section id="contact" class="reveal mx-auto max-w-5xl px-5 py-28 md:py-36">
-    <div class="glass rounded-[2rem] p-8 md:p-14">
-      <div class="text-[11px] tracking-[.35em] text-zinc-500">LET'S WORK TOGETHER</div>
-      <h2 class="mt-4 text-4xl font-black leading-tight md:text-6xl">Ready for thumbnails that<br><span class="gradient">actually get clicks?</span></h2>
-      <p class="mt-6 max-w-xl text-zinc-400">Have a video, channel or brand that needs stronger visuals? Tell me about your project and I’ll get back to you quickly.</p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a id="emailLink" href="mailto:mdzaidraza9119@gmail.com" class="magnetic rounded-full bg-white px-7 py-3.5 text-sm font-bold text-black">EMAIL ME ↗</a>
-        <button id="copyEmail" class="magnetic glass rounded-full px-7 py-3.5 text-sm">COPY EMAIL</button>
-      </div>
-      <form id="contactForm" class="mt-12 grid gap-4 md:grid-cols-2">
-        <input required name="name" placeholder="Your Name *" class="rounded-2xl p-4">
-        <input required type="email" name="email" placeholder="Email Address *" class="rounded-2xl p-4">
-        <input name="project" placeholder="Project Type (YouTube / Gaming / etc.)" class="rounded-2xl p-4">
-        <input name="budget" placeholder="Budget Range (optional)" class="rounded-2xl p-4">
-        <textarea required name="message" rows="5" placeholder="Tell me about your project, deadline and any references..." class="rounded-2xl p-4 md:col-span-2"></textarea>
-        <button type="submit" class="magnetic rounded-2xl bg-white p-4 font-bold text-black md:col-span-2">SEND PROJECT REQUEST ↗</button>
+        <input required type="text" name="name" placeholder="Your Name *" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        
+        <input required type="email" name="email" placeholder="Email Address *" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        
+        <input type="text" name="project" placeholder="Project Type (YouTube, Gaming, etc.)" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        
+        <input type="text" name="budget" placeholder="Budget Range (Optional)" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition">
+        
+        <textarea required name="message" rows="4" placeholder="Tell me about your project, ideas, and timeline..." class="w-full md:col-span-2 bg-slate-900/50 border border-slate-700 text-white rounded-2xl p-4 outline-none focus:border-brand-500 focus:bg-slate-800 transition resize-none"></textarea>
+        
+        <button type="submit" class="w-full md:col-span-2 bg-brand-600 hover:bg-brand-500 text-white font-bold text-lg py-4 rounded-2xl transition shadow-lg shadow-brand-500/25">
+          Send Message ↗
+        </button>
       </form>
-      <div id="formStatus" class="mt-5 hidden rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-200"></div>
     </div>
   </section>
 
-  <footer class="border-t border-white/10 px-5 py-12">
-    <div class="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-      <div>
-        <b id="footerName" class="text-lg">MD ZAID RAZA</b>
-        <div id="footerRole" class="mt-1 text-xs text-zinc-500">Thumbnail Designer & Visual Content Creator</div>
-      </div>
-      <div class="text-xs text-zinc-600">© 2026 Md Zaid Raza. All rights reserved.</div>
-    </div>
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 py-8 text-center text-slate-500 text-sm mt-auto">
+    <p>© 2026 Md Zaid Raza. All rights reserved.</p>
   </footer>
-</main>
 
-<a href="#contact" class="floating-cta magnetic rounded-full bg-white px-6 py-3.5 text-sm font-bold text-black shadow-2xl">HIRE ME ↗</a>
-
-<div id="projectModal" class="modal fixed inset-0 z-[120] items-center justify-center bg-black/85 p-5 backdrop-blur-xl">
-  <div class="glass w-full max-w-5xl rounded-3xl p-4 md:p-6 max-h-[90vh] overflow-auto">
-    <div class="flex justify-end"><button id="closeProject" class="rounded-full border border-white/10 px-4 py-2">✕</button></div>
-    <img id="modalImg" class="mt-2 max-h-[65vh] w-full rounded-2xl object-contain" alt="">
-    <div class="p-4 md:p-6">
-      <div id="modalCat" class="text-[11px] tracking-[.3em] text-zinc-500"></div>
-      <h3 id="modalTitle" class="mt-2 text-3xl font-bold"></h3>
-      <p id="modalDesc" class="mt-3 text-zinc-400"></p>
-      <a href="#contact" id="modalCta" class="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-bold text-black">Want something like this? Hire me ↗</a>
-    </div>
-  </div>
-</div>
-
-<!-- ADMIN LOGIN -->
-<div id="adminLogin" class="modal fixed inset-0 z-[180] items-center justify-center bg-black/85 p-5 backdrop-blur-xl">
-  <div class="glass w-full max-w-md rounded-3xl p-7">
-    <div class="flex items-center justify-between">
-      <div>
-        <div class="text-[11px] tracking-[.3em] text-zinc-500">HIDDEN ACCESS</div>
-        <h3 class="mt-2 text-2xl font-bold">Admin Login</h3>
-      </div>
-      <button id="closeLogin" class="text-xl">✕</button>
-    </div>
-    <form id="loginForm" class="mt-6 grid gap-3">
-      <input id="adminUser" class="admin-field" placeholder="Username" autocomplete="off">
-      <input id="adminPass" type="password" class="admin-field" placeholder="Password">
-      <button class="rounded-xl bg-white p-3 font-bold text-black">ENTER PANEL</button>
-    </form>
-    <p id="loginError" class="mt-3 hidden text-sm text-red-400">Wrong username or password.</p>
-    <button id="forgotBtn" class="mt-4 text-xs text-zinc-400 underline">Forgot password? Reset via email</button>
-  </div>
-</div>
-
-<!-- PASSWORD RESET -->
-<div id="resetModal" class="modal fixed inset-0 z-[185] items-center justify-center bg-black/85 p-5 backdrop-blur-xl">
-  <div class="glass w-full max-w-md rounded-3xl p-7">
-    <div class="flex items-center justify-between">
-      <h3 class="text-2xl font-bold">Reset password</h3>
-      <button id="closeReset" class="text-xl">✕</button>
-    </div>
-    <p class="mt-3 text-sm text-zinc-400">Verification is sent to <b id="resetEmailLabel">mdzaidraza9119@gmail.com</b>.</p>
-    <div id="resetStep1" class="mt-5 grid gap-3">
-      <button id="sendCodeBtn" class="rounded-xl bg-white p-3 font-bold text-black">SEND VERIFICATION CODE</button>
-      <p id="codeSentNote" class="hidden text-xs text-zinc-400"></p>
-    </div>
-    <div id="resetStep2" class="mt-5 hidden grid gap-3">
-      <input id="verifyCode" class="admin-field" placeholder="6-digit code">
-      <input id="newPass1" type="password" class="admin-field" placeholder="New password">
-      <input id="newPass2" type="password" class="admin-field" placeholder="Confirm new password">
-      <button id="confirmResetBtn" class="rounded-xl bg-white p-3 font-bold text-black">UPDATE PASSWORD</button>
-      <p id="resetMsg" class="text-sm text-zinc-400"></p>
-    </div>
-  </div>
-</div>
-  </div>
-  <form id="contactForm" class="mt-12 grid gap-4 md:grid-cols-2" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-  <!-- FormSubmit configuration -->
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
-
-  <input required name="name" placeholder="Your Name *" class="rounded-2xl p-4">
-  <input required type="email" name="email" placeholder="Email Address *" class="rounded-2xl p-4">
-  <input name="project" placeholder="Project Type (YouTube / Gaming / etc.)" class="rounded-2xl p-4">
-  <input name="budget" placeholder="Budget Range (optional)" class="rounded-2xl p-4">
-  <textarea required name="message" rows="5" placeholder="Tell me about your project, deadline and any references..." class="rounded-2xl p-4 md:col-span-2"></textarea>
-  
-  <button type="submit" id="submitBtn" class="magnetic rounded-2xl bg-white p-4 font-bold text-black md:col-span-2 transition duration-300 hover:bg-violet-400 hover:text-white">SEND PROJECT REQUEST ↗</button>
-</form>
-
-  <!-- Floating Admin Edit Button -->
-<button id="adminEditBtn" class="fixed bottom-6 right-6 z-[110] flex h-14 w-14 items-center justify-center rounded-full bg-violet-600/80 shadow-[0_0_20px_rgba(139,92,246,0.3)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-violet-500 group">
-  <svg class="h-6 w-6 text-white transition-transform duration-500 group-hover:rotate-90" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-  </svg>
-</button>
-
-  <div>
-
-<!-- ADMIN PANEL -->
-<div id="adminPanel" class="admin-panel fixed inset-0 z-[190] items-start justify-center bg-black/90 p-3 md:p-6 backdrop-blur-xl overflow-auto">
-  <div class="glass w-full max-w-6xl rounded-3xl p-5 md:p-8 my-4">
-    <div class="flex flex-wrap items-center justify-between gap-3">
-      <div>
-        <div class="text-[11px] tracking-[.3em] text-zinc-500">SITE CONTROL</div>
-        <h3 class="mt-1 text-2xl md:text-3xl font-bold">Admin Panel</h3>
-      </div>
-      <div class="flex gap-2">
-        <button id="logoutBtn" class="rounded-full border border-white/15 px-4 py-2 text-xs">LOG OUT</button>
-        <button id="closeAdmin" class="rounded-full bg-white px-4 py-2 text-xs font-bold text-black">CLOSE</button>
-      </div>
-    </div>
-    <div class="mt-6 flex flex-wrap gap-2" id="adminTabs">
-      <button data-tab="site" class="admin-tab active rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">SITE</button>
-      <button data-tab="work" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">WORK</button>
-      <button data-tab="services" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">SERVICES</button>
-      <button data-tab="process" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">PROCESS</button>
-      <button data-tab="why" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">WHY ME</button>
-      <button data-tab="tools" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">TOOLS</button>
-      <button data-tab="security" class="admin-tab rounded-full border border-white/10 px-4 py-2 text-xs tracking-widest">SECURITY</button>
-    </div>
-
-    <div id="tab-site" class="admin-section mt-6 grid gap-4">
-      <label class="text-sm">Display name<input id="fName" class="admin-field mt-2"></label>
-      <label class="text-sm">Role / subtitle<input id="fRole" class="admin-field mt-2"></label>
-      <label class="text-sm">Availability badge<input id="fAvail" class="admin-field mt-2"></label>
-      <label class="text-sm">Hero headline (use &lt;br&gt; and &lt;span class="gradient"&gt;text&lt;/span&gt;)<textarea id="fHeadline" rows="3" class="admin-field mt-2"></textarea></label>
-      <label class="text-sm">Hero bio<textarea id="fHeroBio" rows="3" class="admin-field mt-2"></textarea></label>
-      <label class="text-sm">About paragraph<textarea id="fAbout" rows="4" class="admin-field mt-2"></textarea></label>
-      <label class="text-sm">Public email<input id="fEmail" class="admin-field mt-2"></label>
-      <div class="grid gap-3 sm:grid-cols-3">
-        <label class="text-sm">Years<input id="fYears" type="number" class="admin-field mt-2"></label>
-        <label class="text-sm">Designs<input id="fDesigns" type="number" class="admin-field mt-2"></label>
-        <label class="text-sm">Niches<input id="fNiches" type="number" class="admin-field mt-2"></label>
-      </div>
-      <label class="text-sm">Profile photo
-        <input id="adminProfileUpload" type="file" accept="image/*" class="admin-field mt-2">
-      </label>
-      <button id="saveSite" class="rounded-xl bg-white p-3 font-bold text-black">SAVE SITE CONTENT</button>
-    </div>
-
-    <div id="tab-work" class="admin-section mt-6 hidden">
-      <div class="flex items-center justify-between mb-3">
-        <h4 class="font-bold">Portfolio items</h4>
-        <button id="addProject" class="rounded-full bg-white px-4 py-2 text-xs font-bold text-black">+ ADD WORK</button>
-      </div>
-      <div id="adminProjects" class="grid gap-3"></div>
-      <button id="saveWork" class="mt-4 w-full rounded-xl bg-white p-3 font-bold text-black">SAVE WORK</button>
-    </div>
-
-    <div id="tab-services" class="admin-section mt-6 hidden">
-      <div class="flex items-center justify-between mb-3">
-        <h4 class="font-bold">Services</h4>
-        <button id="addService" class="rounded-full bg-white px-4 py-2 text-xs font-bold text-black">+ ADD SERVICE</button>
-      </div>
-      <div id="adminServices" class="grid gap-3"></div>
-      <button id="saveServices" class="mt-4 w-full rounded-xl bg-white p-3 font-bold text-black">SAVE SERVICES</button>
-    </div>
-
-    <div id="tab-process" class="admin-section mt-6 hidden">
-      <div id="adminProcess" class="grid gap-3"></div>
-      <button id="saveProcess" class="mt-4 w-full rounded-xl bg-white p-3 font-bold text-black">SAVE PROCESS</button>
-    </div>
-
-    <div id="tab-why" class="admin-section mt-6 hidden">
-      <div id="adminWhy" class="grid gap-3"></div>
-      <button id="saveWhy" class="mt-4 w-full rounded-xl bg-white p-3 font-bold text-black">SAVE WHY ME</button>
-    </div>
-
-    <div id="tab-tools" class="admin-section mt-6 hidden">
-      <p class="text-sm text-zinc-400 mb-3">One tool per line</p>
-      <textarea id="fTools" rows="6" class="admin-field"></textarea>
-      <button id="saveTools" class="mt-4 w-full rounded-xl bg-white p-3 font-bold text-black">SAVE TOOLS</button>
-    </div>
-
-    <div id="tab-security" class="admin-section mt-6 hidden grid gap-4">
-      <p class="text-sm text-zinc-400">Username is fixed unless you change it here. Password reset email: <b>mdzaidraza9119@gmail.com</b></p>
-      <label class="text-sm">Admin username<input id="fUsername" class="admin-field mt-2"></label>
-      <label class="text-sm">Recovery email<input id="fRecovery" class="admin-field mt-2"></label>
-      <label class="text-sm">Current password<input id="fCurPass" type="password" class="admin-field mt-2"></label>
-      <label class="text-sm">New password<input id="fNewPass" type="password" class="admin-field mt-2"></label>
-      <button id="saveSecurity" class="rounded-xl bg-white p-3 font-bold text-black">UPDATE LOGIN</button>
-      <button id="resetSiteData" class="rounded-xl border border-red-400/40 p-3 text-sm text-red-300">RESET ALL SITE CONTENT TO DEFAULTS</button>
-      <p id="secMsg" class="text-sm text-zinc-400"></p>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-const DEFAULTS = {
-  site: {
-    name: "MD ZAID RAZA",
-    role: "Thumbnail Designer & Visual Content Creator",
-    availability: "AVAILABLE FOR NEW PROJECTS",
-    headline: "I DESIGN<br><span class=\"gradient\">THUMBNAILS</span><br>THAT GET CLICKS.",
-    heroBio: "Thumbnail Designer & Visual Content Creator. I turn ordinary ideas into scroll-stopping visuals for YouTube, Instagram, gaming, education, business, Islamic content, motivation and storytelling.",
-    about: "I'm Md Zaid Raza — a focused visual designer who creates thumbnails that stop the scroll and drive clicks. I combine strong composition, bold typography, color psychology and storytelling so your content gets the attention it deserves.",
-    email: "mdzaidraza9119@gmail.com",
-    years: 2,
-    designs: 100,
-    niches: 10
-  },
-  projects: [
-    { title: "Gaming Challenge", cat: "Gaming", desc: "High-energy gaming thumbnail concept designed for maximum click-through.", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Mindset Shift", cat: "Motivation", desc: "Bold motivational visual that stops the scroll and builds emotion.", img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Islamic Knowledge", cat: "Islamic", desc: "Respectful and clean educational visual for Islamic content.", img: "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Study Smarter", cat: "Education", desc: "Clean, focused educational thumbnail with strong hierarchy.", img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Money Explained", cat: "Finance", desc: "Modern finance thumbnail with clear visual storytelling.", img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Build Your Brand", cat: "Business", desc: "Professional business visual that builds trust and authority.", img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Untold Story", cat: "Storytelling", desc: "Cinematic storytelling concept with dramatic lighting.", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Future Tech", cat: "Technology", desc: "Futuristic technology concept with high-tech energy.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Entertainment", cat: "Entertainment", desc: "High-contrast entertainment visual made for attention.", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Custom Concept", cat: "Custom", desc: "Experimental creative direction tailored to unique brands.", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=85" }
-  ],
-  services: [
-    { n: "01", title: "YouTube Thumbnail Design", desc: "High-impact thumbnails engineered to attract attention and increase CTR." },
-    { n: "02", title: "Social Media Graphics", desc: "Scroll-stopping visuals for Instagram, Shorts covers and more." },
-    { n: "03", title: "Gaming Thumbnails", desc: "Energetic, dramatic and competitive gaming visuals that pop." },
-    { n: "04", title: "Educational Thumbnails", desc: "Clean, trustworthy and clear designs for knowledge creators." },
-    { n: "05", title: "Islamic Content", desc: "Respectful, beautiful visuals for Islamic educational content." },
-    { n: "06", title: "Motivation & Storytelling", desc: "Emotional, powerful concepts that connect with the audience." },
-    { n: "07", title: "Business & Finance", desc: "Professional, modern visuals that build authority and trust." },
-    { n: "08", title: "Custom Design", desc: "Fully custom concepts based on your unique requirements." }
-  ],
-  process: [
-    { n: "01", title: "DISCOVER", desc: "We discuss your topic, audience, goal and references so the direction is clear." },
-    { n: "02", title: "CONCEPT", desc: "I develop a strong visual concept focused on emotion and clickability." },
-    { n: "03", title: "DESIGN", desc: "Composition, typography, color and hierarchy are built for maximum impact." },
-    { n: "04", title: "DELIVER", desc: "You receive the final design in the exact format you need — ready to upload." }
-  ],
-  why: [
-    { icon: "⚡", title: "Fast Delivery", desc: "Quick turnarounds without sacrificing quality. Most projects delivered within 24–48 hours." },
-    { icon: "🎯", title: "Click-Focused Design", desc: "Every element is intentional — composition, contrast and hierarchy built to stop the scroll." },
-    { icon: "🔄", title: "Unlimited Revisions", desc: "We refine until you’re 100% happy. Your satisfaction is part of the process." }
-  ],
-  tools: ["Photoshop", "Canva", "CapCut", "VN", "Alight Motion", "Lightroom"],
-  auth: {
-    username: "ZAIDX9119",
-    password: "Zaid@9119",
-    recovery: "mdzaidraza9119@gmail.com"
-  }
-};
-
-function loadJSON(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : structuredClone(fallback);
-  } catch {
-    return structuredClone(fallback);
-  }
-}
-function saveJSON(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-
-let SITE = loadJSON("zr_site", DEFAULTS.site);
-let PROJECTS = loadJSON("zr_projects", DEFAULTS.projects);
-let SERVICES = loadJSON("zr_services", DEFAULTS.services);
-let PROCESS = loadJSON("zr_process", DEFAULTS.process);
-let WHY = loadJSON("zr_why", DEFAULTS.why);
-let TOOLS = loadJSON("zr_tools", DEFAULTS.tools);
-let AUTH = loadJSON("zr_auth", DEFAULTS.auth);
-
-function applySite() {
-  document.title = SITE.name + " — Thumbnail Designer";
-  $("heroName").textContent = SITE.name;
-  $("heroTitle").innerHTML = SITE.headline;
-  $("heroBio").textContent = SITE.heroBio;
-  $("aboutText").textContent = SITE.about;
-  $("availabilityText").textContent = SITE.availability;
-  $("footerName").textContent = SITE.name;
-  $("footerRole").textContent = SITE.role;
-  $("emailLink").href = "mailto:" + SITE.email;
-  $("statsGrid").innerHTML = `
-    <div class="glass rounded-2xl p-5 text-center"><b class="counter text-3xl font-black" data-target="${SITE.years}">0</b><span class="text-2xl">+</span><div class="mt-1 text-[11px] text-zinc-500">Years Experience</div></div>
-    <div class="glass rounded-2xl p-5 text-center"><b class="counter text-3xl font-black" data-target="${SITE.designs}">0</b><span class="text-2xl">+</span><div class="mt-1 text-[11px] text-zinc-500">Designs Delivered</div></div>
-    <div class="glass rounded-2xl p-5 text-center"><b class="counter text-3xl font-black" data-target="${SITE.niches}">0</b><span class="text-2xl">+</span><div class="mt-1 text-[11px] text-zinc-500">Niches Covered</div></div>
-    <div class="glass rounded-2xl p-5 text-center"><b class="text-3xl font-black">∞</b><div class="mt-1 text-[11px] text-zinc-500">Creative Ideas</div></div>`;
-  loadProfile();
-}
-
-function renderServices() {
-  $("servicesGrid").innerHTML = SERVICES.map(x => `
-    <article class="service-card glass rounded-3xl p-6 border border-white/10">
-      <div class="text-4xl font-black text-white/15">${x.n}</div>
-      <h3 class="mt-10 text-lg font-bold">${x.title}</h3>
-      <p class="mt-3 text-sm leading-6 text-zinc-500">${x.desc}</p>
-    </article>`).join("");
-}
-function renderProcess() {
-  $("processGrid").innerHTML = PROCESS.map(x => `
-    <div class="rounded-2xl border border-white/10 p-6">
-      <div class="text-5xl font-black text-white/12">${x.n}</div>
-      <h3 class="mt-8 font-bold">${x.title}</h3>
-      <p class="mt-3 text-sm leading-6 text-zinc-500">${x.desc}</p>
-    </div>`).join("");
-}
-function renderTools() {
-  $("toolsGrid").innerHTML = TOOLS.map(x => `<div class="glass rounded-full px-6 py-3.5 text-sm">${x}</div>`).join("");
-}
-function renderWhy() {
-  $("whyGrid").innerHTML = WHY.map(x => `
-    <div class="rounded-2xl border border-white/10 p-6">
-      <div class="text-3xl mb-4">${x.icon}</div>
-      <h3 class="font-bold text-lg">${x.title}</h3>
-      <p class="mt-3 text-sm leading-6 text-zinc-400">${x.desc}</p>
-    </div>`).join("");
-}
-function renderFilters() {
-  const cats = ["ALL", ...Array.from(new Set(PROJECTS.map(p => p.cat.toUpperCase())))];
-  $("filters").innerHTML = cats.map((c, i) => `<button data-cat="${c}" class="filter ${i===0?'active':''} rounded-full border border-white/10 px-4 py-2 text-[10px] tracking-widest text-zinc-400">${c}</button>`).join("");
-  document.querySelectorAll(".filter").forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderPortfolio(btn.dataset.cat);
-    };
-  });
-}
-function renderPortfolio(cat = "ALL") {
-  const arr = PROJECTS.filter(p => cat === "ALL" || p.cat.toUpperCase() === cat);
-  $("portfolioGrid").innerHTML = arr.map((p) => {
-    const i = PROJECTS.indexOf(p);
-    return `<article class="project glass relative overflow-hidden rounded-3xl cursor-pointer" data-index="${i}">
-      <div class="relative aspect-video overflow-hidden">
-        <img src="${p.img}" alt="${p.title}" class="h-full w-full object-cover" loading="lazy" onerror="this.style.opacity=.2">
-        <div class="absolute inset-x-0 bottom-0 z-10 p-5">
-          <div class="text-[10px] tracking-[.25em] text-zinc-400">${p.cat}</div>
-          <h3 class="mt-2 text-xl font-bold">${p.title}</h3>
-          <p class="mt-1 text-sm text-zinc-400">${p.desc}</p>
+  <!-- ========================================== -->
+  <!-- HIDDEN ADMIN PANEL (Opens on 4 logo clicks)-->
+  <!-- ========================================== -->
+  <div id="adminPanel" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-xl hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+    <div class="glass-card w-full max-w-2xl rounded-3xl p-8 border border-brand-500/30 shadow-2xl shadow-brand-500/20 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-2xl font-bold text-white">⚙️ Zaid's Admin Panel</h2>
+          <p class="text-brand-400 text-sm mt-1">Live Website Editor</p>
         </div>
-      </div></article>`;
-  }).join("");
-  document.querySelectorAll(".project").forEach(el => {
-    el.onclick = () => openProject(Number(el.dataset.index));
-    el.addEventListener("mousemove", (e) => {
-      const r = el.getBoundingClientRect();
-      const rotY = ((e.clientX - r.left - r.width/2) / (r.width/2)) * 8;
-      const rotX = ((r.height/2 - (e.clientY - r.top)) / (r.height/2)) * 8;
-      el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
-    });
-    el.addEventListener("mouseleave", () => { el.style.transform = ""; });
-  });
-}
-function openProject(i) {
-  const p = PROJECTS[i]; if (!p) return;
-  $("modalImg").src = p.img; $("modalCat").textContent = p.cat;
-  $("modalTitle").textContent = p.title; $("modalDesc").textContent = p.desc;
-  $("projectModal").classList.add("open"); document.body.style.overflow = "hidden";
-}
-$("closeProject").onclick = () => { $("projectModal").classList.remove("open"); document.body.style.overflow = ""; };
-
-function loadProfile() {
-  const x = localStorage.getItem("zr_profile");
-  if (x) { $("profileImg").src = x; $("profileImg").classList.remove("hidden"); $("profileFallback").classList.add("hidden"); }
-  else { $("profileImg").classList.add("hidden"); $("profileFallback").classList.remove("hidden"); }
-}
-
-function refreshPublic() {
-  applySite(); renderServices(); renderProcess(); renderTools(); renderWhy(); renderFilters(); renderPortfolio();
-}
-refreshPublic();
-
-$("copyEmail").onclick = async () => {
-  try { await navigator.clipboard.writeText(SITE.email); $("copyEmail").textContent = "COPIED ✓"; setTimeout(() => $("copyEmail").textContent = "COPY EMAIL", 1600); }
-  catch { $("copyEmail").textContent = "COPY FAILED"; }
-};
-$("contactForm").onsubmit = (e) => {
-  e.preventDefault();
-  $("formStatus").classList.remove("hidden");
-  $("formStatus").textContent = "Thank you! Your request is ready. Connect this form to a real email service before going live.";
-  e.target.reset();
-};
-
-/* ===== HIDDEN ADMIN (click ZAID 4 times) ===== */
-let logoClicks = 0, logoTimer = null;
-$("logoTrigger").addEventListener("click", (e) => {
-  e.preventDefault();
-  logoClicks++;
-  clearTimeout(logoTimer);
-  logoTimer = setTimeout(() => { logoClicks = 0; }, 1600);
-  if (logoClicks >= 4) {
-    logoClicks = 0;
-    if (sessionStorage.getItem("zr_admin") === "1") openAdmin();
-    else $("adminLogin").classList.add("open");
-  }
-});
-$("closeLogin").onclick = () => $("adminLogin").classList.remove("open");
-$("loginForm").onsubmit = (e) => {
-  e.preventDefault();
-  const u = $("adminUser").value.trim();
-  const p = $("adminPass").value;
-  if (u === AUTH.username && p === AUTH.password) {
-    sessionStorage.setItem("zr_admin", "1");
-    $("adminLogin").classList.remove("open");
-    $("loginError").classList.add("hidden");
-    openAdmin();
-  } else {
-    $("loginError").classList.remove("hidden");
-  }
-};
-
-function fillAdminForms() {
-  $("fName").value = SITE.name;
-  $("fRole").value = SITE.role;
-  $("fAvail").value = SITE.availability;
-  $("fHeadline").value = SITE.headline;
-  $("fHeroBio").value = SITE.heroBio;
-  $("fAbout").value = SITE.about;
-  $("fEmail").value = SITE.email;
-  $("fYears").value = SITE.years;
-  $("fDesigns").value = SITE.designs;
-  $("fNiches").value = SITE.niches;
-  $("fTools").value = TOOLS.join("\n");
-  $("fUsername").value = AUTH.username;
-  $("fRecovery").value = AUTH.recovery;
-  $("resetEmailLabel").textContent = AUTH.recovery;
-  renderAdminProjects();
-  renderAdminServices();
-  renderAdminProcess();
-  renderAdminWhy();
-}
-function openAdmin() {
-  fillAdminForms();
-  $("adminPanel").classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-$("closeAdmin").onclick = () => { $("adminPanel").classList.remove("open"); document.body.style.overflow = ""; };
-$("logoutBtn").onclick = () => {
-  sessionStorage.removeItem("zr_admin");
-  $("adminPanel").classList.remove("open");
-  document.body.style.overflow = "";
-};
-
-document.querySelectorAll(".admin-tab").forEach(tab => {
-  tab.onclick = () => {
-    document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    document.querySelectorAll(".admin-section").forEach(s => s.classList.add("hidden"));
-    $("tab-" + tab.dataset.tab).classList.remove("hidden");
-  };
-});
-
-function renderAdminProjects() {
-  $("adminProjects").innerHTML = PROJECTS.map((p, i) => `
-    <div class="admin-row grid gap-2 md:grid-cols-2">
-      <input data-i="${i}" data-k="title" class="admin-field proj-f" value="${escapeAttr(p.title)}" placeholder="Title">
-      <input data-i="${i}" data-k="cat" class="admin-field proj-f" value="${escapeAttr(p.cat)}" placeholder="Category">
-      <input data-i="${i}" data-k="desc" class="admin-field proj-f md:col-span-2" value="${escapeAttr(p.desc)}" placeholder="Description">
-      <input data-i="${i}" data-k="img" class="admin-field proj-f" value="${escapeAttr(p.img)}" placeholder="Image URL">
-      <div class="flex gap-2 items-center">
-        <input type="file" accept="image/*" data-i="${i}" class="admin-field proj-file">
-        <button data-i="${i}" class="del-proj rounded-xl border border-white/15 px-3 py-2 text-xs">DELETE</button>
+        <button id="closeAdmin" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">✕</button>
       </div>
-    </div>`).join("");
-  document.querySelectorAll(".proj-f").forEach(inp => {
-    inp.oninput = () => { PROJECTS[inp.dataset.i][inp.dataset.k] = inp.value; };
-  });
-  document.querySelectorAll(".proj-file").forEach(inp => {
-    inp.onchange = (e) => {
-      const f = e.target.files[0]; if (!f) return;
-      const r = new FileReader();
-      r.onload = () => { PROJECTS[inp.dataset.i].img = r.result; renderAdminProjects(); };
-      r.readAsDataURL(f);
-    };
-  });
-  document.querySelectorAll(".del-proj").forEach(btn => {
-    btn.onclick = () => { PROJECTS.splice(Number(btn.dataset.i), 1); renderAdminProjects(); };
-  });
-}
-function escapeAttr(s) { return String(s || "").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
 
-$("addProject").onclick = () => {
-  PROJECTS.push({ title: "New Project", cat: "Custom", desc: "Describe this work.", img: "" });
-  renderAdminProjects();
-};
-$("saveWork").onclick = () => { saveJSON("zr_projects", PROJECTS); refreshPublic(); toast("Work saved"); };
+      <div class="space-y-6">
+        <!-- Edit Hero -->
+        <div>
+          <label class="block text-sm font-semibold text-slate-300 mb-2">Main Headline</label>
+          <input type="text" id="admin-headline" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-brand-500">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-slate-300 mb-2">Bio / Subheadline</label>
+          <textarea id="admin-bio" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white outline-none focus:border-brand-500"></textarea>
+        </div>
 
-function renderAdminServices() {
-  $("adminServices").innerHTML = SERVICES.map((s, i) => `
-    <div class="admin-row grid gap-2 md:grid-cols-3">
-      <input data-i="${i}" data-k="n" class="admin-field svc-f" value="${escapeAttr(s.n)}" placeholder="01">
-      <input data-i="${i}" data-k="title" class="admin-field svc-f md:col-span-2" value="${escapeAttr(s.title)}" placeholder="Title">
-      <input data-i="${i}" data-k="desc" class="admin-field svc-f md:col-span-2" value="${escapeAttr(s.desc)}" placeholder="Description">
-      <button data-i="${i}" class="del-svc rounded-xl border border-white/15 px-3 py-2 text-xs">DELETE</button>
-    </div>`).join("");
-  document.querySelectorAll(".svc-f").forEach(inp => { inp.oninput = () => { SERVICES[inp.dataset.i][inp.dataset.k] = inp.value; }; });
-  document.querySelectorAll(".del-svc").forEach(btn => { btn.onclick = () => { SERVICES.splice(Number(btn.dataset.i), 1); renderAdminServices(); }; });
-}
-$("addService").onclick = () => {
-  SERVICES.push({ n: String(SERVICES.length + 1).padStart(2, "0"), title: "New Service", desc: "Describe this service." });
-  renderAdminServices();
-};
-$("saveServices").onclick = () => { saveJSON("zr_services", SERVICES); refreshPublic(); toast("Services saved"); };
+        <button id="saveChanges" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition">
+          Save Live Changes
+        </button>
 
-function renderAdminProcess() {
-  $("adminProcess").innerHTML = PROCESS.map((s, i) => `
-    <div class="admin-row grid gap-2">
-      <input data-i="${i}" data-k="n" class="admin-field proc-f" value="${escapeAttr(s.n)}">
-      <input data-i="${i}" data-k="title" class="admin-field proc-f" value="${escapeAttr(s.title)}">
-      <input data-i="${i}" data-k="desc" class="admin-field proc-f" value="${escapeAttr(s.desc)}">
-    </div>`).join("");
-  document.querySelectorAll(".proc-f").forEach(inp => { inp.oninput = () => { PROCESS[inp.dataset.i][inp.dataset.k] = inp.value; }; });
-}
-$("saveProcess").onclick = () => { saveJSON("zr_process", PROCESS); refreshPublic(); toast("Process saved"); };
+        <div class="pt-6 border-t border-white/10 mt-6">
+          <p class="text-xs text-slate-500 text-center">Note: Since this is a static frontend, changes made here will reflect instantly but will reset upon page reload. To make them permanent, connect this form to a database (like Firebase) later.</p>
+        </div>
+      </div>
 
-function renderAdminWhy() {
-  $("adminWhy").innerHTML = WHY.map((s, i) => `
-    <div class="admin-row grid gap-2">
-      <input data-i="${i}" data-k="icon" class="admin-field why-f" value="${escapeAttr(s.icon)}" placeholder="Icon">
-      <input data-i="${i}" data-k="title" class="admin-field why-f" value="${escapeAttr(s.title)}" placeholder="Title">
-      <input data-i="${i}" data-k="desc" class="admin-field why-f" value="${escapeAttr(s.desc)}" placeholder="Description">
-    </div>`).join("");
-  document.querySelectorAll(".why-f").forEach(inp => { inp.oninput = () => { WHY[inp.dataset.i][inp.dataset.k] = inp.value; }; });
-}
-$("saveWhy").onclick = () => { saveJSON("zr_why", WHY); refreshPublic(); toast("Why Me saved"); };
+    </div>
+  </div>
 
-$("saveSite").onclick = () => {
-  SITE = {
-    name: $("fName").value, role: $("fRole").value, availability: $("fAvail").value,
-    headline: $("fHeadline").value, heroBio: $("fHeroBio").value, about: $("fAbout").value,
-    email: $("fEmail").value, years: +$("fYears").value || 0, designs: +$("fDesigns").value || 0, niches: +$("fNiches").value || 0
-  };
-  saveJSON("zr_site", SITE); refreshPublic(); toast("Site content saved");
-};
-$("saveTools").onclick = () => {
-  TOOLS = $("fTools").value.split("\n").map(s => s.trim()).filter(Boolean);
-  saveJSON("zr_tools", TOOLS); refreshPublic(); toast("Tools saved");
-};
-$("adminProfileUpload").onchange = (e) => {
-  const f = e.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = () => { localStorage.setItem("zr_profile", r.result); loadProfile(); toast("Profile photo updated"); };
-  r.readAsDataURL(f);
-};
-$("saveSecurity").onclick = () => {
-  if ($("fCurPass").value !== AUTH.password) { $("secMsg").textContent = "Current password is wrong."; return; }
-  AUTH.username = $("fUsername").value.trim() || AUTH.username;
-  AUTH.recovery = $("fRecovery").value.trim() || AUTH.recovery;
-  if ($("fNewPass").value) AUTH.password = $("fNewPass").value;
-  saveJSON("zr_auth", AUTH);
-  $("fCurPass").value = ""; $("fNewPass").value = "";
-  $("secMsg").textContent = "Login details updated.";
-};
-$("resetSiteData").onclick = () => {
-  if (!confirm("Reset all public content to defaults? Login stays the same.")) return;
-  SITE = structuredClone(DEFAULTS.site);
-  PROJECTS = structuredClone(DEFAULTS.projects);
-  SERVICES = structuredClone(DEFAULTS.services);
-  PROCESS = structuredClone(DEFAULTS.process);
-  WHY = structuredClone(DEFAULTS.why);
-  TOOLS = structuredClone(DEFAULTS.tools);
-  saveJSON("zr_site", SITE); saveJSON("zr_projects", PROJECTS); saveJSON("zr_services", SERVICES);
-  saveJSON("zr_process", PROCESS); saveJSON("zr_why", WHY); saveJSON("zr_tools", TOOLS);
-  localStorage.removeItem("zr_profile");
-  fillAdminForms(); refreshPublic(); toast("Content reset");
-};
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // --- 1. Easter Egg Admin Panel Logic ---
+    let clickCount = 0;
+    let clickTimer;
+    
+    const logoTrigger = document.getElementById('logoTrigger');
+    const adminPanel = document.getElementById('adminPanel');
+    const closeAdmin = document.getElementById('closeAdmin');
+    
+    // Live Text Elements
+    const heroTitle = document.getElementById('edit-hero-title');
+    const heroBio = document.getElementById('edit-hero-bio');
+    
+    // Admin Inputs
+    const adminHeadlineInput = document.getElementById('admin-headline');
+    const adminBioInput = document.getElementById('admin-bio');
+    const saveChangesBtn = document.getElementById('saveChanges');
 
-/* Password reset — static site cannot send real Gmail.
-   This creates a code, opens a mail draft to the recovery Gmail, and stores the code locally so you can complete reset. */
-$("forgotBtn").onclick = () => {
-  $("adminLogin").classList.remove("open");
-  $("resetModal").classList.add("open");
-  $("resetStep1").classList.remove("hidden");
-  $("resetStep2").classList.add("hidden");
-};
-$("closeReset").onclick = () => $("resetModal").classList.remove("open");
-$("sendCodeBtn").onclick = () => {
-  const code = String(Math.floor(100000 + Math.random() * 900000));
-  sessionStorage.setItem("zr_reset_code", code);
-  sessionStorage.setItem("zr_reset_exp", String(Date.now() + 10 * 60 * 1000));
-  const subject = encodeURIComponent("ZAID portfolio admin reset code");
-  const body = encodeURIComponent("Your admin reset code is: " + code + "\nThis code expires in 10 minutes.\n\nThis draft was created by your portfolio admin panel.");
-  window.location.href = `mailto:${AUTH.recovery}?subject=${subject}&body=${body}`;
-  $("codeSentNote").classList.remove("hidden");
-  $("codeSentNote").textContent = "A mail draft opened for " + AUTH.recovery + ". Enter the 6-digit code from that draft. On a static website, real automatic Gmail sending needs a backend or EmailJS.";
-  $("resetStep2").classList.remove("hidden");
-  $("resetStep2").style.display = "grid";
-};
-$("confirmResetBtn").onclick = () => {
-  const saved = sessionStorage.getItem("zr_reset_code");
-  const exp = Number(sessionStorage.getItem("zr_reset_exp") || 0);
-  const typed = $("verifyCode").value.trim();
-  const p1 = $("newPass1").value, p2 = $("newPass2").value;
-  if (!saved || Date.now() > exp) { $("resetMsg").textContent = "Code expired. Send a new one."; return; }
-  if (typed !== saved) { $("resetMsg").textContent = "Code does not match."; return; }
-  if (!p1 || p1 !== p2) { $("resetMsg").textContent = "Passwords do not match."; return; }
-  AUTH.password = p1;
-  saveJSON("zr_auth", AUTH);
-  sessionStorage.removeItem("zr_reset_code");
-  $("resetMsg").textContent = "Password updated. You can log in now.";
-  setTimeout(() => { $("resetModal").classList.remove("open"); $("adminLogin").classList.add("open"); }, 900);
-};
-
-function toast(msg) {
-  const t = document.createElement("div");
-  t.className = "fixed bottom-6 left-1/2 -translate-x-1/2 z-[300] rounded-full bg-white px-5 py-3 text-sm font-bold text-black";
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 1800);
-}
-
-/* Reveal + counters */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("show");
-    entry.target.querySelectorAll(".counter").forEach(counter => {
-      if (counter.dataset.animated) return;
-      counter.dataset.animated = "1";
-      const target = +counter.dataset.target;
-      const start = performance.now();
-      const step = (now) => {
-        const progress = Math.min((now - start) / 1600, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        counter.textContent = Math.floor(ease * target);
-        if (progress < 1) requestAnimationFrame(step); else counter.textContent = target;
-      };
-      requestAnimationFrame(step);
+    logoTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      clickCount++;
+      
+      clearTimeout(clickTimer);
+      
+      if (clickCount >= 4) {
+        openAdminPanel();
+        clickCount = 0; // reset
+      }
+      
+      // Reset count if not clicked fast enough (within 1.5 seconds)
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 1500);
     });
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-window.addEventListener("scroll", () => {
-  const h = document.documentElement;
-  $("scrollProgress").style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
-});
-
-const dot = $("cursorDot"), ring = $("cursorRing");
-let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  if (dot) { dot.style.left = mouseX + "px"; dot.style.top = mouseY + "px"; dot.style.transform = "translate(-50%,-50%)"; }
-});
-(function animC() {
-  ringX += (mouseX - ringX) * 0.18; ringY += (mouseY - ringY) * 0.18;
-  if (ring) { ring.style.left = ringX + "px"; ring.style.top = ringY + "px"; ring.style.transform = "translate(-50%,-50%)"; }
-  requestAnimationFrame(animC);
-})();
-document.querySelectorAll("a, button, .magnetic").forEach(el => {
-  el.addEventListener("mouseenter", () => { dot?.classList.add("hover"); ring?.classList.add("hover"); });
-  el.addEventListener("mouseleave", () => { dot?.classList.remove("hover"); ring?.classList.remove("hover"); });
-});
-document.querySelectorAll(".magnetic").forEach(btn => {
-  btn.addEventListener("mousemove", (e) => {
-    const r = btn.getBoundingClientRect();
-    btn.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.18}px, ${(e.clientY-r.top-r.height/2)*0.18}px)`;
-  });
-  btn.addEventListener("mouseleave", () => { btn.style.transform = "translate(0,0)"; });
-});
-
-(function dismissLoader() {
-  setTimeout(() => { if ($("loadbar")) $("loadbar").style.width = "100%"; }, 60);
-  setTimeout(() => {
-    const loader = $("loader");
-    if (loader) { loader.style.opacity = "0"; setTimeout(() => loader.remove(), 650); }
-  }, 1100);
-  setTimeout(() => { const l = $("loader"); if (l) l.remove(); }, 2800);
-})();
-
-(function init3D() {
-  try {
-    const canvas = $("webgl");
-    if (!canvas || typeof THREE === "undefined") return;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 9.5);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.6));
-    renderer.setSize(innerWidth, innerHeight);
-    const group = new THREE.Group(); scene.add(group);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-    const l1 = new THREE.PointLight(0xa78bfa, 45, 28); l1.position.set(5,4,6); scene.add(l1);
-    const l2 = new THREE.PointLight(0x60a5fa, 28, 25); l2.position.set(-6,-3,5); scene.add(l2);
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.35, 2), new THREE.MeshStandardMaterial({ color: 0x12121a, metalness: 0.92, roughness: 0.16, emissive: 0x1a1030, emissiveIntensity: 0.35 }));
-    group.add(core);
-    const wire = new THREE.Mesh(new THREE.IcosahedronGeometry(1.38, 1), new THREE.MeshBasicMaterial({ color: 0x8b7cf6, wireframe: true, transparent: true, opacity: 0.12 }));
-    group.add(wire);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x8b8ba8, transparent: true, opacity: 0.55 });
-    for (let i = 0; i < 4; i++) {
-      const ringM = new THREE.Mesh(new THREE.TorusGeometry(1.85 + i * 0.38, 0.011, 12, 140), ringMat);
-      ringM.rotation.x = Math.PI / 2 + i * 0.28; group.add(ringM);
+    function openAdminPanel() {
+      // Pre-fill inputs with current live text
+      adminHeadlineInput.value = heroTitle.innerText;
+      adminBioInput.value = heroBio.innerText;
+      
+      adminPanel.classList.remove('hidden');
+      adminPanel.classList.add('flex');
+      // small delay for transition effect
+      setTimeout(() => {
+        adminPanel.classList.remove('opacity-0');
+        adminPanel.classList.add('opacity-100');
+      }, 10);
     }
-    const accents = [];
-    const geos = [new THREE.OctahedronGeometry(0.28,0), new THREE.TetrahedronGeometry(0.32,0), new THREE.IcosahedronGeometry(0.22,0), new THREE.BoxGeometry(0.35,0.35,0.35)];
-    for (let i = 0; i < 8; i++) {
-      const mesh = new THREE.Mesh(geos[i % 4], new THREE.MeshStandardMaterial({ color: i%2?0x94a3b8:0xa78bfa, metalness: 0.7, roughness: 0.25 }));
-      const angle = (i / 8) * Math.PI * 2, radius = 3.2 + (i % 3) * 0.4;
-      mesh.userData = { angle, radius, speed: 0.003 + i * 0.0004, offset: i };
-      group.add(mesh); accents.push(mesh);
-    }
-    const pts = new Float32Array(900 * 3);
-    for (let i = 0; i < 900; i++) {
-      const r = 4.5 + Math.random() * 7, th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
-      pts[i*3] = r*Math.sin(ph)*Math.cos(th); pts[i*3+1] = r*Math.sin(ph)*Math.sin(th); pts[i*3+2] = r*Math.cos(ph);
-    }
-    const pGeo = new THREE.BufferGeometry(); pGeo.setAttribute("position", new THREE.BufferAttribute(pts, 3));
-    const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.016, transparent: true, opacity: 0.5 }));
-    scene.add(particles);
-    const mouse = { x: 0, y: 0 }, target = { x: 0, y: 0 }; let scrollY = 0;
-    addEventListener("pointermove", e => { mouse.x = (e.clientX/innerWidth-0.5)*2; mouse.y = (e.clientY/innerHeight-0.5)*2; });
-    addEventListener("scroll", () => { scrollY = scrollY = window.scrollY; }, { passive: true });
-    addEventListener("resize", () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
-    const clock = new THREE.Clock();
-    (function animate() {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      target.x += (mouse.x - target.x) * 0.04; target.y += (mouse.y - target.y) * 0.04;
-      group.rotation.y += 0.0018; group.rotation.x = Math.sin(t*0.25)*0.1 + target.y*0.18;
-      group.position.x = target.x*0.55; group.position.y = -target.y*0.35 - scrollY*0.0008;
-      core.rotation.x += 0.0025; core.rotation.y += 0.0035;
-      accents.forEach(m => { const d = m.userData; d.angle += d.speed; m.position.set(Math.cos(d.angle)*d.radius, Math.sin(t*0.6+d.offset)*1.6, Math.sin(d.angle)*d.radius*0.65); m.rotation.x += 0.01; });
-      particles.rotation.y = t * 0.015; renderer.render(scene, camera);
-    })();
-  } catch (err) { console.warn(err); }
-})();
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    $("projectModal").classList.remove("open");
-    $("adminLogin").classList.remove("open");
-    $("resetModal").classList.remove("open");
-    $("adminPanel").classList.remove("open");
-    document.body.style.overflow = "";
-  }
-});
-</script>
+    function closeAdminPanel() {
+      adminPanel.classList.remove('opacity-100');
+      adminPanel.classList.add('opacity-0');
+      setTimeout(() => {
+        adminPanel.classList.add('hidden');
+        adminPanel.classList.remove('flex');
+      }, 300);
+    }
+
+    closeAdmin.addEventListener('click', closeAdminPanel);
+
+    // Save Changes (Updates the DOM instantly)
+    saveChangesBtn.addEventListener('click', () => {
+      // Basic formatting to keep the gradient text effect if possible, 
+      // otherwise fallback to clean text
+      heroTitle.innerHTML = adminHeadlineInput.value.replace('\n', '<br/>');
+      heroBio.innerText = adminBioInput.value;
+      
+      saveChangesBtn.innerText = "✓ Saved Successfully!";
+      saveChangesBtn.classList.replace('bg-emerald-500', 'bg-emerald-400');
+      
+      setTimeout(() => {
+        saveChangesBtn.innerText = "Save Live Changes";
+        saveChangesBtn.classList.replace('bg-emerald-400', 'bg-emerald-500');
+        closeAdminPanel();
+      }, 1000);
+    });
+
+  </script>
 </body>
 </html>

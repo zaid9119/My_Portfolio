@@ -1,383 +1,375 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Md Zaid Raza — Motion & Visual Designer</title>
-  <meta name="description" content="I turn ideas into scroll-stopping thumbnails and visual assets.">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-  
-  <!-- GSAP & ScrollTrigger for Motion Graphics -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <!-- Vanilla Tilt for 3D Cards -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['"Outfit"', 'sans-serif'] },
-          colors: { accent: '#6366f1', accent2: '#a855f7', dark: '#050507' }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Md Zaid Raza — Motion & Thumbnail Designer</title>
+<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator. I turn ideas into scroll-stopping thumbnails that get clicks.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'system-ui', 'Arial', 'sans-serif'] },
+      colors: {
+        designer: { 900: '#0b0a14', 800: '#141226', accent: '#a78bfa' }
       }
     }
-  </script>
+  }
+}
+</script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    /* Deep aesthetic designer background instead of pure black */
+    background: #0b0a14;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(167, 139, 250, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(120, 100, 255, 0.08) 0px, transparent 50%);
+    color: #fff;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  
+  /* Original Noise & Grid Overlay */
+  body:before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 28px 28px; opacity: .8;
+  }
+  .noise {
+    position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: .04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 
-  <style>
-    body {
-      background-color: #050507;
-      color: #e2e8f0;
-      overflow-x: hidden;
-      cursor: none; /* Custom cursor */
-    }
-    
-    /* Animated Gradient Mesh Background */
-    .bg-mesh {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
-      background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-                  radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
-    }
-    .blob {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; z-index: -1;
-      animation: float 12s infinite alternate ease-in-out;
-    }
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, 50px) scale(1.2); }
-    }
+  /* Original Custom Cursors */
+  .cursor-dot {
+    position: fixed; width: 8px; height: 8px; background: #fff; border-radius: 50%;
+    pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+    transition: transform .15s ease, width .2s, height .2s;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px; border: 1.5px solid rgba(255,255,255,.45);
+    border-radius: 50%; pointer-events: none; z-index: 9998;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), width .25s, height .25s, border-color .25s;
+  }
+  .cursor-dot.hover, .cursor-ring.hover { transform: scale(1.8); }
+  .cursor-ring.hover { border-color: rgba(140,120,255,.9); width: 52px; height: 52px; }
+  @media (max-width: 900px), (pointer: coarse) {
+    .cursor-dot, .cursor-ring { display: none !important; }
+    body { cursor: auto; }
+  }
 
-    /* Glassmorphism */
-    .glass {
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    .text-gradient {
-      background: linear-gradient(to right, #818cf8, #c084fc, #ec4899);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-size: 200% auto; animation: shine 4s linear infinite;
-    }
-    @keyframes shine { to { background-position: 200% center; } }
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 20px 70px rgba(0,0,0,.3);
+  }
+  .glow { box-shadow: 0 0 80px rgba(120,100,255,.15); }
+  
+  .gradient {
+    background: linear-gradient(105deg, #fff 0%, #a78bfa 45%, #fff 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
 
-    /* Custom Cursor */
-    .cursor-dot, .cursor-outline {
-      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-      border-radius: 50%; z-index: 9999; pointer-events: none;
-    }
-    .cursor-dot { width: 8px; height: 8px; background-color: white; }
-    .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); transition: width 0.2s, height 0.2s, background-color 0.2s; }
-    @media (max-width: 768px) { .cursor-dot, .cursor-outline { display: none; } body { cursor: auto; } }
+  /* Profile Animations */
+  .orbit { animation: spin 22s linear infinite; }
+  .orbit2 { animation: spin 34s linear infinite reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  
+  /* Scroll Progress */
+  #scrollProgress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: linear-gradient(90deg, #a78bfa, #fff); z-index: 200; width: 0%;
+  }
 
-    /* 3D Button Hover */
-    .btn-3d {
-      position: relative; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 6px 0 rgba(99, 102, 241, 0.8), 0 15px 20px rgba(0,0,0,0.4);
-    }
-    .btn-3d:active { transform: translateY(6px); box-shadow: 0 0px 0 rgba(99, 102, 241, 0), 0 5px 10px rgba(0,0,0,0.4); }
+  /* Forms & Inputs */
+  input, textarea, select {
+    background: rgba(255,255,255,.03) !important;
+    border: 1px solid rgba(255,255,255,.1) !important;
+    color: #fff !important;
+  }
+  input:focus, textarea:focus {
+    outline: none; border-color: rgba(167,139,250,.5) !important;
+    background: rgba(255,255,255,.06) !important;
+  }
 
-    /* Hide scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #050507; }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-  </style>
+  /* Hide scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+</style>
 </head>
-<body class="antialiased selection:bg-accent2 selection:text-white">
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="noise"></div>
+<div id="scrollProgress"></div>
 
-  <!-- Custom Cursor -->
-  <div class="cursor-dot" id="cursor-dot"></div>
-  <div class="cursor-outline" id="cursor-outline"></div>
-
-  <!-- Background FX -->
-  <div class="bg-mesh"></div>
-  <div class="blob bg-accent w-96 h-96 top-10 left-10"></div>
-  <div class="blob bg-accent2 w-[500px] h-[500px] bottom-10 right-10" style="animation-delay: -5s;"></div>
-
-  <!-- NAVIGATION -->
-  <nav class="fixed top-0 w-full z-50 glass border-b-0">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-      <div id="logoTrigger" class="text-3xl font-black tracking-tighter text-white select-none cursor-pointer hover:scale-105 transition-transform z-50 relative">
-        ZAID<span class="text-accent">.</span>
-      </div>
-      <div class="hidden md:flex gap-10 text-sm font-semibold tracking-widest uppercase text-gray-400">
-        <a href="#work" class="hover:text-white transition custom-hover">Work</a>
-        <a href="#expertise" class="hover:text-white transition custom-hover">Expertise</a>
-        <a href="#contact" class="hover:text-white transition custom-hover">Contact</a>
-      </div>
-      <a href="#contact" class="glass px-6 py-2.5 rounded-full text-sm font-bold hover:bg-white hover:text-black transition duration-300 custom-hover">
-        Let's Talk ↗
-      </a>
-    </div>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <header class="relative pt-40 pb-32 px-6 max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen text-center z-10">
-    <div class="gsap-hero inline-flex items-center gap-2 px-5 py-2 rounded-full glass border border-accent/30 text-xs font-bold text-accent2 mb-8 uppercase tracking-widest">
-      <span class="w-2 h-2 rounded-full bg-accent2 animate-pulse"></span> Open to freelance
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-designer-900/60 backdrop-blur-2xl">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+    <!-- 4 CLICK ADMIN TRIGGER -->
+    <div id="logoTrigger" class="font-black tracking-tight text-xl select-none cursor-pointer hover:scale-105 transition-transform text-white">
+      ZAID<span class="text-designer-accent">.</span>
     </div>
     
-    <h1 id="live-hero-title" class="gsap-hero text-6xl md:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-      I design <span class="text-gradient">visuals</span> <br class="hidden md:block"/> that command attention.
-    </h1>
-    
-    <p id="live-hero-bio" class="gsap-hero text-lg md:text-xl text-gray-400 max-w-2xl mb-12 font-light">
-      I'm a visual designer specializing in 3D-integrated thumbnails, motion graphics, and premium digital assets that skyrocket your engagement.
-    </p>
-    
-    <div class="gsap-hero flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-      <a href="#work" class="btn-3d bg-white text-black px-10 py-4 rounded-xl font-bold text-lg text-center custom-hover uppercase tracking-wider">
-        Explore Portfolio
-      </a>
+    <div class="hidden md:flex gap-8 text-[12px] font-semibold tracking-widest text-zinc-400">
+      <a href="#work" class="hover:text-white transition magnetic uppercase">Work</a>
+      <a href="#services" class="hover:text-white transition magnetic uppercase">Services</a>
+      <a href="#contact" class="hover:text-white transition magnetic uppercase">Contact</a>
     </div>
-  </header>
+    <a href="#contact" class="magnetic rounded-full bg-white px-6 py-2.5 text-xs font-black text-black hover:scale-105 transition">HIRE ME ↗</a>
+  </div>
+</nav>
 
-  <!-- EXPERTISE SECTION (3D Tilt Cards) -->
-  <section id="expertise" class="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-    <div class="gsap-reveal mb-16 text-center md:text-left">
-      <h2 class="text-4xl md:text-6xl font-black text-white">My Expertise</h2>
-    </div>
+<!-- HERO SECTION (Based on your original structure) -->
+<main>
+  <section class="relative min-h-screen overflow-hidden pt-32 pb-20 flex flex-col justify-center items-center">
+    <!-- Soft Glow Behind Profile -->
+    <div class="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[100px] pointer-events-none"></div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Card 1 -->
-      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="text-5xl mb-6">🎯</div>
-        <h3 class="text-2xl font-bold text-white mb-3">Hyper-Click Thumbnails</h3>
-        <p class="text-gray-400">Psychology-driven designs that maximize your CTR on YouTube and social platforms.</p>
+    <div class="relative z-10 mx-auto flex flex-col items-center justify-center px-5 text-center w-full">
+      
+      <div class="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 glass px-5 py-2 text-[10px] font-bold tracking-[.25em] text-zinc-300">
+        <span class="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        AVAILABLE FOR PROJECTS
       </div>
-      <!-- Card 2 -->
-      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="text-5xl mb-6">🪐</div>
-        <h3 class="text-2xl font-bold text-white mb-3">3D & Visual FX</h3>
-        <p class="text-gray-400">Integrating 3D elements and advanced manipulation to make your brand impossible to ignore.</p>
+
+      <!-- ORIGINAL ROTATING PROFILE DESIGN -->
+      <div class="relative profile mb-12 h-56 w-56 md:h-72 md:w-72">
+        <div class="absolute inset-[-30px] rounded-full border border-dashed border-white/20 orbit pointer-events-none"></div>
+        <div class="absolute inset-[-58px] rounded-full border border-white/10 orbit2 pointer-events-none"></div>
+        
+        <div class="absolute left-[-30px] top-1/3 -translate-y-1/2 glass flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl text-xs font-bold">PS</div>
+        <div class="absolute right-[-30px] top-2/3 -translate-y-1/2 glass flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl text-xs font-bold">PR</div>
+        
+        <div class="relative h-full w-full overflow-hidden rounded-full border border-white/20 bg-designer-800 shadow-[0_0_80px_rgba(140,120,255,.2)] flex items-center justify-center">
+          <div class="text-6xl md:text-8xl font-black text-white/5 tracking-tighter">ZR</div>
+        </div>
       </div>
-      <!-- Card 3 -->
-      <div class="tilt-card glass p-8 rounded-3xl" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-        <div class="text-5xl mb-6">🎬</div>
-        <h3 class="text-2xl font-bold text-white mb-3">Brand Identity</h3>
-        <p class="text-gray-400">Cohesive streaming packages, logos, and banners designed for modern creators.</p>
+
+      <div class="text-[12px] font-bold tracking-[.4em] text-zinc-500 mb-4">MD ZAID RAZA</div>
+      <h1 id="live-hero-title" class="max-w-5xl text-5xl font-black leading-[1.1] tracking-tight md:text-7xl lg:text-[5.5rem] text-white">
+        I DESIGN <span class="gradient">THUMBNAILS</span><br>THAT GET CLICKS.
+      </h1>
+      
+      <p id="live-hero-bio" class="mt-8 max-w-2xl text-sm leading-relaxed text-zinc-400 md:text-base">
+        Visual Content Creator & Designer. I turn ordinary ideas into scroll-stopping artwork for YouTube, gaming, and digital storytelling.
+      </p>
+      
+      <div class="mt-12 flex flex-wrap justify-center gap-4 w-full">
+        <a href="#work" class="magnetic rounded-full bg-white px-8 py-4 text-sm font-bold text-black hover:bg-zinc-200 transition">VIEW MY WORK ↗</a>
+        <a href="#contact" class="magnetic glass rounded-full px-8 py-4 text-sm font-bold hover:bg-white/10 transition">LET'S TALK</a>
       </div>
     </div>
   </section>
 
   <!-- PORTFOLIO SECTION -->
-  <section id="work" class="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-    <div class="gsap-reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-      <h2 class="text-4xl md:text-6xl font-black text-white">Selected Work</h2>
+  <section id="work" class="mx-auto max-w-7xl px-5 py-24 relative z-10">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-12">
+      <div>
+        <div class="text-[11px] font-bold tracking-[.35em] text-zinc-500">SELECTED WORK</div>
+        <h2 class="mt-3 text-4xl font-black md:text-6xl text-white">My <span class="gradient">creations.</span></h2>
+      </div>
     </div>
     
-    <!-- Dynamic Portfolio Grid -->
-    <div id="portfolio-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- GRID (Dynamically updated via Admin Panel) -->
+    <div id="portfolioGrid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+      <!-- Item 1: ZEDITZ -->
+      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
+        <div class="aspect-video bg-designer-800 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
+        </div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">ZEDITZ Visuals</div>
+          <h3 class="text-xl font-bold text-white mt-1">Motion Graphics Demo</h3>
+        </div>
+      </div>
+
+      <!-- Item 2: ARTS FEST -->
+      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
+        <div class="aspect-video bg-designer-800 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
+        </div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">Event Promo</div>
+          <h3 class="text-xl font-bold text-white mt-1">2025 ARTS FEST</h3>
+        </div>
+      </div>
       
-      <!-- Default Item 1 -->
-      <div class="gsap-reveal group relative rounded-2xl overflow-hidden glass aspect-video cursor-pointer custom-hover">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:blur-sm" alt="Work">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <p class="text-accent2 text-xs font-bold tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition duration-300">3D Abstract</p>
-          <h4 class="text-white font-bold text-2xl transform translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">Neon Concept</h4>
+      <!-- Item 3: QuizOff -->
+      <div class="glass rounded-2xl overflow-hidden group cursor-pointer magnetic relative">
+        <div class="aspect-video bg-designer-800 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:blur-[2px]" alt="Thumbnail">
+        </div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <div class="text-designer-accent text-[10px] font-bold tracking-widest uppercase">AI Competition</div>
+          <h3 class="text-xl font-bold text-white mt-1">QuizOff 2026 Visuals</h3>
         </div>
       </div>
-
-      <!-- Default Item 2 -->
-      <div class="gsap-reveal group relative rounded-2xl overflow-hidden glass aspect-video cursor-pointer custom-hover">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:blur-sm" alt="Work">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-          <p class="text-accent2 text-xs font-bold tracking-widest uppercase transform translate-y-4 group-hover:translate-y-0 transition duration-300">Gaming</p>
-          <h4 class="text-white font-bold text-2xl transform translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">Retro Hardware</h4>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="py-32 px-6 max-w-5xl mx-auto z-10 relative">
-    <div class="gsap-reveal glass rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
-      <!-- Glow element inside card -->
-      <div class="absolute top-[-50%] right-[-50%] w-96 h-96 bg-accent/30 rounded-full blur-[100px]"></div>
-      
-      <div class="text-center mb-12 relative z-10">
-        <h2 class="text-4xl md:text-7xl font-black text-white mb-6">Start a Project.</h2>
-        <p class="text-gray-400 text-lg">Send me a message and let's build something incredible.</p>
-      </div>
+  <!-- CONTACT SECTION (FormSubmit) -->
+  <section id="contact" class="mx-auto max-w-5xl px-5 py-24 relative z-10">
+    <div class="glass rounded-[2rem] p-8 md:p-14 border border-white/10 relative overflow-hidden">
+      <!-- Inner Glow -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+      <div class="text-[11px] font-bold tracking-[.35em] text-zinc-500">LET'S WORK TOGETHER</div>
+      <h2 class="mt-4 text-4xl font-black leading-tight md:text-5xl text-white">Ready for thumbnails that<br><span class="gradient">actually get clicks?</span></h2>
+      
+      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="mt-12 grid gap-5 md:grid-cols-2 relative z-10">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_subject" value="New Portfolio Inquiry from Zaid's Website!">
         
-        <input required type="text" name="name" placeholder="Name" class="w-full glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition custom-hover">
-        <input required type="email" name="email" placeholder="Email" class="w-full glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition custom-hover">
-        <textarea required name="message" rows="4" placeholder="Tell me about your vision..." class="w-full md:col-span-2 glass border border-white/10 text-white rounded-xl p-5 outline-none focus:border-accent transition resize-none custom-hover"></textarea>
+        <input required name="name" placeholder="Your Name *" class="rounded-2xl p-4 md:p-5 text-sm">
+        <input required type="email" name="email" placeholder="Email Address *" class="rounded-2xl p-4 md:p-5 text-sm">
+        <input name="project" placeholder="Project Type (YouTube / Gaming / etc.)" class="rounded-2xl p-4 md:p-5 text-sm md:col-span-2">
+        <textarea required name="message" rows="5" placeholder="Tell me about your project, deadline and references..." class="rounded-2xl p-4 md:p-5 text-sm md:col-span-2 resize-none"></textarea>
         
-        <button type="submit" class="w-full md:col-span-2 bg-white text-black font-bold text-xl py-5 rounded-xl hover:bg-gray-200 transition custom-hover">
-          Send Message
+        <button type="submit" class="magnetic rounded-2xl bg-white p-5 font-bold text-black md:col-span-2 text-sm hover:bg-zinc-200 transition uppercase tracking-wider">
+          Send Project Request ↗
         </button>
       </form>
     </div>
   </section>
 
-  <footer class="text-center py-10 text-sm font-semibold text-gray-600 tracking-widest uppercase">
-    © 2026 MD ZAID RAZA. 
+  <footer class="border-t border-white/5 px-5 py-10 z-10 relative">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 items-center justify-center text-center">
+      <b class="text-lg tracking-widest text-white">ZAID RAZA</b>
+      <div class="text-xs font-semibold text-zinc-600 uppercase tracking-widest">© 2026. All rights reserved.</div>
+    </div>
   </footer>
+</main>
 
-  <!-- ========================================== -->
-  <!-- SECURE ADMIN LOGIN MODAL -->
-  <!-- ========================================== -->
-  <div id="loginModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
-    <div class="glass w-full max-w-sm rounded-3xl p-8 border border-white/10">
-      <h2 class="text-2xl font-bold text-white mb-6">Admin Access</h2>
-      <input type="text" id="usernameInput" placeholder="Username" class="w-full glass border border-white/10 text-white rounded-xl p-4 mb-4 outline-none focus:border-accent">
-      <input type="password" id="passwordInput" placeholder="Password" class="w-full glass border border-white/10 text-white rounded-xl p-4 mb-6 outline-none focus:border-accent">
-      <p id="loginError" class="text-red-400 text-sm mb-4 hidden">Incorrect credentials.</p>
-      <div class="flex gap-4">
-        <button id="cancelLoginBtn" class="flex-1 glass text-white font-bold py-3 rounded-xl hover:bg-white/5 transition">Cancel</button>
-        <button id="submitLoginBtn" class="flex-1 bg-accent text-white font-bold py-3 rounded-xl hover:bg-accent2 transition">Login</button>
+<!-- ========================================== -->
+<!-- 1. LOGIN MODAL (Strict Access) -->
+<!-- ========================================== -->
+<div id="adminLoginModal" class="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-5 backdrop-blur-xl opacity-0 hidden transition-opacity duration-300">
+  <div class="glass w-full max-w-sm rounded-3xl p-8 border border-white/10 relative">
+    <div class="absolute top-4 right-5 text-zinc-500 cursor-pointer text-xl font-bold" id="closeLogin">✕</div>
+    <div class="text-[10px] font-bold tracking-[.3em] text-designer-accent mb-2">RESTRICTED AREA</div>
+    <h3 class="text-2xl font-black text-white mb-6">Admin Login</h3>
+    
+    <input id="adminUser" class="w-full rounded-xl p-4 text-sm mb-4" placeholder="Username" autocomplete="off">
+    <input id="adminPass" type="password" class="w-full rounded-xl p-4 text-sm mb-2" placeholder="Password">
+    
+    <p id="loginError" class="text-xs text-red-400 font-bold mb-4 hidden">Invalid Username or Password.</p>
+    
+    <button id="enterAdminBtn" class="w-full rounded-xl bg-white p-4 font-bold text-black text-sm uppercase tracking-wider mt-2 hover:bg-zinc-200 transition">Authenticate</button>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- 2. ADMIN DASHBOARD (Edit Text & Add Photos) -->
+<!-- ========================================== -->
+<div id="adminDashboard" class="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/95 p-4 md:p-10 backdrop-blur-3xl opacity-0 hidden transition-opacity duration-300 overflow-y-auto">
+  <div class="glass w-full max-w-4xl rounded-[2rem] p-6 md:p-10 border border-designer-accent/30 relative">
+    
+    <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+      <div>
+        <h2 class="text-3xl font-black text-white">System Dashboard</h2>
+        <p class="text-designer-accent text-xs font-bold tracking-widest uppercase mt-1">Live Editor Active</p>
       </div>
+      <button id="logoutBtn" class="rounded-full border border-white/20 px-5 py-2 text-xs font-bold text-white hover:bg-white/10">LOGOUT</button>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      
+      <!-- Edit Hero Content -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">📝 Edit Main Text</h3>
+        <label class="block text-[10px] font-bold text-zinc-500 mb-2 tracking-widest">HEADLINE (USE &lt;br&gt; FOR NEW LINE)</label>
+        <input id="editHeadline" type="text" class="w-full rounded-xl p-4 text-sm mb-4">
+        
+        <label class="block text-[10px] font-bold text-zinc-500 mb-2 tracking-widest">SUB-BIOGRAPHY</label>
+        <textarea id="editBio" rows="4" class="w-full rounded-xl p-4 text-sm mb-6 resize-none"></textarea>
+        
+        <button id="saveTextBtn" class="w-full rounded-xl bg-designer-accent p-4 font-bold text-white text-sm uppercase hover:bg-violet-400 transition">Save Live Text</button>
+      </div>
+
+      <!-- Add Portfolio Item -->
+      <div class="bg-white/5 border border-white/5 rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">🖼️ Add Portfolio Image</h3>
+        <p class="text-xs text-zinc-400 mb-4 leading-relaxed">Paste an image URL to add a new project to the top of your portfolio grid.</p>
+        
+        <input id="newImgUrl" type="text" class="w-full rounded-xl p-3 text-sm mb-3" placeholder="Image URL (e.g. https://link.com/img.jpg)">
+        <input id="newImgTitle" type="text" class="w-full rounded-xl p-3 text-sm mb-3" placeholder="Project Title (e.g. Call of Duty Thumbnail)">
+        <input id="newImgTag" type="text" class="w-full rounded-xl p-3 text-sm mb-5" placeholder="Small Tag (e.g. GAMING)">
+        
+        <button id="addProjectBtn" class="w-full rounded-xl bg-white p-4 font-bold text-black text-sm uppercase hover:bg-zinc-200 transition">Publish to Website</button>
+      </div>
+
     </div>
   </div>
+</div>
 
-  <!-- ========================================== -->
-  <!-- ADMIN DASHBOARD (Where you change things) -->
-  <!-- ========================================== -->
-  <div id="adminDashboard" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 md:p-10 opacity-0 transition-opacity duration-300">
-    <div class="glass w-full max-w-4xl rounded-[2rem] p-8 md:p-10 border border-accent/40 shadow-2xl shadow-accent/20 flex flex-col max-h-screen overflow-y-auto">
-      
-      <div class="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
-        <div>
-          <h2 class="text-3xl font-black text-white tracking-tight">System Core</h2>
-          <p class="text-accent font-bold tracking-widest uppercase text-xs mt-1">Live Environment Editor</p>
-        </div>
-        <button id="logoutBtn" class="glass px-6 py-2 rounded-full text-white text-sm hover:bg-red-500 hover:border-red-500 transition">Logout</button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <!-- Edit Text -->
-        <div>
-          <h3 class="text-xl font-bold text-white mb-4">Edit Hero Section</h3>
-          <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Main Headline (Use <br> for break)</label>
-          <input type="text" id="adminHeroTitle" class="w-full glass border border-white/10 rounded-xl p-4 text-white outline-none mb-4 focus:border-accent">
-          
-          <label class="block text-xs text-gray-400 mb-2 uppercase tracking-wider">Biography / Subtext</label>
-          <textarea id="adminHeroBio" rows="4" class="w-full glass border border-white/10 rounded-xl p-4 text-white outline-none mb-6 focus:border-accent resize-none"></textarea>
-          
-          <button id="saveTextBtn" class="w-full bg-accent hover:bg-accent2 text-white font-bold py-4 rounded-xl transition">
-            Update Live Text
-          </button>
-        </div>
-
-        <!-- Add Portfolio Item -->
-        <div class="glass p-6 rounded-2xl border border-white/5 bg-white/5">
-          <h3 class="text-xl font-bold text-white mb-4">Add to Portfolio</h3>
-          <p class="text-xs text-gray-400 mb-4">Paste an image URL to add new work dynamically to the grid.</p>
-          
-          <input type="text" id="newWorkImage" placeholder="Image URL (e.g. https://imgur.com/image.jpg)" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-3 text-sm">
-          <input type="text" id="newWorkTitle" placeholder="Project Title" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-3 text-sm">
-          <input type="text" id="newWorkCat" placeholder="Category (e.g. 3D Render)" class="w-full glass border border-white/10 rounded-xl p-3 text-white outline-none mb-5 text-sm">
-          
-          <button id="addWorkBtn" class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition">
-            + Push to Grid
-          </button>
-        </div>
-      </div>
-      
-      <p class="text-center text-xs text-gray-500 mt-10">Note: Frontend changes reset on refresh. Connect a database later for permanent storage.</p>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT LOGIC -->
-  <script>
-    // --- 1. Custom Cursor ---
-    const cursorDot = document.getElementById("cursor-dot");
-    const cursorOutline = document.getElementById("cursor-outline");
-    const hoverElements = document.querySelectorAll(".custom-hover");
-
+<!-- SCRIPTS -->
+<script>
+  // 1. Custom Cursor Logic (Maintained from your original code)
+  const cursorDot = document.getElementById("cursorDot");
+  const cursorRing = document.getElementById("cursorRing");
+  
+  if (window.matchMedia("(pointer: fine)").matches) {
     window.addEventListener("mousemove", (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
-      cursorDot.style.left = `${posX}px`;
-      cursorDot.style.top = `${posY}px`;
+      cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+      cursorRing.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+    });
+    document.querySelectorAll('a, button, input, textarea, .magnetic, #logoTrigger').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursorDot.classList.add('hover'); cursorRing.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+    });
+  }
+
+  // 2. Scroll Progress
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
+  });
+
+  // 3. ADMIN PANEL LOGIC (4 Clicks on Logo)
+  let logoClicks = 0;
+  let clickTimer;
+  
+  const logoTrigger = document.getElementById('logoTrigger');
+  const loginModal = document.getElementById('adminLoginModal');
+  const dashboard = document.getElementById('adminDashboard');
+  
+  // Show/Hide Helpers
+  const showModal = (el) => { el.classList.remove('hidden'); setTimeout(() => el.classList.remove('opacity-0'), 10); };
+  const hideModal = (el) => { el.classList.add('opacity-0'); setTimeout(() => el.classList.add('hidden'), 300); };
+
+  // Trigger Login
+  logoTrigger.addEventListener('click', () => {
+    logoClicks++;
+    clearTimeout(clickTimer);
+    if (logoClicks === 4) {
+      showModal(loginModal);
+      logoClicks = 0;
+    }
+    clickTimer = setTimeout(() => { logoClicks = 0; }, 1200);
+  });
+
+  document.getElementById('closeLogin').addEventListener('click', () => hideModal(loginModal));
+
+  // Authenticate: ZAIDX9119 / Zaid@9119
+  document.getElementById('enterAdminBtn').addEventListener('click', () => {
+    const user = document.getElementById('adminUser').value;
+    const pass = document.getElementById('adminPass').value;
+    
+    if (user === 'ZAIDX9119' && pass === 'Zaid@9119') {
+      document.getElementById('loginError').classList.add('hidden');
+      hideModal(loginModal);
       
-      // Delay for outline
-      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-    });
-
-    hoverElements.forEach(el => {
-      el.addEventListener("mouseenter", () => {
-        cursorOutline.style.width = "60px";
-        cursorOutline.style.height = "60px";
-        cursorOutline.style.backgroundColor = "rgba(255,255,255,0.1)";
-      });
-      el.addEventListener("mouseleave", () => {
-        cursorOutline.style.width = "40px";
-        cursorOutline.style.height = "40px";
-        cursorOutline.style.backgroundColor = "transparent";
-      });
-    });
-
-    // --- 2. GSAP Animations ---
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Hero Entrance
-    gsap.from(".gsap-hero", { y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 });
-    
-    // Scroll Reveals
-    gsap.utils.toArray('.gsap-reveal').forEach(element => {
-      gsap.from(element, {
-        scrollTrigger: { trigger: element, start: "top 85%" },
-        y: 50, opacity: 0, duration: 0.8, ease: "power3.out"
-      });
-    });
-
-    // --- 3. Vanilla Tilt (3D Cards) ---
-    VanillaTilt.init(document.querySelectorAll(".tilt-card"));
-
-    // --- 4. Admin Panel Logic (ZAIDX9119 / Zaid@9119) ---
-    let clickCount = 0;
-    let clickTimer;
-    
-    const logo = document.getElementById('logoTrigger');
-    const loginModal = document.getElementById('loginModal');
-    const dashboard = document.getElementById('adminDashboard');
-    
-    // Auth
-    logo.addEventListener('click', () => {
-      clickCount++;
-      clearTimeout(clickTimer);
-      if (clickCount === 4) {
-        showElement(loginModal);
-        clickCount = 0;
-      }
-      clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
-    });
-
-    document.getElementById('cancelLoginBtn').addEventListener('click', () => hideElement(loginModal));
-    
-    document.getElementById('submitLoginBtn').addEventListener('click', () => {
-      const user = document.getElementById('usernameInput').value;
-      const pass = document.getElementById('passwordInput').value;
-      
-      if (user === 'ZAIDX9119' && pass === 'Zaid@9119') {
-        document.getElementById('loginError').classList.add('hidden');
-        hideElement(loginModal);
-        
-        // Setup dashboard data
-        document.getElementById('adminHeroTitle').value = document.getElementById('live-hero-title').innerHTML.trim();
-        document.getElementById('adminHeroBio').value = document.getElementById('live-hero-bio').innerText;
-        
-        setTimeout(() => showElement(dashboard), 300);
-        
-        // Clear inputs for security
-        document.getElementById('usernameInput').value = '';
-        document.getElementById('passwordInput').value = '';
-      } else {
-        document.getElementById('loginError').classList.remove('hidden');
-      }
-    });
-
-    document.getElementById('logoutBtn').addEventListener('click', () => hideElement(dashboard));
-
-    // Dashboard Functions: Edit Text
-    document.getElementById('saveTextBtn').addEventLi
+      // Load current text into inputs
+      document.getElementById('editHeadline').value = document.getElementById('live-hero-title').innerHTML.trim();
+      document.getElementById('editBio').value = document.getElementById('live-hero-bio

@@ -2048,9 +2048,25 @@ function toast(message){
    RENDER WEBSITE
 ============================== */
 
-function renderWebsite(){
+let adminClicks = 0;
+let adminClickTimer;
 
-  $("heroEyebrow").textContent=data.eyebrow;
+$("#logoAdmin").addEventListener("click",e=>{
+  e.preventDefault();
+
+  adminClicks++;
+
+  clearTimeout(adminClickTimer);
+
+  adminClickTimer = setTimeout(()=>{
+    adminClicks = 0;
+  },1500);
+
+  if(adminClicks === 4){
+    adminClicks = 0;
+    $("#loginOverlay").classList.add("open");
+  }
+});
 
   $("heroTitle").innerHTML=
     data.title

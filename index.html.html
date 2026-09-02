@@ -416,9 +416,18 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
   position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);
   background:#111;color:#fff;border:1px solid #333;padding:13px 20px;
   border-radius:100px;z-index:99999;opacity:0;pointer-events:none;
-  transition:.3s;font-size:12px;font-weight:700;
+  transition:.3s;font-size:12px;font-weight:700;max-width:90%;text-align:center;
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.form-status{
+  min-height:22px;font-size:13px;font-weight:600;color:#3d6b3d;
+}
+.form-status.err{color:#9a2a22}
+.honeypot{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+.admin-note{
+  background:#f3efe6;border:1px solid var(--line);border-radius:14px;
+  padding:12px 14px;font-size:12px;line-height:1.55;color:#5c584f;margin-bottom:12px;
+}
 
 @media(max-width:900px){
   .nav-links{display:none}
@@ -561,14 +570,18 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
       <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
       <p class="contact-copy" id="contactText">Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.</p>
     </div>
-    <form class="contact-form reveal" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+    <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
       <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
-      <input class="field" required name="name" placeholder="Your name *">
-      <input class="field" required type="email" name="email" placeholder="Email address *">
-      <input class="field" name="project" placeholder="What do you need?">
-      <textarea class="field" required name="message" placeholder="Tell me about your project..."></textarea>
-      <button class="submit" type="submit">SEND INQUIRY ↗</button>
+      <input type="hidden" name="_url" value="https://zaidraza.studio/contact">
+      <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+      <input class="field" required name="name" id="cName" placeholder="Your name *">
+      <input class="field" required type="email" name="email" id="cEmail" placeholder="Email address *">
+      <input class="field" name="project" id="cProject" placeholder="What do you need?">
+      <textarea class="field" required name="message" id="cMessage" placeholder="Tell me about your project..."></textarea>
+      <button class="submit" type="submit" id="sendBtn">SEND INQUIRY ↗</button>
+      <div class="form-status" id="formStatus"></div>
     </form>
   </div>
 </section>
@@ -611,7 +624,8 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
     <div class="admin-top">
       <div class="admin-brand">ZAID/RAZA<small>3D STUDIO CONTROL CENTER</small></div>
       <div class="admin-actions">
-        <button class="admin-btn solid" id="previewSite">VIEW WEBSITE</button>
+        <button class="admin-btn solid" id="saveAllBtn">SAVE ALL & VIEW</button>
+        <button class="admin-btn" id="previewSite">VIEW WEBSITE</button>
         <button class="admin-btn" id="resetSite">RESET</button>
         <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
       </div>
@@ -670,6 +684,10 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
         <div class="admin-field"><label>Behance URL</label><input class="admin-input" id="aBehance"></div>
         <div class="admin-field"><label>YouTube URL</label><input class="admin-input" id="aYoutube"></div>
         <div class="admin-field"><label>Footer line</label><input class="admin-input" id="aFooter"></div>
+        <div class="admin-field"><label>Gmail that receives form messages</label><input class="admin-input" id="aContactEmail" placeholder="you@gmail.com"></div>
+        <div class="admin-note" id="mailHelp">
+          Messages go to the Gmail above. The first test sends an activation mail from FormSubmit — open Gmail (and Spam), then click Activate. After that, new inquiries arrive in Inbox.
+        </div>
         <button class="admin-save" id="saveContact">SAVE CONTACT</button>
       </div>
 
@@ -684,7 +702,8 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
         <h3><span>06</span>Work intro & filters</h3>
         <div class="admin-field"><label>Work section text</label><textarea class="admin-textarea" id="aWorkInfo"></textarea></div>
         <div class="admin-field"><label>Filter tags (comma separated)</label><input class="admin-input" id="aFilters"></div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">ALL is always included. Use the same tags when adding projects.</p>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 12px">ALL is always included. Use the same tags when adding projects.</p>
+        <button class="admin-save" id="saveWork">SAVE WORK SECTION</button>
       </div>
 
       <div class="admin-card full">
@@ -747,6 +766,7 @@ const defaultData = {
   contactText:"Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.",
   instagram:"", behance:"", youtube:"",
   footerCopy:"© 2026 — VISUAL DESIGNER",
+  contactEmail:"mdzaidraza9119@gmail.com",
   filters:["YOUTUBE","GAMING","SOCIAL","POSTER"],
   marquee:["THUMBNAILS","YOUTUBE","POSTERS","SOCIAL MEDIA","GAMING","BRANDING","VISUAL STORYTELLING"],
   tools:[
@@ -772,11 +792,30 @@ const defaultData = {
 
 let data;
 try{
-  data = JSON.parse(localStorage.getItem("zaidPortfolioV4")) || structuredClone(defaultData);
+  const raw = localStorage.getItem("zaidPortfolioV4");
+  data = raw ? {...structuredClone(defaultData), ...JSON.parse(raw)} : structuredClone(defaultData);
+  if(!Array.isArray(data.projects)) data.projects = structuredClone(defaultData.projects);
+  if(!Array.isArray(data.services)) data.services = structuredClone(defaultData.services);
+  if(!Array.isArray(data.tools)) data.tools = structuredClone(defaultData.tools);
 }catch(e){
   data = structuredClone(defaultData);
 }
-function saveData(){ localStorage.setItem("zaidPortfolioV4", JSON.stringify(data)); }
+
+function saveData(){
+  try{
+    localStorage.setItem("zaidPortfolioV4", JSON.stringify(data));
+    return true;
+  }catch(err){
+    try{
+      const slim = {...data, profile: data.profile && String(data.profile).startsWith("data:") ? data.profile : data.profile};
+      localStorage.setItem("zaidPortfolioV4", JSON.stringify(slim));
+      return true;
+    }catch(err2){
+      toast("Saved on this screen, but browser storage is full. Use smaller images.");
+      return false;
+    }
+  }
+}
 
 const $ = id => document.getElementById(id);
 function toast(message){
@@ -827,16 +866,27 @@ function renderTools(){
     </div>`).join("");
 }
 
-function renderWebsite(){
+function formatTitle(text, italicWord){
+  let html = escapeHTML(text || "").replace(/\n/g,"<br>");
+  if(italicWord){
+    const esc = escapeHTML(italicWord);
+    if(html.includes(esc)){
+      html = html.replace(esc, '<span class="italic">'+esc+'</span>');
+    }
+  }
+  return html;
+}
+
+function applyToPage(){
   $("heroEyebrow").textContent = data.eyebrow;
-  $("heroTitle").innerHTML = data.title.replace(/\n/g,"<br>").replace("VISUALS",'<span class="italic">VISUALS</span>');
+  $("heroTitle").innerHTML = formatTitle(data.title, "VISUALS");
   $("heroDescription").textContent = data.description;
   $("tagTop").textContent = data.tagTop || "BASED IN INDIA";
   $("tagBottom").textContent = data.tagBottom || "AVAILABLE ↗";
   $("roundBadge").innerHTML = escapeHTML(data.badge || "DESIGN\nWITH\nINTENT").replace(/\n/g,"<br>");
   $("floatChip").textContent = data.chip || "3D STUDIO";
   $("aboutMark").textContent = data.aboutMark || "ZR.";
-  $("aboutTitle").innerHTML = data.aboutTitle.replace(/\n/g,"<br>").replace(/It's communication\./,'<span class="italic">It\'s communication.</span>');
+  $("aboutTitle").innerHTML = formatTitle(data.aboutTitle, "It's communication.");
   $("aboutText").textContent = data.aboutText;
   $("stat1").textContent = data.stat1;
   $("stat1Label").textContent = data.stat1Label;
@@ -851,13 +901,15 @@ function renderWebsite(){
   setLink($("instagramLink"), data.instagram);
   setLink($("behanceLink"), data.behance);
   setLink($("youtubeLink"), data.youtube);
+  const form = $("contactForm");
+  const inbox = (data.contactEmail || "mdzaidraza9119@gmail.com").trim();
+  if(form) form.action = "https://formsubmit.co/" + inbox;
   renderMarquee();
   renderFilters();
   renderServices();
   renderProjects();
   renderTools();
   renderAdminProjects();
-  loadAdminFields();
   if(data.profile){
     $("profileImage").src = data.profile;
     $("profileImage").style.display = "block";
@@ -867,6 +919,10 @@ function renderWebsite(){
     $("profilePlaceholder").style.display = "flex";
   }
   observeReveal();
+}
+
+function renderWebsite(){
+  applyToPage();
 }
 
 function renderServices(){
@@ -958,27 +1014,28 @@ function login(){
 }
 
 function loadAdminFields(){
-  $("aEyebrow").value = data.eyebrow;
-  $("aTitle").value = data.title;
-  $("aDescription").value = data.description;
+  $("aEyebrow").value = data.eyebrow || "";
+  $("aTitle").value = data.title || "";
+  $("aDescription").value = data.description || "";
   $("aTagTop").value = data.tagTop || "";
   $("aTagBottom").value = data.tagBottom || "";
   $("aBadge").value = data.badge || "";
   $("aChip").value = data.chip || "";
   $("aAboutMark").value = data.aboutMark || "";
-  $("aAboutTitle").value = data.aboutTitle;
-  $("aAboutText").value = data.aboutText;
-  $("aStat1").value = data.stat1;
-  $("aStat1Label").value = data.stat1Label;
-  $("aStat2").value = data.stat2;
-  $("aStat2Label").value = data.stat2Label;
-  $("aStat3").value = data.stat3;
-  $("aStat3Label").value = data.stat3Label;
-  $("aContactText").value = data.contactText;
-  $("aInstagram").value = data.instagram;
-  $("aBehance").value = data.behance;
-  $("aYoutube").value = data.youtube;
+  $("aAboutTitle").value = data.aboutTitle || "";
+  $("aAboutText").value = data.aboutText || "";
+  $("aStat1").value = data.stat1 || "";
+  $("aStat1Label").value = data.stat1Label || "";
+  $("aStat2").value = data.stat2 || "";
+  $("aStat2Label").value = data.stat2Label || "";
+  $("aStat3").value = data.stat3 || "";
+  $("aStat3Label").value = data.stat3Label || "";
+  $("aContactText").value = data.contactText || "";
+  $("aInstagram").value = data.instagram || "";
+  $("aBehance").value = data.behance || "";
+  $("aYoutube").value = data.youtube || "";
   $("aFooter").value = data.footerCopy || "";
+  $("aContactEmail").value = data.contactEmail || "mdzaidraza9119@gmail.com";
   $("aServicesInfo").value = data.servicesInfo || "";
   $("aWorkInfo").value = data.workInfo || "";
   $("aFilters").value = (data.filters || []).join(", ");
@@ -988,6 +1045,62 @@ function loadAdminFields(){
   renderToolEditor();
   const sel = $("pTag");
   if(sel) sel.innerHTML = (data.filters || []).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
+}
+
+function collectAdminFields(){
+  data.eyebrow = $("aEyebrow").value;
+  data.title = $("aTitle").value;
+  data.description = $("aDescription").value;
+  data.tagTop = $("aTagTop").value;
+  data.tagBottom = $("aTagBottom").value;
+  data.badge = $("aBadge").value;
+  data.chip = $("aChip").value;
+  const url = $("profileUrl").value.trim();
+  if(url) data.profile = url;
+  data.aboutMark = $("aAboutMark").value;
+  data.aboutTitle = $("aAboutTitle").value;
+  data.aboutText = $("aAboutText").value;
+  data.stat1 = $("aStat1").value; data.stat1Label = $("aStat1Label").value;
+  data.stat2 = $("aStat2").value; data.stat2Label = $("aStat2Label").value;
+  data.stat3 = $("aStat3").value; data.stat3Label = $("aStat3Label").value;
+  data.contactText = $("aContactText").value;
+  data.instagram = $("aInstagram").value.trim();
+  data.behance = $("aBehance").value.trim();
+  data.youtube = $("aYoutube").value.trim();
+  data.footerCopy = $("aFooter").value;
+  data.contactEmail = ($("aContactEmail").value || "").trim() || "mdzaidraza9119@gmail.com";
+  data.servicesInfo = $("aServicesInfo").value;
+  data.workInfo = $("aWorkInfo").value;
+  data.marquee = $("aMarquee").value.split(",").map(s=>s.trim()).filter(Boolean);
+  data.filters = $("aFilters").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
+  document.querySelectorAll(".service-title").forEach(input=>{
+    const i = Number(input.dataset.index);
+    if(data.services[i]) data.services[i].title = input.value;
+  });
+  document.querySelectorAll(".service-text").forEach(input=>{
+    const i = Number(input.dataset.index);
+    if(data.services[i]) data.services[i].text = input.value;
+  });
+  document.querySelectorAll(".tool-title").forEach(input=>{
+    const i = Number(input.dataset.index);
+    if(data.tools[i]) data.tools[i].title = input.value;
+  });
+  document.querySelectorAll(".tool-text").forEach(input=>{
+    const i = Number(input.dataset.index);
+    if(data.tools[i]) data.tools[i].text = input.value;
+  });
+}
+
+function commitChanges(message, viewSite){
+  collectAdminFields();
+  saveData();
+  applyToPage();
+  toast(message || "Saved — open VIEW WEBSITE to see it");
+  if(viewSite){
+    $("adminOverlay").classList.remove("open");
+    document.body.style.overflow = "";
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
 }
 
 function renderServiceEditor(){
@@ -1020,83 +1133,59 @@ function renderToolEditor(){
   });
 }
 
-$("saveHero").onclick = ()=>{
-  data.eyebrow = $("aEyebrow").value;
-  data.title = $("aTitle").value;
-  data.description = $("aDescription").value;
-  data.tagTop = $("aTagTop").value;
-  data.tagBottom = $("aTagBottom").value;
-  data.badge = $("aBadge").value;
-  data.chip = $("aChip").value;
-  const url = $("profileUrl").value.trim();
-  if(url) data.profile = url;
-  saveData(); renderWebsite(); toast("Hero saved");
-};
+$("saveHero").onclick = ()=>commitChanges("Hero saved — click SAVE ALL & VIEW to see the site", false);
+$("saveAbout").onclick = ()=>commitChanges("About saved — click SAVE ALL & VIEW to see the site", false);
+$("saveServices").onclick = ()=>commitChanges("Services saved — click SAVE ALL & VIEW to see the site", false);
+$("saveContact").onclick = ()=>commitChanges("Contact saved — click SAVE ALL & VIEW to see the site", false);
+$("saveTools").onclick = ()=>commitChanges("Tools saved — click SAVE ALL & VIEW to see the site", false);
+$("saveWork").onclick = ()=>commitChanges("Work section saved — click SAVE ALL & VIEW to see the site", false);
+$("saveAllBtn").onclick = ()=>commitChanges("All changes are now live on the website", true);
 
-$("profileUpload").addEventListener("change", function(){
+function compressImageFile(file, maxWidth, quality){
+  return new Promise((resolve, reject)=>{
+    const img = new Image();
+    const blobUrl = URL.createObjectURL(file);
+    img.onload = ()=>{
+      const scale = Math.min(1, maxWidth / img.width);
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(img.width * scale));
+      canvas.height = Math.max(1, Math.round(img.height * scale));
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(blobUrl);
+      resolve(canvas.toDataURL("image/jpeg", quality));
+    };
+    img.onerror = ()=>reject(new Error("image"));
+    img.src = blobUrl;
+  });
+}
+
+$("profileUpload").addEventListener("change", async function(){
   const file = this.files[0];
   if(!file) return;
-  if(file.size > 5*1024*1024){ toast("Photo must be under 5MB"); this.value=""; return; }
-  const reader = new FileReader();
-  reader.onload = e=>{
-    data.profile = e.target.result;
+  if(file.size > 8*1024*1024){ toast("Photo must be under 8MB"); this.value=""; return; }
+  try{
+    data.profile = await compressImageFile(file, 1400, 0.82);
     $("profileUrl").value = "";
-    saveData(); renderWebsite(); toast("Profile photo updated");
-  };
-  reader.readAsDataURL(file);
+    collectAdminFields();
+    saveData();
+    applyToPage();
+    toast("Profile photo updated");
+  }catch(err){
+    toast("Could not read that photo");
+  }
 });
 
-$("saveAbout").onclick = ()=>{
-  data.aboutMark = $("aAboutMark").value;
-  data.aboutTitle = $("aAboutTitle").value;
-  data.aboutText = $("aAboutText").value;
-  data.stat1 = $("aStat1").value; data.stat1Label = $("aStat1Label").value;
-  data.stat2 = $("aStat2").value; data.stat2Label = $("aStat2Label").value;
-  data.stat3 = $("aStat3").value; data.stat3Label = $("aStat3Label").value;
-  saveData(); renderWebsite(); toast("About section saved");
-};
-
-$("saveServices").onclick = ()=>{
-  data.servicesInfo = $("aServicesInfo").value;
-  document.querySelectorAll(".service-title").forEach(input=>{
-    data.services[Number(input.dataset.index)].title = input.value;
-  });
-  document.querySelectorAll(".service-text").forEach(input=>{
-    data.services[Number(input.dataset.index)].text = input.value;
-  });
-  saveData(); renderWebsite(); toast("Services saved");
-};
-
-$("saveContact").onclick = ()=>{
-  data.contactText = $("aContactText").value;
-  data.instagram = $("aInstagram").value.trim();
-  data.behance = $("aBehance").value.trim();
-  data.youtube = $("aYoutube").value.trim();
-  data.footerCopy = $("aFooter").value;
-  saveData(); renderWebsite(); toast("Contact & socials saved");
-};
-
-$("saveTools").onclick = ()=>{
-  data.marquee = $("aMarquee").value.split(",").map(s=>s.trim()).filter(Boolean);
-  data.workInfo = $("aWorkInfo").value;
-  data.filters = $("aFilters").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
-  document.querySelectorAll(".tool-title").forEach(input=>{
-    data.tools[Number(input.dataset.index)].title = input.value;
-  });
-  document.querySelectorAll(".tool-text").forEach(input=>{
-    data.tools[Number(input.dataset.index)].text = input.value;
-  });
-  saveData(); renderWebsite(); toast("Tools & marquee saved");
-};
-
 let uploadedProjectImage = "";
-$("projectUpload").addEventListener("change", function(){
+$("projectUpload").addEventListener("change", async function(){
   const file = this.files[0];
   if(!file) return;
-  if(file.size > 7*1024*1024){ toast("Image must be under 7MB"); this.value=""; return; }
-  const reader = new FileReader();
-  reader.onload = e=>{ uploadedProjectImage = e.target.result; toast("Image ready"); };
-  reader.readAsDataURL(file);
+  if(file.size > 8*1024*1024){ toast("Image must be under 8MB"); this.value=""; return; }
+  try{
+    uploadedProjectImage = await compressImageFile(file, 1600, 0.82);
+    toast("Image ready — click ADD PROJECT");
+  }catch(err){
+    toast("Could not read that image");
+  }
 });
 
 $("addProject").onclick = ()=>{
@@ -1137,8 +1226,12 @@ function renderAdminProjects(){
 }
 
 $("previewSite").onclick = ()=>{
+  collectAdminFields();
+  saveData();
+  applyToPage();
   $("adminOverlay").classList.remove("open");
   document.body.style.overflow = "";
+  toast("Website updated");
 };
 $("logoutAdmin").onclick = ()=>{
   $("adminOverlay").classList.remove("open");
@@ -1196,6 +1289,72 @@ document.addEventListener("keydown", e=>{
     closePreview();
     $("loginOverlay").classList.remove("open");
   }
+});
+
+function setFormStatus(text, isError){
+  const el = $("formStatus");
+  el.textContent = text;
+  el.classList.toggle("err", !!isError);
+}
+
+$("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const honey = this.querySelector("[name='_honey']");
+  if(honey && honey.value) return;
+  const inbox = (data.contactEmail || "mdzaidraza9119@gmail.com").trim();
+  const name = $("cName").value.trim();
+  const email = $("cEmail").value.trim();
+  const project = $("cProject").value.trim();
+  const message = $("cMessage").value.trim();
+  if(!name || !email || !message){
+    setFormStatus("Please fill name, email and message.", true);
+    return;
+  }
+  const btn = $("sendBtn");
+  btn.disabled = true;
+  btn.textContent = "SENDING...";
+  setFormStatus("Sending your message...");
+
+  const payload = {
+    name,
+    email,
+    project: project || "Not specified",
+    message,
+    _subject: "New Portfolio Inquiry — Zaid Raza",
+    _template: "table",
+    _captcha: "false"
+  };
+
+  let sent = false;
+  try{
+    const res = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(inbox), {
+      method: "POST",
+      headers: {"Content-Type":"application/json","Accept":"application/json"},
+      body: JSON.stringify(payload)
+    });
+    const out = await res.json().catch(()=>({}));
+    if(res.ok && String(out.success) !== "false"){
+      sent = true;
+      setFormStatus("Sent. If this is the first message, open Gmail / Spam and click the FormSubmit Activate link. After that, inquiries arrive in Inbox.");
+      toast("Message sent");
+      this.reset();
+    }else if(out && /web server|HTML files/i.test(out.message || "")){
+      throw new Error("local-file");
+    }else if(out && out.message){
+      throw new Error(out.message);
+    }else{
+      throw new Error("not-sent");
+    }
+  }catch(err){
+    const subject = encodeURIComponent("Portfolio inquiry from " + name);
+    const body = encodeURIComponent(
+      "Name: " + name + "\nEmail: " + email + "\nProject: " + (project || "-") + "\n\n" + message
+    );
+    setFormStatus("Could not send from this file preview. Your email app will open so the message can go to " + inbox + ".", true);
+    window.location.href = "mailto:" + inbox + "?subject=" + subject + "&body=" + body;
+  }
+  btn.disabled = false;
+  btn.textContent = "SEND INQUIRY ↗";
 });
 
 window.addEventListener("load", ()=>{

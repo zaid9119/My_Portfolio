@@ -3,244 +3,510 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAID/RAZA — Visual Designer</title>
-<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Creator">
+<title>ZAID RAZA — Visual Designer</title>
+<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-:root{
-  --bg:#f3f2ed;
-  --surface:#e8e7e1;
-  --surface2:#deddd6;
-  --text:#111111;
-  --muted:#6e6e68;
-  --line:rgba(0,0,0,.12);
-  --black:#111111;
-  --white:#ffffff;
-  --accent:#111111;
-  --radius:28px;
-  --buttonRadius:999px;
-  --cardRadius:28px;
-  --gridSize:70px;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #f4f3ef;
+  color: #101010;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
 }
 
-*{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; }
-body{ background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
-body.admin-open{ overflow:hidden; }
-h1,h2,h3,h4, .logo, .display{ font-family:'Space Grotesk',sans-serif; }
-a{ color:inherit; text-decoration:none; }
-button, input, textarea, select{ font:inherit; }
-button{ cursor:pointer; }
-::selection{ background:#111; color:#fff; }
+h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
+.serif { font-family: Georgia, serif; font-style: italic; }
+::selection { background: #111; color: #fff; }
 
-/* NAV */
-.nav{ position:fixed; top:0; left:0; width:100%; z-index:1000; transition:.35s; padding: 15px 0;}
-.nav.scrolled{ background:rgba(243,242,237,.88); backdrop-filter:blur(20px); border-bottom:1px solid var(--line); padding: 5px 0; }
-.nav-inner{ max-width:1400px; margin:auto; padding:10px 32px; display:flex; align-items:center; justify-content:space-between; }
-.logo{ font-weight:700; font-size:22px; letter-spacing:-.7px; cursor:pointer; user-select:none; }
-.logo span{ color:#999; }
-.nav-links{ display:flex; gap:36px; font-size:13px; font-weight:600; }
+/* CURSOR */
+.cursor {
+  position: fixed; z-index: 9999; pointer-events: none;
+  width: 12px; height: 12px; background: #111; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+}
+.cursor.big { width: 48px; height: 48px; mix-blend-mode: difference; background: #fff;}
 
-/* HERO */
-.hero{ min-height:100vh; padding:150px 32px 100px; display:flex; align-items:center; background-image: linear-gradient(var(--line) 1px,transparent 1px), linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size: var(--gridSize) var(--gridSize); }
-.hero-inner{ max-width:1400px; width:100%; margin:auto; display:grid; grid-template-columns:1.15fr .85fr; gap:80px; align-items:center; }
-.hero-title{ margin-top:27px; font-size:clamp(62px,9.4vw,130px); line-height:.78; letter-spacing:-.075em; font-weight:700; }
-.italic{ font-family:Georgia,serif; font-style:italic; font-weight:400; }
-.hero-description{ max-width:570px; margin-top:38px; color:var(--muted); font-size:17px; line-height:1.8; }
-.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:15px 24px; border-radius:var(--buttonRadius); font-weight:700; font-size:14px; transition: transform .3s; }
-.btn-black{ background:#111; color:#fff; border: 1px solid #111; }
-.btn-black:hover{ transform:translateY(-3px); }
+/* NAVBAR & HERO */
+nav { transition: .3s; }
+.nav-scrolled { background: rgba(244,243,239,.86); backdrop-filter: blur(18px); border-bottom: 1px solid #ddd; }
+.hero-grid {
+  background-image: linear-gradient(#deddd8 1px, transparent 1px), linear-gradient(90deg, #deddd8 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.photo { background: linear-gradient(135deg, #d9d6cf, #a8a49b); filter: grayscale(100%); position: relative; }
+.photo:after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,.35));
+}
 
-/* SECTIONS */
-.section{ max-width:1400px; margin:auto; padding:130px 32px; }
-.section-label{ font-size:11px; text-transform:uppercase; letter-spacing:.3em; font-weight:700; color:var(--muted); }
-.section-heading{ margin-top:10px; font-size:clamp(42px,7vw,80px); line-height:.9; letter-spacing:-.065em; }
+/* MARQUEE & CARDS */
+.marquee { white-space: nowrap; overflow: hidden; border-top: 1px solid #111; border-bottom: 1px solid #111; }
+.marquee span { display: inline-block; animation: move 22s linear infinite; }
+@keyframes move { to { transform: translateX(-50%); } }
+.work-card { border: 1px solid rgba(0,0,0,.08); border-radius: 28px; overflow: hidden; background: #ebeae5; transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s; }
+.work-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px #0001; }
+.work-img { transition: transform .7s; }
+.work-card:hover .work-img { transform: scale(1.05); }
 
-/* CONTACT FORM */
-.contact-section{ background:var(--surface2); }
-.contact-grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:90px; }
-.contact-form{ display:grid; gap:12px; margin-top: 30px;}
-.field{ width:100%; border:1px solid rgba(0,0,0,.14); background:rgba(255,255,255,.28); padding:18px; border-radius:16px; outline:none; color:#111; }
-.field:focus{ border-color:#111; background:#fff; }
-textarea.field{ resize:vertical; min-height:170px; }
-.submit{ border:0; background:#111; color:#fff; padding:18px; border-radius:var(--buttonRadius); font-weight:700; text-align:center; cursor: pointer; transition: 0.3s;}
-.submit:hover{ background: #333;}
+/* REVEAL & UTILS */
+.reveal { opacity: 0; transform: translateY(30px); transition: .8s ease; }
+.reveal.show { opacity: 1; transform: none; }
+.number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(4rem,10vw,9rem); line-height: .8; color: #111; }
 
-/* ADMIN PANEL (COMPLETED CSS) */
-.admin-overlay{ position:fixed; inset:0; z-index:9000; background:#0c0c0c; color:#fff; display:none; overflow-y:auto; padding-bottom: 50px; }
-.admin-overlay.show{ display:block; }
-.admin-shell{ max-width:1100px; margin:auto; padding: 40px 20px;}
-.admin-header{ position:sticky; top:0; z-index:20; background:rgba(12,12,12,.9); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.08); padding:20px 30px; display:flex; justify-content:space-between; align-items:center; }
-.admin-brand{ font-family:'Space Grotesk'; font-size: 24px; font-weight:700; }
-.admin-btn{ border:1px solid rgba(255,255,255,.13); background:rgba(255,255,255,.05); color:#fff; border-radius:999px; padding: 10px 20px; font-size: 13px; transition: 0.3s;}
-.admin-btn:hover{ background: #fff; color: #111; }
-.admin-dashboard{ margin-top: 40px; }
-.admin-msg-card{ background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 25px; border-radius: 20px; margin-bottom: 20px; }
-.admin-msg-header{ display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
-.admin-msg-name{ font-size: 18px; font-weight: 700; color: #fff;}
-.admin-msg-email{ font-size: 13px; color: #999; }
-.admin-msg-date{ font-size: 11px; color: #666; letter-spacing: 1px; }
-.admin-msg-body{ font-size: 15px; color: #ccc; line-height: 1.6;}
+/* FORMS */
+input, textarea { background: #ebeae5; border: 1px solid #cbc9c1; outline: none; }
+input:focus, textarea:focus { border-color: #111; }
 
-/* FOOTER */
-.footer{ background:#111; color:#fff; padding:45px 32px; text-align: center; font-size: 14px;}
+/* ADMIN MODALS */
+.modal { display: none; opacity: 0; transition: opacity 0.3s ease; }
+.modal.open { display: flex; opacity: 1; }
+.admin-bg { background: #1a1a1a; color: #f4f3ef; }
+.admin-input { background: #2a2a2a; border: 1px solid #333; color: white; }
+.admin-input:focus { border-color: #f4f3ef; }
+
+@media(max-width:800px) {
+  .cursor { display: none; }
+  .hero-grid { background-size: 45px 45px; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav class="nav" id="navbar">
-  <div class="nav-inner">
-    <!-- Click this 4 times to open admin -->
-    <div class="logo" id="secret-trigger">ZAID<span>/RAZA</span></div>
-    <div class="nav-links">
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- NAVBAR -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
+    <a href="#" id="adminTrigger" class="font-bold tracking-tight text-xl">ZAID<span class="text-zinc-400">/</span>RAZA</a>
+    <div class="hidden md:flex items-center gap-9 text-sm font-medium">
       <a href="#work">Work</a>
+      <a href="#services">Services</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </div>
+    <a href="#contact" class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">Let's talk ↗</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<header class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="eyebrow">Visual Designer</div>
-      <h1 class="hero-title">Crafting <br><span class="italic">Visual</span> Impact.</h1>
-      <p class="hero-description">I am Md Zaid Raza, a visual creator specializing in high-converting thumbnails and digital aesthetics that elevate brands.</p>
-      <a href="#contact" class="btn btn-black" style="margin-top: 30px;">Let's Talk</a>
+<header class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
+      <div class="reveal">
+        <p class="text-xs tracking-[.3em] uppercase font-bold mb-8">Thumbnail Designer · Visual Creator</p>
+        <h1 id="displayHeroHeadline" class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
+          <!-- Populated by JS -->
+        </h1>
+        <p id="displayHeroBio" class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600"></p>
+        <div class="flex flex-wrap gap-3 mt-9">
+          <a href="#work" class="bg-black text-white rounded-full px-7 py-4 font-semibold">Explore my work ↓</a>
+          <a href="#contact" class="border border-black rounded-full px-7 py-4 font-semibold">Start a project ↗</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="relative max-w-md mx-auto lg:ml-auto">
+          <div class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">ZR</div>
+            </div>
+            <div class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">BASED IN INDIA</div>
+            <div class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">AVAILABLE ↗</div>
+          </div>
+          <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
+            DESIGN<br>WITH<br>INTENT
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- CONTACT SECTION -->
-<section class="section contact-section" id="contact">
-  <div class="contact-grid">
+<!-- MARQUEE -->
+<div class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
+  <span>
+    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
+    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
+  </span>
+</div>
+
+<!-- WORK -->
+<section id="work" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+  <div class="flex justify-between items-end mb-14 reveal">
     <div>
-      <div class="section-label">Get in Touch</div>
-      <h2 class="contact-title">Let's build<br>together.</h2>
-      <p class="contact-copy">Have a project in mind? Drop a message and let's create something extraordinary.</p>
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">01 / Selected work</p>
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-3">The work.</h2>
     </div>
-    
-    <!-- IMPORTANT: Replace the email in the action URL -->
-    <form id="contact-form" class="contact-form" action="https://formsubmit.co/YOUR_EMAIL@gmail.com" method="POST">
-      <!-- FormSubmit Config -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="#">
+    <p class="hidden md:block max-w-xs text-sm text-zinc-500">A selection of visual concepts across different niches and content styles.</p>
+  </div>
+  <div id="grid" class="grid md:grid-cols-2 gap-6"></div>
+</section>
+
+<!-- SERVICES (Static for now to keep it clean, but you can expand logic later) -->
+<section id="services" class="bg-[#111] text-white py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="reveal">
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">02 / Services</p>
+      <h2 class="text-5xl md:text-7xl font-bold mt-3">What I do.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mt-16">
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">01</span>
+        <h3 class="text-2xl font-bold mt-12">YouTube<br>Thumbnails</h3>
+        <p class="text-zinc-400 mt-5 leading-6">Strong hierarchy, expressive composition and clear visual storytelling designed for the click.</p>
+      </div>
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">02</span>
+        <h3 class="text-2xl font-bold mt-12">Social<br>Visuals</h3>
+        <p class="text-zinc-400 mt-5 leading-6">Clean, recognizable graphics for reels, posts, campaigns, events and digital brands.</p>
+      </div>
+      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
+        <span class="text-zinc-500">03</span>
+        <h3 class="text-2xl font-bold mt-12">Creative<br>Direction</h3>
+        <p class="text-zinc-400 mt-5 leading-6">From the first idea to the final frame, I help shape a visual direction that makes sense.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
+  <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">03 / About</p>
+      <div class="number mt-8">ZR.</div>
+    </div>
+    <div class="reveal">
+      <h2 id="displayAboutHeadline" class="text-4xl md:text-6xl font-bold tracking-tight"></h2>
+      <p id="displayAboutBio" class="text-zinc-600 leading-7 mt-7 max-w-xl"></p>
       
-      <input type="text" name="name" class="field" placeholder="Your Name" required>
-      <input type="email" name="email" class="field" placeholder="Your Email" required>
-      <textarea name="message" class="field" placeholder="Tell me about your project..." required></textarea>
-      <button type="submit" class="submit">Send Message</button>
-    </form>
+      <div class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
+        <div>
+          <b id="displayStat1Num" class="text-4xl"></b>
+          <p id="displayStat1Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
+        </div>
+        <div>
+          <b id="displayStat2Num" class="text-4xl"></b>
+          <p id="displayStat2Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="bg-[#dddcd5] py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
+      <div class="reveal">
+        <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">04 / Contact</p>
+        <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-5">Let's make<br><span class="serif font-normal">something</span><br>stand out.</h2>
+      </div>
+      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="reveal grid gap-4">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
+        <input required name="name" placeholder="Your name *" class="p-5 rounded-2xl">
+        <input required type="email" name="email" placeholder="Email address *" class="p-5 rounded-2xl">
+        <input name="project" placeholder="What do you need? (Thumbnail / Social / Poster)" class="p-5 rounded-2xl">
+        <textarea required name="message" rows="6" placeholder="Tell me about the project..." class="p-5 rounded-2xl"></textarea>
+        <button class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">SEND INQUIRY ↗</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-logo">ZAID/RAZA © 2024</div>
+<footer class="bg-black text-white px-5 md:px-8 py-10">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
+    <b class="text-lg">ZAID/RAZA</b>
+    <p class="text-xs text-zinc-500">© 2026 — VISUAL DESIGNER</p>
+    <p class="text-xs text-zinc-500">Made to be noticed.</p>
   </div>
 </footer>
 
-<!-- ADMIN PANEL (HIDDEN) -->
-<div class="admin-overlay" id="admin-panel">
-  <div class="admin-header">
-    <div class="admin-brand">Admin Workspace</div>
-    <button class="admin-btn" id="close-admin">Close Panel</button>
+<!-- PROJECT PREVIEW MODAL -->
+<div id="preview" class="modal fixed inset-0 z-[100] bg-black/95 items-center justify-center p-5">
+  <div class="max-w-5xl w-full">
+    <button id="closePreview" class="float-right mb-3 text-white text-3xl font-bold hover:text-zinc-400 transition">&times;</button>
+    <img id="previewImg" class="w-full max-h-[82vh] object-contain rounded-2xl">
+    <div id="previewTitle" class="text-white font-bold text-xl mt-4"></div>
   </div>
-  <div class="admin-shell">
-    <h2 style="margin-bottom: 20px;">Inbox</h2>
-    <div id="admin-messages">
-      <!-- Messages will load here -->
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="login" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-5">
+  <div class="admin-bg max-w-sm w-full p-8 rounded-[28px] border border-white/10 shadow-2xl">
+    <button id="closeLogin" class="float-right text-xl text-zinc-400 hover:text-white">&times;</button>
+    <p class="text-xs text-zinc-500 tracking-widest mt-4 uppercase">Private Access</p>
+    <h2 class="text-3xl font-bold mt-2 mb-7 font-['Space_Grotesk']">Studio Admin</h2>
+    <input id="user" class="admin-input w-full p-4 mb-3 rounded-xl transition" placeholder="Username">
+    <input id="pass" type="password" class="admin-input w-full p-4 rounded-xl transition" placeholder="Password">
+    <p id="err" class="text-red-400 text-xs mt-3 hidden">Invalid credentials.</p>
+    <button id="loginBtn" class="w-full bg-[#f4f3ef] text-black p-4 mt-5 font-bold rounded-xl hover:bg-white transition">ENTER DASHBOARD</button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="dash" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
+  <div class="admin-bg max-w-6xl w-full p-6 md:p-10 rounded-[30px] border border-white/10 my-10">
+    
+    <div class="flex justify-between items-center border-b border-white/10 pb-5 mb-8">
+      <div>
+        <h2 class="text-3xl font-bold font-['Space_Grotesk']">Control Panel</h2>
+        <p class="text-xs text-zinc-400 mt-1 uppercase tracking-widest">Manage your portfolio content</p>
+      </div>
+      <div class="flex gap-3">
+        <button id="saveAllBtn" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-full text-sm font-bold transition">SAVE ALL CHANGES</button>
+        <button id="logout" class="border border-white/20 hover:bg-white/10 px-6 py-2 rounded-full text-sm font-bold transition">LOGOUT</button>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- LEFT COL: TEXT CONTENT -->
+      <div class="space-y-8">
+        <div>
+          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Hero Section</h3>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
+          <textarea id="editHeroHeadline" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Sub-bio</label>
+          <textarea id="editHeroBio" rows="2" class="admin-input w-full p-4 rounded-xl"></textarea>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">About Section</h3>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
+          <textarea id="editAboutHeadline" rows="2" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Biography</label>
+          <textarea id="editAboutBio" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Number)</label>
+              <input id="editStat1Num" class="admin-input w-full p-4 mb-2 rounded-xl">
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Label)</label>
+              <input id="editStat1Text" class="admin-input w-full p-4 rounded-xl">
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Number)</label>
+              <input id="editStat2Num" class="admin-input w-full p-4 mb-2 rounded-xl">
+              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Label)</label>
+              <input id="editStat2Text" class="admin-input w-full p-4 rounded-xl">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COL: PORTFOLIO MANAGER -->
+      <div>
+        <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Portfolio Manager</h3>
+        <div class="bg-white/5 p-5 rounded-2xl border border-white/5 mb-6">
+          <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Add New Project</h4>
+          <input id="pimg" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Image URL (Unsplash or direct link)">
+          <input id="ptitle" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Project Title">
+          <input id="ptag" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Category Tag (e.g., YOUTUBE)">
+          <button id="add" class="w-full bg-[#f4f3ef] text-black p-3 font-bold rounded-xl hover:bg-white transition text-sm">ADD TO PORTFOLIO</button>
+        </div>
+
+        <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Current Projects</h4>
+        <div id="manage" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+          <!-- Populated by JS -->
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- SCRIPTS -->
+<!-- JAVASCRIPT -->
 <script>
-  // 1. Navigation Scroll Effect
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  });
+/* --- CONFIG & STATE --- */
+const USERNAME = "ZAIDX9119";
+const PASSWORD = "Zaid@9119";
 
-  // 2. Secret Admin Panel Logic (4 Clicks on Logo)
-  let clickCount = 0;
-  let clickTimer;
-  const trigger = document.getElementById('secret-trigger');
-  const adminPanel = document.getElementById('admin-panel');
-  const closeAdmin = document.getElementById('close-admin');
+const defaultData = {
+  heroHeadline: "I MAKE<br><span class='serif font-normal'>VISUALS</span><br>MOVE.",
+  heroBio: "I turn ordinary ideas into clear, high-impact visuals built to stop the scroll and communicate instantly.",
+  aboutHeadline: "Design isn't decoration.<br><span class='serif font-normal'>It's communication.</span>",
+  aboutBio: "I'm Md Zaid Raza, a thumbnail designer and visual content creator. I care about the first impression: what people notice, what they understand and what makes them want to look twice.",
+  stat1Num: "2+", stat1Text: "Years creating",
+  stat2Num: "50+", stat2Text: "Projects & concepts",
+  projects: [
+    { title: "Cinematic Visual Concept", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Gaming — High Energy", tag: "GAMING", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Creative Campaign", tag: "SOCIAL", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop" },
+    { title: "Digital Storytelling", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop" }
+  ]
+};
 
-  trigger.addEventListener('click', () => {
-    clickCount++;
-    clearTimeout(clickTimer);
-    
-    if (clickCount === 4) {
-      adminPanel.classList.add('show');
-      document.body.classList.add('admin-open');
-      loadMessages(); // Load messages when opened
-      clickCount = 0;
-    } else {
-      // Reset count if they don't click fast enough (within 1.5 seconds)
-      clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
-    }
-  });
+// Load state from local storage or use defaults
+let siteData = JSON.parse(localStorage.getItem("zaidPortfolioData")) || defaultData;
 
-  closeAdmin.addEventListener('click', () => {
-    adminPanel.classList.remove('show');
-    document.body.classList.remove('admin-open');
-  });
+/* --- UI RENDERING --- */
+function renderSite() {
+  // Update Text Elements
+  document.getElementById('displayHeroHeadline').innerHTML = siteData.heroHeadline;
+  document.getElementById('displayHeroBio').innerText = siteData.heroBio;
+  document.getElementById('displayAboutHeadline').innerHTML = siteData.aboutHeadline;
+  document.getElementById('displayAboutBio').innerText = siteData.aboutBio;
+  document.getElementById('displayStat1Num').innerText = siteData.stat1Num;
+  document.getElementById('displayStat1Text').innerText = siteData.stat1Text;
+  document.getElementById('displayStat2Num').innerText = siteData.stat2Num;
+  document.getElementById('displayStat2Text').innerText = siteData.stat2Text;
 
-  // 3. Form Handling (Save to Admin Panel + Send Email)
-  const form = document.getElementById('contact-form');
+  // Update Portfolio Grid
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
   
-  form.addEventListener('submit', (e) => {
-    // Save to LocalStorage for the Admin Panel
-    const formData = new FormData(form);
-    const msgData = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
-      date: new Date().toLocaleString()
-    };
-
-    let messages = JSON.parse(localStorage.getItem('zaid_messages')) || [];
-    messages.unshift(msgData); // Add new message to the top
-    localStorage.setItem('zaid_messages', JSON.stringify(messages));
-
-    // Note: We are NOT using e.preventDefault() here. 
-    // We let the form submit naturally to FormSubmit.co so you receive the email.
+  siteData.projects.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "work-card cursor-pointer group";
+    card.onclick = () => openPreview(p.img, p.title);
+    card.innerHTML = `
+      <div class="aspect-[4/3] overflow-hidden bg-black">
+        <img src="${p.img}" class="work-img w-full h-full object-cover opacity-90 group-hover:opacity-100">
+      </div>
+      <div class="p-6 md:p-8 flex justify-between items-center bg-[#ebeae5]">
+        <h3 class="font-bold text-xl md:text-2xl">${p.title}</h3>
+        <span class="text-[10px] font-bold tracking-widest bg-black text-white px-3 py-1 rounded-full">${p.tag}</span>
+      </div>
+    `;
+    grid.appendChild(card);
   });
+}
 
-  // 4. Render Messages in Admin Panel
-  function loadMessages() {
-    const container = document.getElementById('admin-messages');
-    let messages = JSON.parse(localStorage.getItem('zaid_messages')) || [];
+function renderAdmin() {
+  // Populate Admin Inputs
+  document.getElementById('editHeroHeadline').value = siteData.heroHeadline;
+  document.getElementById('editHeroBio').value = siteData.heroBio;
+  document.getElementById('editAboutHeadline').value = siteData.aboutHeadline;
+  document.getElementById('editAboutBio').value = siteData.aboutBio;
+  document.getElementById('editStat1Num').value = siteData.stat1Num;
+  document.getElementById('editStat1Text').value = siteData.stat1Text;
+  document.getElementById('editStat2Num').value = siteData.stat2Num;
+  document.getElementById('editStat2Text').value = siteData.stat2Text;
 
-    if (messages.length === 0) {
-      container.innerHTML = '<p style="color: #666;">No messages yet.</p>';
-      return;
-    }
-
-    container.innerHTML = '';
-    messages.forEach(msg => {
-      container.innerHTML += `
-        <div class="admin-msg-card">
-          <div class="admin-msg-header">
-            <div>
-              <div class="admin-msg-name">${msg.name}</div>
-              <div class="admin-msg-email">${msg.email}</div>
-            </div>
-            <div class="admin-msg-date">${msg.date}</div>
-          </div>
-          <div class="admin-msg-body">${msg.message}</div>
+  // Populate Admin Project List
+  const manage = document.getElementById("manage");
+  manage.innerHTML = "";
+  siteData.projects.forEach((p, i) => {
+    manage.innerHTML += `
+      <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/10">
+        <img src="${p.img}" class="w-16 h-12 object-cover rounded-md">
+        <div class="flex-1 overflow-hidden">
+          <p class="font-bold text-sm truncate">${p.title}</p>
+          <p class="text-[10px] text-zinc-400 uppercase tracking-widest">${p.tag}</p>
         </div>
-      `;
-    });
+        <button onclick="removeProject(${i})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-1 bg-red-400/10 rounded-lg transition">DEL</button>
+      </div>
+    `;
+  });
+}
+
+/* --- ADMIN ACTIONS --- */
+document.getElementById('saveAllBtn').addEventListener('click', () => {
+  // Gather updated info from inputs
+  siteData.heroHeadline = document.getElementById('editHeroHeadline').value;
+  siteData.heroBio = document.getElementById('editHeroBio').value;
+  siteData.aboutHeadline = document.getElementById('editAboutHeadline').value;
+  siteData.aboutBio = document.getElementById('editAboutBio').value;
+  siteData.stat1Num = document.getElementById('editStat1Num').value;
+  siteData.stat1Text = document.getElementById('editStat1Text').value;
+  siteData.stat2Num = document.getElementById('editStat2Num').value;
+  siteData.stat2Text = document.getElementById('editStat2Text').value;
+  
+  // Save & Render
+  localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
+  renderSite();
+  
+  // Visual feedback
+  const btn = document.getElementById('saveAllBtn');
+  btn.innerText = "SAVED!";
+  setTimeout(() => btn.innerText = "SAVE ALL CHANGES", 2000);
+});
+
+document.getElementById("add").onclick = () => {
+  const i = document.getElementById("pimg").value;
+  const t = document.getElementById("ptitle").value;
+  const tg = document.getElementById("ptag").value;
+  if(i && t) {
+    siteData.projects.unshift({img: i, title: t, tag: tg || "NEW"});
+    localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
+    document.getElementById("pimg").value = "";
+    document.getElementById("ptitle").value = "";
+    document.getElementById("ptag").value = "";
+    renderAdmin();
+    renderSite();
   }
+};
+
+window.removeProject = (index) => {
+  siteData.projects.splice(index, 1);
+  localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
+  renderAdmin();
+  renderSite();
+};
+
+/* --- MODALS & INTERACTIONS --- */
+const login = document.getElementById("login");
+const dash = document.getElementById("dash");
+const preview = document.getElementById("preview");
+
+// Admin Login
+document.getElementById("adminTrigger").onclick = (e) => { e.preventDefault(); login.classList.add("open"); };
+document.getElementById("closeLogin").onclick = () => login.classList.remove("open");
+document.getElementById("logout").onclick = () => dash.classList.remove("open");
+
+document.getElementById("loginBtn").onclick = () => {
+  if(document.getElementById("user").value === USERNAME && document.getElementById("pass").value === PASSWORD) {
+    login.classList.remove("open");
+    renderAdmin();
+    dash.classList.add("open");
+    document.getElementById("err").classList.add("hidden");
+    // Clear fields
+    document.getElementById("user").value = "";
+    document.getElementById("pass").value = "";
+  } else {
+    document.getElementById("err").classList.remove("hidden");
+  }
+};
+
+// Project Preview
+function openPreview(img, title) {
+  document.getElementById("previewImg").src = img;
+  document.getElementById("previewTitle").innerText = title;
+  preview.classList.add("open");
+}
+document.getElementById("closePreview").onclick = () => preview.classList.remove("open");
+
+/* --- SCROLL EFFECTS & CURSOR --- */
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+document.querySelectorAll("a, button, .work-card, input, textarea").forEach(el => {
+  el.addEventListener("mouseenter", () => cursor.classList.add("big"));
+  el.addEventListener("mouseleave", () => cursor.classList.remove("big"));
+});
+
+window.addEventListener("scroll", () => {
+  // Nav Blur
+  if(window.scrollY > 50) document.getElementById("nav").classList.add("nav-scrolled");
+  else document.getElementById("nav").classList.remove("nav-scrolled");
+  
+  // Reveal animations
+  document.querySelectorAll(".reveal").forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("show");
+  });
+});
+
+// INITIALIZE
+renderSite();
+setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
 </script>
 </body>
 </html>

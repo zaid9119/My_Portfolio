@@ -2,511 +2,1207 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAID RAZA — Visual Designer</title>
-<meta name="description" content="Md Zaid Raza — Thumbnail Designer & Visual Content Creator.">
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="description" content="ZAID RAZA — Graphic Designer & Visual Creator">
+<title>ZAID RAZA — Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#efece5;
+  --bg-2:#e6e2d8;
+  --surface:#f6f3ec;
+  --card:#fffcf7;
+  --text:#101010;
+  --muted:#6e6b64;
+  --line:#d6d1c6;
+  --ink:#0b0b0b;
+  --gold:#b8943c;
+  --gold-soft:#e8d7a3;
+  --shadow:0 28px 70px rgba(12,10,6,.16);
+  --radius:30px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+button,input,textarea,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
+::selection{background:#111;color:#fff}
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: #f4f3ef;
-  color: #101010;
-  font-family: 'DM Sans', sans-serif;
-  overflow-x: hidden;
+.noise{
+  pointer-events:none;position:fixed;inset:0;z-index:9;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb.a{width:460px;height:460px;background:#fff;top:-120px;right:-80px;opacity:.75}
+.orb.b{width:360px;height:360px;background:#d9c89a;bottom:8%;left:-100px;opacity:.28}
+.orb.c{width:240px;height:240px;background:#111;opacity:.05;top:46%;right:10%}
+
+.cursor{
+  position:fixed;width:14px;height:14px;border-radius:50%;
+  background:#111;pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);transition:.16s ease;
+  mix-blend-mode:difference;
+}
+.cursor.big{width:54px;height:54px;background:#fff}
+@media(max-width:800px){.cursor{display:none}}
+
+.loader{
+  position:fixed;inset:0;z-index:99999;background:#0b0b0b;color:#fff;
+  display:flex;align-items:center;justify-content:center;transition:.7s ease;
+}
+.loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{width:230px;text-align:center;perspective:900px}
+.loader-logo{font-family:"Space Grotesk";font-size:30px;font-weight:700;letter-spacing:-1.4px;margin-bottom:22px}
+.loader-cube{
+  width:56px;height:56px;margin:0 auto 22px;position:relative;
+  transform-style:preserve-3d;animation:spin3d 2.4s linear infinite;
+}
+.loader-cube span{
+  position:absolute;inset:0;border:1px solid rgba(255,255,255,.38);
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(184,148,60,.18));
+}
+.loader-cube span:nth-child(1){transform:rotateY(0deg) translateZ(28px)}
+.loader-cube span:nth-child(2){transform:rotateY(90deg) translateZ(28px)}
+.loader-cube span:nth-child(3){transform:rotateY(180deg) translateZ(28px)}
+.loader-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(28px)}
+.loader-cube span:nth-child(5){transform:rotateX(90deg) translateZ(28px)}
+.loader-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(28px)}
+@keyframes spin3d{to{transform:rotateX(360deg) rotateY(360deg)}}
+.loader-line{height:3px;background:#2a2a2a;overflow:hidden;border-radius:10px}
+.loader-line i{display:block;width:0;height:100%;background:#fff;animation:load 1.5s ease forwards}
+@keyframes load{to{width:100%}}
+
+.nav{
+  position:fixed;top:0;left:0;width:100%;z-index:900;transition:.35s ease;
+}
+.nav.scrolled{
+  background:rgba(239,236,229,.82);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1440px;margin:auto;padding:18px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:"Space Grotesk";font-size:21px;font-weight:700;
+  letter-spacing:-1.1px;cursor:pointer;user-select:none;
+}
+.logo span.slash{color:#9a968d}
+.logo #logoZaid{position:relative}
+.nav-links{display:flex;gap:32px;font-size:13px;font-weight:600}
+.nav-links a{position:relative}
+.nav-links a:after{
+  content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:#111;transition:.3s;
+}
+.nav-links a:hover:after{width:100%}
+.nav-btn{
+  border:1px solid #111;border-radius:100px;padding:10px 18px;
+  font-size:12px;font-weight:700;transition:.3s;
+}
+.nav-btn:hover{background:#111;color:#fff}
+.menu{display:none;border:0;background:none;font-size:24px}
+
+.hero{
+  min-height:100svh;padding:150px 5% 90px;position:relative;overflow:hidden;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;
+}
+.hero-inner{
+  max-width:1440px;margin:auto;position:relative;z-index:2;
+  display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:70px;
+}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:.28em;font-size:11px;font-weight:700;color:var(--muted);
+}
+.hero-title{
+  font-size:clamp(58px,8.6vw,138px);line-height:.78;letter-spacing:-.07em;margin:26px 0 22px;
+}
+.italic{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400}
+.hero-description{max-width:540px;font-size:18px;line-height:1.7;color:var(--muted)}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{
+  border:1px solid #111;padding:15px 24px;border-radius:100px;font-weight:700;
+  font-size:13px;transition:.3s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-dark{background:#111;color:#fff}
+.btn:hover{transform:translateY(-3px)}
+.btn:not(.btn-dark):hover{background:#111;color:#fff}
+
+.hero-art{max-width:500px;width:100%;margin-left:auto;position:relative;perspective:1400px}
+.stage3d{transform-style:preserve-3d;animation:floatY 6s ease-in-out infinite}
+@keyframes floatY{50%{transform:translateY(-12px)}}
+.art-frame{
+  aspect-ratio:4/5;background:#111;border-radius:40px;overflow:hidden;position:relative;
+  box-shadow:var(--shadow), 0 0 0 1px rgba(0,0,0,.08);
+  transform:rotateY(-8deg) rotateX(4deg);
+  transition:.6s cubic-bezier(.2,.8,.2,1);
+}
+.hero-art:hover .art-frame{transform:rotateY(0) rotateX(0) scale(1.02)}
+.art-frame img{width:100%;height:100%;object-fit:cover}
+.art-placeholder{
+  width:100%;height:100%;
+  background:
+    radial-gradient(circle at 72% 22%,#fff 0 3%,transparent 3.4%),
+    radial-gradient(circle at 18% 78%,#4a4a4a 0 8%,transparent 8.4%),
+    linear-gradient(145deg,#141414,#5a5a5a);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:"Space Grotesk";font-size:clamp(78px,12vw,148px);
+  font-weight:700;letter-spacing:-.09em;
+}
+.art-tag{
+  position:absolute;padding:11px 14px;background:#fff;color:#111;
+  font-size:10px;font-weight:800;letter-spacing:.08em;
+}
+.art-tag.top{left:18px;top:18px}
+.art-tag.bottom{right:18px;bottom:18px;background:#111;color:#fff}
+.round-badge{
+  position:absolute;width:126px;height:126px;border-radius:50%;
+  background:var(--bg);border:1px solid #111;bottom:-36px;left:-42px;
+  display:flex;justify-content:center;align-items:center;text-align:center;
+  font-size:10px;font-weight:800;line-height:1.45;transform:rotate(-12deg);
+  box-shadow:0 16px 30px rgba(0,0,0,.1);
+}
+.float-chip{
+  position:absolute;right:-18px;top:18%;
+  background:#111;color:#fff;border-radius:16px;padding:12px 14px;
+  font-size:10px;font-weight:800;letter-spacing:.08em;
+  transform:rotate(8deg);box-shadow:var(--shadow);
 }
 
-h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
-.serif { font-family: Georgia, serif; font-style: italic; }
-::selection { background: #111; color: #fff; }
-
-/* CURSOR */
-.cursor {
-  position: fixed; z-index: 9999; pointer-events: none;
-  width: 12px; height: 12px; background: #111; border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width .2s, height .2s, background .2s;
+.marquee{
+  margin:0 18px;border-radius:26px;background:#111;color:#fff;
+  overflow:hidden;white-space:nowrap;padding:20px 0;
+  box-shadow:0 20px 50px rgba(0,0,0,.18);
 }
-.cursor.big { width: 48px; height: 48px; mix-blend-mode: difference; background: #fff;}
+.marquee-track{display:inline-block;animation:marquee 26s linear infinite}
+.marquee-item{display:inline-block;margin:0 26px;font-size:12px;font-weight:700;letter-spacing:.2em}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* NAVBAR & HERO */
-nav { transition: .3s; }
-.nav-scrolled { background: rgba(244,243,239,.86); backdrop-filter: blur(18px); border-bottom: 1px solid #ddd; }
-.hero-grid {
-  background-image: linear-gradient(#deddd8 1px, transparent 1px), linear-gradient(90deg, #deddd8 1px, transparent 1px);
-  background-size: 80px 80px;
+.section{max-width:1440px;margin:auto;padding:120px 5%;position:relative;z-index:2}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:54px}
+.section-number{color:#9a968d;font-size:11px;letter-spacing:.25em;font-weight:700;text-transform:uppercase}
+.section-title{font-size:clamp(48px,6.8vw,92px);line-height:.88;letter-spacing:-.06em;margin-top:10px}
+.section-info{max-width:340px;color:var(--muted);line-height:1.7;font-size:14px}
+
+.work-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filter{
+  border:1px solid var(--line);border-radius:100px;background:transparent;
+  padding:9px 15px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s;
 }
-.photo { background: linear-gradient(135deg, #d9d6cf, #a8a49b); filter: grayscale(100%); position: relative; }
-.photo:after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(135deg, transparent 45%, rgba(255,255,255,.35));
+.filter.active,.filter:hover{background:#111;color:#fff;border-color:#111}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;perspective:1200px}
+.project{
+  background:var(--card);border:1px solid var(--line);border-radius:30px;
+  overflow:hidden;cursor:pointer;transition:.45s cubic-bezier(.2,.8,.2,1);
+  transform:rotateX(0) rotateY(0);
+}
+.project:hover{transform:translateY(-10px) rotateX(2deg);box-shadow:var(--shadow)}
+.project-image{aspect-ratio:16/10;overflow:hidden;background:#ddd}
+.project-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
+.project:hover img{transform:scale(1.06)}
+.project-info{padding:20px 22px 23px;display:flex;justify-content:space-between;gap:20px}
+.project-title{font-size:20px;font-weight:700}
+.project-tag{color:#888;font-size:10px;font-weight:800;letter-spacing:.12em;margin-top:5px}
+.project-arrow{
+  width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 
-/* MARQUEE & CARDS */
-.marquee { white-space: nowrap; overflow: hidden; border-top: 1px solid #111; border-bottom: 1px solid #111; }
-.marquee span { display: inline-block; animation: move 22s linear infinite; }
-@keyframes move { to { transform: translateX(-50%); } }
-.work-card { border: 1px solid rgba(0,0,0,.08); border-radius: 28px; overflow: hidden; background: #ebeae5; transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s; }
-.work-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px #0001; }
-.work-img { transition: transform .7s; }
-.work-card:hover .work-img { transform: scale(1.05); }
+.services{background:#111;color:#fff;max-width:none;position:relative;overflow:hidden}
+.services:before{
+  content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+  background:#b8943c;filter:blur(140px);opacity:.12;top:-160px;right:-80px;
+}
+.services-inner{max-width:1440px;margin:auto;padding:120px 5%;position:relative}
+.services .section-number{color:#777}
+.services .section-info{color:#9a9a9a}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;perspective:1200px}
+.service{
+  min-height:350px;padding:30px;border-radius:30px;background:#181818;
+  border:1px solid #2a2a2a;transition:.4s;display:flex;flex-direction:column;
+  transform-style:preserve-3d;
+}
+.service:hover{background:#222;transform:translateY(-8px) rotateX(3deg)}
+.service-number{color:#666;font-size:12px}
+.service h3{margin-top:auto;font-size:30px;line-height:1.05}
+.service p{color:#999;line-height:1.6;margin-top:18px;font-size:14px}
 
-/* REVEAL & UTILS */
-.reveal { opacity: 0; transform: translateY(30px); transition: .8s ease; }
-.reveal.show { opacity: 1; transform: none; }
-.number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(4rem,10vw,9rem); line-height: .8; color: #111; }
+.about-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:90px;align-items:center}
+.about-mark{
+  font-size:clamp(110px,17vw,250px);font-family:"Space Grotesk";
+  font-weight:700;letter-spacing:-.12em;line-height:.7;
+  background:linear-gradient(180deg,#111 20%,#bbb);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.about-text h2{font-size:clamp(40px,5vw,72px);line-height:.98;letter-spacing:-.055em}
+.about-text p{color:var(--muted);line-height:1.8;max-width:650px;margin-top:28px}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);
+  margin-top:34px;padding-top:24px;gap:20px;
+}
+.stat b{font-family:"Space Grotesk";font-size:40px}
+.stat span{display:block;margin-top:4px;color:#888;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
 
-/* FORMS */
-input, textarea { background: #ebeae5; border: 1px solid #cbc9c1; outline: none; }
-input:focus, textarea:focus { border-color: #111; }
+.tools{background:var(--bg-2)}
+.tools-grid{
+  max-width:1440px;margin:auto;padding:90px 5%;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+}
+.tool{
+  background:var(--card);border:1px solid var(--line);border-radius:24px;
+  padding:28px;min-height:170px;transition:.35s;
+}
+.tool:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.tool strong{display:block;font-size:22px;margin-bottom:10px}
+.tool span{color:#888;font-size:12px}
 
-/* ADMIN MODALS */
-.modal { display: none; opacity: 0; transition: opacity 0.3s ease; }
-.modal.open { display: flex; opacity: 1; }
-.admin-bg { background: #1a1a1a; color: #f4f3ef; }
-.admin-input { background: #2a2a2a; border: 1px solid #333; color: white; }
-.admin-input:focus { border-color: #f4f3ef; }
+.contact{background:#ddd9cf}
+.contact-inner{
+  max-width:1440px;margin:auto;padding:120px 5%;
+  display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;
+}
+.contact-title{font-size:clamp(52px,6.8vw,96px);line-height:.86;letter-spacing:-.065em;margin-top:14px}
+.contact-copy{color:#777;line-height:1.7;margin-top:22px;max-width:400px}
+.contact-form{display:grid;gap:12px}
+.field{
+  width:100%;border:1px solid #c4bfb3;background:#ebe7dc;padding:18px;
+  border-radius:16px;outline:none;color:#111;
+}
+.field:focus{border-color:#111}
+textarea.field{resize:vertical;min-height:150px}
+.submit{
+  background:#111;color:#fff;border:0;padding:19px;border-radius:16px;
+  font-weight:700;cursor:pointer;transition:.3s;
+}
+.submit:hover{transform:translateY(-2px)}
 
-@media(max-width:800px) {
-  .cursor { display: none; }
-  .hero-grid { background-size: 45px 45px; }
+footer{background:#0b0b0b;color:#fff;padding:38px 5%}
+.footer-inner{
+  max-width:1440px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:30px;
+}
+.footer-logo{font-family:"Space Grotesk";font-size:20px;font-weight:700}
+.footer-links{display:flex;gap:20px;color:#999;font-size:12px}
+.footer-copy{color:#555;font-size:11px}
+
+.reveal{opacity:0;transform:translateY(28px);transition:.8s ease}
+.reveal.show{opacity:1;transform:none}
+
+.preview{
+  position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.94);
+  display:none;align-items:center;justify-content:center;padding:25px;
+}
+.preview.open{display:flex}
+.preview-box{max-width:1100px;width:100%;max-height:95vh}
+.preview-close{
+  width:45px;height:45px;border:0;border-radius:50%;background:#fff;
+  cursor:pointer;font-size:20px;float:right;margin-bottom:12px;
+}
+.preview-image{width:100%;max-height:78vh;object-fit:contain;border-radius:20px;clear:both}
+.preview-title{color:#fff;font-size:22px;font-weight:700;margin-top:15px}
+
+.login-overlay,.admin-overlay{
+  position:fixed;inset:0;z-index:5000;display:none;overflow:auto;
+}
+.login-overlay{
+  z-index:6000;background:rgba(11,11,11,.72);backdrop-filter:blur(16px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.login-overlay.open,.admin-overlay.open{display:flex}
+.admin-overlay{
+  background:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px),
+    var(--bg);
+  background-size:72px 72px,72px 72px,auto;
+  color:var(--text);flex-direction:column;
+}
+.login-box{
+  width:100%;max-width:420px;background:var(--card);
+  border:1px solid var(--line);color:var(--text);
+  border-radius:32px;padding:32px;box-shadow:var(--shadow);
+  transform:rotateX(2deg);
+}
+.login-box h2{font-size:42px;margin:8px 0 22px}
+.login-close,.admin-x{
+  float:right;border:0;background:none;cursor:pointer;font-size:22px;
+}
+.login-error{color:#b42318;font-size:12px;margin:6px 0;display:none}
+
+.admin-wrap{max-width:1440px;margin:auto;padding:24px 4% 80px;width:100%}
+.admin-top{
+  position:sticky;top:14px;z-index:20;
+  background:rgba(239,236,229,.88);backdrop-filter:blur(18px);
+  border:1px solid var(--line);border-radius:24px;
+  padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+.admin-brand{font-family:"Space Grotesk";font-weight:700;font-size:22px}
+.admin-brand small{
+  display:block;color:#7a766e;font-family:"DM Sans";font-size:9px;
+  letter-spacing:.2em;margin-top:4px;
+}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+.admin-btn{
+  border:1px solid #111;color:#111;background:transparent;border-radius:100px;
+  padding:10px 16px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s;
+}
+.admin-btn:hover,.admin-btn.solid{background:#111;color:#fff}
+.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;perspective:1400px}
+.admin-card{
+  background:var(--card);border:1px solid var(--line);border-radius:28px;
+  padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.04);
+  transition:.35s;
+}
+.admin-card:hover{transform:translateY(-4px)}
+.admin-card.full{grid-column:1/-1}
+.admin-card h3{font-size:22px;margin-bottom:18px}
+.admin-card h3 span{
+  display:block;font-family:"DM Sans";color:#8a867e;font-size:9px;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px;
+}
+.admin-field{margin-bottom:12px}
+.admin-field label{
+  display:block;color:#7a766e;font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;
+}
+.admin-input,.admin-textarea,.admin-select{
+  width:100%;border:1px solid var(--line);border-radius:14px;
+  background:#f3efe6;color:#111;padding:13px;outline:none;
+}
+.admin-input:focus,.admin-textarea:focus,.admin-select:focus{border-color:#111;background:#fff}
+.admin-textarea{min-height:96px;resize:vertical}
+.admin-save{
+  width:100%;background:#111;color:#fff;border:0;border-radius:14px;
+  padding:15px;font-weight:800;cursor:pointer;margin-top:6px;
+}
+.admin-save:hover{background:#000}
+.upload-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.upload-label{
+  display:flex;align-items:center;justify-content:center;min-height:80px;
+  border:1px dashed #b7b1a4;border-radius:15px;cursor:pointer;color:#888;
+  text-align:center;font-size:11px;font-weight:700;
+}
+.upload-label:hover{border-color:#111;color:#111}
+.upload-label input{display:none}
+.admin-projects{display:grid;gap:10px;margin-top:14px}
+.admin-project{
+  display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px;
+  padding:10px;background:#f3efe6;border:1px solid var(--line);border-radius:16px;
+}
+.admin-project img{width:84px;height:56px;object-fit:cover;border-radius:10px;background:#ddd}
+.admin-project-info strong{display:block;font-size:13px}
+.admin-project-info small{color:#777}
+.delete-btn{
+  border:1px solid #e4b4b0;color:#9a2a22;background:#fff6f5;
+  border-radius:10px;padding:8px 10px;cursor:pointer;font-size:10px;font-weight:700;
+}
+
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);
+  background:#111;color:#fff;border:1px solid #333;padding:13px 20px;
+  border-radius:100px;z-index:99999;opacity:0;pointer-events:none;
+  transition:.3s;font-size:12px;font-weight:700;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .menu{display:block}
+  .nav-btn{display:none}
+  .hero{padding-top:120px}
+  .hero-inner,.about-grid,.contact-inner,.admin-grid{grid-template-columns:1fr}
+  .hero-title{font-size:16vw}
+  .hero-art{max-width:420px;margin:auto}
+  .section,.services-inner,.contact-inner{padding:86px 5%}
+  .section-head{display:block;margin-bottom:36px}
+  .section-info{margin-top:16px}
+  .work-grid,.services-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:1fr 1fr;padding:70px 5%}
+  .about-mark{font-size:34vw}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .admin-card.full{grid-column:auto}
+}
+@media(max-width:500px){
+  .hero-buttons{flex-direction:column}
+  .hero-buttons .btn{justify-content:center}
+  .round-badge{width:90px;height:90px;left:-8px;bottom:-18px;font-size:8px}
+  .stats{grid-template-columns:1fr 1fr}
+  .tools-grid{grid-template-columns:1fr}
+  .upload-row{grid-template-columns:1fr}
+  .admin-project{grid-template-columns:64px 1fr}
+  .delete-btn{grid-column:2;justify-self:start}
 }
 </style>
 </head>
 <body>
-
-<!-- CURSOR -->
+<div class="noise"></div>
+<div class="orb a"></div>
+<div class="orb b"></div>
+<div class="orb c"></div>
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="loader-logo">ZAID/RAZA</div>
+    <div class="loader-line"><i></i></div>
+  </div>
+</div>
 <div class="cursor" id="cursor"></div>
 
-<!-- NAVBAR -->
-<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex items-center justify-between">
-    <a href="#" id="adminTrigger" class="font-bold tracking-tight text-xl">ZAID<span class="text-zinc-400">/</span>RAZA</a>
-    <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="logo" id="siteLogo" title="Studio">
+      <span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA
+    </div>
+    <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
-    <a href="#contact" class="border border-black rounded-full px-5 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">Let's talk ↗</a>
+    <a class="nav-btn" href="#contact">Let's talk ↗</a>
+    <button class="menu" id="mobileMenu" aria-label="Menu">☰</button>
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero-grid min-h-screen pt-28 px-5 md:px-8 flex items-center">
-  <div class="max-w-7xl mx-auto w-full">
-    <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
-      <div class="reveal">
-        <p class="text-xs tracking-[.3em] uppercase font-bold mb-8">Thumbnail Designer · Visual Creator</p>
-        <h1 id="displayHeroHeadline" class="text-[15vw] lg:text-[9.5rem] leading-[.78] tracking-[-.07em] font-bold">
-          <!-- Populated by JS -->
-        </h1>
-        <p id="displayHeroBio" class="max-w-xl text-base md:text-lg leading-7 mt-10 text-zinc-600"></p>
-        <div class="flex flex-wrap gap-3 mt-9">
-          <a href="#work" class="bg-black text-white rounded-full px-7 py-4 font-semibold">Explore my work ↓</a>
-          <a href="#contact" class="border border-black rounded-full px-7 py-4 font-semibold">Start a project ↗</a>
-        </div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="reveal">
+      <div class="eyebrow" id="heroEyebrow">Graphic Designer · Visual Creator</div>
+      <h1 class="hero-title" id="heroTitle">I MAKE<br><span class="italic">VISUALS</span><br>MOVE.</h1>
+      <p class="hero-description" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.</p>
+      <div class="hero-buttons">
+        <a class="btn btn-dark" href="#work">Explore my work ↓</a>
+        <a class="btn" href="#contact">Start a project ↗</a>
       </div>
-      <div class="reveal">
-        <div class="relative max-w-md mx-auto lg:ml-auto">
-          <div class="photo rounded-[32px] aspect-[4/5] overflow-hidden shadow-2xl">
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="text-[8rem] md:text-[11rem] font-bold tracking-[-.08em] text-white/80">ZR</div>
-            </div>
-            <div class="absolute left-4 top-4 z-10 bg-white px-4 py-2 text-xs font-bold">BASED IN INDIA</div>
-            <div class="absolute bottom-4 right-4 z-10 bg-black text-white px-4 py-2 text-xs font-bold">AVAILABLE ↗</div>
-          </div>
-          <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-black rounded-full flex items-center justify-center bg-[#f4f3ef] text-[10px] font-bold text-center">
-            DESIGN<br>WITH<br>INTENT
-          </div>
+    </div>
+    <div class="hero-art reveal">
+      <div class="stage3d">
+        <div class="art-frame" id="profileFrame">
+          <div class="art-placeholder" id="profilePlaceholder">ZR</div>
+          <img id="profileImage" style="display:none" alt="Zaid Raza">
+          <div class="art-tag top" id="tagTop">BASED IN INDIA</div>
+          <div class="art-tag bottom" id="tagBottom">AVAILABLE ↗</div>
         </div>
+        <div class="round-badge" id="roundBadge">DESIGN<br>WITH<br>INTENT</div>
+        <div class="float-chip" id="floatChip">3D STUDIO</div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- MARQUEE -->
-<div class="marquee rounded-[24px] mx-3 md:mx-6 py-5 bg-black text-white text-sm font-bold tracking-[.25em]">
-  <span>
-    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
-    THUMBNAILS ✦ YOUTUBE ✦ GAMING ✦ SOCIAL MEDIA ✦ POSTERS ✦ VISUAL STORYTELLING ✦
-  </span>
+<div class="marquee">
+  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
-<!-- WORK -->
-<section id="work" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-  <div class="flex justify-between items-end mb-14 reveal">
+<section class="section" id="work">
+  <div class="section-head reveal">
     <div>
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">01 / Selected work</p>
-      <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-3">The work.</h2>
+      <div class="section-number">01 / Selected Work</div>
+      <h2 class="section-title">The work.</h2>
     </div>
-    <p class="hidden md:block max-w-xs text-sm text-zinc-500">A selection of visual concepts across different niches and content styles.</p>
+    <p class="section-info" id="workInfo">A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.</p>
   </div>
-  <div id="grid" class="grid md:grid-cols-2 gap-6"></div>
+  <div class="work-filter" id="workFilter"></div>
+  <div class="work-grid" id="workGrid"></div>
 </section>
 
-<!-- SERVICES (Static for now to keep it clean, but you can expand logic later) -->
-<section id="services" class="bg-[#111] text-white py-28">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-number">02 / Services</div>
+        <h2 class="section-title">What I do.</h2>
+      </div>
+      <p class="section-info" id="servicesInfo">Design focused on attention, clarity and strong visual communication.</p>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="reveal"><div class="about-mark" id="aboutMark">ZR.</div></div>
+    <div class="about-text reveal">
+      <div class="section-number">03 / About</div>
+      <h2 id="aboutTitle">Design isn't decoration.<br><span class="italic">It's communication.</span></h2>
+      <p id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.</p>
+      <div class="stats">
+        <div class="stat"><b id="stat1">2+</b><span id="stat1Label">Years creating</span></div>
+        <div class="stat"><b id="stat2">50+</b><span id="stat2Label">Projects</span></div>
+        <div class="stat"><b id="stat3">24H</b><span id="stat3Label">Response</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tools">
+  <div class="tools-grid" id="toolsGrid"></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
     <div class="reveal">
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">02 / Services</p>
-      <h2 class="text-5xl md:text-7xl font-bold mt-3">What I do.</h2>
+      <div class="section-number">04 / Contact</div>
+      <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
+      <p class="contact-copy" id="contactText">Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-4 mt-16">
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">01</span>
-        <h3 class="text-2xl font-bold mt-12">YouTube<br>Thumbnails</h3>
-        <p class="text-zinc-400 mt-5 leading-6">Strong hierarchy, expressive composition and clear visual storytelling designed for the click.</p>
-      </div>
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">02</span>
-        <h3 class="text-2xl font-bold mt-12">Social<br>Visuals</h3>
-        <p class="text-zinc-400 mt-5 leading-6">Clean, recognizable graphics for reels, posts, campaigns, events and digital brands.</p>
-      </div>
-      <div class="py-9 px-7 rounded-[28px] bg-white/5 border border-white/10 reveal">
-        <span class="text-zinc-500">03</span>
-        <h3 class="text-2xl font-bold mt-12">Creative<br>Direction</h3>
-        <p class="text-zinc-400 mt-5 leading-6">From the first idea to the final frame, I help shape a visual direction that makes sense.</p>
-      </div>
-    </div>
+    <form class="contact-form reveal" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
+      <input class="field" required name="name" placeholder="Your name *">
+      <input class="field" required type="email" name="email" placeholder="Email address *">
+      <input class="field" name="project" placeholder="What do you need?">
+      <textarea class="field" required name="message" placeholder="Tell me about your project..."></textarea>
+      <button class="submit" type="submit">SEND INQUIRY ↗</button>
+    </form>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="max-w-7xl mx-auto px-5 md:px-8 py-28">
-  <div class="grid lg:grid-cols-2 gap-16 items-center">
-    <div class="reveal">
-      <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">03 / About</p>
-      <div class="number mt-8">ZR.</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">ZAID/RAZA</div>
+    <div class="footer-links">
+      <a id="instagramLink" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a id="behanceLink" href="#" target="_blank" rel="noopener">Behance</a>
+      <a id="youtubeLink" href="#" target="_blank" rel="noopener">YouTube</a>
     </div>
-    <div class="reveal">
-      <h2 id="displayAboutHeadline" class="text-4xl md:text-6xl font-bold tracking-tight"></h2>
-      <p id="displayAboutBio" class="text-zinc-600 leading-7 mt-7 max-w-xl"></p>
-      
-      <div class="grid grid-cols-2 gap-5 mt-10 border-t border-black/15 pt-7">
-        <div>
-          <b id="displayStat1Num" class="text-4xl"></b>
-          <p id="displayStat1Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
-        </div>
-        <div>
-          <b id="displayStat2Num" class="text-4xl"></b>
-          <p id="displayStat2Text" class="text-xs uppercase tracking-widest text-zinc-500 mt-2"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="bg-[#dddcd5] py-28">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-16">
-      <div class="reveal">
-        <p class="text-xs tracking-[.3em] uppercase font-bold text-zinc-500">04 / Contact</p>
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tight mt-5">Let's make<br><span class="serif font-normal">something</span><br>stand out.</h2>
-      </div>
-      <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST" class="reveal grid gap-4">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
-        <input required name="name" placeholder="Your name *" class="p-5 rounded-2xl">
-        <input required type="email" name="email" placeholder="Email address *" class="p-5 rounded-2xl">
-        <input name="project" placeholder="What do you need? (Thumbnail / Social / Poster)" class="p-5 rounded-2xl">
-        <textarea required name="message" rows="6" placeholder="Tell me about the project..." class="p-5 rounded-2xl"></textarea>
-        <button class="bg-black text-white rounded-2xl p-5 font-bold text-left hover:bg-zinc-800 transition">SEND INQUIRY ↗</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-black text-white px-5 md:px-8 py-10">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-5">
-    <b class="text-lg">ZAID/RAZA</b>
-    <p class="text-xs text-zinc-500">© 2026 — VISUAL DESIGNER</p>
-    <p class="text-xs text-zinc-500">Made to be noticed.</p>
+    <div class="footer-copy" id="footerCopy">© 2026 — VISUAL DESIGNER</div>
   </div>
 </footer>
 
-<!-- PROJECT PREVIEW MODAL -->
-<div id="preview" class="modal fixed inset-0 z-[100] bg-black/95 items-center justify-center p-5">
-  <div class="max-w-5xl w-full">
-    <button id="closePreview" class="float-right mb-3 text-white text-3xl font-bold hover:text-zinc-400 transition">&times;</button>
-    <img id="previewImg" class="w-full max-h-[82vh] object-contain rounded-2xl">
-    <div id="previewTitle" class="text-white font-bold text-xl mt-4"></div>
+<div class="preview" id="preview">
+  <div class="preview-box">
+    <button class="preview-close" id="previewClose">×</button>
+    <img class="preview-image" id="previewImage" alt="">
+    <div class="preview-title" id="previewTitle"></div>
   </div>
 </div>
 
-<!-- ADMIN LOGIN -->
-<div id="login" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-5">
-  <div class="admin-bg max-w-sm w-full p-8 rounded-[28px] border border-white/10 shadow-2xl">
-    <button id="closeLogin" class="float-right text-xl text-zinc-400 hover:text-white">&times;</button>
-    <p class="text-xs text-zinc-500 tracking-widest mt-4 uppercase">Private Access</p>
-    <h2 class="text-3xl font-bold mt-2 mb-7 font-['Space_Grotesk']">Studio Admin</h2>
-    <input id="user" class="admin-input w-full p-4 mb-3 rounded-xl transition" placeholder="Username">
-    <input id="pass" type="password" class="admin-input w-full p-4 rounded-xl transition" placeholder="Password">
-    <p id="err" class="text-red-400 text-xs mt-3 hidden">Invalid credentials.</p>
-    <button id="loginBtn" class="w-full bg-[#f4f3ef] text-black p-4 mt-5 font-bold rounded-xl hover:bg-white transition">ENTER DASHBOARD</button>
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <button class="login-close" id="loginClose">×</button>
+    <div class="eyebrow">Private Access</div>
+    <h2>Admin.</h2>
+    <p style="color:var(--muted);margin:-8px 0 18px;font-size:14px">Studio control room. Same look as the site — edit every section.</p>
+    <input class="admin-input" id="loginUser" placeholder="Username" autocomplete="username" style="margin-bottom:10px">
+    <input class="admin-input" id="loginPass" type="password" placeholder="Password" autocomplete="current-password">
+    <div class="login-error" id="loginError">Invalid username or password.</div>
+    <button class="admin-save" id="loginButton">ENTER DASHBOARD</button>
   </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
-<div id="dash" class="modal fixed inset-0 z-[200] bg-black/95 items-center justify-center p-4 overflow-y-auto">
-  <div class="admin-bg max-w-6xl w-full p-6 md:p-10 rounded-[30px] border border-white/10 my-10">
-    
-    <div class="flex justify-between items-center border-b border-white/10 pb-5 mb-8">
-      <div>
-        <h2 class="text-3xl font-bold font-['Space_Grotesk']">Control Panel</h2>
-        <p class="text-xs text-zinc-400 mt-1 uppercase tracking-widest">Manage your portfolio content</p>
-      </div>
-      <div class="flex gap-3">
-        <button id="saveAllBtn" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-full text-sm font-bold transition">SAVE ALL CHANGES</button>
-        <button id="logout" class="border border-white/20 hover:bg-white/10 px-6 py-2 rounded-full text-sm font-bold transition">LOGOUT</button>
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div class="admin-brand">ZAID/RAZA<small>3D STUDIO CONTROL CENTER</small></div>
+      <div class="admin-actions">
+        <button class="admin-btn solid" id="previewSite">VIEW WEBSITE</button>
+        <button class="admin-btn" id="resetSite">RESET</button>
+        <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
       </div>
     </div>
-
-    <div class="grid lg:grid-cols-2 gap-12">
-      <!-- LEFT COL: TEXT CONTENT -->
-      <div class="space-y-8">
-        <div>
-          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Hero Section</h3>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
-          <textarea id="editHeroHeadline" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Sub-bio</label>
-          <textarea id="editHeroBio" rows="2" class="admin-input w-full p-4 rounded-xl"></textarea>
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h3><span>01</span>Hero Section</h3>
+        <div class="admin-field"><label>Small Label</label><input class="admin-input" id="aEyebrow"></div>
+        <div class="admin-field"><label>Main Headline</label><textarea class="admin-textarea" id="aTitle"></textarea></div>
+        <div class="admin-field"><label>Description</label><textarea class="admin-textarea" id="aDescription"></textarea></div>
+        <div class="upload-row">
+          <div class="admin-field"><label>Top Tag</label><input class="admin-input" id="aTagTop"></div>
+          <div class="admin-field"><label>Bottom Tag</label><input class="admin-input" id="aTagBottom"></div>
         </div>
-
-        <div>
-          <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">About Section</h3>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Headline (HTML allowed)</label>
-          <textarea id="editAboutHeadline" rows="2" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Biography</label>
-          <textarea id="editAboutBio" rows="3" class="admin-input w-full p-4 mb-3 rounded-xl"></textarea>
-          
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Number)</label>
-              <input id="editStat1Num" class="admin-input w-full p-4 mb-2 rounded-xl">
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 1 (Label)</label>
-              <input id="editStat1Text" class="admin-input w-full p-4 rounded-xl">
-            </div>
-            <div>
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Number)</label>
-              <input id="editStat2Num" class="admin-input w-full p-4 mb-2 rounded-xl">
-              <label class="text-xs text-zinc-400 mb-1 block uppercase tracking-widest">Stat 2 (Label)</label>
-              <input id="editStat2Text" class="admin-input w-full p-4 rounded-xl">
-            </div>
+        <div class="upload-row">
+          <div class="admin-field"><label>Round Badge</label><textarea class="admin-textarea" id="aBadge" style="min-height:70px"></textarea></div>
+          <div class="admin-field"><label>Floating Chip</label><input class="admin-input" id="aChip"></div>
+        </div>
+        <div class="admin-field">
+          <label>Profile Photo</label>
+          <div class="upload-row">
+            <label class="upload-label"><input type="file" id="profileUpload" accept="image/*">UPLOAD PHOTO</label>
+            <input class="admin-input" id="profileUrl" placeholder="Or paste image URL">
           </div>
         </div>
+        <button class="admin-save" id="saveHero">SAVE HERO</button>
       </div>
 
-      <!-- RIGHT COL: PORTFOLIO MANAGER -->
-      <div>
-        <h3 class="font-bold text-xl mb-4 font-['Space_Grotesk'] border-l-4 border-[#f4f3ef] pl-3">Portfolio Manager</h3>
-        <div class="bg-white/5 p-5 rounded-2xl border border-white/5 mb-6">
-          <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Add New Project</h4>
-          <input id="pimg" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Image URL (Unsplash or direct link)">
-          <input id="ptitle" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Project Title">
-          <input id="ptag" class="admin-input w-full p-3 mb-3 rounded-xl text-sm" placeholder="Category Tag (e.g., YOUTUBE)">
-          <button id="add" class="w-full bg-[#f4f3ef] text-black p-3 font-bold rounded-xl hover:bg-white transition text-sm">ADD TO PORTFOLIO</button>
+      <div class="admin-card">
+        <h3><span>02</span>About Section</h3>
+        <div class="admin-field"><label>Giant Mark</label><input class="admin-input" id="aAboutMark"></div>
+        <div class="admin-field"><label>Heading</label><textarea class="admin-textarea" id="aAboutTitle"></textarea></div>
+        <div class="admin-field"><label>About Text</label><textarea class="admin-textarea" id="aAboutText"></textarea></div>
+        <div class="upload-row">
+          <div class="admin-field"><label>Stat 1</label><input class="admin-input" id="aStat1"></div>
+          <div class="admin-field"><label>Stat 1 Label</label><input class="admin-input" id="aStat1Label"></div>
+          <div class="admin-field"><label>Stat 2</label><input class="admin-input" id="aStat2"></div>
+          <div class="admin-field"><label>Stat 2 Label</label><input class="admin-input" id="aStat2Label"></div>
+          <div class="admin-field"><label>Stat 3</label><input class="admin-input" id="aStat3"></div>
+          <div class="admin-field"><label>Stat 3 Label</label><input class="admin-input" id="aStat3Label"></div>
         </div>
+        <button class="admin-save" id="saveAbout">SAVE ABOUT</button>
+      </div>
 
-        <h4 class="text-sm font-bold mb-3 uppercase tracking-widest text-zinc-300">Current Projects</h4>
-        <div id="manage" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-          <!-- Populated by JS -->
+      <div class="admin-card">
+        <h3><span>03</span>Services</h3>
+        <div class="admin-field"><label>Section intro</label><textarea class="admin-textarea" id="aServicesInfo"></textarea></div>
+        <div id="serviceEditor"></div>
+        <button class="admin-save" id="saveServices">SAVE SERVICES</button>
+      </div>
+
+      <div class="admin-card">
+        <h3><span>04</span>Contact & Socials</h3>
+        <div class="admin-field"><label>Contact Description</label><textarea class="admin-textarea" id="aContactText"></textarea></div>
+        <div class="admin-field"><label>Instagram URL</label><input class="admin-input" id="aInstagram"></div>
+        <div class="admin-field"><label>Behance URL</label><input class="admin-input" id="aBehance"></div>
+        <div class="admin-field"><label>YouTube URL</label><input class="admin-input" id="aYoutube"></div>
+        <div class="admin-field"><label>Footer line</label><input class="admin-input" id="aFooter"></div>
+        <button class="admin-save" id="saveContact">SAVE CONTACT</button>
+      </div>
+
+      <div class="admin-card">
+        <h3><span>05</span>Tools & Marquee</h3>
+        <div class="admin-field"><label>Marquee items (comma separated)</label><textarea class="admin-textarea" id="aMarquee"></textarea></div>
+        <div id="toolEditor"></div>
+        <button class="admin-save" id="saveTools">SAVE TOOLS & MARQUEE</button>
+      </div>
+
+      <div class="admin-card">
+        <h3><span>06</span>Work intro & filters</h3>
+        <div class="admin-field"><label>Work section text</label><textarea class="admin-textarea" id="aWorkInfo"></textarea></div>
+        <div class="admin-field"><label>Filter tags (comma separated)</label><input class="admin-input" id="aFilters"></div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">ALL is always included. Use the same tags when adding projects.</p>
+      </div>
+
+      <div class="admin-card full">
+        <h3><span>07</span>Portfolio Manager</h3>
+        <div class="upload-row">
+          <div class="admin-field"><label>Project Title</label><input class="admin-input" id="pTitle" placeholder="Example: YouTube Thumbnail"></div>
+          <div class="admin-field"><label>Category</label><select class="admin-select" id="pTag"></select></div>
         </div>
+        <div class="admin-field">
+          <label>Project Image</label>
+          <div class="upload-row">
+            <label class="upload-label"><input type="file" id="projectUpload" accept="image/*">UPLOAD PROJECT IMAGE</label>
+            <input class="admin-input" id="pImage" placeholder="Or paste image URL">
+          </div>
+        </div>
+        <button class="admin-save" id="addProject">+ ADD PROJECT</button>
+        <div class="admin-projects" id="adminProjects"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- JAVASCRIPT -->
+<div class="toast" id="toast">Saved successfully</div>
+
 <script>
-/* --- CONFIG & STATE --- */
-const USERNAME = "ZAIDX9119";
-const PASSWORD = "Zaid@9119";
+"use strict";
+
+const ADMIN_USERNAME = "ZAIDX9119";
+const ADMIN_PASSWORD = "Zaid@9119";
+
+function makeImage(text, sub){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111"/><stop offset="1" stop-color="#6a5a32"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<circle cx="1260" cy="220" r="250" fill="#fff" opacity=".08"/>
+<circle cx="280" cy="800" r="350" fill="#b8943c" opacity=".16"/>
+<text x="90" y="690" fill="white" font-family="Arial" font-weight="700" font-size="100">${text}</text>
+<text x="95" y="770" fill="#ddd" font-family="Arial" font-size="34" letter-spacing="8">${sub}</text>
+</svg>`;
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
 
 const defaultData = {
-  heroHeadline: "I MAKE<br><span class='serif font-normal'>VISUALS</span><br>MOVE.",
-  heroBio: "I turn ordinary ideas into clear, high-impact visuals built to stop the scroll and communicate instantly.",
-  aboutHeadline: "Design isn't decoration.<br><span class='serif font-normal'>It's communication.</span>",
-  aboutBio: "I'm Md Zaid Raza, a thumbnail designer and visual content creator. I care about the first impression: what people notice, what they understand and what makes them want to look twice.",
-  stat1Num: "2+", stat1Text: "Years creating",
-  stat2Num: "50+", stat2Text: "Projects & concepts",
-  projects: [
-    { title: "Cinematic Visual Concept", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Gaming — High Energy", tag: "GAMING", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Creative Campaign", tag: "SOCIAL", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1400&auto=format&fit=crop" },
-    { title: "Digital Storytelling", tag: "YOUTUBE", img: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop" }
+  eyebrow:"Graphic Designer · Visual Creator",
+  title:"I MAKE\nVISUALS\nMOVE.",
+  description:"I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.",
+  profile:"",
+  tagTop:"BASED IN INDIA",
+  tagBottom:"AVAILABLE ↗",
+  badge:"DESIGN\nWITH\nINTENT",
+  chip:"3D STUDIO",
+  aboutMark:"ZR.",
+  aboutTitle:"Design isn't decoration.\nIt's communication.",
+  aboutText:"I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.",
+  stat1:"2+", stat1Label:"Years creating",
+  stat2:"50+", stat2Label:"Projects",
+  stat3:"24H", stat3Label:"Response",
+  workInfo:"A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.",
+  servicesInfo:"Design focused on attention, clarity and strong visual communication.",
+  contactText:"Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.",
+  instagram:"", behance:"", youtube:"",
+  footerCopy:"© 2026 — VISUAL DESIGNER",
+  filters:["YOUTUBE","GAMING","SOCIAL","POSTER"],
+  marquee:["THUMBNAILS","YOUTUBE","POSTERS","SOCIAL MEDIA","GAMING","BRANDING","VISUAL STORYTELLING"],
+  tools:[
+    {title:"Photoshop", text:"Advanced visual composition"},
+    {title:"Canva", text:"Fast creative design"},
+    {title:"CapCut", text:"Motion & video content"},
+    {title:"Creative AI", text:"Concept development"}
+  ],
+  services:[
+    {number:"01", title:"YouTube Thumbnails", text:"Bold composition, strong hierarchy and visual storytelling designed to make viewers stop scrolling."},
+    {number:"02", title:"Social Visuals", text:"Clean, recognizable graphics for reels, posts, campaigns, events and digital brands."},
+    {number:"03", title:"Creative Direction", text:"From the first idea to the final frame, I help shape a visual direction that makes sense."}
+  ],
+  projects:[
+    {title:"Cinematic Visual", tag:"YOUTUBE", img:makeImage("CINEMATIC","VISUAL CONCEPT")},
+    {title:"Gaming Energy", tag:"GAMING", img:makeImage("GAMING","HIGH ENERGY")},
+    {title:"Social Campaign", tag:"SOCIAL", img:makeImage("SOCIAL","CREATIVE CAMPAIGN")},
+    {title:"Creative Poster", tag:"POSTER", img:makeImage("POSTER","VISUAL DESIGN")},
+    {title:"YouTube Story", tag:"YOUTUBE", img:makeImage("STORY","DIGITAL STORYTELLING")},
+    {title:"Gaming Concept", tag:"GAMING", img:makeImage("PLAY","GAMING CONCEPT")}
   ]
 };
 
-// Load state from local storage or use defaults
-let siteData = JSON.parse(localStorage.getItem("zaidPortfolioData")) || defaultData;
+let data;
+try{
+  data = JSON.parse(localStorage.getItem("zaidPortfolioV4")) || structuredClone(defaultData);
+}catch(e){
+  data = structuredClone(defaultData);
+}
+function saveData(){ localStorage.setItem("zaidPortfolioV4", JSON.stringify(data)); }
 
-/* --- UI RENDERING --- */
-function renderSite() {
-  // Update Text Elements
-  document.getElementById('displayHeroHeadline').innerHTML = siteData.heroHeadline;
-  document.getElementById('displayHeroBio').innerText = siteData.heroBio;
-  document.getElementById('displayAboutHeadline').innerHTML = siteData.aboutHeadline;
-  document.getElementById('displayAboutBio').innerText = siteData.aboutBio;
-  document.getElementById('displayStat1Num').innerText = siteData.stat1Num;
-  document.getElementById('displayStat1Text').innerText = siteData.stat1Text;
-  document.getElementById('displayStat2Num').innerText = siteData.stat2Num;
-  document.getElementById('displayStat2Text').innerText = siteData.stat2Text;
+const $ = id => document.getElementById(id);
+function toast(message){
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
+  setTimeout(()=>$("toast").classList.remove("show"), 2200);
+}
+function escapeHTML(value){
+  return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function escapeAttr(value){ return escapeHTML(value); }
 
-  // Update Portfolio Grid
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  
-  siteData.projects.forEach(p => {
+function setLink(el, url){
+  if(url && url.trim()){
+    el.href = url; el.style.opacity = "1";
+  }else{
+    el.href = "#"; el.style.opacity = ".45";
+  }
+}
+
+function renderMarquee(){
+  const items = (data.marquee || []).map(t => `<span class="marquee-item">${escapeHTML(t)} ✦</span>`).join("");
+  $("marqueeTrack").innerHTML = items + items;
+}
+
+function renderFilters(){
+  const tags = ["ALL", ...(data.filters || [])];
+  $("workFilter").innerHTML = tags.map((t,i)=>`<button class="filter${i===0?" active":""}" data-filter="${escapeAttr(t)}">${escapeHTML(t)}</button>`).join("");
+  document.querySelectorAll(".filter").forEach(button=>{
+    button.addEventListener("click", ()=>{
+      document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+      button.classList.add("active");
+      currentFilter = button.dataset.filter;
+      renderProjects();
+    });
+  });
+  const sel = $("pTag");
+  if(sel){
+    sel.innerHTML = (data.filters || []).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
+  }
+}
+
+function renderTools(){
+  $("toolsGrid").innerHTML = (data.tools || []).map(tool=>`
+    <div class="tool reveal">
+      <strong>${escapeHTML(tool.title)}</strong>
+      <span>${escapeHTML(tool.text)}</span>
+    </div>`).join("");
+}
+
+function renderWebsite(){
+  $("heroEyebrow").textContent = data.eyebrow;
+  $("heroTitle").innerHTML = data.title.replace(/\n/g,"<br>").replace("VISUALS",'<span class="italic">VISUALS</span>');
+  $("heroDescription").textContent = data.description;
+  $("tagTop").textContent = data.tagTop || "BASED IN INDIA";
+  $("tagBottom").textContent = data.tagBottom || "AVAILABLE ↗";
+  $("roundBadge").innerHTML = escapeHTML(data.badge || "DESIGN\nWITH\nINTENT").replace(/\n/g,"<br>");
+  $("floatChip").textContent = data.chip || "3D STUDIO";
+  $("aboutMark").textContent = data.aboutMark || "ZR.";
+  $("aboutTitle").innerHTML = data.aboutTitle.replace(/\n/g,"<br>").replace(/It's communication\./,'<span class="italic">It\'s communication.</span>');
+  $("aboutText").textContent = data.aboutText;
+  $("stat1").textContent = data.stat1;
+  $("stat1Label").textContent = data.stat1Label;
+  $("stat2").textContent = data.stat2;
+  $("stat2Label").textContent = data.stat2Label;
+  $("stat3").textContent = data.stat3;
+  $("stat3Label").textContent = data.stat3Label;
+  $("workInfo").textContent = data.workInfo;
+  $("servicesInfo").textContent = data.servicesInfo;
+  $("contactText").textContent = data.contactText;
+  $("footerCopy").textContent = data.footerCopy || "© 2026 — VISUAL DESIGNER";
+  setLink($("instagramLink"), data.instagram);
+  setLink($("behanceLink"), data.behance);
+  setLink($("youtubeLink"), data.youtube);
+  renderMarquee();
+  renderFilters();
+  renderServices();
+  renderProjects();
+  renderTools();
+  renderAdminProjects();
+  loadAdminFields();
+  if(data.profile){
+    $("profileImage").src = data.profile;
+    $("profileImage").style.display = "block";
+    $("profilePlaceholder").style.display = "none";
+  }else{
+    $("profileImage").style.display = "none";
+    $("profilePlaceholder").style.display = "flex";
+  }
+  observeReveal();
+}
+
+function renderServices(){
+  $("servicesGrid").innerHTML = "";
+  (data.services || []).forEach(service=>{
     const card = document.createElement("div");
-    card.className = "work-card cursor-pointer group";
-    card.onclick = () => openPreview(p.img, p.title);
+    card.className = "service reveal";
     card.innerHTML = `
-      <div class="aspect-[4/3] overflow-hidden bg-black">
-        <img src="${p.img}" class="work-img w-full h-full object-cover opacity-90 group-hover:opacity-100">
+      <div class="service-number">${escapeHTML(service.number)}</div>
+      <h3>${escapeHTML(service.title).replace(/\n/g,"<br>")}</h3>
+      <p>${escapeHTML(service.text)}</p>`;
+    $("servicesGrid").appendChild(card);
+  });
+}
+
+let currentFilter = "ALL";
+function renderProjects(){
+  const grid = $("workGrid");
+  grid.innerHTML = "";
+  const list = currentFilter === "ALL" ? data.projects : data.projects.filter(p=>p.tag===currentFilter);
+  if(!list.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;padding:70px;text-align:center;color:#888">No projects in this category yet.</div>`;
+    return;
+  }
+  list.forEach(project=>{
+    const card = document.createElement("article");
+    card.className = "project reveal";
+    card.innerHTML = `
+      <div class="project-image">
+        <img src="${escapeAttr(project.img)}" alt="${escapeAttr(project.title)}" onerror="this.src='${makeImage("PROJECT","IMAGE")}';">
       </div>
-      <div class="p-6 md:p-8 flex justify-between items-center bg-[#ebeae5]">
-        <h3 class="font-bold text-xl md:text-2xl">${p.title}</h3>
-        <span class="text-[10px] font-bold tracking-widest bg-black text-white px-3 py-1 rounded-full">${p.tag}</span>
-      </div>
-    `;
+      <div class="project-info">
+        <div>
+          <div class="project-title">${escapeHTML(project.title)}</div>
+          <div class="project-tag">${escapeHTML(project.tag)}</div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>`;
+    card.addEventListener("click", ()=>openPreview(project));
     grid.appendChild(card);
   });
 }
 
-function renderAdmin() {
-  // Populate Admin Inputs
-  document.getElementById('editHeroHeadline').value = siteData.heroHeadline;
-  document.getElementById('editHeroBio').value = siteData.heroBio;
-  document.getElementById('editAboutHeadline').value = siteData.aboutHeadline;
-  document.getElementById('editAboutBio').value = siteData.aboutBio;
-  document.getElementById('editStat1Num').value = siteData.stat1Num;
-  document.getElementById('editStat1Text').value = siteData.stat1Text;
-  document.getElementById('editStat2Num').value = siteData.stat2Num;
-  document.getElementById('editStat2Text').value = siteData.stat2Text;
+function openPreview(project){
+  $("previewImage").src = project.img;
+  $("previewTitle").textContent = project.title + " — " + project.tag;
+  $("preview").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closePreview(){
+  $("preview").classList.remove("open");
+  document.body.style.overflow = "";
+}
+$("previewClose").onclick = closePreview;
+$("preview").addEventListener("click", e=>{ if(e.target===$("preview")) closePreview(); });
 
-  // Populate Admin Project List
-  const manage = document.getElementById("manage");
-  manage.innerHTML = "";
-  siteData.projects.forEach((p, i) => {
-    manage.innerHTML += `
-      <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/10">
-        <img src="${p.img}" class="w-16 h-12 object-cover rounded-md">
-        <div class="flex-1 overflow-hidden">
-          <p class="font-bold text-sm truncate">${p.title}</p>
-          <p class="text-[10px] text-zinc-400 uppercase tracking-widest">${p.tag}</p>
-        </div>
-        <button onclick="removeProject(${i})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-1 bg-red-400/10 rounded-lg transition">DEL</button>
-      </div>
-    `;
+let zaidClicks = 0;
+let zaidTimer = null;
+$("logoZaid").addEventListener("click", e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  zaidClicks += 1;
+  clearTimeout(zaidTimer);
+  if(zaidClicks >= 4){
+    zaidClicks = 0;
+    $("loginOverlay").classList.add("open");
+    $("loginUser").focus();
+    return;
+  }
+  zaidTimer = setTimeout(()=>{ zaidClicks = 0; }, 1800);
+});
+
+$("loginClose").onclick = ()=>$("loginOverlay").classList.remove("open");
+$("loginButton").onclick = login;
+$("loginPass").addEventListener("keydown", e=>{ if(e.key==="Enter") login(); });
+
+function login(){
+  const username = $("loginUser").value.trim();
+  const password = $("loginPass").value;
+  if(username === ADMIN_USERNAME && password === ADMIN_PASSWORD){
+    $("loginError").style.display = "none";
+    $("loginOverlay").classList.remove("open");
+    $("adminOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+    loadAdminFields();
+  }else{
+    $("loginError").style.display = "block";
+  }
+}
+
+function loadAdminFields(){
+  $("aEyebrow").value = data.eyebrow;
+  $("aTitle").value = data.title;
+  $("aDescription").value = data.description;
+  $("aTagTop").value = data.tagTop || "";
+  $("aTagBottom").value = data.tagBottom || "";
+  $("aBadge").value = data.badge || "";
+  $("aChip").value = data.chip || "";
+  $("aAboutMark").value = data.aboutMark || "";
+  $("aAboutTitle").value = data.aboutTitle;
+  $("aAboutText").value = data.aboutText;
+  $("aStat1").value = data.stat1;
+  $("aStat1Label").value = data.stat1Label;
+  $("aStat2").value = data.stat2;
+  $("aStat2Label").value = data.stat2Label;
+  $("aStat3").value = data.stat3;
+  $("aStat3Label").value = data.stat3Label;
+  $("aContactText").value = data.contactText;
+  $("aInstagram").value = data.instagram;
+  $("aBehance").value = data.behance;
+  $("aYoutube").value = data.youtube;
+  $("aFooter").value = data.footerCopy || "";
+  $("aServicesInfo").value = data.servicesInfo || "";
+  $("aWorkInfo").value = data.workInfo || "";
+  $("aFilters").value = (data.filters || []).join(", ");
+  $("aMarquee").value = (data.marquee || []).join(", ");
+  $("profileUrl").value = data.profile && !String(data.profile).startsWith("data:") ? data.profile : "";
+  renderServiceEditor();
+  renderToolEditor();
+  const sel = $("pTag");
+  if(sel) sel.innerHTML = (data.filters || []).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
+}
+
+function renderServiceEditor(){
+  $("serviceEditor").innerHTML = "";
+  (data.services || []).forEach((service, index)=>{
+    const box = document.createElement("div");
+    box.style.cssText = "margin-bottom:14px;padding:14px;background:#f3efe6;border:1px solid var(--line);border-radius:16px";
+    box.innerHTML = `
+      <div class="admin-field"><label>Service ${index+1} Title</label>
+        <input class="admin-input service-title" data-index="${index}" value="${escapeAttr(service.title)}"></div>
+      <div class="admin-field"><label>Description</label>
+        <textarea class="admin-textarea service-text" data-index="${index}">${escapeHTML(service.text)}</textarea></div>`;
+    $("serviceEditor").appendChild(box);
   });
 }
 
-/* --- ADMIN ACTIONS --- */
-document.getElementById('saveAllBtn').addEventListener('click', () => {
-  // Gather updated info from inputs
-  siteData.heroHeadline = document.getElementById('editHeroHeadline').value;
-  siteData.heroBio = document.getElementById('editHeroBio').value;
-  siteData.aboutHeadline = document.getElementById('editAboutHeadline').value;
-  siteData.aboutBio = document.getElementById('editAboutBio').value;
-  siteData.stat1Num = document.getElementById('editStat1Num').value;
-  siteData.stat1Text = document.getElementById('editStat1Text').value;
-  siteData.stat2Num = document.getElementById('editStat2Num').value;
-  siteData.stat2Text = document.getElementById('editStat2Text').value;
-  
-  // Save & Render
-  localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
-  renderSite();
-  
-  // Visual feedback
-  const btn = document.getElementById('saveAllBtn');
-  btn.innerText = "SAVED!";
-  setTimeout(() => btn.innerText = "SAVE ALL CHANGES", 2000);
+function renderToolEditor(){
+  $("toolEditor").innerHTML = "";
+  (data.tools || []).forEach((tool, index)=>{
+    const box = document.createElement("div");
+    box.style.cssText = "margin:10px 0;padding:14px;background:#f3efe6;border:1px solid var(--line);border-radius:16px";
+    box.innerHTML = `
+      <div class="upload-row">
+        <div class="admin-field"><label>Tool ${index+1}</label>
+          <input class="admin-input tool-title" data-index="${index}" value="${escapeAttr(tool.title)}"></div>
+        <div class="admin-field"><label>Note</label>
+          <input class="admin-input tool-text" data-index="${index}" value="${escapeAttr(tool.text)}"></div>
+      </div>`;
+    $("toolEditor").appendChild(box);
+  });
+}
+
+$("saveHero").onclick = ()=>{
+  data.eyebrow = $("aEyebrow").value;
+  data.title = $("aTitle").value;
+  data.description = $("aDescription").value;
+  data.tagTop = $("aTagTop").value;
+  data.tagBottom = $("aTagBottom").value;
+  data.badge = $("aBadge").value;
+  data.chip = $("aChip").value;
+  const url = $("profileUrl").value.trim();
+  if(url) data.profile = url;
+  saveData(); renderWebsite(); toast("Hero saved");
+};
+
+$("profileUpload").addEventListener("change", function(){
+  const file = this.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){ toast("Photo must be under 5MB"); this.value=""; return; }
+  const reader = new FileReader();
+  reader.onload = e=>{
+    data.profile = e.target.result;
+    $("profileUrl").value = "";
+    saveData(); renderWebsite(); toast("Profile photo updated");
+  };
+  reader.readAsDataURL(file);
 });
 
-document.getElementById("add").onclick = () => {
-  const i = document.getElementById("pimg").value;
-  const t = document.getElementById("ptitle").value;
-  const tg = document.getElementById("ptag").value;
-  if(i && t) {
-    siteData.projects.unshift({img: i, title: t, tag: tg || "NEW"});
-    localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
-    document.getElementById("pimg").value = "";
-    document.getElementById("ptitle").value = "";
-    document.getElementById("ptag").value = "";
-    renderAdmin();
-    renderSite();
-  }
+$("saveAbout").onclick = ()=>{
+  data.aboutMark = $("aAboutMark").value;
+  data.aboutTitle = $("aAboutTitle").value;
+  data.aboutText = $("aAboutText").value;
+  data.stat1 = $("aStat1").value; data.stat1Label = $("aStat1Label").value;
+  data.stat2 = $("aStat2").value; data.stat2Label = $("aStat2Label").value;
+  data.stat3 = $("aStat3").value; data.stat3Label = $("aStat3Label").value;
+  saveData(); renderWebsite(); toast("About section saved");
 };
 
-window.removeProject = (index) => {
-  siteData.projects.splice(index, 1);
-  localStorage.setItem("zaidPortfolioData", JSON.stringify(siteData));
-  renderAdmin();
-  renderSite();
+$("saveServices").onclick = ()=>{
+  data.servicesInfo = $("aServicesInfo").value;
+  document.querySelectorAll(".service-title").forEach(input=>{
+    data.services[Number(input.dataset.index)].title = input.value;
+  });
+  document.querySelectorAll(".service-text").forEach(input=>{
+    data.services[Number(input.dataset.index)].text = input.value;
+  });
+  saveData(); renderWebsite(); toast("Services saved");
 };
 
-/* --- MODALS & INTERACTIONS --- */
-const login = document.getElementById("login");
-const dash = document.getElementById("dash");
-const preview = document.getElementById("preview");
-
-// Admin Login
-document.getElementById("adminTrigger").onclick = (e) => { e.preventDefault(); login.classList.add("open"); };
-document.getElementById("closeLogin").onclick = () => login.classList.remove("open");
-document.getElementById("logout").onclick = () => dash.classList.remove("open");
-
-document.getElementById("loginBtn").onclick = () => {
-  if(document.getElementById("user").value === USERNAME && document.getElementById("pass").value === PASSWORD) {
-    login.classList.remove("open");
-    renderAdmin();
-    dash.classList.add("open");
-    document.getElementById("err").classList.add("hidden");
-    // Clear fields
-    document.getElementById("user").value = "";
-    document.getElementById("pass").value = "";
-  } else {
-    document.getElementById("err").classList.remove("hidden");
-  }
+$("saveContact").onclick = ()=>{
+  data.contactText = $("aContactText").value;
+  data.instagram = $("aInstagram").value.trim();
+  data.behance = $("aBehance").value.trim();
+  data.youtube = $("aYoutube").value.trim();
+  data.footerCopy = $("aFooter").value;
+  saveData(); renderWebsite(); toast("Contact & socials saved");
 };
 
-// Project Preview
-function openPreview(img, title) {
-  document.getElementById("previewImg").src = img;
-  document.getElementById("previewTitle").innerText = title;
-  preview.classList.add("open");
+$("saveTools").onclick = ()=>{
+  data.marquee = $("aMarquee").value.split(",").map(s=>s.trim()).filter(Boolean);
+  data.workInfo = $("aWorkInfo").value;
+  data.filters = $("aFilters").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
+  document.querySelectorAll(".tool-title").forEach(input=>{
+    data.tools[Number(input.dataset.index)].title = input.value;
+  });
+  document.querySelectorAll(".tool-text").forEach(input=>{
+    data.tools[Number(input.dataset.index)].text = input.value;
+  });
+  saveData(); renderWebsite(); toast("Tools & marquee saved");
+};
+
+let uploadedProjectImage = "";
+$("projectUpload").addEventListener("change", function(){
+  const file = this.files[0];
+  if(!file) return;
+  if(file.size > 7*1024*1024){ toast("Image must be under 7MB"); this.value=""; return; }
+  const reader = new FileReader();
+  reader.onload = e=>{ uploadedProjectImage = e.target.result; toast("Image ready"); };
+  reader.readAsDataURL(file);
+});
+
+$("addProject").onclick = ()=>{
+  const title = $("pTitle").value.trim();
+  const tag = $("pTag").value;
+  const url = $("pImage").value.trim();
+  const image = uploadedProjectImage || url;
+  if(!title){ toast("Enter project title"); return; }
+  if(!image){ toast("Upload or add an image"); return; }
+  data.projects.unshift({title, tag, img:image});
+  saveData();
+  $("pTitle").value = ""; $("pImage").value = ""; $("projectUpload").value = ""; uploadedProjectImage = "";
+  renderWebsite(); toast("Project added");
+};
+
+function renderAdminProjects(){
+  const box = $("adminProjects");
+  if(!box) return;
+  box.innerHTML = "";
+  data.projects.forEach((project, index)=>{
+    const row = document.createElement("div");
+    row.className = "admin-project";
+    row.innerHTML = `
+      <img src="${escapeAttr(project.img)}" onerror="this.src='${makeImage("IMAGE","PROJECT")}';">
+      <div class="admin-project-info">
+        <strong>${escapeHTML(project.title)}</strong>
+        <small>${escapeHTML(project.tag)}</small>
+      </div>
+      <button class="delete-btn" data-index="${index}">DELETE</button>`;
+    row.querySelector(".delete-btn").onclick = ()=>{
+      if(confirm("Delete this project?")){
+        data.projects.splice(index,1);
+        saveData(); renderWebsite(); toast("Project deleted");
+      }
+    };
+    box.appendChild(row);
+  });
 }
-document.getElementById("closePreview").onclick = () => preview.classList.remove("open");
 
-/* --- SCROLL EFFECTS & CURSOR --- */
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", (e) => {
+$("previewSite").onclick = ()=>{
+  $("adminOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+};
+$("logoutAdmin").onclick = ()=>{
+  $("adminOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+  $("loginUser").value = ""; $("loginPass").value = "";
+};
+$("resetSite").onclick = ()=>{
+  if(!confirm("Reset the complete website to the original data?")) return;
+  data = structuredClone(defaultData);
+  saveData(); renderWebsite(); toast("Website reset");
+};
+
+const cursor = $("cursor");
+document.addEventListener("mousemove", e=>{
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
-document.querySelectorAll("a, button, .work-card, input, textarea").forEach(el => {
-  el.addEventListener("mouseenter", () => cursor.classList.add("big"));
-  el.addEventListener("mouseleave", () => cursor.classList.remove("big"));
+document.querySelectorAll("a,button,.project,.logo").forEach(el=>{
+  el.addEventListener("mouseenter", ()=>cursor.classList.add("big"));
+  el.addEventListener("mouseleave", ()=>cursor.classList.remove("big"));
 });
 
-window.addEventListener("scroll", () => {
-  // Nav Blur
-  if(window.scrollY > 50) document.getElementById("nav").classList.add("nav-scrolled");
-  else document.getElementById("nav").classList.remove("nav-scrolled");
-  
-  // Reveal animations
-  document.querySelectorAll(".reveal").forEach(el => {
-    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("show");
-  });
+window.addEventListener("scroll", ()=>{
+  $("nav").classList.toggle("scrolled", window.scrollY > 30);
 });
 
-// INITIALIZE
-renderSite();
-setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
+function observeReveal(){
+  const items = document.querySelectorAll(".reveal:not(.observed)");
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show","observed");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.1});
+  items.forEach(item=>observer.observe(item));
+}
+
+$("mobileMenu").onclick = ()=>{
+  const links = document.querySelector(".nav-links");
+  if(getComputedStyle(links).display === "none"){
+    Object.assign(links.style, {
+      display:"flex", position:"absolute", top:"70px", left:"5%", right:"5%",
+      padding:"20px", borderRadius:"20px", background:"rgba(239,236,229,.97)",
+      flexDirection:"column", gap:"20px", border:"1px solid #ddd"
+    });
+  }else{
+    links.removeAttribute("style");
+  }
+};
+
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape"){
+    closePreview();
+    $("loginOverlay").classList.remove("open");
+  }
+});
+
+window.addEventListener("load", ()=>{
+  renderWebsite();
+  observeReveal();
+  setTimeout(()=>$("loader").classList.add("hide"), 1000);
+});
 </script>
 </body>
 </html>

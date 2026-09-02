@@ -2049,24 +2049,33 @@ function toast(message){
 ============================== */
 
 let adminClicks = 0;
-let adminClickTimer;
+let adminClickTimer = null;
 
-$("#logoAdmin").addEventListener("click",e=>{
-  e.preventDefault();
+const adminLogo = document.getElementById("logoAdmin");
 
-  adminClicks++;
+if (adminLogo) {
+  adminLogo.addEventListener("click", function(e) {
+    e.preventDefault();
 
-  clearTimeout(adminClickTimer);
+    adminClicks++;
 
-  adminClickTimer = setTimeout(()=>{
-    adminClicks = 0;
-  },1500);
+    clearTimeout(adminClickTimer);
 
-  if(adminClicks === 4){
-    adminClicks = 0;
-    $("#loginOverlay").classList.add("open");
-  }
-});
+    adminClickTimer = setTimeout(function() {
+      adminClicks = 0;
+    }, 1500);
+
+    if (adminClicks >= 4) {
+      adminClicks = 0;
+
+      const loginOverlay = document.getElementById("loginOverlay");
+
+      if (loginOverlay) {
+        loginOverlay.classList.add("open");
+      }
+    }
+  });
+}
 
   $("heroTitle").innerHTML=
     data.title

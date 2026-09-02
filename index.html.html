@@ -2,1223 +2,2796 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="description" content="ZAID RAZA — Graphic Designer & Visual Creator">
+<title>ZAID RAZA — Graphic Designer</title>
 
-<title>ZAID RAZA — Visual Designer</title>
-
-<meta name="description"
-content="Md Zaid Raza — Thumbnail Designer, Graphic Designer and Visual Content Creator.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<Div>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* =========================================================
-   RESET
-========================================================= */
+:root{
+  --bg:#f3f1ec;
+  --surface:#e9e7e1;
+  --card:#ffffff;
+  --text:#101010;
+  --muted:#77756f;
+  --line:#d8d5ce;
+  --black:#0b0b0b;
+  --radius:28px;
+  --accent:#111111;
+}
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    background:#f4f3ef;
-    color:#111;
-    font-family:"DM Sans",sans-serif;
-    overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
 }
 
-img{
-    max-width:100%;
-    display:block;
+button,input,textarea,select{
+  font:inherit;
 }
 
-button,
-input,
-textarea{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
+button,a{
+  -webkit-tap-highlight-color:transparent;
 }
 
 a{
-    color:inherit;
-    text-decoration:none;
+  color:inherit;
+  text-decoration:none;
 }
 
-::selection{
-    background:#111;
-    color:#fff;
+img{
+  max-width:100%;
+  display:block;
 }
 
 h1,h2,h3,h4{
-    font-family:"Space Grotesk",sans-serif;
+  font-family:"Space Grotesk",sans-serif;
 }
 
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-:root{
-    --bg:#f4f3ef;
-    --card:#ebeae5;
-    --black:#111;
-    --muted:#6d6d68;
-    --line:#d8d7d1;
-    --accent:#111;
-    --radius:28px;
+::selection{
+  background:#000;
+  color:#fff;
 }
 
-/* =========================================================
-   LOADER
-========================================================= */
+/* LOADER */
 
 .loader{
-    position:fixed;
-    inset:0;
-    background:#111;
-    color:#fff;
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:.6s;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#0b0b0b;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.7s ease;
 }
 
 .loader.hide{
-    opacity:0;
-    visibility:hidden;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 }
 
 .loader-inner{
-    text-align:center;
+  width:180px;
 }
 
 .loader-logo{
-    font-family:"Space Grotesk";
-    font-size:clamp(3rem,12vw,8rem);
-    font-weight:700;
-    letter-spacing:-.08em;
+  font-family:"Space Grotesk";
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-1px;
+  margin-bottom:20px;
 }
 
 .loader-line{
-    width:160px;
-    height:3px;
-    background:#333;
-    margin:25px auto;
-    overflow:hidden;
+  height:3px;
+  background:#333;
+  overflow:hidden;
 }
 
-.loader-line span{
-    display:block;
-    height:100%;
-    width:50%;
-    background:white;
-    animation:loading 1s infinite;
+.loader-line i{
+  display:block;
+  width:0;
+  height:100%;
+  background:#fff;
+  animation:load 1.5s ease forwards;
 }
 
-@keyframes loading{
-    from{transform:translateX(-100%)}
-    to{transform:translateX(300%)}
+@keyframes load{
+  to{width:100%}
 }
 
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
+/* CURSOR */
 
 .cursor{
-    position:fixed;
-    width:12px;
-    height:12px;
-    background:#111;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:99998;
-    transform:translate(-50%,-50%);
-    transition:
-        width .2s,
-        height .2s,
-        background .2s;
+  position:fixed;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#111;
+  pointer-events:none;
+  z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:.15s ease;
 }
 
 .cursor.big{
-    width:50px;
-    height:50px;
-    background:#111;
-    mix-blend-mode:difference;
+  width:48px;
+  height:48px;
+  background:#111;
+  mix-blend-mode:difference;
 }
 
 @media(max-width:800px){
-    .cursor{
-        display:none;
-    }
+  .cursor{display:none}
 }
 
-/* =========================================================
-   NAVBAR
-========================================================= */
+/* NAV */
 
 .nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:9000;
-    transition:.35s;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:900;
+  transition:.35s ease;
 }
 
 .nav.scrolled{
-    background:rgba(244,243,239,.88);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid var(--line);
+  background:rgba(243,241,236,.86);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
 }
 
 .nav-inner{
-    max-width:1400px;
-    margin:auto;
-    padding:20px 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+  max-width:1400px;
+  margin:auto;
+  padding:20px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
-    font-family:"Space Grotesk";
-    font-weight:700;
-    font-size:20px;
-    letter-spacing:-.04em;
+  font-family:"Space Grotesk";
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-1px;
+  cursor:pointer;
 }
 
 .logo span{
-    color:#999;
+  color:#999;
 }
 
 .nav-links{
-    display:flex;
-    gap:35px;
-    font-size:14px;
-    font-weight:600;
+  display:flex;
+  gap:34px;
+  font-size:13px;
+  font-weight:600;
 }
 
 .nav-links a{
-    position:relative;
+  position:relative;
 }
 
 .nav-links a:after{
-    content:"";
-    position:absolute;
-    bottom:-6px;
-    left:0;
-    width:0;
-    height:1px;
-    background:#111;
-    transition:.3s;
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0;
+  height:1px;
+  background:#111;
+  transition:.3s;
 }
 
 .nav-links a:hover:after{
-    width:100%;
+  width:100%;
 }
 
-.nav-contact{
-    border:1px solid #111;
-    padding:11px 19px;
-    border-radius:999px;
-    font-size:13px;
-    font-weight:700;
-    transition:.25s;
+.nav-btn{
+  border:1px solid #111;
+  border-radius:100px;
+  padding:10px 18px;
+  font-size:12px;
+  font-weight:700;
+  transition:.3s;
 }
 
-.nav-contact:hover{
-    background:#111;
-    color:#fff;
+.nav-btn:hover{
+  background:#111;
+  color:#fff;
 }
 
-.mobile-menu{
-    display:none;
-    width:44px;
-    height:44px;
-    border:1px solid #111;
-    border-radius:50%;
-    background:transparent;
+.menu{
+  display:none;
+  border:0;
+  background:none;
+  font-size:24px;
 }
 
-@media(max-width:800px){
-
-    .nav-inner{
-        padding:16px;
-    }
-
-    .nav-links,
-    .nav-contact{
-        display:none;
-    }
-
-    .mobile-menu{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-}
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-.mobile-panel{
-    position:fixed;
-    inset:0;
-    background:#111;
-    color:#fff;
-    z-index:8999;
-    padding:100px 25px 30px;
-    transform:translateY(-100%);
-    transition:.5s;
-}
-
-.mobile-panel.open{
-    transform:none;
-}
-
-.mobile-panel a{
-    display:block;
-    font-family:"Space Grotesk";
-    font-size:48px;
-    font-weight:700;
-    padding:12px 0;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
+/* HERO */
 
 .hero{
-    min-height:100svh;
-    padding:150px 28px 90px;
-    display:flex;
-    align-items:center;
+  min-height:100svh;
+  padding:150px 5% 80px;
+  position:relative;
+  overflow:hidden;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:75px 75px;
+}
 
-    background-image:
-        linear-gradient(#deddd8 1px,transparent 1px),
-        linear-gradient(90deg,#deddd8 1px,transparent 1px);
-
-    background-size:80px 80px;
+.hero:before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:#fff;
+  filter:blur(100px);
+  opacity:.55;
+  top:-180px;
+  right:-150px;
 }
 
 .hero-inner{
-    width:100%;
-    max-width:1400px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:80px;
-    align-items:center;
+  max-width:1400px;
+  margin:auto;
+  position:relative;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  align-items:center;
+  gap:70px;
 }
 
 .eyebrow{
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:#666;
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
 }
 
-.hero h1{
-    margin-top:25px;
-    font-size:clamp(4rem,9.5vw,9.5rem);
-    line-height:.78;
-    letter-spacing:-.075em;
-    max-width:950px;
+.hero-title{
+  font-size:clamp(60px,9vw,145px);
+  line-height:.8;
+  letter-spacing:-.075em;
+  margin:30px 0;
 }
 
-.serif{
-    font-family:Georgia,serif;
-    font-style:italic;
-    font-weight:400;
+.italic{
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-weight:400;
 }
 
 .hero-description{
-    max-width:620px;
-    margin-top:38px;
-    font-size:18px;
-    line-height:1.7;
-    color:#65645f;
+  max-width:570px;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--muted);
 }
 
 .hero-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:34px;
 }
 
 .btn{
-    border-radius:999px;
-    padding:15px 24px;
-    font-weight:700;
-    border:1px solid #111;
-    transition:.3s;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
+  border:1px solid #111;
+  padding:15px 24px;
+  border-radius:100px;
+  font-weight:700;
+  font-size:13px;
+  transition:.3s;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
 }
 
-.btn-black{
-    background:#111;
-    color:#fff;
+.btn-dark{
+  background:#111;
+  color:#fff;
 }
 
-.btn-black:hover{
-    transform:translateY(-3px);
+.btn:hover{
+  transform:translateY(-3px);
 }
 
-.btn-outline:hover{
-    background:#111;
-    color:#fff;
+.btn:not(.btn-dark):hover{
+  background:#111;
+  color:#fff;
 }
 
-/* =========================================================
-   HERO IMAGE
-========================================================= */
+/* HERO ART */
 
-.hero-visual{
-    position:relative;
-    max-width:500px;
-    width:100%;
-    margin-left:auto;
+.hero-art{
+  max-width:510px;
+  width:100%;
+  margin-left:auto;
+  position:relative;
 }
 
-.profile-card{
-    position:relative;
-    aspect-ratio:4/5;
-    border-radius:35px;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 30% 20%,#fff,#b8b5ad 55%,#777 100%);
-    box-shadow:0 35px 80px rgba(0,0,0,.16);
+.art-frame{
+  aspect-ratio:4/5;
+  background:#111;
+  border-radius:38px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 35px 80px rgba(0,0,0,.16);
 }
 
-.profile-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.art-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.profile-placeholder{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:"Space Grotesk";
-    font-size:clamp(6rem,15vw,12rem);
-    font-weight:700;
-    letter-spacing:-.1em;
-    color:rgba(255,255,255,.72);
+.art-placeholder{
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 70% 25%,#fff 0 3%,transparent 3.5%),
+    radial-gradient(circle at 20% 75%,#555 0 8%,transparent 8.5%),
+    linear-gradient(135deg,#191919,#5e5e5e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-family:"Space Grotesk";
+  font-size:clamp(80px,12vw,150px);
+  font-weight:700;
+  letter-spacing:-.09em;
 }
 
-.profile-label{
-    position:absolute;
-    top:18px;
-    left:18px;
-    background:#fff;
-    padding:11px 15px;
-    font-size:10px;
-    font-weight:800;
-    border-radius:5px;
+.art-tag{
+  position:absolute;
+  padding:11px 14px;
+  background:#fff;
+  color:#111;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
 }
 
-.available{
-    position:absolute;
-    bottom:18px;
-    right:18px;
-    background:#111;
-    color:#fff;
-    padding:11px 15px;
-    font-size:10px;
-    font-weight:800;
-    border-radius:5px;
+.art-tag.top{
+  left:18px;
+  top:18px;
 }
 
-.circle-badge{
-    position:absolute;
-    width:125px;
-    height:125px;
-    bottom:-35px;
-    left:-45px;
-    border:1px solid #111;
-    border-radius:50%;
-    background:var(--bg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size:10px;
-    font-weight:800;
-    line-height:1.4;
+.art-tag.bottom{
+  right:18px;
+  bottom:18px;
+  background:#111;
+  color:#fff;
 }
 
-@media(max-width:900px){
-
-    .hero{
-        padding-top:125px;
-    }
-
-    .hero-inner{
-        grid-template-columns:1fr;
-        gap:55px;
-    }
-
-    .hero-visual{
-        margin:auto;
-    }
+.round-badge{
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid #111;
+  bottom:-35px;
+  left:-40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:10px;
+  font-weight:800;
+  line-height:1.5;
+  transform:rotate(-12deg);
 }
 
-@media(max-width:600px){
-
-    .hero{
-        padding:115px 16px 70px;
-        background-size:45px 45px;
-    }
-
-    .hero h1{
-        font-size:17vw;
-    }
-
-    .hero-description{
-        font-size:16px;
-    }
-
-    .circle-badge{
-        width:95px;
-        height:95px;
-        left:-10px;
-        bottom:-25px;
-    }
-}
-
-/* =========================================================
-   MARQUEE
-========================================================= */
+/* MARQUEE */
 
 .marquee{
-    margin:0 14px;
-    overflow:hidden;
-    background:#111;
-    color:#fff;
-    border-radius:28px;
-    border:1px solid #111;
+  margin:0 18px;
+  border-radius:25px;
+  background:#111;
+  color:#fff;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:19px 0;
 }
 
 .marquee-track{
-    display:flex;
-    width:max-content;
-    animation:marquee 25s linear infinite;
+  display:inline-block;
+  animation:marquee 25s linear infinite;
 }
 
-.marquee-content{
-    white-space:nowrap;
-    padding:20px 0;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.25em;
+.marquee-item{
+  display:inline-block;
+  margin:0 24px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.2em;
 }
 
 @keyframes marquee{
-    to{
-        transform:translateX(-50%);
-    }
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
 }
 
-/* =========================================================
-   SECTIONS
-========================================================= */
+/* GENERAL */
 
 .section{
-    max-width:1400px;
-    margin:auto;
-    padding:130px 28px;
+  max-width:1400px;
+  margin:auto;
+  padding:130px 5%;
 }
 
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    gap:30px;
-    margin-bottom:55px;
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:60px;
 }
 
-.section-label{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.25em;
-    font-weight:700;
-    color:#777;
+.section-number{
+  color:#999;
+  font-size:11px;
+  letter-spacing:.25em;
+  font-weight:700;
+  text-transform:uppercase;
 }
 
 .section-title{
-    font-size:clamp(3rem,7vw,7rem);
-    line-height:.9;
-    letter-spacing:-.06em;
-    margin-top:12px;
+  font-size:clamp(50px,7vw,95px);
+  line-height:.9;
+  letter-spacing:-.065em;
+  margin-top:12px;
 }
 
-.section-note{
-    max-width:330px;
-    color:#777;
-    font-size:14px;
-    line-height:1.6;
+.section-info{
+  max-width:350px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
 }
 
-/* =========================================================
-   PROJECTS
-========================================================= */
+/* WORK */
 
-.project-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:22px;
+.work-filter{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.filter{
+  border:1px solid var(--line);
+  border-radius:100px;
+  background:transparent;
+  padding:9px 15px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
 }
 
 .project{
-    background:#ebeae5;
-    border:1px solid rgba(0,0,0,.08);
-    border-radius:30px;
-    overflow:hidden;
-    transition:.45s;
-    cursor:pointer;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:30px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.45s cubic-bezier(.2,.8,.2,1);
 }
 
 .project:hover{
-    transform:translateY(-8px);
-    box-shadow:0 30px 70px rgba(0,0,0,.12);
+  transform:translateY(-9px);
+  box-shadow:0 30px 70px rgba(0,0,0,.12);
 }
 
 .project-image{
-    aspect-ratio:16/10;
-    overflow:hidden;
-    background:#ddd;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  background:#ddd;
 }
 
 .project-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.7s;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.7s;
 }
 
-.project:hover .project-image img{
-    transform:scale(1.06);
+.project:hover img{
+  transform:scale(1.05);
 }
 
 .project-info{
-    padding:22px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+  padding:20px 22px 23px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .project-title{
-    font-size:21px;
-    font-weight:700;
+  font-size:20px;
+  font-weight:700;
 }
 
 .project-tag{
-    font-size:10px;
-    letter-spacing:.18em;
-    color:#777;
-    font-weight:800;
-    margin-top:5px;
+  color:#888;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.12em;
+  margin-top:5px;
 }
 
 .project-arrow{
-    width:42px;
-    height:42px;
-    border:1px solid #bbb;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
 
-@media(max-width:700px){
+/* SERVICES */
 
-    .section{
-        padding:90px 16px;
-    }
-
-    .section-header{
-        display:block;
-    }
-
-    .section-note{
-        margin-top:20px;
-    }
-
-    .project-grid{
-        grid-template-columns:1fr;
-    }
+.services{
+  background:#111;
+  color:#fff;
+  max-width:none;
 }
 
-/* =========================================================
-   SERVICES
-========================================================= */
-
-.dark-section{
-    background:#111;
-    color:#fff;
-    max-width:none;
+.services-inner{
+  max-width:1400px;
+  margin:auto;
+  padding:130px 5%;
 }
 
-.dark-section .section{
-    max-width:1400px;
+.services .section-number{
+  color:#777;
 }
 
 .services-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:60px;
 }
 
 .service{
-    min-height:330px;
-    padding:30px;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:30px;
-    background:rgba(255,255,255,.035);
-    transition:.35s;
+  min-height:360px;
+  padding:30px;
+  border-radius:30px;
+  background:#181818;
+  border:1px solid #292929;
+  transition:.4s;
+  display:flex;
+  flex-direction:column;
 }
 
 .service:hover{
-    background:rgba(255,255,255,.08);
-    transform:translateY(-6px);
+  background:#222;
+  transform:translateY(-7px);
 }
 
 .service-number{
-    color:#777;
-    font-size:13px;
+  color:#666;
+  font-size:12px;
 }
 
 .service h3{
-    font-size:30px;
-    line-height:1;
-    margin-top:90px;
+  margin-top:auto;
+  font-size:31px;
+  line-height:1;
 }
 
 .service p{
-    color:#999;
-    line-height:1.7;
-    margin-top:18px;
+  color:#999;
+  line-height:1.6;
+  margin-top:20px;
+  font-size:14px;
 }
 
-@media(max-width:800px){
-
-    .services-grid{
-        grid-template-columns:1fr;
-    }
-
-    .service{
-        min-height:auto;
-    }
-
-    .service h3{
-        margin-top:55px;
-    }
-}
-
-/* =========================================================
-   ABOUT
-========================================================= */
+/* ABOUT */
 
 .about-grid{
-    display:grid;
-    grid-template-columns:.8fr 1.2fr;
-    gap:100px;
-    align-items:center;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:100px;
+  align-items:center;
 }
 
-.big-zr{
-    font-family:"Space Grotesk";
-    font-size:clamp(7rem,18vw,18rem);
-    line-height:.7;
-    letter-spacing:-.1em;
-    font-weight:700;
+.about-mark{
+  font-size:clamp(120px,18vw,270px);
+  font-family:"Space Grotesk";
+  font-weight:700;
+  letter-spacing:-.12em;
+  line-height:.7;
 }
 
-.about-heading{
-    font-size:clamp(2.8rem,6vw,6rem);
-    line-height:.95;
-    letter-spacing:-.06em;
+.about-text h2{
+  font-size:clamp(42px,5vw,75px);
+  line-height:.98;
+  letter-spacing:-.06em;
 }
 
-.about-text{
-    max-width:650px;
-    margin-top:30px;
-    color:#686761;
-    font-size:17px;
-    line-height:1.8;
+.about-text p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:650px;
+  margin-top:30px;
 }
 
 .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-top:45px;
-    border-top:1px solid #ccc;
-    padding-top:25px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+  margin-top:35px;
+  padding-top:25px;
+  gap:20px;
 }
 
-.stat-number{
-    font-family:"Space Grotesk";
-    font-size:42px;
-    font-weight:700;
+.stat b{
+  font-family:"Space Grotesk";
+  font-size:40px;
 }
 
-.stat-label{
-    color:#777;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:.16em;
-    margin-top:6px;
+.stat span{
+  display:block;
+  margin-top:4px;
+  color:#888;
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
 }
 
-@media(max-width:800px){
+/* TOOLS */
 
-    .about-grid{
-        grid-template-columns:1fr;
-        gap:70px;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
+.tools{
+  background:var(--surface);
 }
 
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact-section{
-    background:#deddd6;
+.tools-grid{
+  max-width:1400px;
+  margin:auto;
+  padding:100px 5%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
 
-.contact-grid{
-    max-width:1400px;
-    margin:auto;
-    padding:120px 28px;
-    display:grid;
-    grid-template-columns:.8fr 1.2fr;
-    gap:100px;
+.tool{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+  min-height:180px;
+}
+
+.tool strong{
+  display:block;
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+.tool span{
+  color:#888;
+  font-size:12px;
+}
+
+/* CONTACT */
+
+.contact{
+  background:#dedcd5;
+}
+
+.contact-inner{
+  max-width:1400px;
+  margin:auto;
+  padding:130px 5%;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:90px;
 }
 
 .contact-title{
-    font-size:clamp(3rem,7vw,7rem);
-    line-height:.88;
-    letter-spacing:-.065em;
-    margin-top:18px;
+  font-size:clamp(55px,7vw,100px);
+  line-height:.86;
+  letter-spacing:-.07em;
+  margin-top:15px;
+}
+
+.contact-copy{
+  color:#777;
+  line-height:1.7;
+  margin-top:25px;
+  max-width:400px;
 }
 
 .contact-form{
-    display:grid;
-    gap:13px;
+  display:grid;
+  gap:12px;
 }
 
 .field{
-    width:100%;
-    border:1px solid #c8c6be;
-    background:#ebeae5;
-    border-radius:18px;
-    padding:18px;
-    outline:none;
-    color:#111;
-    transition:.25s;
+  width:100%;
+  border:1px solid #c6c3ba;
+  background:#e9e7e0;
+  padding:18px;
+  border-radius:17px;
+  outline:none;
+  color:#111;
 }
 
 .field:focus{
-    border-color:#111;
-    background:#f4f3ef;
+  border-color:#111;
 }
 
 textarea.field{
-    resize:vertical;
-    min-height:160px;
+  resize:vertical;
+  min-height:150px;
 }
 
-.form-button{
-    border:none;
-    border-radius:18px;
-    padding:20px;
-    background:#111;
-    color:#fff;
-    text-align:left;
-    font-weight:800;
-    transition:.3s;
+.submit{
+  background:#111;
+  color:#fff;
+  border:0;
+  padding:19px;
+  border-radius:17px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.form-button:hover{
-    transform:translateY(-3px);
-}
+/* FOOTER */
 
-@media(max-width:800px){
-
-    .contact-grid{
-        grid-template-columns:1fr;
-        gap:60px;
-        padding:90px 16px;
-    }
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-    background:#111;
-    color:#fff;
-    padding:45px 28px;
+footer{
+  background:#0b0b0b;
+  color:#fff;
+  padding:40px 5%;
 }
 
 .footer-inner{
-    max-width:1400px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
 }
 
 .footer-logo{
-    font-family:"Space Grotesk";
-    font-weight:700;
-    font-size:20px;
+  font-family:"Space Grotesk";
+  font-size:20px;
+  font-weight:700;
+}
+
+.footer-links{
+  display:flex;
+  gap:20px;
+  color:#999;
+  font-size:12px;
 }
 
 .footer-copy{
-    color:#777;
-    font-size:11px;
+  color:#555;
+  font-size:11px;
 }
 
-.socials{
-    display:flex;
-    gap:10px;
+/* REVEAL */
+
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
 }
 
-.social{
-    border:1px solid #333;
-    border-radius:50%;
-    width:42px;
-    height:42px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    transition:.3s;
+.reveal.show{
+  opacity:1;
+  transform:none;
 }
 
-.social:hover{
-    background:#fff;
-    color:#111;
+/* PROJECT MODAL */
+
+.preview{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.94);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
 }
 
-@media(max-width:700px){
-
-    .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-}
-
-/* =========================================================
-   PROJECT MODAL
-========================================================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.92);
-    z-index:15000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.open{
-    display:flex;
+.preview.open{
+  display:flex;
 }
 
 .preview-box{
-    width:min(1100px,100%);
-    max-height:92vh;
-    overflow:auto;
+  max-width:1100px;
+  width:100%;
+  max-height:95vh;
 }
 
 .preview-close{
-    float:right;
-    width:45px;
-    height:45px;
-    border:0;
-    border-radius:50%;
-    background:#fff;
-    color:#111;
-    font-size:22px;
-    margin-bottom:15px;
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  cursor:pointer;
+  font-size:20px;
+  float:right;
+  margin-bottom:12px;
 }
 
 .preview-image{
-    width:100%;
-    max-height:75vh;
-    object-fit:contain;
-    border-radius:20px;
+  width:100%;
+  max-height:78vh;
+  object-fit:contain;
+  border-radius:20px;
+  clear:both;
 }
 
 .preview-title{
-    color:#fff;
-    font-family:"Space Grotesk";
-    font-size:25px;
-    font-weight:700;
-    margin-top:18px;
+  color:#fff;
+  font-size:22px;
+  font-weight:700;
+  margin-top:15px;
 }
 
-/* =========================================================
-   ADMIN LOGIN
-========================================================= */
+/* ADMIN */
 
 .admin-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.94);
-    z-index:20000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:#050505;
+  color:#fff;
+  display:none;
+  overflow:auto;
 }
 
 .admin-overlay.open{
-    display:flex;
+  display:block;
 }
 
-.login-box{
-    width:min(420px,100%);
-    background:#151515;
-    color:#fff;
-    padding:35px;
-    border-radius:30px;
-    border:1px solid #333;
+.admin-wrap{
+  max-width:1450px;
+  margin:auto;
+  padding:25px;
 }
 
-.admin-small{
-    color:#777;
-    text-transform:uppercase;
-    font-size:10px;
-    letter-spacing:.2em;
+.admin-top{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(5,5,5,.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid #222;
+  padding:18px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
 }
 
-.login-title{
-    font-size:42px;
-    margin:8px 0 28px;
+.admin-brand{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:22px;
 }
 
-.admin-field{
-    width:100%;
-    background:#222;
-    color:#fff;
-    border:1px solid #333;
-    padding:16px;
-    border-radius:14px;
-    outline:none;
-    margin-bottom:10px;
+.admin-brand small{
+  display:block;
+  color:#666;
+  font-family:"DM Sans";
+  font-size:9px;
+  letter-spacing:.2em;
+  margin-top:4px;
 }
 
-.admin-field:focus{
-    border-color:#777;
+.admin-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.admin-button{
-    border:0;
-    background:#fff;
-    color:#111;
-    padding:16px;
-    border-radius:14px;
-    width:100%;
-    font-weight:800;
-    margin-top:10px;
+.admin-btn{
+  border:1px solid #333;
+  color:#fff;
+  background:#111;
+  border-radius:100px;
+  padding:10px 16px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.close-admin{
-    float:right;
-    background:transparent;
-    border:0;
-    color:#fff;
-    font-size:25px;
-}
-
-/* =========================================================
-   ADMIN DASHBOARD
-========================================================= */
-
-.dashboard{
-    position:fixed;
-    inset:0;
-    background:#0d0d0d;
-    color:#fff;
-    z-index:21000;
-    display:none;
-    overflow-y:auto;
-}
-
-.dashboard.open{
-    display:block;
-}
-
-.dashboard-inner{
-    max-width:1500px;
-    margin:auto;
-    padding:25px;
-}
-
-.dashboard-header{
-    position:sticky;
-    top:0;
-    z-index:10;
-    background:rgba(13,13,13,.9);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid #292929;
-    padding:20px 0;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.dashboard-title{
-    font-family:"Space Grotesk";
-    font-size:32px;
-    font-weight:700;
-}
-
-.dashboard-subtitle{
-    color:#777;
-    font-size:11px;
-    margin-top:3px;
-}
-
-.dashboard-actions{
-    display:flex;
-    gap:8px;
-}
-
-.dash-btn{
-    border:1px solid #333;
-    color:#fff;
-    background:#181818;
-    border-radius:999px;
-    padding:11px 16px;
-    font-size:11px;
-    font-weight:700;
-}
-
-.dash-btn:hover{
-    background:#fff;
-    color:#111;
-}
-
-.dash-btn.danger{
-    color:#ff7777;
-}
-
-.admin-layout{
-    display:grid;
-    grid-template-columns:230px 1fr;
-    gap:25px;
-    margin-top:25px;
-}
-
-.admin-sidebar{
-    position:sticky;
-    top:100px;
-    height:max-content;
-    display:grid;
-    gap:5px;
-}
-
-.admin-tab{
-    width:100%;
-    border:0;
-    background:transparent;
-    color:#888;
-    padding:14px 16px;
-    border-radius:13px;
-    text-align:left;
-    font-weight:700;
-}
-
-.admin-tab:hover,
-.admin-tab.active{
-    color:#fff;
-    background:#1c1c1c;
-}
-
-.admin-content{
-    min-width:0;
-}
-
-.admin-panel{
-    display:none;
-    background:#151515;
-    border:1px solid #272727;
-    border-radius:28px;
-    padding:30px;
-}
-
-.admin-panel.active{
-    display:block;
-}
-
-.panel-title{
-    font-family:"Space Grotesk";
-    font-size:28px;
-    margin-bottom:5px;
-}
-
-.panel-description{
-    color:#777;
-    font-size:13px;
-    margin-bottom:25px;
+.admin-btn:hover{
+  background:#fff;
+  color:#111;
 }
 
 .admin-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:25px;
 }
 
-.admin-group{
-    margin-bottom:17px;
+.admin-card{
+  background:#111;
+  border:1px solid #242424;
+  border-radius:25px;
+  padding:24px;
 }
 
-.admin-group.full{
-    grid-column:1/-1;
+.admin-card.full{
+  grid-column:1/-1;
 }
 
-.admin-label{
+.admin-card h3{
+  font-size:20px;
+  margin-bottom:20px;
+}
+
+.admin-card h3 span{
+  display:block;
+  font-family:"DM Sans";
+  color:#666;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.admin-field{
+  margin-bottom:12px;
+}
+
+.admin-field label{
+  display:block;
+  color:#777;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.admin-input,
+.admin-textarea,
+.admin-select{
+  width:100%;
+  border:1px solid #292929;
+  border-radius:13px;
+  background:#080808;
+  color:#fff;
+  padding:13px;
+  outline:none;
+}
+
+.admin-input:focus,
+.admin-textarea:focus{
+  border-color:#777;
+}
+
+.admin-textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.admin-save{
+  width:100%;
+  background:#fff;
+  color:#111;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+.admin-save:hover{
+  background:#ddd;
+}
+
+.upload-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.upload-label{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:80px;
+  border:1px dashed #444;
+  border-radius:15px;
+  cursor:pointer;
+  color:#888;
+  text-align:center;
+  font-size:11px;
+}
+
+.upload-label:hover{
+  border-color:#fff;
+  color:#fff;
+}
+
+.upload-label input{
+  display:none;
+}
+
+.admin-projects{
+  display:grid;
+  gap:10px;
+}
+
+.admin-project{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  background:#080808;
+  border:1px solid #222;
+  border-radius:16px;
+}
+
+.admin-project img{
+  width:80px;
+  height:55px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#222;
+}
+
+.admin-project-info strong{
+  display:block;
+  font-size:13px;
+}
+
+.admin-project-info small{
+  color:#666;
+}
+
+.delete-btn{
+  border:1px solid #522;
+  color:#f88;
+  background:#180909;
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+  font-size:10px;
+}
+
+.login-overlay{
+  position:fixed;
+  inset:0;
+  z-index:6000;
+  background:rgba(0,0,0,.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-overlay.open{
+  display:flex;
+}
+
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#111;
+  border:1px solid #292929;
+  color:#fff;
+  border-radius:28px;
+  padding:30px;
+  box-shadow:0 30px 100px #000;
+}
+
+.login-box h2{
+  font-size:35px;
+  margin:7px 0 25px;
+}
+
+.login-box .admin-input{
+  background:#fff;
+  color:#111;
+  border:0;
+  margin-bottom:10px;
+}
+
+.login-error{
+  color:#ff6b6b;
+  font-size:11px;
+  margin:5px 0;
+  display:none;
+}
+
+.login-close{
+  float:right;
+  border:0;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+  font-size:20px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translate(-50%,30px);
+  background:#111;
+  color:#fff;
+  border:1px solid #333;
+  padding:13px 20px;
+  border-radius:100px;
+  z-index:99999;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  font-size:12px;
+  font-weight:700;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu{
     display:block;
-    color:#aaa;
-   <div>
-   git add .
-git commit -m "Premium portfolio V2"
-git push
+  }
+
+  .nav-btn{
+    display:none;
+  }
+
+  .hero{
+    padding-top:120px;
+  }
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+
+  .hero-title{
+    font-size:18vw;
+  }
+
+  .hero-art{
+    max-width:430px;
+    margin:auto;
+  }
+
+  .section{
+    padding:90px 5%;
+  }
+
+  .section-head{
+    display:block;
+    margin-bottom:40px;
+  }
+
+  .section-info{
+    margin-top:20px;
+  }
+
+  .work-grid{
+    grid-template-columns:1fr;
+  }
+
+  .services-inner{
+    padding:90px 5%;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service{
+    min-height:280px;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+
+  .about-mark{
+    font-size:35vw;
+  }
+
+  .tools-grid{
+    grid-template-columns:1fr 1fr;
+    padding:80px 5%;
+  }
+
+  .contact-inner{
+    grid-template-columns:1fr;
+    gap:55px;
+    padding:90px 5%;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .admin-grid{
+    grid-template-columns:1fr;
+  }
+
+  .admin-card.full{
+    grid-column:auto;
+  }
+
+  .admin-wrap{
+    padding:15px;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .hero-buttons .btn{
+    justify-content:center;
+  }
+
+  .round-badge{
+    width:90px;
+    height:90px;
+    left:-10px;
+    bottom:-20px;
+    font-size:8px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .tools-grid{
+    grid-template-columns:1fr;
+  }
+
+  .admin-top{
+    align-items:flex-start;
+  }
+
+  .upload-row{
+    grid-template-columns:1fr;
+  }
+
+  .admin-project{
+    grid-template-columns:60px 1fr;
+  }
+
+  .admin-project img{
+    width:60px;
+  }
+
+  .delete-btn{
+    grid-column:2;
+    justify-self:start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">ZAID/RAZA</div>
+    <div class="loader-line"><i></i></div>
+  </div>
+</div>
+
+<div class="cursor" id="cursor"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="logo" id="logoAdmin">ZAID<span>/</span>RAZA</div>
+
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <a class="nav-btn" href="#contact">Let's talk ↗</a>
+
+    <button class="menu" id="mobileMenu">☰</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <div class="reveal">
+      <div class="eyebrow" id="heroEyebrow">
+        Graphic Designer · Visual Creator
+      </div>
+
+      <h1 class="hero-title" id="heroTitle">
+        I MAKE<br>
+        <span class="italic">VISUALS</span><br>
+        MOVE.
+      </h1>
+
+      <p class="hero-description" id="heroDescription">
+        I turn ordinary ideas into bold, clear and high-impact visuals
+        designed to grab attention and communicate instantly.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-dark" href="#work">Explore my work ↓</a>
+        <a class="btn" href="#contact">Start a project ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-art reveal">
+      <div class="art-frame" id="profileFrame">
+        <div class="art-placeholder" id="profilePlaceholder">ZR</div>
+
+        <img id="profileImage"
+             style="display:none"
+             alt="Zaid Raza">
+
+        <div class="art-tag top">BASED IN INDIA</div>
+        <div class="art-tag bottom">AVAILABLE ↗</div>
+      </div>
+
+      <div class="round-badge">
+        DESIGN<br>
+        WITH<br>
+        INTENT
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">THUMBNAILS ✦</span>
+    <span class="marquee-item">YOUTUBE ✦</span>
+    <span class="marquee-item">POSTERS ✦</span>
+    <span class="marquee-item">SOCIAL MEDIA ✦</span>
+    <span class="marquee-item">GAMING ✦</span>
+    <span class="marquee-item">BRANDING ✦</span>
+    <span class="marquee-item">VISUAL STORYTELLING ✦</span>
+
+    <span class="marquee-item">THUMBNAILS ✦</span>
+    <span class="marquee-item">YOUTUBE ✦</span>
+    <span class="marquee-item">POSTERS ✦</span>
+    <span class="marquee-item">SOCIAL MEDIA ✦</span>
+    <span class="marquee-item">GAMING ✦</span>
+    <span class="marquee-item">BRANDING ✦</span>
+    <span class="marquee-item">VISUAL STORYTELLING ✦</span>
+  </div>
+</div>
+
+<section class="section" id="work">
+
+  <div class="section-head reveal">
+    <div>
+      <div class="section-number">01 / Selected Work</div>
+      <h2 class="section-title">The work.</h2>
+    </div>
+
+    <p class="section-info">
+      A collection of thumbnail concepts, social graphics,
+      posters and visual experiments created to make ideas stand out.
+    </p>
+  </div>
+
+  <div class="work-filter">
+    <button class="filter active" data-filter="ALL">ALL</button>
+    <button class="filter" data-filter="YOUTUBE">YOUTUBE</button>
+    <button class="filter" data-filter="GAMING">GAMING</button>
+    <button class="filter" data-filter="SOCIAL">SOCIAL</button>
+    <button class="filter" data-filter="POSTER">POSTER</button>
+  </div>
+
+  <div class="work-grid" id="workGrid"></div>
+
+</section>
+
+<section class="services">
+
+  <div class="services-inner">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="section-number">02 / Services</div>
+        <h2 class="section-title">What I do.</h2>
+      </div>
+
+      <p class="section-info">
+        Design focused on attention, clarity and strong visual communication.
+      </p>
+    </div>
+
+    <div class="services-grid" id="servicesGrid"></div>
+
+  </div>
+
+</section>
+
+<section class="section" id="about">
+
+  <div class="about-grid">
+
+    <div class="reveal">
+      <div class="about-mark">ZR.</div>
+    </div>
+
+    <div class="about-text reveal">
+
+      <div class="section-number">03 / About</div>
+
+      <h2 id="aboutTitle">
+        Design isn't decoration.<br>
+        <span class="italic">It's communication.</span>
+      </h2>
+
+      <p id="aboutText">
+        I'm Md Zaid Raza, a graphic designer and visual content creator.
+        I focus on the first impression — what people notice,
+        what they understand and what makes them want to look twice.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <b id="stat1">2+</b>
+          <span id="stat1Label">Years creating</span>
+        </div>
+
+        <div class="stat">
+          <b id="stat2">50+</b>
+          <span id="stat2Label">Projects</span>
+        </div>
+
+        <div class="stat">
+          <b id="stat3">24H</b>
+          <span id="stat3Label">Response</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="tools">
+
+  <div class="tools-grid" id="toolsGrid">
+
+    <div class="tool reveal">
+      <strong>Photoshop</strong>
+      <span>Advanced visual composition</span>
+    </div>
+
+    <div class="tool reveal">
+      <strong>Canva</strong>
+      <span>Fast creative design</span>
+    </div>
+
+    <div class="tool reveal">
+      <strong>CapCut</strong>
+      <span>Motion & video content</span>
+    </div>
+
+    <div class="tool reveal">
+      <strong>Creative AI</strong>
+      <span>Concept development</span>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="contact" id="contact">
+
+  <div class="contact-inner">
+
+    <div class="reveal">
+
+      <div class="section-number">04 / Contact</div>
+
+      <h2 class="contact-title">
+        Let's make<br>
+        <span class="italic">something</span><br>
+        stand out.
+      </h2>
+
+      <p class="contact-copy" id="contactText">
+        Have a thumbnail, poster, social campaign or visual project?
+        Send the details and let's turn the idea into something people notice.
+      </p>
+
+    </div>
+
+    <form class="contact-form reveal"
+          action="https://formsubmit.co/mdzaidraza9119@gmail.com"
+          method="POST">
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
+
+      <input class="field" required name="name" placeholder="Your name *">
+      <input class="field" required type="email" name="email" placeholder="Email address *">
+      <input class="field" name="project" placeholder="What do you need?">
+      <textarea class="field" required name="message" placeholder="Tell me about your project..."></textarea>
+
+      <button class="submit" type="submit">
+        SEND INQUIRY ↗
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-logo">ZAID/RAZA</div>
+
+    <div class="footer-links">
+      <a id="instagramLink" href="#" target="_blank">Instagram</a>
+      <a id="behanceLink" href="#" target="_blank">Behance</a>
+      <a id="youtubeLink" href="#" target="_blank">YouTube</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 — VISUAL DESIGNER
+    </div>
+
+  </div>
+
+</footer>
+
+<div class="preview" id="preview">
+
+  <div class="preview-box">
+
+    <button class="preview-close" id="previewClose">×</button>
+
+    <img class="preview-image" id="previewImage">
+
+    <div class="preview-title" id="previewTitle"></div>
+
+  </div>
+
+</div>
+
+<div class="login-overlay" id="loginOverlay">
+
+  <div class="login-box">
+
+    <button class="login-close" id="loginClose">×</button>
+
+    <div class="eyebrow">Private Access</div>
+
+    <h2>Admin.</h2>
+
+    <input class="admin-input"
+           id="loginUser"
+           placeholder="Username"
+           autocomplete="username">
+
+    <input class="admin-input"
+           id="loginPass"
+           type="password"
+           placeholder="Password"
+           autocomplete="current-password">
+
+    <div class="login-error" id="loginError">
+      Invalid username or password.
+    </div>
+
+    <button class="admin-save" id="loginButton">
+      ENTER DASHBOARD
+    </button>
+
+  </div>
+
+</div>
+
+<div class="admin-overlay" id="adminOverlay">
+
+  <div class="admin-wrap">
+
+    <div class="admin-top">
+
+      <div class="admin-brand">
+        ZAID/RAZA
+        <small>WEBSITE CONTROL CENTER</small>
+      </div>
+
+      <div class="admin-actions">
+        <button class="admin-btn" id="previewSite">VIEW WEBSITE</button>
+        <button class="admin-btn" id="resetSite">RESET</button>
+        <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
+      </div>
+
+    </div>
+
+    <div class="admin-grid">
+
+      <div class="admin-card">
+
+        <h3>
+          <span>01</span>
+          Hero Section
+        </h3>
+
+        <div class="admin-field">
+          <label>Small Label</label>
+          <input class="admin-input" id="aEyebrow">
+        </div>
+
+        <div class="admin-field">
+          <label>Main Headline</label>
+          <textarea class="admin-textarea" id="aTitle"></textarea>
+        </div>
+
+        <div class="admin-field">
+          <label>Description</label>
+          <textarea class="admin-textarea" id="aDescription"></textarea>
+        </div>
+
+        <div class="admin-field">
+          <label>Profile Photo</label>
+          <div class="upload-row">
+            <label class="upload-label">
+              <input type="file" id="profileUpload" accept="image/*">
+              UPLOAD PHOTO
+            </label>
+
+            <input class="admin-input"
+                   id="profileUrl"
+                   placeholder="Or paste image URL">
+          </div>
+        </div>
+
+        <button class="admin-save" id="saveHero">
+          SAVE HERO
+        </button>
+
+      </div>
+
+      <div class="admin-card">
+
+        <h3>
+          <span>02</span>
+          About Section
+        </h3>
+
+        <div class="admin-field">
+          <label>Heading</label>
+          <textarea class="admin-textarea" id="aAboutTitle"></textarea>
+        </div>
+
+        <div class="admin-field">
+          <label>About Text</label>
+          <textarea class="admin-textarea" id="aAboutText"></textarea>
+        </div>
+
+        <div class="upload-row">
+
+          <div class="admin-field">
+            <label>Stat 1</label>
+            <input class="admin-input" id="aStat1">
+          </div>
+
+          <div class="admin-field">
+            <label>Stat 1 Label</label>
+            <input class="admin-input" id="aStat1Label">
+          </div>
+
+          <div class="admin-field">
+            <label>Stat 2</label>
+            <input class="admin-input" id="aStat2">
+          </div>
+
+          <div class="admin-field">
+            <label>Stat 2 Label</label>
+            <input class="admin-input" id="aStat2Label">
+          </div>
+
+          <div class="admin-field">
+            <label>Stat 3</label>
+            <input class="admin-input" id="aStat3">
+          </div>
+
+          <div class="admin-field">
+            <label>Stat 3 Label</label>
+            <input class="admin-input" id="aStat3Label">
+          </div>
+
+        </div>
+
+        <button class="admin-save" id="saveAbout">
+          SAVE ABOUT
+        </button>
+
+      </div>
+
+      <div class="admin-card">
+
+        <h3>
+          <span>03</span>
+          Services
+        </h3>
+
+        <div id="serviceEditor"></div>
+
+        <button class="admin-save" id="saveServices">
+          SAVE SERVICES
+        </button>
+
+      </div>
+
+      <div class="admin-card">
+
+        <h3>
+          <span>04</span>
+          Contact & Socials
+        </h3>
+
+        <div class="admin-field">
+          <label>Contact Description</label>
+          <textarea class="admin-textarea" id="aContactText"></textarea>
+        </div>
+
+        <div class="admin-field">
+          <label>Instagram URL</label>
+          <input class="admin-input" id="aInstagram">
+        </div>
+
+        <div class="admin-field">
+          <label>Behance URL</label>
+          <input class="admin-input" id="aBehance">
+        </div>
+
+        <div class="admin-field">
+          <label>YouTube URL</label>
+          <input class="admin-input" id="aYoutube">
+        </div>
+
+        <button class="admin-save" id="saveContact">
+          SAVE CONTACT
+        </button>
+
+      </div>
+
+      <div class="admin-card full">
+
+        <h3>
+          <span>05</span>
+          Portfolio Manager
+        </h3>
+
+        <div class="upload-row">
+
+          <div class="admin-field">
+            <label>Project Title</label>
+            <input class="admin-input" id="pTitle" placeholder="Example: YouTube Thumbnail">
+          </div>
+
+          <div class="admin-field">
+            <label>Category</label>
+            <select class="admin-select" id="pTag">
+              <option>YOUTUBE</option>
+              <option>GAMING</option>
+              <option>SOCIAL</option>
+              <option>POSTER</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="admin-field">
+
+          <label>Project Image</label>
+
+          <div class="upload-row">
+
+            <label class="upload-label">
+              <input type="file" id="projectUpload" accept="image/*">
+              UPLOAD PROJECT IMAGE
+            </label>
+
+            <input class="admin-input"
+                   id="pImage"
+                   placeholder="Or paste image URL">
+
+          </div>
+
+        </div>
+
+        <button class="admin-save" id="addProject">
+          + ADD PROJECT
+        </button>
+
+        <div class="admin-projects" id="adminProjects"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Saved successfully</div>
+
+<script>
+"use strict";
+
+/* ==============================
+   ADMIN LOGIN
+============================== */
+
+const ADMIN_USERNAME = "ZAIDX9119";
+const ADMIN_PASSWORD = "Zaid@9119";
+
+/* ==============================
+   SVG IMAGE GENERATOR
+============================== */
+
+function makeImage(text,sub){
+  const svg =
+`<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#111"/>
+<stop offset="1" stop-color="#777"/>
+</linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<circle cx="1260" cy="220" r="250" fill="#fff" opacity=".08"/>
+<circle cx="280" cy="800" r="350" fill="#fff" opacity=".06"/>
+<text x="90" y="690" fill="white" font-family="Arial" font-weight="700" font-size="100">${text}</text>
+<text x="95" y="770" fill="#ddd" font-family="Arial" font-size="34" letter-spacing="8">${sub}</text>
+</svg>`;
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
+
+/* ==============================
+   DEFAULT DATA
+============================== */
+
+const defaultData = {
+
+  eyebrow:"Graphic Designer · Visual Creator",
+
+  title:`I MAKE
+VISUALS
+MOVE.`,
+
+  description:
+  "I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.",
+
+  profile:"",
+
+  aboutTitle:`Design isn't decoration.
+It's communication.`,
+
+  aboutText:
+  "I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.",
+
+  stat1:"2+",
+  stat1Label:"Years creating",
+
+  stat2:"50+",
+  stat2Label:"Projects",
+
+  stat3:"24H",
+  stat3Label:"Response",
+
+  contactText:
+  "Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.",
+
+  instagram:"",
+  behance:"",
+  youtube:"",
+
+  services:[
+    {
+      number:"01",
+      title:"YouTube Thumbnails",
+      text:"Bold composition, strong hierarchy and visual storytelling designed to make viewers stop scrolling."
+    },
+    {
+      number:"02",
+      title:"Social Visuals",
+      text:"Clean, recognizable graphics for reels, posts, campaigns, events and digital brands."
+    },
+    {
+      number:"03",
+      title:"Creative Direction",
+      text:"From the first idea to the final frame, I help shape a visual direction that makes sense."
+    }
+  ],
+
+  projects:[
+    {
+      title:"Cinematic Visual",
+      tag:"YOUTUBE",
+      img:makeImage("CINEMATIC","VISUAL CONCEPT")
+    },
+    {
+      title:"Gaming Energy",
+      tag:"GAMING",
+      img:makeImage("GAMING","HIGH ENERGY")
+    },
+    {
+      title:"Social Campaign",
+      tag:"SOCIAL",
+      img:makeImage("SOCIAL","CREATIVE CAMPAIGN")
+    },
+    {
+      title:"Creative Poster",
+      tag:"POSTER",
+      img:makeImage("POSTER","VISUAL DESIGN")
+    },
+    {
+      title:"YouTube Story",
+      tag:"YOUTUBE",
+      img:makeImage("STORY","DIGITAL STORYTELLING")
+    },
+    {
+      title:"Gaming Concept",
+      tag:"GAMING",
+      img:makeImage("PLAY","GAMING CONCEPT")
+    }
+  ]
+};
+
+/* ==============================
+   DATA STORAGE
+============================== */
+
+let data;
+
+try{
+  data = JSON.parse(localStorage.getItem("zaidPortfolioV3")) || structuredClone(defaultData);
+}catch(e){
+  data = structuredClone(defaultData);
+}
+
+function saveData(){
+  localStorage.setItem("zaidPortfolioV3",JSON.stringify(data));
+}
+
+/* ==============================
+   ELEMENT HELPERS
+============================== */
+
+const $ = id => document.getElementById(id);
+
+function toast(message){
+  $("toast").textContent=message;
+  $("toast").classList.add("show");
+
+  setTimeout(()=>{
+    $("toast").classList.remove("show");
+  },2200);
+}
+
+/* ==============================
+   RENDER WEBSITE
+============================== */
+
+function renderWebsite(){
+
+  $("heroEyebrow").textContent=data.eyebrow;
+
+  $("heroTitle").innerHTML=
+    data.title
+      .replace(/\n/g,"<br>")
+      .replace(
+        "VISUALS",
+        '<span class="italic">VISUALS</span>'
+      );
+
+  $("heroDescription").textContent=data.description;
+
+  $("aboutTitle").innerHTML=
+    data.aboutTitle
+      .replace(/\n/g,"<br>")
+      .replace(
+        /It's communication\./,
+        '<span class="italic">It\'s communication.</span>'
+      );
+
+  $("aboutText").textContent=data.aboutText;
+
+  $("stat1").textContent=data.stat1;
+  $("stat1Label").textContent=data.stat1Label;
+
+  $("stat2").textContent=data.stat2;
+  $("stat2Label").textContent=data.stat2Label;
+
+  $("stat3").textContent=data.stat3;
+  $("stat3Label").textContent=data.stat3Label;
+
+  $("contactText").textContent=data.contactText;
+
+  setLink($("instagramLink"),data.instagram);
+  setLink($("behanceLink"),data.behance);
+  setLink($("youtubeLink"),data.youtube);
+
+  renderServices();
+  renderProjects();
+  renderAdminProjects();
+  loadAdminFields();
+
+  if(data.profile){
+    $("profileImage").src=data.profile;
+    $("profileImage").style.display="block";
+    $("profilePlaceholder").style.display="none";
+  }else{
+    $("profileImage").style.display="none";
+    $("profilePlaceholder").style.display="flex";
+  }
+}
+
+function setLink(el,url){
+  if(url && url.trim()){
+    el.href=url;
+    el.style.display="inline";
+  }else{
+    el.href="#";
+    el.style.opacity=".45";
+  }
+}
+
+/* ==============================
+   SERVICES
+============================== */
+
+function renderServices(){
+
+  $("servicesGrid").innerHTML="";
+
+  data.services.forEach(service=>{
+
+    const card=document.createElement("div");
+    card.className="service reveal";
+
+    card.innerHTML=`
+      <div class="service-number">${escapeHTML(service.number)}</div>
+      <h3>${escapeHTML(service.title).replace(/\n/g,"<br>")}</h3>
+      <p>${escapeHTML(service.text)}</p>
+    `;
+
+    $("servicesGrid").appendChild(card);
+
+  });
+
+  observeReveal();
+}
+
+/* ==============================
+   PROJECTS
+============================== */
+
+let currentFilter="ALL";
+
+function renderProjects(){
+
+  const grid=$("workGrid");
+  grid.innerHTML="";
+
+  const list=
+    currentFilter==="ALL"
+      ? data.projects
+      : data.projects.filter(p=>p.tag===currentFilter);
+
+  if(!list.length){
+    grid.innerHTML=`
+      <div style="grid-column:1/-1;padding:70px;text-align:center;color:#888">
+        No projects in this category yet.
+      </div>`;
+    return;
+  }
+
+  list.forEach((project,index)=>{
+
+    const card=document.createElement("article");
+    card.className="project reveal";
+
+    card.innerHTML=`
+      <div class="project-image">
+        <img src="${escapeAttr(project.img)}"
+             alt="${escapeAttr(project.title)}"
+             onerror="this.src='${makeImage("PROJECT","IMAGE")}';">
+      </div>
+
+      <div class="project-info">
+
+        <div>
+          <div class="project-title">${escapeHTML(project.title)}</div>
+          <div class="project-tag">${escapeHTML(project.tag)}</div>
+        </div>
+
+        <div class="project-arrow">↗</div>
+
+      </div>
+    `;
+
+    card.addEventListener("click",()=>{
+      openPreview(project);
+    });
+
+    grid.appendChild(card);
+
+  });
+
+  observeReveal();
+}
+
+/* ==============================
+   PROJECT FILTER
+============================== */
+
+document.querySelectorAll(".filter").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    document.querySelectorAll(".filter")
+      .forEach(b=>b.classList.remove("active"));
+
+    button.classList.add("active");
+
+    currentFilter=button.dataset.filter;
+
+    renderProjects();
+
+  });
+
+});
+
+/* ==============================
+   PREVIEW
+============================== */
+
+function openPreview(project){
+
+  $("previewImage").src=project.img;
+  $("previewTitle").textContent=
+    project.title+" — "+project.tag;
+
+  $("preview").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function closePreview(){
+
+  $("preview").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+$("previewClose").onclick=closePreview;
+
+$("preview").addEventListener("click",e=>{
+  if(e.target===$("preview")) closePreview();
+});
+
+/* ==============================
+   ADMIN LOGIN
+============================== */
+
+$("logoAdmin").addEventListener("click",e=>{
+  e.preventDefault();
+  $("loginOverlay").classList.add("open");
+});
+
+$("loginClose").onclick=()=>{
+  $("loginOverlay").classList.remove("open");
+};
+
+$("loginButton").onclick=login;
+
+$("loginPass").addEventListener("keydown",e=>{
+  if(e.key==="Enter") login();
+});
+
+function login(){
+
+  const username=$("loginUser").value.trim();
+  const password=$("loginPass").value;
+
+  if(username===ADMIN_USERNAME && password===ADMIN_PASSWORD){
+
+    $("loginError").style.display="none";
+    $("loginOverlay").classList.remove("open");
+    $("adminOverlay").classList.add("open");
+    document.body.style.overflow="hidden";
+
+    loadAdminFields();
+
+  }else{
+
+    $("loginError").style.display="block";
+
+  }
+}
+
+/* ==============================
+   ADMIN FIELDS
+============================== */
+
+function loadAdminFields(){
+
+  $("aEyebrow").value=data.eyebrow;
+  $("aTitle").value=data.title;
+  $("aDescription").value=data.description;
+
+  $("aAboutTitle").value=data.aboutTitle;
+  $("aAboutText").value=data.aboutText;
+
+  $("aStat1").value=data.stat1;
+  $("aStat1Label").value=data.stat1Label;
+
+  $("aStat2").value=data.stat2;
+  $("aStat2Label").value=data.stat2Label;
+
+  $("aStat3").value=data.stat3;
+  $("aStat3Label").value=data.stat3Label;
+
+  $("aContactText").value=data.contactText;
+
+  $("aInstagram").value=data.instagram;
+  $("aBehance").value=data.behance;
+  $("aYoutube").value=data.youtube;
+
+  $("profileUrl").value=
+    data.profile && !data.profile.startsWith("data:")
+      ? data.profile
+      : "";
+
+  renderServiceEditor();
+}
+
+/* ==============================
+   SAVE HERO
+============================== */
+
+$("saveHero").onclick=()=>{
+
+  data.eyebrow=$("aEyebrow").value;
+  data.title=$("aTitle").value;
+  data.description=$("aDescription").value;
+
+  const url=$("profileUrl").value.trim();
+
+  if(url){
+    data.profile=url;
+  }
+
+  saveData();
+  renderWebsite();
+  toast("Hero saved");
+
+};
+
+/* ==============================
+   PROFILE UPLOAD
+============================== */
+
+$("profileUpload").addEventListener("change",function(){
+
+  const file=this.files[0];
+
+  if(!file) return;
+
+  if(file.size>5*1024*1024){
+    toast("Photo must be under 5MB");
+    this.value="";
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+
+    data.profile=e.target.result;
+
+    $("profileUrl").value="";
+
+    saveData();
+    renderWebsite();
+
+    toast("Profile photo updated");
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+/* ==============================
+   ABOUT SAVE
+============================== */
+
+$("saveAbout").onclick=()=>{
+
+  data.aboutTitle=$("aAboutTitle").value;
+  data.aboutText=$("aAboutText").value;
+
+  data.stat1=$("aStat1").value;
+  data.stat1Label=$("aStat1Label").value;
+
+  data.stat2=$("aStat2").value;
+  data.stat2Label=$("aStat2Label").value;
+
+  data.stat3=$("aStat3").value;
+  data.stat3Label=$("aStat3Label").value;
+
+  saveData();
+  renderWebsite();
+
+  toast("About section saved");
+
+};
+
+/* ==============================
+   SERVICE EDITOR
+============================== */
+
+function renderServiceEditor(){
+
+  $("serviceEditor").innerHTML="";
+
+  data.services.forEach((service,index)=>{
+
+    const box=document.createElement("div");
+
+    box.style.marginBottom="18px";
+    box.style.padding="15px";
+    box.style.background="#080808";
+    box.style.border="1px solid #222";
+    box.style.borderRadius="17px";
+
+    box.innerHTML=`
+
+      <div class="admin-field">
+        <label>Service ${index+1} Title</label>
+        <input class="admin-input service-title"
+               data-index="${index}"
+               value="${escapeAttr(service.title)}">
+      </div>
+
+      <div class="admin-field">
+        <label>Description</label>
+        <textarea class="admin-textarea service-text"
+                  data-index="${index}">${escapeHTML(service.text)}</textarea>
+      </div>
+    `;
+
+    $("serviceEditor").appendChild(box);
+
+  });
+
+}
+
+$("saveServices").onclick=()=>{
+
+  document.querySelectorAll(".service-title").forEach(input=>{
+    const i=Number(input.dataset.index);
+    data.services[i].title=input.value;
+  });
+
+  document.querySelectorAll(".service-text").forEach(input=>{
+    const i=Number(input.dataset.index);
+    data.services[i].text=input.value;
+  });
+
+  saveData();
+  renderWebsite();
+
+  toast("Services saved");
+
+};
+
+/* ==============================
+   CONTACT SAVE
+============================== */
+
+$("saveContact").onclick=()=>{
+
+  data.contactText=$("aContactText").value;
+  data.instagram=$("aInstagram").value.trim();
+  data.behance=$("aBehance").value.trim();
+  data.youtube=$("aYoutube").value.trim();
+
+  saveData();
+  renderWebsite();
+
+  toast("Contact & socials saved");
+
+};
+
+/* ==============================
+   PROJECT IMAGE UPLOAD
+============================== */
+
+let uploadedProjectImage="";
+
+$("projectUpload").addEventListener("change",function(){
+
+  const file=this.files[0];
+
+  if(!file) return;
+
+  if(file.size>7*1024*1024){
+    toast("Image must be under 7MB");
+    this.value="";
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+    uploadedProjectImage=e.target.result;
+    toast("Image ready");
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+/* ==============================
+   ADD PROJECT
+============================== */
+
+$("addProject").onclick=()=>{
+
+  const title=$("pTitle").value.trim();
+  const tag=$("pTag").value;
+  const url=$("pImage").value.trim();
+
+  const image=uploadedProjectImage || url;
+
+  if(!title){
+    toast("Enter project title");
+    return;
+  }
+
+  if(!image){
+    toast("Upload or add an image");
+    return;
+  }
+
+  data.projects.unshift({
+    title:title,
+    tag:tag,
+    img:image
+  });
+
+  saveData();
+
+  $("pTitle").value="";
+  $("pImage").value="";
+  $("projectUpload").value="";
+  uploadedProjectImage="";
+
+  renderWebsite();
+
+  toast("Project added");
+
+};
+
+/* ==============================
+   ADMIN PROJECTS
+============================== */
+
+function renderAdminProjects(){
+
+  const box=$("adminProjects");
+
+  if(!box) return;
+
+  box.innerHTML="";
+
+  data.projects.forEach((project,index)=>{
+
+    const row=document.createElement("div");
+
+    row.className="admin-project";
+
+    row.innerHTML=`
+
+      <img src="${escapeAttr(project.img)}"
+           onerror="this.src='${makeImage("IMAGE","PROJECT")}';">
+
+      <div class="admin-project-info">
+        <strong>${escapeHTML(project.title)}</strong>
+        <small>${escapeHTML(project.tag)}</small>
+      </div>
+
+      <button class="delete-btn" data-index="${index}">
+        DELETE
+      </button>
+
+    `;
+
+    row.querySelector(".delete-btn").onclick=()=>{
+
+      if(confirm("Delete this project?")){
+
+        data.projects.splice(index,1);
+
+        saveData();
+        renderWebsite();
+
+        toast("Project deleted");
+
+      }
+
+    };
+
+    box.appendChild(row);
+
+  });
+
+}
+
+/* ==============================
+   ADMIN CONTROLS
+============================== */
+
+$("previewSite").onclick=()=>{
+
+  $("adminOverlay").classList.remove("open");
+  document.body.style.overflow="";
+
+};
+
+$("logoutAdmin").onclick=()=>{
+
+  $("adminOverlay").classList.remove("open");
+  document.body.style.overflow="";
+
+  $("loginUser").value="";
+  $("loginPass").value="";
+
+};
+
+$("resetSite").onclick=()=>{
+
+  if(!confirm("Reset the complete website to the original data?")) return;
+
+  data=structuredClone(defaultData);
+
+  saveData();
+  renderWebsite();
+
+  toast("Website reset");
+
+};
+
+/* ==============================
+   ESCAPE HELPERS
+============================== */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function escapeAttr(value){
+
+  return escapeHTML(value);
+
+}
+
+/* ==============================
+   CURSOR
+============================== */
+
+const cursor=$("cursor");
+
+document.addEventListener("mousemove",e=>{
+
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+
+});
+
+document.querySelectorAll("a,button,.project,.logo").forEach(el=>{
+
+  el.addEventListener("mouseenter",()=>{
+    cursor.classList.add("big");
+  });
+
+  el.addEventListener("mouseleave",()=>{
+    cursor.classList.remove("big");
+  });
+
+});
+
+/* ==============================
+   NAV SCROLL
+============================== */
+
+window.addEventListener("scroll",()=>{
+
+  $("nav").classList.toggle(
+    "scrolled",
+    window.scrollY>30
+  );
+
+});
+
+/* ==============================
+   REVEAL
+============================== */
+
+function observeReveal(){
+
+  const items=document.querySelectorAll(".reveal:not(.observed)");
+
+  const observer=new IntersectionObserver(
+    entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+          entry.target.classList.add("observed");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {threshold:.1}
+  );
+
+  items.forEach(item=>observer.observe(item));
+
+}
+
+/* ==============================
+   MOBILE MENU
+============================== */
+
+$("mobileMenu").onclick=()=>{
+
+  const links=document.querySelector(".nav-links");
+
+  if(getComputedStyle(links).display==="none"){
+
+    links.style.display="flex";
+    links.style.position="absolute";
+    links.style.top="70px";
+    links.style.left="5%";
+    links.style.right="5%";
+    links.style.padding="20px";
+    links.style.borderRadius="20px";
+    links.style.background="rgba(243,241,236,.97)";
+    links.style.flexDirection="column";
+    links.style.gap="20px";
+    links.style.border="1px solid #ddd";
+
+  }else{
+
+    links.removeAttribute("style");
+
+  }
+
+};
+
+/* ==============================
+   KEYBOARD ADMIN SHORTCUT
+============================== */
+
+document.addEventListener("keydown",e=>{
+
+  if(
+    e.ctrlKey &&
+    e.shiftKey &&
+    e.key.toLowerCase()==="a"
+  ){
+    e.preventDefault();
+    $("loginOverlay").classList.add("open");
+  }
+
+  if(e.key==="Escape"){
+
+    closePreview();
+
+    $("loginOverlay").classList.remove("open");
+
+  }
+
+});
+
+/* ==============================
+   INITIALIZE
+============================== */
+
+window.addEventListener("load",()=>{
+
+  renderWebsite();
+  observeReveal();
+
+  setTimeout(()=>{
+    $("loader").classList.add("hide");
+  },900);
+
+});
+</script>
+
+</body>
+</html>

@@ -2,152 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0d0e12">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
 <title>ZAID RAZA — Visual Content & Brand Designer</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-
-<!-- Supabase SDK Library for Live Cross-Device Syncing -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #0d0e12;
-  --surface: #15171e;
-  --surface-border: #232733;
-  --card: #1a1d26;
-  --accent: #6366f1;
-  --accent-glow: rgba(99, 102, 241, 0.25);
-  --text: #f3f4f6;
-  --muted: #9ca3af;
-  --line: rgba(255, 255, 255, 0.08);
-  --radius: 20px;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
+body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; line-height: 1.5; }
 h1, h2, h3, .brand { font-family: 'Syne', sans-serif; }
 
-/* Dynamic Background Glows */
-.glow-1 { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 350px; background: var(--accent-glow); filter: blur(140px); pointer-events: none; border-radius: 50%; z-index: 0; }
-.glow-2 { position: fixed; bottom: -100px; right: -50px; width: 400px; height: 400px; background: rgba(168, 85, 247, 0.15); filter: blur(150px); pointer-events: none; border-radius: 50%; z-index: 0; }
-
-/* Fast Safe Loader */
-.loader { position: fixed; inset: 0; z-index: 99999; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .4s ease, visibility .4s ease; }
-.loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-spinner { width: 40px; height: 40px; border: 3px solid var(--surface-border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
 /* Navigation */
-.nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 900; background: rgba(13, 14, 18, 0.8); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
-.nav-inner { max-width: 1200px; margin: auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; }
-.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; user-select: none; }
-.logo span { color: var(--accent); }
-.nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
-.nav-links a { color: var(--muted); transition: .25s; }
-.nav-links a:hover { color: var(--text); }
-.btn-nav { background: var(--surface); border: 1px solid var(--surface-border); padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; transition: .3s; }
-.btn-nav:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+.nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: 1100px; margin: auto; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; user-select: none; }
+.logo span { color: var(--primary); }
+.btn-nav { background: var(--text); color: #fff; padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; transition: .2s; }
+.btn-nav:hover { background: var(--primary); }
 
 /* Hero Section */
-.hero { padding: 160px 24px 80px; max-width: 1200px; margin: auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
-.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; color: #a5b4fc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
-.badge-dot { width: 6px; height: 6px; background: #a5b4fc; border-radius: 50%; box-shadow: 0 0 10px #a5b4fc; }
-.hero-title { font-size: clamp(44px, 6.5vw, 82px); line-height: 1.05; letter-spacing: -1.5px; font-weight: 800; margin-bottom: 24px; }
-.hero-desc { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 520px; margin-bottom: 36px; }
-.hero-action { display: flex; gap: 16px; flex-wrap: wrap; }
-.btn-primary { background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: .3s; box-shadow: 0 10px 30px var(--accent-glow); }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4); }
+.hero { padding: 140px 20px 70px; max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+.badge { display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
+.hero-title { font-size: clamp(36px, 5.5vw, 68px); line-height: 1.1; letter-spacing: -1px; font-weight: 800; margin-bottom: 20px; color: var(--text); }
+.hero-desc { font-size: 17px; color: var(--muted); line-height: 1.6; max-width: 500px; margin-bottom: 30px; }
+.btn-primary { display: inline-block; background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: .2s; box-shadow: 0 4px 14px rgba(37,99,235,0.25); }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-/* Profile Card */
-.profile-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: var(--radius); padding: 20px; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
-.profile-img-wrap { aspect-ratio: 4/5; border-radius: 14px; overflow: hidden; background: var(--surface); display: flex; align-items: center; justify-content: center; position: relative; }
+/* Profile Box */
+.profile-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+.profile-img-wrap { aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: #f3f4f6; display: flex; align-items: center; justify-content: center; }
 .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.profile-placeholder { font-size: 64px; font-weight: 800; color: var(--surface-border); }
+.profile-placeholder { font-size: 48px; font-weight: 800; color: #d1d5db; }
 
-/* Projects Grid */
-.section { max-width: 1200px; margin: auto; padding: 100px 24px; position: relative; z-index: 1; }
-.section-header { margin-bottom: 48px; }
-.section-tag { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 8px; }
-.section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -1px; }
+/* Portfolio Section */
+.section { max-width: 1100px; margin: auto; padding: 70px 20px; }
+.section-tag { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.1em; margin-bottom: 6px; }
+.section-title { font-size: 32px; font-weight: 800; margin-bottom: 30px; letter-spacing: -0.5px; }
 
-.work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
-.project-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: .4s cubic-bezier(0.16, 1, 0.3, 1); }
-.project-card:hover { transform: translateY(-8px); border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.project-thumb { aspect-ratio: 16/10; overflow: hidden; background: var(--surface); }
-.project-thumb img { width: 100%; height: 100%; object-fit: cover; transition: .6s ease; }
-.project-card:hover .project-thumb img { transform: scale(1.05); }
-.project-details { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
-.project-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.project-tag { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.project-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: .25s; }
+.project-card:hover { transform: translateY(-4px); border-color: #cbd5e1; }
+.project-thumb { aspect-ratio: 16/10; overflow: hidden; background: #f3f4f6; }
+.project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.project-details { padding: 16px 20px; }
+.project-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.project-tag { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
 /* Contact Section */
-.contact-box { background: linear-gradient(135deg, var(--card), var(--surface)); border: 1px solid var(--surface-border); border-radius: 28px; padding: clamp(32px, 6vw, 64px); display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; }
-.field { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--surface-border); background: var(--bg); color: #fff; font-family: inherit; font-size: 14px; outline: none; transition: .25s; margin-bottom: 16px; }
-.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-.btn-submit { width: 100%; background: var(--accent); color: #fff; padding: 16px; border: 0; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: .3s; }
-.btn-submit:hover { opacity: 0.9; }
+.contact-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(24px, 5vw, 48px); box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+.field { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border); background: #f9fafb; color: var(--text); font-family: inherit; font-size: 14px; outline: none; margin-bottom: 14px; transition: .2s; }
+.field:focus { border-color: var(--primary); background: #fff; }
+.btn-submit { width: 100%; background: var(--text); color: #fff; padding: 14px; border: 0; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; transition: .2s; }
+.btn-submit:hover { background: var(--primary); }
 
-/* Modals & Dashboard */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
+/* Footer */
+footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+
+/* Admin Modal */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; }
-.modal-box { background: var(--card); border: 1px solid var(--surface-border); border-radius: 24px; padding: 32px; max-width: 440px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; }
-.modal-close { position: absolute; top: 20px; right: 20px; background: none; border: 0; color: var(--muted); font-size: 24px; cursor: pointer; }
+.modal-box { background: #fff; border-radius: 20px; padding: 28px; max-width: 400px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; }
+.modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 0; font-size: 20px; cursor: pointer; color: var(--muted); }
 
-.admin-panel { position: fixed; inset: 0; background: var(--bg); z-index: 20000; display: none; overflow-y: auto; padding: 40px 24px; }
+.admin-panel { position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; overflow-y: auto; padding: 30px 20px; }
 .admin-panel.open { display: block; }
-.admin-container { max-width: 900px; margin: auto; }
-.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
-.admin-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+.admin-container { max-width: 800px; margin: auto; }
+.admin-card { background: #f9fafb; border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 20px; }
 
-.upload-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--surface); border: 1px dashed var(--surface-border); padding: 20px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.upload-btn { display: block; text-align: center; background: #fff; border: 1px dashed #cbd5e1; padding: 14px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 14px; }
 .upload-btn input { display: none; }
 
-.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #10b981; color: #fff; padding: 12px 24px; border-radius: 100px; font-weight: 700; font-size: 13px; z-index: 999999; transition: .4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #10b981; color: #fff; padding: 10px 20px; border-radius: 100px; font-weight: 700; font-size: 12px; z-index: 9999; transition: .3s; opacity: 0; }
 .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding-top: 120px; text-align: center; }
-  .hero-desc { margin: 0 auto 36px; }
-  .hero-action { justify-content: center; }
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; padding-top: 110px; text-align: center; }
+  .hero-desc { margin: 0 auto 30px; }
   .contact-box { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
 }
 </style>
 </head>
 <body>
 
-<div class="glow-1"></div>
-<div class="glow-2"></div>
-
-<!-- Safe Fast Loader -->
-<div class="loader" id="loader">
-  <div class="loader-spinner"></div>
-</div>
-
 <nav class="nav">
   <div class="nav-inner">
-    <div class="logo" id="logoAdminTrigger">ZAID<span>/</span>RAZA</div>
-    <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <div class="logo" id="adminTrigger">ZAID<span>/</span>RAZA</div>
     <a href="#contact" class="btn-nav">Let's Talk ↗</a>
   </div>
 </nav>
 
 <section class="hero">
   <div>
-    <div class="badge"><span class="badge-dot"></span> <span id="heroEyebrow">Graphic & Visual Creator</span></div>
+    <div class="badge" id="heroEyebrow">Graphic & Visual Creator</div>
     <h1 class="hero-title" id="heroTitle">CRAFTING<br>HIGH IMPACT<br>VISUALS.</h1>
     <p class="hero-desc" id="heroDesc">I transform brands and visual content with clean, high-converting thumbnail designs, posters, and creative branding.</p>
-    <div class="hero-action">
-      <a href="#work" class="btn-primary">Explore Works ↓</a>
-    </div>
+    <a href="#work" class="btn-primary">View Portfolio ↓</a>
   </div>
   <div>
     <div class="profile-card">
@@ -160,105 +126,92 @@ h1, h2, h3, .brand { font-family: 'Syne', sans-serif; }
 </section>
 
 <section class="section" id="work">
-  <div class="section-header">
-    <div class="section-tag">Portfolio</div>
-    <h2 class="section-title">Selected Works.</h2>
-  </div>
+  <div class="section-tag">Portfolio</div>
+  <h2 class="section-title">Selected Works</h2>
   <div class="work-grid" id="workGrid">
-    <p style="color:var(--muted)">Loading portfolio works...</p>
+    <p style="color:var(--muted)">No projects added yet.</p>
   </div>
 </section>
 
 <section class="section" id="contact">
   <div class="contact-box">
     <div>
-      <div class="section-tag">Get In Touch</div>
-      <h2 class="section-title" style="margin-bottom:16px;">Let's work together.</h2>
-      <p style="color:var(--muted); line-height:1.6;">Need a high-CTR YouTube thumbnail, poster, or brand identity? Send a direct inquiry.</p>
+      <div class="section-tag">Contact</div>
+      <h2 style="font-size:28px; font-weight:800; margin-bottom:10px;">Let's Work Together</h2>
+      <p style="color:var(--muted); font-size:14px; line-height:1.6;">Send a direct inquiry for Youtube thumbnails, graphic designs or branding.</p>
     </div>
     <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-      <input class="field" required name="name" placeholder="Your Full Name">
-      <input class="field" required type="email" name="email" placeholder="Your Email Address">
-      <textarea class="field" required name="message" rows="4" placeholder="Tell me about your project..."></textarea>
-      <button type="submit" class="btn-submit">SEND MESSAGE ↗</button>
+      <input class="field" required name="name" placeholder="Your Name">
+      <input class="field" required type="email" name="email" placeholder="Your Email">
+      <textarea class="field" required name="message" rows="4" placeholder="Your Message"></textarea>
+      <button type="submit" class="btn-submit">Send Message ↗</button>
     </form>
   </div>
 </section>
 
-<!-- Admin Login Modal -->
+<footer>
+  © 2026 ZAID RAZA — All Rights Reserved.
+</footer>
+
+<!-- Admin Modal -->
 <div class="modal" id="loginModal">
   <div class="modal-box">
     <button class="modal-close" id="closeLogin">×</button>
-    <h3 style="font-size:24px; margin-bottom:8px;">Admin Login</h3>
-    <p style="color:var(--muted); font-size:13px; margin-bottom:20px;">Enter details to edit website live</p>
+    <h3 style="margin-bottom:6px;">Admin Access</h3>
+    <p style="color:var(--muted); font-size:12px; margin-bottom:16px;">Log in to edit content live across devices.</p>
     <input class="field" id="authUser" placeholder="Username">
     <input class="field" type="password" id="authPass" placeholder="Password">
-    <button class="btn-submit" id="submitLogin">Access Dashboard</button>
+    <button class="btn-submit" id="submitLogin">Login Dashboard</button>
   </div>
 </div>
 
-<!-- Live Admin Panel -->
+<!-- Admin Panel -->
 <div class="admin-panel" id="adminPanel">
   <div class="admin-container">
-    <div class="admin-header">
-      <h2>Live Dashboard Controls</h2>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <h2>Website Control Panel</h2>
       <div>
         <button class="btn-primary" id="saveCloudBtn">Save Live Changes</button>
-        <button class="btn-nav" id="closeAdminBtn" style="margin-left:10px">Close</button>
+        <button class="btn-nav" id="closeAdminBtn" style="margin-left:8px;">Close</button>
       </div>
     </div>
 
     <div class="admin-card">
-      <h3 style="margin-bottom:16px;">Hero Text Customization</h3>
-      <input class="field" id="editEyebrow" placeholder="Eyebrow Badge">
-      <textarea class="field" id="editTitle" rows="3" placeholder="Main Headline (Use Enter for line breaks)"></textarea>
-      <textarea class="field" id="editDesc" rows="3" placeholder="Sub-description"></textarea>
-      
+      <h3 style="margin-bottom:12px; font-size:16px;">Hero Details</h3>
+      <input class="field" id="editEyebrow" placeholder="Tagline / Eyebrow">
+      <textarea class="field" id="editTitle" rows="3" placeholder="Main Title"></textarea>
+      <textarea class="field" id="editDesc" rows="3" placeholder="Description"></textarea>
       <label class="upload-btn">
         <input type="file" id="profileUpload" accept="image/*">
-        📷 Upload New Profile Picture
+        📷 Upload Profile Picture
       </label>
     </div>
 
     <div class="admin-card">
-      <h3 style="margin-bottom:16px;">Add Portfolio Project</h3>
-      <input class="field" id="projTitle" placeholder="Project Title">
-      <input class="field" id="projTag" placeholder="Tag (e.g. THUMBNAIL, POSTER)">
+      <h3 style="margin-bottom:12px; font-size:16px;">Add New Work</h3>
+      <input class="field" id="projTitle" placeholder="Project Name">
+      <input class="field" id="projTag" placeholder="Category Tag (e.g. THUMBNAIL)">
       <label class="upload-btn">
         <input type="file" id="projUpload" accept="image/*">
         🖼️ Upload Project Image
       </label>
-      <button class="btn-submit" id="addProjectBtn">+ Add Project To Live Site</button>
+      <button class="btn-submit" id="addProjectBtn">+ Add Project</button>
     </div>
 
     <div class="admin-card">
-      <h3 style="margin-bottom:16px;">Manage Uploaded Projects</h3>
+      <h3 style="margin-bottom:12px; font-size:16px;">Uploaded Works</h3>
       <div id="adminProjectList"></div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast">Changes saved across all devices!</div>
+<div class="toast" id="toast">Changes Saved!</div>
 
 <script>
 "use strict";
 
-// Guaranteed Loader Remover (Safety)
-setTimeout(() => {
-  const l = document.getElementById("loader");
-  if(l) l.classList.add("hide");
-}, 1200);
-
-// Supabase Connection Credentials
-const SUPABASE_URL = "https://hngdqjqwffhcenffkscm.supabase.co";
-const SUPABASE_KEY = "sb_publishable_uvMp_g9xsjEaoHZ-KyXx1g_KoMj8-qI";
-let supabase = null;
-
-try {
-  if (window.supabase) {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  }
-} catch(e) { console.warn("Supabase Init Warning", e); }
+const SB_URL = "https://hngdqjqwffhcenffkscm.supabase.co";
+const SB_KEY = "sb_publishable_uvMp_g9xsjEaoHZ-KyXx1g_KoMj8-qI";
 
 const ADMIN_USER = "ZAIDX9119";
 const ADMIN_PASS = "Zaid@9119";
@@ -271,7 +224,6 @@ let siteData = {
   projects: []
 };
 
-// Toast notification
 function showToast(msg) {
   const t = document.getElementById("toast");
   t.textContent = msg;
@@ -279,7 +231,57 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove("show"), 3000);
 }
 
-// Render DOM Content
+// Native Fetch for Supabase REST API (No Library Required = Guaranteed Loading)
+async function fetchCloudData() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/portfolio_data?id=eq.main_config&select=content`, {
+      headers: { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY }
+    });
+    const data = await res.json();
+    if (data && data[0] && data[0].content) {
+      siteData = { ...siteData, ...data[0].content };
+      renderSite();
+    }
+  } catch(e) { console.log("Offline mode loaded"); }
+}
+
+async function syncToCloud() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/portfolio_data`, {
+      method: "POST",
+      headers: {
+        "apikey": SB_KEY,
+        "Authorization": "Bearer " + SB_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({ id: "main_config", content: siteData })
+    });
+    if (res.ok) {
+      showToast("Live Updated Across All Phones! ✨");
+      renderSite();
+    } else {
+      showToast("Saved Locally");
+      renderSite();
+    }
+  } catch(e) { showToast("Network Error"); }
+}
+
+async function uploadFile(file) {
+  const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
+  const res = await fetch(`${SB_URL}/storage/v1/object/portfolio-images/${fileName}`, {
+    method: "POST",
+    headers: {
+      "apikey": SB_KEY,
+      "Authorization": "Bearer " + SB_KEY,
+      "Content-Type": file.type
+    },
+    body: file
+  });
+  if (!res.ok) throw new Error("Upload failed");
+  return `${SB_URL}/storage/v1/object/public/portfolio-images/${fileName}`;
+}
+
 function renderSite() {
   document.getElementById("heroEyebrow").textContent = siteData.eyebrow;
   document.getElementById("heroTitle").innerHTML = (siteData.title || "").replace(/\n/g, "<br>");
@@ -305,54 +307,17 @@ function renderSite() {
     card.innerHTML = `
       <div class="project-thumb"><img src="${p.img}" alt="${p.title}"></div>
       <div class="project-details">
-        <div>
-          <div class="project-name">${p.title}</div>
-          <div class="project-tag">${p.tag}</div>
-        </div>
+        <div class="project-name">${p.title}</div>
+        <div class="project-tag">${p.tag}</div>
       </div>
     `;
     grid.appendChild(card);
   });
 }
 
-// Load Data from Cloud Database
-async function fetchCloudData() {
-  if (!supabase) return;
-  try {
-    const { data, error } = await supabase.from('portfolio_data').select('content').eq('id', 'main_config').single();
-    if (data && data.content) {
-      siteData = { ...siteData, ...data.content };
-      renderSite();
-    }
-  } catch(e) { console.warn("Fallback to initial data", e); }
-}
-
-// Save Data Live to Cloud (Multi-device sync)
-async function syncToCloud() {
-  if (!supabase) { showToast("Cloud connection error!"); return; }
-  try {
-    const { error } = await supabase.from('portfolio_data').upsert({ id: 'main_config', content: siteData });
-    if (error) throw error;
-    showToast("Changes Live On All Devices! ✨");
-    renderSite();
-  } catch(e) {
-    showToast("Save Error - Verify DB Table");
-  }
-}
-
-// Upload Image to Bucket
-async function uploadFile(file) {
-  if (!supabase) throw new Error("No Cloud Instance");
-  const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
-  const { data, error } = await supabase.storage.from('portfolio-images').upload(fileName, file);
-  if (error) throw error;
-  const { data: publicUrlData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
-  return publicUrlData.publicUrl;
-}
-
-// Secret Admin Access (4 Clicks on Logo)
+// 4 Clicks on Logo to Open Admin
 let clicks = 0;
-document.getElementById("logoAdminTrigger").addEventListener("click", () => {
+document.getElementById("adminTrigger").addEventListener("click", () => {
   clicks++;
   if (clicks >= 4) {
     clicks = 0;
@@ -370,7 +335,7 @@ document.getElementById("submitLogin").onclick = () => {
     document.getElementById("adminPanel").classList.add("open");
     populateAdminForm();
   } else {
-    alert("Incorrect credentials!");
+    alert("Wrong Credentials!");
   }
 };
 
@@ -384,7 +349,7 @@ function populateAdminForm() {
 document.getElementById("profileUpload").onchange = async function() {
   const file = this.files[0];
   if (!file) return;
-  showToast("Uploading Profile Picture...");
+  showToast("Uploading Image...");
   try {
     const url = await uploadFile(file);
     siteData.profileImg = url;
@@ -397,9 +362,9 @@ document.getElementById("addProjectBtn").onclick = async () => {
   const tag = document.getElementById("projTag").value.trim().toUpperCase() || "DESIGN";
   const file = document.getElementById("projUpload").files[0];
 
-  if (!title || !file) { alert("Please provide Project Title and Image File!"); return; }
+  if (!title || !file) { alert("Please provide Title and Image File!"); return; }
 
-  showToast("Uploading Project Image...");
+  showToast("Uploading Work...");
   try {
     const imgUrl = await uploadFile(file);
     siteData.projects.unshift({ title, tag, img: imgUrl });
@@ -408,7 +373,7 @@ document.getElementById("addProjectBtn").onclick = async () => {
     document.getElementById("projTitle").value = "";
     document.getElementById("projTag").value = "";
     document.getElementById("projUpload").value = "";
-  } catch(e) { showToast("Upload Error!"); }
+  } catch(e) { showToast("Upload Failed!"); }
 };
 
 function renderAdminProjects() {
@@ -416,12 +381,12 @@ function renderAdminProjects() {
   box.innerHTML = "";
   (siteData.projects || []).forEach((p, index) => {
     box.innerHTML += `
-      <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg); padding:12px; border-radius:10px; margin-bottom:8px;">
+      <div style="display:flex; align-items:center; justify-style:space-between; background:#fff; border:1px solid var(--border); padding:10px; border-radius:8px; margin-bottom:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
-          <img src="${p.img}" style="width:50px; height:35px; object-fit:cover; border-radius:6px;">
-          <div><b>${p.title}</b><br><small style="color:var(--muted)">${p.tag}</small></div>
+          <img src="${p.img}" style="width:40px; height:30px; object-fit:cover; border-radius:4px;">
+          <div><b style="font-size:13px;">${p.title}</b><br><small style="color:var(--muted); font-size:11px;">${p.tag}</small></div>
         </div>
-        <button onclick="deleteProj(${index})" style="background:#ef4444; color:#fff; border:0; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:700; font-size:11px;">Delete</button>
+        <button onclick="deleteProj(${index})" style="background:#ef4444; color:#fff; border:0; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:11px; margin-left:auto;">Delete</button>
       </div>
     `;
   });
@@ -442,11 +407,9 @@ document.getElementById("saveCloudBtn").onclick = async () => {
 
 document.getElementById("closeAdminBtn").onclick = () => document.getElementById("adminPanel").classList.remove("open");
 
-// Init Execution
-window.addEventListener("DOMContentLoaded", () => {
-  renderSite();
-  fetchCloudData();
-});
+// Direct Launch
+renderSite();
+fetchCloudData();
 </script>
 </body>
 </html>

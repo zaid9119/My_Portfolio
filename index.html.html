@@ -1,370 +1,452 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naya Shuruaat</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #f6f3ee;
-      --ink: #1a1916;
-      --muted: #6b6560;
-      --line: #e4ddd4;
-      --accent: #c45c26;
-      --accent-soft: #f3e4d8;
-      --card: #fffdf9;
-      --shadow: 0 18px 50px rgba(26, 25, 22, 0.08);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0d0e12">
+<title>ZAID RAZA — Visual Content & Brand Designer</title>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Outfit", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-      min-height: 100dvh;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+<!-- Supabase SDK Library for Live Cross-Device Syncing -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    .wrap {
-      width: min(1120px, calc(100% - 32px));
-      margin-inline: auto;
-    }
+<style>
+:root {
+  --bg: #0d0e12;
+  --surface: #15171e;
+  --surface-border: #232733;
+  --card: #1a1d26;
+  --accent: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.25);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --line: rgba(255, 255, 255, 0.08);
+  --radius: 20px;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      background: color-mix(in srgb, var(--bg) 82%, transparent);
-      border-bottom: 1px solid var(--line);
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
+h1, h2, h3, .brand { font-family: 'Syne', sans-serif; }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-      gap: 16px;
-    }
+/* Dynamic Background Glows */
+.glow-1 { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 350px; background: var(--accent-glow); filter: blur(140px); pointer-events: none; border-radius: 50%; z-index: 0; }
+.glow-2 { position: fixed; bottom: -100px; right: -50px; width: 400px; height: 400px; background: rgba(168, 85, 247, 0.15); filter: blur(150px); pointer-events: none; border-radius: 50%; z-index: 0; }
 
-    .logo {
-      font-family: "Instrument Serif", serif;
-      font-size: 1.35rem;
-      letter-spacing: -0.02em;
-    }
+/* Fast Safe Loader */
+.loader { position: fixed; inset: 0; z-index: 99999; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity .4s ease, visibility .4s ease; }
+.loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-spinner { width: 40px; height: 40px; border: 3px solid var(--surface-border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-    .nav-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+/* Navigation */
+.nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 900; background: rgba(13, 14, 18, 0.8); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+.nav-inner { max-width: 1200px; margin: auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; user-select: none; }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+.nav-links a { color: var(--muted); transition: .25s; }
+.nav-links a:hover { color: var(--text); }
+.btn-nav { background: var(--surface); border: 1px solid var(--surface-border); padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; transition: .3s; }
+.btn-nav:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
 
-    .nav-links a {
-      font-size: 0.9rem;
-      padding: 8px 12px;
-      border-radius: 999px;
-      color: var(--muted);
-    }
+/* Hero Section */
+.hero { padding: 160px 24px 80px; max-width: 1200px; margin: auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
+.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; color: #a5b4fc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
+.badge-dot { width: 6px; height: 6px; background: #a5b4fc; border-radius: 50%; box-shadow: 0 0 10px #a5b4fc; }
+.hero-title { font-size: clamp(44px, 6.5vw, 82px); line-height: 1.05; letter-spacing: -1.5px; font-weight: 800; margin-bottom: 24px; }
+.hero-desc { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 520px; margin-bottom: 36px; }
+.hero-action { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary { background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: .3s; box-shadow: 0 10px 30px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4); }
 
-    .nav-links a:hover { color: var(--ink); background: #fff; }
+/* Profile Card */
+.profile-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: var(--radius); padding: 20px; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+.profile-img-wrap { aspect-ratio: 4/5; border-radius: 14px; overflow: hidden; background: var(--surface); display: flex; align-items: center; justify-content: center; position: relative; }
+.profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.profile-placeholder { font-size: 64px; font-weight: 800; color: var(--surface-border); }
 
-    .hero {
-      padding: 56px 0 36px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 36px;
-      align-items: center;
-    }
+/* Projects Grid */
+.section { max-width: 1200px; margin: auto; padding: 100px 24px; position: relative; z-index: 1; }
+.section-header { margin-bottom: 48px; }
+.section-tag { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 8px; }
+.section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -1px; }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
+.work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+.project-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: .4s cubic-bezier(0.16, 1, 0.3, 1); }
+.project-card:hover { transform: translateY(-8px); border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.project-thumb { aspect-ratio: 16/10; overflow: hidden; background: var(--surface); }
+.project-thumb img { width: 100%; height: 100%; object-fit: cover; transition: .6s ease; }
+.project-card:hover .project-thumb img { transform: scale(1.05); }
+.project-details { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+.project-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.project-tag { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
-    .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
+/* Contact Section */
+.contact-box { background: linear-gradient(135deg, var(--card), var(--surface)); border: 1px solid var(--surface-border); border-radius: 28px; padding: clamp(32px, 6vw, 64px); display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; }
+.field { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--surface-border); background: var(--bg); color: #fff; font-family: inherit; font-size: 14px; outline: none; transition: .25s; margin-bottom: 16px; }
+.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.btn-submit { width: 100%; background: var(--accent); color: #fff; padding: 16px; border: 0; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: .3s; }
+.btn-submit:hover { opacity: 0.9; }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.55; }
-    }
+/* Modals & Dashboard */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal.open { display: flex; }
+.modal-box { background: var(--card); border: 1px solid var(--surface-border); border-radius: 24px; padding: 32px; max-width: 440px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; }
+.modal-close { position: absolute; top: 20px; right: 20px; background: none; border: 0; color: var(--muted); font-size: 24px; cursor: pointer; }
 
-    h1 {
-      font-family: "Instrument Serif", serif;
-      font-size: clamp(2.4rem, 6vw, 4.6rem);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      font-weight: 400;
-    }
+.admin-panel { position: fixed; inset: 0; background: var(--bg); z-index: 20000; display: none; overflow-y: auto; padding: 40px 24px; }
+.admin-panel.open { display: block; }
+.admin-container { max-width: 900px; margin: auto; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.admin-card { background: var(--card); border: 1px solid var(--surface-border); border-radius: 18px; padding: 24px; margin-bottom: 24px; }
 
-    h1 em { font-style: italic; color: var(--accent); }
+.upload-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--surface); border: 1px dashed var(--surface-border); padding: 20px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.upload-btn input { display: none; }
 
-    .lead {
-      margin-top: 18px;
-      max-width: 46ch;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #10b981; color: #fff; padding: 12px 24px; border-radius: 100px; font-weight: 700; font-size: 13px; z-index: 999999; transition: .4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px;
-    }
-
-    .btn {
-      border: 0;
-      cursor: pointer;
-      font: inherit;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-
-    .btn-primary { background: var(--ink); color: #fff; }
-    .btn-ghost { background: transparent; border: 1px solid var(--line); }
-
-    .hero-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-visual {
-      aspect-ratio: 4 / 5;
-      border-radius: 20px;
-      background:
-        radial-gradient(circle at 20% 20%, #f3c9a8, transparent 42%),
-        radial-gradient(circle at 80% 70%, #d9e4d2, transparent 40%),
-        linear-gradient(160deg, #2b2622, #6a4a38);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .floating {
-      position: absolute;
-      background: rgba(255,255,255,0.92);
-      color: var(--ink);
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-    }
-
-    .f1 { top: 18px; left: 16px; }
-    .f2 { bottom: 22px; right: 16px; }
-
-    section { padding: 28px 0 12px; }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .section-title h2 {
-      font-family: "Instrument Serif", serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 400;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 20px;
-      min-height: 180px;
-    }
-
-    .card h3 { font-size: 1.05rem; margin: 10px 0 8px; }
-    .card p { color: var(--muted); font-size: 0.95rem; }
-    .num { font-size: 0.78rem; color: var(--accent); letter-spacing: 0.12em; }
-
-    .about {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 22px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 22px;
-    }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .stat {
-      background: var(--bg);
-      border-radius: 16px;
-      padding: 14px;
-    }
-
-    .stat b { display: block; font-size: 1.4rem; }
-    .stat span { color: var(--muted); font-size: 0.82rem; }
-
-    form {
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    input, textarea {
-      width: 100%;
-      font: inherit;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-    }
-
-    textarea { min-height: 110px; resize: vertical; }
-
-    footer {
-      margin-top: 40px;
-      padding: 22px 0 36px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 860px) {
-      .hero, .about, .grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 28px; }
-      .nav-links a { padding: 6px 10px; font-size: 0.82rem; }
-      .stat-row { grid-template-columns: 1fr; }
-    }
-  </style>
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 120px; text-align: center; }
+  .hero-desc { margin: 0 auto 36px; }
+  .hero-action { justify-content: center; }
+  .contact-box { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="logo" href="#top">Naya Shuruaat</a>
-      <nav class="nav-links">
-        <a href="#kaam">Kaam</a>
-        <a href="#baare">Baare mein</a>
-        <a href="#baat">Baat karo</a>
-      </nav>
+
+<div class="glow-1"></div>
+<div class="glow-2"></div>
+
+<!-- Safe Fast Loader -->
+<div class="loader" id="loader">
+  <div class="loader-spinner"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo" id="logoAdminTrigger">ZAID<span>/</span>RAZA</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
     </div>
-  </header>
+    <a href="#contact" class="btn-nav">Let's Talk ↗</a>
+  </div>
+</nav>
 
-  <main class="wrap" id="top">
-    <section class="hero">
+<section class="hero">
+  <div>
+    <div class="badge"><span class="badge-dot"></span> <span id="heroEyebrow">Graphic & Visual Creator</span></div>
+    <h1 class="hero-title" id="heroTitle">CRAFTING<br>HIGH IMPACT<br>VISUALS.</h1>
+    <p class="hero-desc" id="heroDesc">I transform brands and visual content with clean, high-converting thumbnail designs, posters, and creative branding.</p>
+    <div class="hero-action">
+      <a href="#work" class="btn-primary">Explore Works ↓</a>
+    </div>
+  </div>
+  <div>
+    <div class="profile-card">
+      <div class="profile-img-wrap">
+        <div class="profile-placeholder" id="profilePlaceholder">ZR</div>
+        <img id="profileImg" style="display:none" alt="Zaid Raza">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="section-header">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Selected Works.</h2>
+  </div>
+  <div class="work-grid" id="workGrid">
+    <p style="color:var(--muted)">Loading portfolio works...</p>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="contact-box">
+    <div>
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title" style="margin-bottom:16px;">Let's work together.</h2>
+      <p style="color:var(--muted); line-height:1.6;">Need a high-CTR YouTube thumbnail, poster, or brand identity? Send a direct inquiry.</p>
+    </div>
+    <form action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+      <input class="field" required name="name" placeholder="Your Full Name">
+      <input class="field" required type="email" name="email" placeholder="Your Email Address">
+      <textarea class="field" required name="message" rows="4" placeholder="Tell me about your project..."></textarea>
+      <button type="submit" class="btn-submit">SEND MESSAGE ↗</button>
+    </form>
+  </div>
+</section>
+
+<!-- Admin Login Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeLogin">×</button>
+    <h3 style="font-size:24px; margin-bottom:8px;">Admin Login</h3>
+    <p style="color:var(--muted); font-size:13px; margin-bottom:20px;">Enter details to edit website live</p>
+    <input class="field" id="authUser" placeholder="Username">
+    <input class="field" type="password" id="authPass" placeholder="Password">
+    <button class="btn-submit" id="submitLogin">Access Dashboard</button>
+  </div>
+</div>
+
+<!-- Live Admin Panel -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-container">
+    <div class="admin-header">
+      <h2>Live Dashboard Controls</h2>
       <div>
-        <p class="eyebrow"><span class="dot"></span> Fresh · Clean · Mobile ready</p>
-        <h1>Ek naya look.<br><em>Har screen par</em> wahi feel.</h1>
-        <p class="lead">Poori site ek hi HTML file mein hai. Koi extra CSS/JS file nahi. Phone, tablet aur computer par layout apne aap adjust hota hai.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#baat">Shuru karo</a>
-          <a class="btn btn-ghost" href="#kaam">Design dekho</a>
-        </div>
+        <button class="btn-primary" id="saveCloudBtn">Save Live Changes</button>
+        <button class="btn-nav" id="closeAdminBtn" style="margin-left:10px">Close</button>
       </div>
-      <div class="hero-card">
-        <div class="hero-visual">
-          <div class="floating f1">Responsive grid</div>
-          <div class="floating f2">Single file · Instant</div>
-        </div>
-      </div>
-    </section>
+    </div>
 
-    <section id="kaam">
-      <div class="section-title">
-        <h2>Teen saaf ideas</h2>
-        <p style="color:var(--muted)">Kam cheezein, zyada saaf</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <span class="num">01</span>
-          <h3>Halka layout</h3>
-          <p>Badi heading, khali jagah, aur soft colors. Screen crowded nahi dikhti.</p>
-        </article>
-        <article class="card">
-          <span class="num">02</span>
-          <h3>Phone pe pehle</h3>
-          <p>Chhoti width par columns stack ho jaate hain. Buttons thumb-friendly hain.</p>
-        </article>
-        <article class="card">
-          <span class="num">03</span>
-          <h3>Ek file, har jagah</h3>
-          <p>Is HTML ko kahin bhi open karo — design saath chalega. Alag device par bhi wahi look.</p>
-        </article>
-      </div>
-    </section>
+    <div class="admin-card">
+      <h3 style="margin-bottom:16px;">Hero Text Customization</h3>
+      <input class="field" id="editEyebrow" placeholder="Eyebrow Badge">
+      <textarea class="field" id="editTitle" rows="3" placeholder="Main Headline (Use Enter for line breaks)"></textarea>
+      <textarea class="field" id="editDesc" rows="3" placeholder="Sub-description"></textarea>
+      
+      <label class="upload-btn">
+        <input type="file" id="profileUpload" accept="image/*">
+        📷 Upload New Profile Picture
+      </label>
+    </div>
 
-    <section id="baare">
-      <div class="about">
+    <div class="admin-card">
+      <h3 style="margin-bottom:16px;">Add Portfolio Project</h3>
+      <input class="field" id="projTitle" placeholder="Project Title">
+      <input class="field" id="projTag" placeholder="Tag (e.g. THUMBNAIL, POSTER)">
+      <label class="upload-btn">
+        <input type="file" id="projUpload" accept="image/*">
+        🖼️ Upload Project Image
+      </label>
+      <button class="btn-submit" id="addProjectBtn">+ Add Project To Live Site</button>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-bottom:16px;">Manage Uploaded Projects</h3>
+      <div id="adminProjectList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Changes saved across all devices!</div>
+
+<script>
+"use strict";
+
+// Guaranteed Loader Remover (Safety)
+setTimeout(() => {
+  const l = document.getElementById("loader");
+  if(l) l.classList.add("hide");
+}, 1200);
+
+// Supabase Connection Credentials
+const SUPABASE_URL = "https://hngdqjqwffhcenffkscm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_uvMp_g9xsjEaoHZ-KyXx1g_KoMj8-qI";
+let supabase = null;
+
+try {
+  if (window.supabase) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+} catch(e) { console.warn("Supabase Init Warning", e); }
+
+const ADMIN_USER = "ZAIDX9119";
+const ADMIN_PASS = "Zaid@9119";
+
+let siteData = {
+  eyebrow: "Graphic & Visual Creator",
+  title: "CRAFTING\nHIGH IMPACT\nVISUALS.",
+  desc: "I transform brands and visual content with clean, high-converting thumbnail designs, posters, and creative branding.",
+  profileImg: "",
+  projects: []
+};
+
+// Toast notification
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+// Render DOM Content
+function renderSite() {
+  document.getElementById("heroEyebrow").textContent = siteData.eyebrow;
+  document.getElementById("heroTitle").innerHTML = (siteData.title || "").replace(/\n/g, "<br>");
+  document.getElementById("heroDesc").textContent = siteData.desc;
+
+  if (siteData.profileImg) {
+    const pImg = document.getElementById("profileImg");
+    pImg.src = siteData.profileImg;
+    pImg.style.display = "block";
+    document.getElementById("profilePlaceholder").style.display = "none";
+  }
+
+  const grid = document.getElementById("workGrid");
+  grid.innerHTML = "";
+  if (!siteData.projects || siteData.projects.length === 0) {
+    grid.innerHTML = `<p style="color:var(--muted)">No projects uploaded yet.</p>`;
+    return;
+  }
+
+  siteData.projects.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "project-card";
+    card.innerHTML = `
+      <div class="project-thumb"><img src="${p.img}" alt="${p.title}"></div>
+      <div class="project-details">
         <div>
-          <p class="eyebrow">Baare mein</p>
-          <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:400;">Bilkul naya shuruaat</h2>
-          <p class="lead">Pehle wala design hata diya. Ab sirf clean type, warm paper background, aur ek accent color.</p>
-        </div>
-        <div>
-          <p style="color:var(--muted)">Is page ko dusre phone par bhejo aur browser mein kholo. CSS isi file ke andar hai, isliye alag phone par bhi changes dikhenge — bas yahi file share karni hai.</p>
-          <div class="stat-row">
-            <div class="stat"><b>1</b><span>HTML file</span></div>
-            <div class="stat"><b>0</b><span>Extra files</span></div>
-            <div class="stat"><b>100%</b><span>Responsive</span></div>
-          </div>
+          <div class="project-name">${p.title}</div>
+          <div class="project-tag">${p.tag}</div>
         </div>
       </div>
-    </section>
+    `;
+    grid.appendChild(card);
+  });
+}
 
-    <section id="baat">
-      <div class="section-title">
-        <h2>Baat karo</h2>
-      </div>
-      <div class="card">
-        <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Mil gaya ✓';">
-          <input type="text" name="name" placeholder="Naam" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <textarea name="msg" placeholder="Kya banana hai?"></textarea>
-          <button class="btn btn-primary" type="submit">Bhejo</button>
-        </form>
-      </div>
-    </section>
-  </main>
+// Load Data from Cloud Database
+async function fetchCloudData() {
+  if (!supabase) return;
+  try {
+    const { data, error } = await supabase.from('portfolio_data').select('content').eq('id', 'main_config').single();
+    if (data && data.content) {
+      siteData = { ...siteData, ...data.content };
+      renderSite();
+    }
+  } catch(e) { console.warn("Fallback to initial data", e); }
+}
 
-  <footer class="wrap">
-    <span>© 2026 Naya Shuruaat</span>
-    <span>Ek file. Har device.</span>
-  </footer>
+// Save Data Live to Cloud (Multi-device sync)
+async function syncToCloud() {
+  if (!supabase) { showToast("Cloud connection error!"); return; }
+  try {
+    const { error } = await supabase.from('portfolio_data').upsert({ id: 'main_config', content: siteData });
+    if (error) throw error;
+    showToast("Changes Live On All Devices! ✨");
+    renderSite();
+  } catch(e) {
+    showToast("Save Error - Verify DB Table");
+  }
+}
+
+// Upload Image to Bucket
+async function uploadFile(file) {
+  if (!supabase) throw new Error("No Cloud Instance");
+  const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
+  const { data, error } = await supabase.storage.from('portfolio-images').upload(fileName, file);
+  if (error) throw error;
+  const { data: publicUrlData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
+  return publicUrlData.publicUrl;
+}
+
+// Secret Admin Access (4 Clicks on Logo)
+let clicks = 0;
+document.getElementById("logoAdminTrigger").addEventListener("click", () => {
+  clicks++;
+  if (clicks >= 4) {
+    clicks = 0;
+    document.getElementById("loginModal").classList.add("open");
+  }
+});
+
+document.getElementById("closeLogin").onclick = () => document.getElementById("loginModal").classList.remove("open");
+
+document.getElementById("submitLogin").onclick = () => {
+  const u = document.getElementById("authUser").value.trim();
+  const p = document.getElementById("authPass").value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    document.getElementById("loginModal").classList.remove("open");
+    document.getElementById("adminPanel").classList.add("open");
+    populateAdminForm();
+  } else {
+    alert("Incorrect credentials!");
+  }
+};
+
+function populateAdminForm() {
+  document.getElementById("editEyebrow").value = siteData.eyebrow || "";
+  document.getElementById("editTitle").value = siteData.title || "";
+  document.getElementById("editDesc").value = siteData.desc || "";
+  renderAdminProjects();
+}
+
+document.getElementById("profileUpload").onchange = async function() {
+  const file = this.files[0];
+  if (!file) return;
+  showToast("Uploading Profile Picture...");
+  try {
+    const url = await uploadFile(file);
+    siteData.profileImg = url;
+    await syncToCloud();
+  } catch(e) { showToast("Upload Failed!"); }
+};
+
+document.getElementById("addProjectBtn").onclick = async () => {
+  const title = document.getElementById("projTitle").value.trim();
+  const tag = document.getElementById("projTag").value.trim().toUpperCase() || "DESIGN";
+  const file = document.getElementById("projUpload").files[0];
+
+  if (!title || !file) { alert("Please provide Project Title and Image File!"); return; }
+
+  showToast("Uploading Project Image...");
+  try {
+    const imgUrl = await uploadFile(file);
+    siteData.projects.unshift({ title, tag, img: imgUrl });
+    await syncToCloud();
+    renderAdminProjects();
+    document.getElementById("projTitle").value = "";
+    document.getElementById("projTag").value = "";
+    document.getElementById("projUpload").value = "";
+  } catch(e) { showToast("Upload Error!"); }
+};
+
+function renderAdminProjects() {
+  const box = document.getElementById("adminProjectList");
+  box.innerHTML = "";
+  (siteData.projects || []).forEach((p, index) => {
+    box.innerHTML += `
+      <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg); padding:12px; border-radius:10px; margin-bottom:8px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="${p.img}" style="width:50px; height:35px; object-fit:cover; border-radius:6px;">
+          <div><b>${p.title}</b><br><small style="color:var(--muted)">${p.tag}</small></div>
+        </div>
+        <button onclick="deleteProj(${index})" style="background:#ef4444; color:#fff; border:0; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:700; font-size:11px;">Delete</button>
+      </div>
+    `;
+  });
+}
+
+window.deleteProj = async (index) => {
+  siteData.projects.splice(index, 1);
+  await syncToCloud();
+  renderAdminProjects();
+};
+
+document.getElementById("saveCloudBtn").onclick = async () => {
+  siteData.eyebrow = document.getElementById("editEyebrow").value;
+  siteData.title = document.getElementById("editTitle").value;
+  siteData.desc = document.getElementById("editDesc").value;
+  await syncToCloud();
+};
+
+document.getElementById("closeAdminBtn").onclick = () => document.getElementById("adminPanel").classList.remove("open");
+
+// Init Execution
+window.addEventListener("DOMContentLoaded", () => {
+  renderSite();
+  fetchCloudData();
+});
+</script>
 </body>
 </html>

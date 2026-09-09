@@ -4,533 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0b0b">
-<meta name="description" content="ZAID RAZA — Graphic Designer & Visual Creator">
 <title>ZAID RAZA — Graphic Designer</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-<!-- Supabase SDK Library -->
+<!-- Supabase Library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --bg:#efece5;--bg-2:#e6e2d8;--surface:#f6f3ec;--card:#fffcf7;
-  --text:#101010;--muted:#6e6b64;--line:#d6d1c6;--ink:#0b0b0b;
-  --gold:#b8943c;--gold-soft:#e8d7a3;--shadow:0 28px 70px rgba(12,10,6,.16);--radius:30px;
+  --bg:#efece5;--card:#fffcf7;--text:#101010;--muted:#6e6b64;--line:#d6d1c6;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;overflow-x:hidden;min-height:100vh}
-button,input,textarea,select{font:inherit}
-button,a{-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
-::selection{background:#111;color:#fff}
 
-.noise{pointer-events:none;position:fixed;inset:0;z-index:9;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
-.orb.a{width:460px;height:460px;background:#fff;top:-120px;right:-80px;opacity:.75}
-.orb.b{width:360px;height:360px;background:#d9c89a;bottom:8%;left:-100px;opacity:.28}
-.orb.c{width:240px;height:240px;background:#111;opacity:.05;top:46%;right:10%}
+/* Force Loader Hide Class */
+.loader{position:fixed;inset:0;z-index:99999;background:#0b0b0b;color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease, visibility .5s ease}
+.loader.hide{opacity:0;visibility:hidden;pointer-events:none !important}
+.loader-inner{text-align:center}
+.loader-logo{font-family:"Space Grotesk",sans-serif;font-size:28px;font-weight:700;margin-bottom:12px}
 
-.cursor{position:fixed;width:14px;height:14px;border-radius:50%;background:#111;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:.16s ease;mix-blend-mode:difference}
-.cursor.big{width:54px;height:54px;background:#fff}
-@media(max-width:800px){.cursor{display:none}}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(239,236,229,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1200px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:"Space Grotesk",sans-serif;font-size:20px;font-weight:700;cursor:pointer}
 
-.loader{position:fixed;inset:0;z-index:99999;background:#0b0b0b;color:#fff;display:flex;align-items:center;justify-content:center;transition:.7s ease}
-.loader.hide{opacity:0;visibility:hidden;pointer-events:none}
-.loader-inner{width:230px;text-align:center;perspective:900px}
-.loader-logo{font-family:"Space Grotesk";font-size:30px;font-weight:700;letter-spacing:-1.4px;margin-bottom:22px}
-.loader-cube{width:56px;height:56px;margin:0 auto 22px;position:relative;transform-style:preserve-3d;animation:spin3d 2.4s linear infinite}
-.loader-cube span{position:absolute;inset:0;border:1px solid rgba(255,255,255,.38);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(184,148,60,.18))}
-.loader-cube span:nth-child(1){transform:rotateY(0deg) translateZ(28px)}
-.loader-cube span:nth-child(2){transform:rotateY(90deg) translateZ(28px)}
-.loader-cube span:nth-child(3){transform:rotateY(180deg) translateZ(28px)}
-.loader-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(28px)}
-.loader-cube span:nth-child(5){transform:rotateX(90deg) translateZ(28px)}
-.loader-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(28px)}
-@keyframes spin3d{to{transform:rotateX(360deg) rotateY(360deg)}}
-.loader-line{height:3px;background:#2a2a2a;overflow:hidden;border-radius:10px}
-.loader-line i{display:block;width:0;height:100%;background:#fff;animation:load 1.5s ease forwards}
-@keyframes load{to{width:100%}}
+.hero{padding:140px 20px 80px;max-width:1200px;margin:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:700;color:var(--muted)}
+.hero-title{font-size:clamp(40px,7vw,90px);line-height:.95;margin:20px 0;font-family:"Space Grotesk",sans-serif}
+.hero-desc{max-width:500px;color:var(--muted);font-size:16px;line-height:1.6}
 
-.nav{position:fixed;top:0;left:0;width:100%;z-index:900;transition:.35s ease}
-.nav.scrolled{background:rgba(239,236,229,.82);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1440px;margin:auto;padding:18px 5%;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:"Space Grotesk";font-size:21px;font-weight:700;letter-spacing:-1.1px;cursor:pointer;user-select:none}
-.logo span.slash{color:#9a968d}
-.nav-links{display:flex;gap:32px;font-size:13px;font-weight:600}
-.nav-links a{position:relative}
-.nav-links a:after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:#111;transition:.3s}
-.nav-links a:hover:after{width:100%}
-.nav-btn{border:1px solid #111;border-radius:100px;padding:10px 18px;font-size:12px;font-weight:700;transition:.3s}
-.nav-btn:hover{background:#111;color:#fff}
-.menu{display:none;border:0;background:none;font-size:24px}
+.section{max-width:1200px;margin:auto;padding:60px 20px}
+.section-title{font-size:36px;font-family:"Space Grotesk",sans-serif;margin-bottom:30px}
+.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.project-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;padding:15px}
+.project-card img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;margin-bottom:12px}
 
-.hero{min-height:100svh;padding:150px 5% 90px;position:relative;overflow:hidden;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px}
-.hero-inner{max-width:1440px;margin:auto;position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:70px}
-.eyebrow{text-transform:uppercase;letter-spacing:.28em;font-size:11px;font-weight:700;color:var(--muted)}
-.hero-title{font-size:clamp(58px,8.6vw,138px);line-height:.78;letter-spacing:-.07em;margin:26px 0 22px}
-.italic{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400}
-.hero-description{max-width:540px;font-size:18px;line-height:1.7;color:var(--muted)}
-.hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.btn{border:1px solid #111;padding:15px 24px;border-radius:100px;font-weight:700;font-size:13px;transition:.3s;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.btn-dark{background:#111;color:#fff}
-.btn:hover{transform:translateY(-3px)}
-.btn:not(.btn-dark):hover{background:#111;color:#fff}
+.contact-form{display:grid;gap:12px;max-width:500px}
+.field{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.btn-submit{background:#111;color:#fff;padding:14px;border:0;border-radius:12px;font-weight:700;cursor:pointer}
 
-.hero-art{max-width:500px;width:100%;margin-left:auto;position:relative;perspective:1400px}
-.stage3d{transform-style:preserve-3d;animation:floatY 6s ease-in-out infinite}
-@keyframes floatY{50%{transform:translateY(-12px)}}
-.art-frame{aspect-ratio:4/5;background:#111;border-radius:40px;overflow:hidden;position:relative;box-shadow:var(--shadow), 0 0 0 1px rgba(0,0,0,.08);transform:rotateY(-8deg) rotateX(4deg);transition:.6s cubic-bezier(.2,.8,.2,1)}
-.hero-art:hover .art-frame{transform:rotateY(0) rotateX(0) scale(1.02)}
-.art-frame img{width:100%;height:100%;object-fit:cover}
-.art-placeholder{width:100%;height:100%;background:radial-gradient(circle at 72% 22%,#fff 0 3%,transparent 3.4%),radial-gradient(circle at 18% 78%,#4a4a4a 0 8%,transparent 8.4%),linear-gradient(145deg,#141414,#5a5a5a);display:flex;align-items:center;justify-content:center;color:#fff;font-family:"Space Grotesk";font-size:clamp(78px,12vw,148px);font-weight:700;letter-spacing:-.09em}
-.art-tag{position:absolute;padding:11px 14px;background:#fff;color:#111;font-size:10px;font-weight:800;letter-spacing:.08em}
-.art-tag.top{left:18px;top:18px}
-.art-tag.bottom{right:18px;bottom:18px;background:#111;color:#fff}
-.round-badge{position:absolute;width:126px;height:126px;border-radius:50%;background:var(--bg);border:1px solid #111;bottom:-36px;left:-42px;display:flex;justify-content:center;align-items:center;text-align:center;font-size:10px;font-weight:800;line-height:1.45;transform:rotate(-12deg);box-shadow:0 16px 30px rgba(0,0,0,.1)}
-.float-chip{position:absolute;right:-18px;top:18%;background:#111;color:#fff;border-radius:16px;padding:12px 14px;font-size:10px;font-weight:800;letter-spacing:.08em;transform:rotate(8deg);box-shadow:var(--shadow)}
-
-.section{max-width:1440px;margin:auto;padding:120px 5%;position:relative;z-index:2}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:54px}
-.section-number{color:#9a968d;font-size:11px;letter-spacing:.25em;font-weight:700;text-transform:uppercase}
-.section-title{font-size:clamp(48px,6.8vw,92px);line-height:.88;letter-spacing:-.06em;margin-top:10px}
-.section-info{max-width:340px;color:var(--muted);line-height:1.7;font-size:14px}
-
-.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.project{background:var(--card);border:1px solid var(--line);border-radius:30px;overflow:hidden;cursor:pointer;transition:.45s}
-.project-image{aspect-ratio:16/10;overflow:hidden;background:#ddd}
-.project-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
-.project-info{padding:20px 22px 23px;display:flex;justify-content:space-between;gap:20px}
-.project-title{font-size:20px;font-weight:700}
-.project-tag{color:#888;font-size:10px;font-weight:800;letter-spacing:.12em;margin-top:5px}
-
-.about-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:90px;align-items:center}
-.about-mark{font-size:clamp(110px,17vw,250px);font-family:"Space Grotesk";font-weight:700;letter-spacing:-.12em;line-height:.7;background:linear-gradient(180deg,#111 20%,#bbb);-webkit-background-clip:text;background-clip:text;color:transparent}
-
-.contact{background:#ddd9cf}
-.contact-inner{max-width:1440px;margin:auto;padding:120px 5%;display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}
-.contact-title{font-size:clamp(52px,6.8vw,96px);line-height:.86;letter-spacing:-.065em;margin-top:14px}
-.contact-form{display:grid;gap:12px}
-.field{width:100%;border:1px solid #c4bfb3;background:#ebe7dc;padding:18px;border-radius:16px;outline:none;color:#111}
-.submit{background:#111;color:#fff;border:0;padding:19px;border-radius:16px;font-weight:700;cursor:pointer}
-
-footer{background:#0b0b0b;color:#fff;padding:38px 5%}
-.footer-inner{max-width:1440px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:30px}
-
-.preview{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:25px}
-.preview.open{display:flex}
-.preview-box{max-width:1100px;width:100%}
-.preview-close{width:45px;height:45px;border:0;border-radius:50%;background:#fff;cursor:pointer;float:right}
-.preview-image{width:100%;max-height:78vh;object-fit:contain;clear:both}
-
-.login-overlay,.admin-overlay{position:fixed;inset:0;z-index:5000;display:none;overflow:auto}
-.login-overlay{z-index:6000;background:rgba(11,11,11,.72);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:20px}
-.login-overlay.open,.admin-overlay.open{display:flex}
-.admin-overlay{background:var(--bg);color:var(--text);flex-direction:column}
-.login-box{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:32px}
-.login-close{float:right;border:0;background:none;cursor:pointer;font-size:22px}
-
-.admin-wrap{max-width:1440px;margin:auto;padding:24px 4% 80px;width:100%}
-.admin-top{position:sticky;top:14px;z-index:20;background:rgba(239,236,229,.88);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
-.admin-btn{border:1px solid #111;color:#111;background:transparent;border-radius:100px;padding:10px 16px;font-size:11px;font-weight:700;cursor:pointer}
-.admin-btn.solid{background:#111;color:#fff}
-.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px}
-.admin-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:24px}
-.admin-card.full{grid-column:1/-1}
-.admin-field{margin-bottom:12px}
-.admin-field label{display:block;color:#7a766e;font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:6px}
-.admin-input,.admin-textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:#f3efe6;padding:13px;outline:none}
-.admin-textarea{min-height:96px;resize:vertical}
-.admin-save{width:100%;background:#111;color:#fff;border:0;border-radius:14px;padding:15px;font-weight:800;cursor:pointer;margin-top:6px}
-.upload-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.upload-label{display:flex;align-items:center;justify-content:center;min-height:80px;border:1px dashed #b7b1a4;border-radius:15px;cursor:pointer;color:#888;font-size:11px;font-weight:700}
-.upload-label input{display:none}
-.admin-project{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px;padding:10px;background:#f3efe6;border:1px solid var(--line);border-radius:16px;margin-top:10px}
-.admin-project img{width:84px;height:56px;object-fit:cover;border-radius:10px}
-.delete-btn{border:1px solid #e4b4b0;color:#9a2a22;background:#fff6f5;border-radius:10px;padding:8px 10px;cursor:pointer;font-size:10px;font-weight:700}
-
-.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);background:#111;color:#fff;padding:13px 20px;border-radius:100px;z-index:99999;opacity:0;pointer-events:none;transition:.3s;font-size:12px;font-weight:700}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-@media(max-width:900px){
-  .nav-links{display:none}
-  .hero-inner,.about-grid,.contact-inner,.admin-grid{grid-template-columns:1fr}
-  .work-grid{grid-template-columns:1fr}
-}
+/* Admin Overlays */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:#fff;padding:30px;border-radius:20px;max-width:400px;width:100%}
 </style>
 </head>
 <body>
-<div class="noise"></div>
-<div class="orb a"></div><div class="orb b"></div>
 
 <div class="loader" id="loader">
   <div class="loader-inner">
-    <div class="loader-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="loader-logo">ZAID/RAZA</div>
-    <div class="loader-line"><i></i></div>
+    <p style="font-size:12px;color:#888">Loading portfolio...</p>
   </div>
 </div>
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="logo" id="siteLogo"><span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA</div>
-    <div class="nav-links">
-      <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
-    </div>
-    <a class="nav-btn" href="#contact">Let's talk ↗</a>
+    <div class="logo" id="logoClick">ZAID/RAZA</div>
+    <div><a href="#contact" style="font-weight:700;font-size:14px">Contact ↗</a></div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="eyebrow" id="heroEyebrow">Graphic Designer · Visual Creator</div>
-      <h1 class="hero-title" id="heroTitle">I MAKE<br><span class="italic">VISUALS</span><br>MOVE.</h1>
-      <p class="hero-description" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention.</p>
-      <div class="hero-buttons">
-        <a class="btn btn-dark" href="#work">Explore my work ↓</a>
-        <a class="btn" href="#contact">Start a project ↗</a>
-      </div>
-    </div>
-    <div class="hero-art">
-      <div class="stage3d">
-        <div class="art-frame">
-          <div class="art-placeholder" id="profilePlaceholder">ZR</div>
-          <img id="profileImage" style="display:none" alt="Zaid Raza">
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<main class="hero">
+  <div class="eyebrow" id="eyebrowText">Graphic Designer · Visual Creator</div>
+  <h1 class="hero-title" id="mainTitle">I MAKE<br>VISUALS MOVE.</h1>
+  <p class="hero-desc" id="mainDesc">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention.</p>
+</main>
 
 <section class="section" id="work">
-  <div class="section-head">
-    <div>
-      <div class="section-number">01 / Selected Work</div>
-      <h2 class="section-title">The work.</h2>
-    </div>
-  </div>
-  <div class="work-grid" id="workGrid"></div>
-</section>
-
-<section class="section" id="about">
-  <div class="about-grid">
-    <div><div class="about-mark" id="aboutMark">ZR.</div></div>
-    <div class="about-text">
-      <div class="section-number">02 / About</div>
-      <h2 id="aboutTitle">Design isn't decoration.<br><span class="italic">It's communication.</span></h2>
-      <p id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator.</p>
-    </div>
+  <h2 class="section-title">Selected Work</h2>
+  <div class="work-grid" id="workGrid">
+    <p style="color:#888">No projects uploaded yet.</p>
   </div>
 </section>
 
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <div>
-      <div class="section-number">03 / Contact</div>
-      <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
-    </div>
-    <form class="contact-form" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-      <input class="field" required name="name" placeholder="Your name *">
-      <input class="field" required type="email" name="email" placeholder="Email address *">
-      <textarea class="field" required name="message" placeholder="Tell me about your project..."></textarea>
-      <button class="submit" type="submit">SEND INQUIRY ↗</button>
-    </form>
-  </div>
+<section class="section" id="contact">
+  <h2 class="section-title">Let's Connect</h2>
+  <form class="contact-form" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+    <input class="field" required name="name" placeholder="Your Name">
+    <input class="field" required type="email" name="email" placeholder="Your Email">
+    <textarea class="field" required name="message" rows="4" placeholder="Your Message"></textarea>
+    <button class="btn-submit" type="submit">SEND MESSAGE</button>
+  </form>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZAID/RAZA</div>
-    <div class="footer-copy">© 2026 — VISUAL DESIGNER</div>
-  </div>
-</footer>
-
-<div class="preview" id="preview">
-  <div class="preview-box">
-    <button class="preview-close" id="previewClose">×</button>
-    <img class="preview-image" id="previewImage">
-    <div class="preview-title" id="previewTitle" style="color:#fff;margin-top:10px"></div>
+<div class="overlay" id="loginModal">
+  <div class="modal">
+    <h3>Admin Login</h3>
+    <input class="field" id="userIn" placeholder="Username" style="margin:10px 0">
+    <input class="field" id="passIn" type="password" placeholder="Password" style="margin-bottom:10px">
+    <button class="btn-submit" style="width:100%" id="loginBtn">LOGIN</button>
   </div>
 </div>
-
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <button class="login-close" id="loginClose">×</button>
-    <div class="eyebrow">Private Access</div>
-    <h2 style="margin:10px 0 20px">Admin Login</h2>
-    <input class="admin-input" id="loginUser" placeholder="Username" style="margin-bottom:10px">
-    <input class="admin-input" id="loginPass" type="password" placeholder="Password">
-    <div id="loginError" style="color:red;display:none;margin-top:8px">Invalid credentials.</div>
-    <button class="admin-save" id="loginButton">ENTER DASHBOARD</button>
-  </div>
-</div>
-
-<div class="admin-overlay" id="adminOverlay">
-  <div class="admin-wrap">
-    <div class="admin-top">
-      <div><b>ZAID/RAZA ADMIN CONTROL</b></div>
-      <div>
-        <button class="admin-btn solid" id="saveAllBtn">SAVE ALL TO CLOUD</button>
-        <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
-      </div>
-    </div>
-    <div class="admin-grid">
-      <div class="admin-card">
-        <h3>Hero Section</h3>
-        <div class="admin-field"><label>Eyebrow</label><input class="admin-input" id="aEyebrow"></div>
-        <div class="admin-field"><label>Headline</label><textarea class="admin-textarea" id="aTitle"></textarea></div>
-        <div class="admin-field"><label>Description</label><textarea class="admin-textarea" id="aDescription"></textarea></div>
-        <div class="admin-field">
-          <label>Profile Image</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="profileUpload" accept="image/*">UPLOAD PHOTO</label>
-            <input class="admin-input" id="profileUrl" placeholder="Image URL">
-          </div>
-        </div>
-      </div>
-
-      <div class="admin-card">
-        <h3>About Section</h3>
-        <div class="admin-field"><label>Mark</label><input class="admin-input" id="aAboutMark"></div>
-        <div class="admin-field"><label>Heading</label><textarea class="admin-textarea" id="aAboutTitle"></textarea></div>
-        <div class="admin-field"><label>Text</label><textarea class="admin-textarea" id="aAboutText"></textarea></div>
-      </div>
-
-      <div class="admin-card full">
-        <h3>Add New Project</h3>
-        <div class="upload-row">
-          <div class="admin-field"><label>Project Title</label><input class="admin-input" id="pTitle"></div>
-          <div class="admin-field"><label>Tag</label><input class="admin-input" id="pTag" placeholder="YOUTUBE, POSTER etc"></div>
-        </div>
-        <div class="admin-field">
-          <label>Image</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="projectUpload" accept="image/*">UPLOAD IMAGE</label>
-            <input class="admin-input" id="pImage" placeholder="Or Image URL">
-          </div>
-        </div>
-        <button class="admin-save" id="addProject">+ ADD PROJECT</button>
-        <div id="adminProjects"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast">Saved</div>
 
 <script>
-"use strict";
+// FORCE REMOVE LOADER AFTER 1.5 SECONDS GUARANTEED
+function removeLoader() {
+  const loader = document.getElementById("loader");
+  if(loader) {
+    loader.classList.add("hide");
+  }
+}
+setTimeout(removeLoader, 1500);
+window.addEventListener("load", removeLoader);
 
+// Supabase Safe Init
 const SUPABASE_URL = "https://hngdqjqwffhcenffkscm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_uvMp_g9xsjEaoHZ-KyXx1g_KoMj8-qI";
-
 let supabase = null;
+
 try {
   if (window.supabase) {
     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   }
-} catch(e) {
-  console.warn("Supabase init error", e);
+} catch (e) {
+  console.log("Supabase error:", e);
 }
 
-const ADMIN_USERNAME = "ZAIDX9119";
-const ADMIN_PASSWORD = "Zaid@9119";
-
-const defaultData = {
-  eyebrow:"Graphic Designer · Visual Creator",
-  title:"I MAKE\nVISUALS\nMOVE.",
-  description:"I turn ordinary ideas into bold, clear and high-impact visuals.",
-  profile:"",
-  aboutMark:"ZR.",
-  aboutTitle:"Design isn't decoration.\nIt's communication.",
-  aboutText:"I'm Md Zaid Raza, a graphic designer and visual content creator.",
-  projects:[]
-};
-
-let data = structuredClone(defaultData);
-
-async function loadFromCloud(){
-  if(!supabase) return;
-  try{
-    const { data: dbData, error } = await supabase.from('portfolio_data').select('content').eq('id', 'main_config').single();
-    if(dbData && dbData.content){
-      data = {...structuredClone(defaultData), ...dbData.content};
-    }
-  }catch(e){ console.log("Database load fallback", e); }
-  applyToPage();
-}
-
-async function saveToCloud(){
-  if(!supabase) { toast("Storage connection offline"); return; }
-  try{
-    const { error } = await supabase.from('portfolio_data').upsert({ id: 'main_config', content: data });
-    if(error) throw error;
-    toast("Saved Live to Cloud!");
-  }catch(e){
-    toast("Saved error - check DB table");
-  }
-}
-
-async function uploadImageToSupabase(file){
-  if(!supabase) throw new Error("No supabase");
-  const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
-  const { data: uploadData, error } = await supabase.storage.from('portfolio-images').upload(fileName, file);
-  if(error) throw error;
-  const { data: urlData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
-  return urlData.publicUrl;
-}
-
-const $ = id => document.getElementById(id);
-function toast(msg){ $("toast").textContent = msg; $("toast").classList.add("show"); setTimeout(()=>$("toast").classList.remove("show"), 2500); }
-
-function applyToPage(){
-  $("heroEyebrow").textContent = data.eyebrow;
-  $("heroTitle").innerHTML = (data.title || "").replace(/\n/g, "<br>");
-  $("heroDescription").textContent = data.description;
-  $("aboutMark").textContent = data.aboutMark;
-  $("aboutTitle").innerHTML = (data.aboutTitle || "").replace(/\n/g, "<br>");
-  $("aboutText").textContent = data.aboutText;
-  
-  if(data.profile){
-    $("profileImage").src = data.profile;
-    $("profileImage").style.display = "block";
-    $("profilePlaceholder").style.display = "none";
-  }
-
-  renderProjects();
-}
-
-function renderProjects(){
-  const grid = $("workGrid");
-  grid.innerHTML = "";
-  data.projects.forEach(project=>{
-    const card = document.createElement("article");
-    card.className = "project";
-    card.innerHTML = `
-      <div class="project-image"><img src="${project.img}"></div>
-      <div class="project-info">
-        <div><div class="project-title">${project.title}</div><div class="project-tag">${project.tag}</div></div>
-      </div>`;
-    card.onclick = ()=>{ $("previewImage").src = project.img; $("previewTitle").textContent = project.title; $("preview").classList.add("open"); };
-    grid.appendChild(card);
-  });
-}
-
-$("previewClose").onclick = ()=>$("preview").classList.remove("open");
-
-let zaidClicks = 0;
-$("logoZaid").onclick = ()=>{
-  zaidClicks++;
-  if(zaidClicks>=4){ zaidClicks=0; $("loginOverlay").classList.add("open"); }
-};
-$("loginClose").onclick = ()=>$("loginOverlay").classList.remove("open");
-$("loginButton").onclick = ()=>{
-  if($("loginUser").value.trim() === ADMIN_USERNAME && $("loginPass").value === ADMIN_PASSWORD){
-    $("loginOverlay").classList.remove("open");
-    $("adminOverlay").classList.add("open");
-    loadAdminFields();
-  }else{ $("loginError").style.display="block"; }
-};
-
-function loadAdminFields(){
-  $("aEyebrow").value = data.eyebrow || "";
-  $("aTitle").value = data.title || "";
-  $("aDescription").value = data.description || "";
-  $("aAboutMark").value = data.aboutMark || "";
-  $("aAboutTitle").value = data.aboutTitle || "";
-  $("aAboutText").value = data.aboutText || "";
-  renderAdminProjects();
-}
-
-function collectAdminFields(){
-  data.eyebrow = $("aEyebrow").value;
-  data.title = $("aTitle").value;
-  data.description = $("aDescription").value;
-  data.aboutMark = $("aAboutMark").value;
-  data.aboutTitle = $("aAboutTitle").value;
-  data.aboutText = $("aAboutText").value;
-}
-
-$("profileUpload").onchange = async function(){
-  const file = this.files[0];
-  if(!file) return;
-  toast("Uploading profile photo...");
-  try{
-    const url = await uploadImageToSupabase(file);
-    data.profile = url;
-    await saveToCloud();
-    applyToPage();
-  }catch(e){ toast("Upload Failed"); }
-};
-
-$("addProject").onclick = async ()=>{
-  const title = $("pTitle").value.trim();
-  const tag = $("pTag").value.trim().toUpperCase() || "POSTER";
-  const file = $("projectUpload").files[0];
-  let img = $("pImage").value.trim();
-
-  if(!title){ toast("Enter Title"); return; }
-
-  if(file){
-    toast("Uploading image to Cloud...");
-    try{ img = await uploadImageToSupabase(file); }catch(e){ toast("Image upload failed"); return; }
-  }
-
-  if(!img){ toast("Provide image"); return; }
-
-  data.projects.unshift({title, tag, img});
-  await saveToCloud();
-  applyToPage();
-  renderAdminProjects();
-  $("pTitle").value = ""; $("pImage").value = ""; $("projectUpload").value = "";
-};
-
-function renderAdminProjects(){
-  const box = $("adminProjects");
-  box.innerHTML = "";
-  data.projects.forEach((p, idx)=>{
-    box.innerHTML += `
-      <div class="admin-project">
-        <img src="${p.img}">
-        <div><strong>${p.title}</strong><br><small>${p.tag}</small></div>
-        <button class="delete-btn" onclick="deleteProject(${idx})">DELETE</button>
-      </div>`;
-  });
-}
-
-window.deleteProject = async (idx)=>{
-  data.projects.splice(idx, 1);
-  await saveToCloud();
-  applyToPage();
-  renderAdminProjects();
-};
-
-$("saveAllBtn").onclick = async ()=>{
-  collectAdminFields();
-  await saveToCloud();
-  applyToPage();
-  $("adminOverlay").classList.remove("open");
-};
-
-$("logoutAdmin").onclick = ()=>$("adminOverlay").classList.remove("open");
-
-// Safe init logic
-document.addEventListener("DOMContentLoaded", async () => {
+// Load Data
+async function initData() {
+  if (!supabase) return;
   try {
-    await loadFromCloud();
+    const { data } = await supabase.from('portfolio_data').select('content').eq('id', 'main_config').single();
+    if (data && data.content) {
+      if(data.content.title) document.getElementById("mainTitle").innerHTML = data.content.title.replace(/\n/g, "<br>");
+      if(data.content.description) document.getElementById("mainDesc").textContent = data.content.description;
+    }
   } catch(e) {
-    console.error("Cloud load error:", e);
-  } finally {
-    setTimeout(() => {
-      const loader = document.getElementById("loader");
-      if(loader) loader.classList.add("hide");
-    }, 800);
+    console.log("Data fetch skipped:", e);
+  }
+}
+initData();
+
+// Admin Trigger (Click logo 4 times)
+let clicks = 0;
+document.getElementById("logoClick").addEventListener("click", () => {
+  clicks++;
+  if(clicks >= 4) {
+    clicks = 0;
+    document.getElementById("loginModal").classList.add("open");
+  }
+});
+
+document.getElementById("loginBtn").addEventListener("click", () => {
+  const u = document.getElementById("userIn").value;
+  const p = document.getElementById("passIn").value;
+  if(u === "ZAIDX9119" && p === "Zaid@9119") {
+    alert("Login successful!");
+    document.getElementById("loginModal").classList.remove("open");
+  } else {
+    alert("Wrong Credentials");
   }
 });
 </script>

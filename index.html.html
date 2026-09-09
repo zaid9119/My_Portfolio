@@ -95,93 +95,56 @@ h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
 .round-badge{position:absolute;width:126px;height:126px;border-radius:50%;background:var(--bg);border:1px solid #111;bottom:-36px;left:-42px;display:flex;justify-content:center;align-items:center;text-align:center;font-size:10px;font-weight:800;line-height:1.45;transform:rotate(-12deg);box-shadow:0 16px 30px rgba(0,0,0,.1)}
 .float-chip{position:absolute;right:-18px;top:18%;background:#111;color:#fff;border-radius:16px;padding:12px 14px;font-size:10px;font-weight:800;letter-spacing:.08em;transform:rotate(8deg);box-shadow:var(--shadow)}
 
-.marquee{margin:0 18px;border-radius:26px;background:#111;color:#fff;overflow:hidden;white-space:nowrap;padding:20px 0;box-shadow:0 20px 50px rgba(0,0,0,.18)}
-.marquee-track{display:inline-block;animation:marquee 26s linear infinite}
-.marquee-item{display:inline-block;margin:0 26px;font-size:12px;font-weight:700;letter-spacing:.2em}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 .section{max-width:1440px;margin:auto;padding:120px 5%;position:relative;z-index:2}
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:54px}
 .section-number{color:#9a968d;font-size:11px;letter-spacing:.25em;font-weight:700;text-transform:uppercase}
 .section-title{font-size:clamp(48px,6.8vw,92px);line-height:.88;letter-spacing:-.06em;margin-top:10px}
 .section-info{max-width:340px;color:var(--muted);line-height:1.7;font-size:14px}
 
-.work-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.filter{border:1px solid var(--line);border-radius:100px;background:transparent;padding:9px 15px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s}
-.filter.active,.filter:hover{background:#111;color:#fff;border-color:#111}
-.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;perspective:1200px}
-.project{background:var(--card);border:1px solid var(--line);border-radius:30px;overflow:hidden;cursor:pointer;transition:.45s cubic-bezier(.2,.8,.2,1)}
-.project:hover{transform:translateY(-10px) rotateX(2deg);box-shadow:var(--shadow)}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.project{background:var(--card);border:1px solid var(--line);border-radius:30px;overflow:hidden;cursor:pointer;transition:.45s}
 .project-image{aspect-ratio:16/10;overflow:hidden;background:#ddd}
 .project-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
-.project:hover img{transform:scale(1.06)}
 .project-info{padding:20px 22px 23px;display:flex;justify-content:space-between;gap:20px}
 .project-title{font-size:20px;font-weight:700}
 .project-tag{color:#888;font-size:10px;font-weight:800;letter-spacing:.12em;margin-top:5px}
-.project-arrow{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-.services{background:#111;color:#fff;max-width:none;position:relative;overflow:hidden}
-.services-inner{max-width:1440px;margin:auto;padding:120px 5%;position:relative}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.service{min-height:350px;padding:30px;border-radius:30px;background:#181818;border:1px solid #2a2a2a;transition:.4s;display:flex;flex-direction:column}
-.service:hover{background:#222;transform:translateY(-8px)}
-.service-number{color:#666;font-size:12px}
-.service h3{margin-top:auto;font-size:30px;line-height:1.05}
-.service p{color:#999;line-height:1.6;margin-top:18px;font-size:14px}
 
 .about-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:90px;align-items:center}
 .about-mark{font-size:clamp(110px,17vw,250px);font-family:"Space Grotesk";font-weight:700;letter-spacing:-.12em;line-height:.7;background:linear-gradient(180deg,#111 20%,#bbb);-webkit-background-clip:text;background-clip:text;color:transparent}
-.about-text h2{font-size:clamp(40px,5vw,72px);line-height:.98;letter-spacing:-.055em}
-.about-text p{color:var(--muted);line-height:1.8;max-width:650px;margin-top:28px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:34px;padding-top:24px;gap:20px}
-.stat b{font-family:"Space Grotesk";font-size:40px}
-.stat span{display:block;margin-top:4px;color:#888;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
-
-.tools{background:var(--bg-2)}
-.tools-grid{max-width:1440px;margin:auto;padding:90px 5%;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.tool{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;min-height:170px;transition:.35s}
-.tool strong{display:block;font-size:22px;margin-bottom:10px}
-.tool span{color:#888;font-size:12px}
 
 .contact{background:#ddd9cf}
 .contact-inner{max-width:1440px;margin:auto;padding:120px 5%;display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}
 .contact-title{font-size:clamp(52px,6.8vw,96px);line-height:.86;letter-spacing:-.065em;margin-top:14px}
 .contact-form{display:grid;gap:12px}
 .field{width:100%;border:1px solid #c4bfb3;background:#ebe7dc;padding:18px;border-radius:16px;outline:none;color:#111}
-.field:focus{border-color:#111}
-textarea.field{resize:vertical;min-height:150px}
-.submit{background:#111;color:#fff;border:0;padding:19px;border-radius:16px;font-weight:700;cursor:pointer;transition:.3s}
+.submit{background:#111;color:#fff;border:0;padding:19px;border-radius:16px;font-weight:700;cursor:pointer}
 
 footer{background:#0b0b0b;color:#fff;padding:38px 5%}
 .footer-inner{max-width:1440px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:30px}
-.footer-links{display:flex;gap:20px;color:#999;font-size:12px}
-
-.reveal{opacity:0;transform:translateY(28px);transition:.8s ease}
-.reveal.show{opacity:1;transform:none}
 
 .preview{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:25px}
 .preview.open{display:flex}
-.preview-box{max-width:1100px;width:100%;max-height:95vh}
-.preview-close{width:45px;height:45px;border:0;border-radius:50%;background:#fff;cursor:pointer;font-size:20px;float:right;margin-bottom:12px}
-.preview-image{width:100%;max-height:78vh;object-fit:contain;border-radius:20px;clear:both}
+.preview-box{max-width:1100px;width:100%}
+.preview-close{width:45px;height:45px;border:0;border-radius:50%;background:#fff;cursor:pointer;float:right}
+.preview-image{width:100%;max-height:78vh;object-fit:contain;clear:both}
 
 .login-overlay,.admin-overlay{position:fixed;inset:0;z-index:5000;display:none;overflow:auto}
 .login-overlay{z-index:6000;background:rgba(11,11,11,.72);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:20px}
 .login-overlay.open,.admin-overlay.open{display:flex}
 .admin-overlay{background:var(--bg);color:var(--text);flex-direction:column}
-.login-box{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:32px;box-shadow:var(--shadow)}
+.login-box{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:32px}
 .login-close{float:right;border:0;background:none;cursor:pointer;font-size:22px}
 
 .admin-wrap{max-width:1440px;margin:auto;padding:24px 4% 80px;width:100%}
-.admin-top{position:sticky;top:14px;z-index:20;background:rgba(239,236,229,.88);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.admin-btn{border:1px solid #111;color:#111;background:transparent;border-radius:100px;padding:10px 16px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s}
+.admin-top{position:sticky;top:14px;z-index:20;background:rgba(239,236,229,.88);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+.admin-btn{border:1px solid #111;color:#111;background:transparent;border-radius:100px;padding:10px 16px;font-size:11px;font-weight:700;cursor:pointer}
 .admin-btn.solid{background:#111;color:#fff}
 .admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px}
 .admin-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:24px}
 .admin-card.full{grid-column:1/-1}
 .admin-field{margin-bottom:12px}
 .admin-field label{display:block;color:#7a766e;font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:6px}
-.admin-input,.admin-textarea,.admin-select{width:100%;border:1px solid var(--line);border-radius:14px;background:#f3efe6;padding:13px;outline:none}
+.admin-input,.admin-textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:#f3efe6;padding:13px;outline:none}
 .admin-textarea{min-height:96px;resize:vertical}
 .admin-save{width:100%;background:#111;color:#fff;border:0;border-radius:14px;padding:15px;font-weight:800;cursor:pointer;margin-top:6px}
 .upload-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -196,16 +159,14 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
 
 @media(max-width:900px){
   .nav-links{display:none}
-  .menu{display:block}
   .hero-inner,.about-grid,.contact-inner,.admin-grid{grid-template-columns:1fr}
-  .work-grid,.services-grid{grid-template-columns:1fr}
-  .tools-grid{grid-template-columns:1fr 1fr}
+  .work-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div class="noise"></div>
-<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="orb a"></div><div class="orb b"></div>
 
 <div class="loader" id="loader">
   <div class="loader-inner">
@@ -214,24 +175,20 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
     <div class="loader-line"><i></i></div>
   </div>
 </div>
-<div class="cursor" id="cursor"></div>
 
-<nav class="nav" id="nav">
+<nav class="nav">
   <div class="nav-inner">
-    <div class="logo" id="siteLogo">
-      <span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA
-    </div>
+    <div class="logo" id="siteLogo"><span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA</div>
     <div class="nav-links">
-      <a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
     </div>
     <a class="nav-btn" href="#contact">Let's talk ↗</a>
-    <button class="menu" id="mobileMenu">☰</button>
   </div>
 </nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <div class="reveal show">
+    <div>
       <div class="eyebrow" id="heroEyebrow">Graphic Designer · Visual Creator</div>
       <h1 class="hero-title" id="heroTitle">I MAKE<br><span class="italic">VISUALS</span><br>MOVE.</h1>
       <p class="hero-description" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention.</p>
@@ -240,79 +197,49 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
         <a class="btn" href="#contact">Start a project ↗</a>
       </div>
     </div>
-    <div class="hero-art reveal show">
+    <div class="hero-art">
       <div class="stage3d">
-        <div class="art-frame" id="profileFrame">
+        <div class="art-frame">
           <div class="art-placeholder" id="profilePlaceholder">ZR</div>
           <img id="profileImage" style="display:none" alt="Zaid Raza">
-          <div class="art-tag top" id="tagTop">BASED IN INDIA</div>
-          <div class="art-tag bottom" id="tagBottom">AVAILABLE ↗</div>
         </div>
-        <div class="round-badge" id="roundBadge">DESIGN<br>WITH<br>INTENT</div>
-        <div class="float-chip" id="floatChip">3D STUDIO</div>
       </div>
     </div>
   </div>
 </header>
 
-<div class="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
-
 <section class="section" id="work">
-  <div class="section-head reveal show">
+  <div class="section-head">
     <div>
       <div class="section-number">01 / Selected Work</div>
       <h2 class="section-title">The work.</h2>
     </div>
-    <p class="section-info" id="workInfo">A collection of thumbnail concepts, posters and visual experiments.</p>
   </div>
-  <div class="work-filter" id="workFilter"></div>
   <div class="work-grid" id="workGrid"></div>
-</section>
-
-<section class="services" id="services">
-  <div class="services-inner">
-    <div class="section-head reveal show">
-      <div>
-        <div class="section-number">02 / Services</div>
-        <h2 class="section-title">What I do.</h2>
-      </div>
-      <p class="section-info" id="servicesInfo">Design focused on attention and visual communication.</p>
-    </div>
-    <div class="services-grid" id="servicesGrid"></div>
-  </div>
 </section>
 
 <section class="section" id="about">
   <div class="about-grid">
-    <div class="reveal show"><div class="about-mark" id="aboutMark">ZR.</div></div>
-    <div class="about-text reveal show">
-      <div class="section-number">03 / About</div>
+    <div><div class="about-mark" id="aboutMark">ZR.</div></div>
+    <div class="about-text">
+      <div class="section-number">02 / About</div>
       <h2 id="aboutTitle">Design isn't decoration.<br><span class="italic">It's communication.</span></h2>
       <p id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator.</p>
-      <div class="stats">
-        <div class="stat"><b id="stat1">2+</b><span id="stat1Label">Years creating</span></div>
-        <div class="stat"><b id="stat2">50+</b><span id="stat2Label">Projects</span></div>
-        <div class="stat"><b id="stat3">24H</b><span id="stat3Label">Response</span></div>
-      </div>
     </div>
   </div>
 </section>
 
-<section class="tools"><div class="tools-grid" id="toolsGrid"></div></section>
-
 <section class="contact" id="contact">
   <div class="contact-inner">
-    <div class="reveal show">
-      <div class="section-number">04 / Contact</div>
+    <div>
+      <div class="section-number">03 / Contact</div>
       <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
-      <p class="contact-copy" id="contactText">Have a project in mind? Let's connect.</p>
     </div>
-    <form class="contact-form reveal show" id="contactForm" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-      <input class="field" required name="name" id="cName" placeholder="Your name *">
-      <input class="field" required type="email" name="email" id="cEmail" placeholder="Email address *">
-      <input class="field" name="project" id="cProject" placeholder="What do you need?">
-      <textarea class="field" required name="message" id="cMessage" placeholder="Tell me about your project..."></textarea>
-      <button class="submit" type="submit" id="sendBtn">SEND INQUIRY ↗</button>
+    <form class="contact-form" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+      <input class="field" required name="name" placeholder="Your name *">
+      <input class="field" required type="email" name="email" placeholder="Email address *">
+      <textarea class="field" required name="message" placeholder="Tell me about your project..."></textarea>
+      <button class="submit" type="submit">SEND INQUIRY ↗</button>
     </form>
   </div>
 </section>
@@ -320,12 +247,7 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">ZAID/RAZA</div>
-    <div class="footer-links">
-      <a id="instagramLink" href="#" target="_blank">Instagram</a>
-      <a id="behanceLink" href="#" target="_blank">Behance</a>
-      <a id="youtubeLink" href="#" target="_blank">YouTube</a>
-    </div>
-    <div class="footer-copy" id="footerCopy">© 2026 — VISUAL DESIGNER</div>
+    <div class="footer-copy">© 2026 — VISUAL DESIGNER</div>
   </div>
 </footer>
 
@@ -408,7 +330,14 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
 const SUPABASE_URL = "https://hngdqjqwffhcenffkscm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_uvMp_g9xsjEaoHZ-KyXx1g_KoMj8-qI";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let supabase = null;
+try {
+  if (window.supabase) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+} catch(e) {
+  console.warn("Supabase init error", e);
+}
 
 const ADMIN_USERNAME = "ZAIDX9119";
 const ADMIN_PASSWORD = "Zaid@9119";
@@ -418,30 +347,16 @@ const defaultData = {
   title:"I MAKE\nVISUALS\nMOVE.",
   description:"I turn ordinary ideas into bold, clear and high-impact visuals.",
   profile:"",
-  tagTop:"BASED IN INDIA",
-  tagBottom:"AVAILABLE ↗",
-  badge:"DESIGN\nWITH\nINTENT",
-  chip:"3D STUDIO",
   aboutMark:"ZR.",
   aboutTitle:"Design isn't decoration.\nIt's communication.",
   aboutText:"I'm Md Zaid Raza, a graphic designer and visual content creator.",
-  stat1:"2+", stat1Label:"Years creating",
-  stat2:"50+", stat2Label:"Projects",
-  stat3:"24H", stat3Label:"Response",
-  workInfo:"A collection of thumbnail concepts and visual experiments.",
-  servicesInfo:"Design focused on attention, clarity and strong communication.",
-  contactText:"Have a project in mind? Let's turn ideas into visuals.",
-  instagram:"", behance:"", youtube:"",
-  filters:["YOUTUBE","THUMBNAIL","GAMING","SOCIAL","POSTER"],
-  marquee:["THUMBNAILS","YOUTUBE","POSTERS","SOCIAL MEDIA"],
-  tools:[{title:"Photoshop", text:"Visual composition"}, {title:"Canva", text:"Creative design"}],
-  services:[{number:"01", title:"YouTube Thumbnails", text:"High CTR compositions."}],
   projects:[]
 };
 
 let data = structuredClone(defaultData);
 
 async function loadFromCloud(){
+  if(!supabase) return;
   try{
     const { data: dbData, error } = await supabase.from('portfolio_data').select('content').eq('id', 'main_config').single();
     if(dbData && dbData.content){
@@ -452,6 +367,7 @@ async function loadFromCloud(){
 }
 
 async function saveToCloud(){
+  if(!supabase) { toast("Storage connection offline"); return; }
   try{
     const { error } = await supabase.from('portfolio_data').upsert({ id: 'main_config', content: data });
     if(error) throw error;
@@ -462,6 +378,7 @@ async function saveToCloud(){
 }
 
 async function uploadImageToSupabase(file){
+  if(!supabase) throw new Error("No supabase");
   const fileName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
   const { data: uploadData, error } = await supabase.storage.from('portfolio-images').upload(fileName, file);
   if(error) throw error;
@@ -489,19 +406,16 @@ function applyToPage(){
   renderProjects();
 }
 
-let currentFilter = "ALL";
 function renderProjects(){
   const grid = $("workGrid");
   grid.innerHTML = "";
-  const list = currentFilter === "ALL" ? data.projects : data.projects.filter(p=>p.tag===currentFilter);
-  list.forEach(project=>{
+  data.projects.forEach(project=>{
     const card = document.createElement("article");
-    card.className = "project reveal show";
+    card.className = "project";
     card.innerHTML = `
       <div class="project-image"><img src="${project.img}"></div>
       <div class="project-info">
         <div><div class="project-title">${project.title}</div><div class="project-tag">${project.tag}</div></div>
-        <div class="project-arrow">↗</div>
       </div>`;
     card.onclick = ()=>{ $("previewImage").src = project.img; $("previewTitle").textContent = project.title; $("preview").classList.add("open"); };
     grid.appendChild(card);
@@ -606,10 +520,19 @@ $("saveAllBtn").onclick = async ()=>{
 
 $("logoutAdmin").onclick = ()=>$("adminOverlay").classList.remove("open");
 
-window.onload = async ()=>{
-  await loadFromCloud();
-  setTimeout(()=>$("loader").classList.add("hide"), 1000);
-};
+// Safe init logic
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await loadFromCloud();
+  } catch(e) {
+    console.error("Cloud load error:", e);
+  } finally {
+    setTimeout(() => {
+      const loader = document.getElementById("loader");
+      if(loader) loader.classList.add("hide");
+    }, 800);
+  }
+});
 </script>
 </body>
 </html>

@@ -625,7 +625,6 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
       <div class="admin-brand">ZAID/RAZA<small>3D STUDIO CONTROL CENTER</small></div>
       <div class="admin-actions">
         <button class="admin-btn solid" id="saveAllBtn">SAVE ALL & VIEW</button>
-        <button class="admin-btn solid" id="exportClientTop" type="button">DOWNLOAD FOR CLIENT</button>
         <button class="admin-btn" id="previewSite">VIEW WEBSITE</button>
         <button class="admin-btn" id="resetSite">RESET</button>
         <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
@@ -708,22 +707,12 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
       </div>
 
       <div class="admin-card full">
-        <h3><span>00</span>Client file + phone sync</h3>
+        <h3><span>00</span>Live website</h3>
         <div class="admin-note">
-          Client ko Sync Code ki zaroorat nahi. Work add karo, phir <b>DOWNLOAD CLIENT WEBSITE</b> dabaao.
-          Jo naya HTML download ho, wahi file client ko bhejo — unke phone par tumhara work dikhega, admin nahi.
-          Apne doosre phone ke liye Sync Code use karo. Photos client file mein tab pakki rehti hain jab download ke baad wahi file bhejo.
+          Sirf <b>SAVE ALL & VIEW</b> dabaao. Jo bhi is HTML file ko kholega — client, doosra phone, laptop — use wahi latest site dikhegi.
+          Badi photos ke liye image URL lagana better hai.
         </div>
-        <button class="admin-save" id="exportClient" type="button">DOWNLOAD CLIENT WEBSITE</button>
-        <p style="height:10px"></p>
-        <div class="admin-field"><label>Sync Code</label>
-          <input class="admin-input" id="aCloudId" placeholder="Empty = create new code on first SAVE TO CLOUD">
-        </div>
-        <div class="upload-row">
-          <button class="admin-save" id="cloudSave" type="button">SAVE TO CLOUD</button>
-          <button class="admin-save" id="cloudLoad" type="button" style="background:#333">LOAD FROM CLOUD</button>
-        </div>
-        <p id="cloudStatus" style="margin-top:10px;font-size:12px;color:#5c584f">Not connected yet.</p>
+        <p id="cloudStatus" style="margin-top:6px;font-size:12px;color:#5c584f">Saving goes live for everyone.</p>
       </div>
       <div class="admin-card full">
         <h3><span>07</span>Portfolio Manager</h3>
@@ -914,139 +903,53 @@ async function saveData(){
 }
 
 
-const CLOUD_LS = "zaidCloudBlobId";
-function getCloudId(){
-  return (($("aCloudId") && $("aCloudId").value) || localStorage.getItem(CLOUD_LS) || "").trim();
-}
-function setCloudId(id){
-  if(!id) return;
-  localStorage.setItem(CLOUD_LS, id);
-  if($("aCloudId")) $("aCloudId").value = id;
-}
-function cloudPayload(){
+
+const CLOUD_KEY = "4eb6d471fe2744f5bbbe7d277ac476f8";
+const CLOUD_DOC = "6aa12ce7c5140303e80bad6f";
+const CLOUD_URL = "https://crudcrud.com/api/" + CLOUD_KEY + "/site/" + CLOUD_DOC;
+
+function cloudReadyPayload(){
   const slim = {...data};
-  if(slim.profile && String(slim.profile).startsWith("data:") && String(slim.profile).length > 120000){
-    slim.profile = "";
-  }
+  const tooBig = (v)=> v && String(v).startsWith("data:") && String(v).length > 80000;
+  if(tooBig(slim.profile)) slim.profile = "";
   slim.projects = (slim.projects || []).map(p=>{
     const img = p.img || "";
-    if(String(img).startsWith("data:") && String(img).length > 120000){
-      return {title:p.title, tag:p.tag, img: makeImage(p.title||"WORK", p.tag||"PROJECT")};
-    }
+    if(tooBig(img)) return {title:p.title, tag:p.tag, img: makeImage(p.title||"WORK", p.tag||"PROJECT")};
     return {title:p.title, tag:p.tag, img};
   });
   return slim;
 }
-async function cloudCreate(){
-  const res = await fetch("https://jsonblob.com/api/jsonBlob", {
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify(cloudPayload())
-  });
-  if(!res.ok) throw new Error("create-failed "+res.status);
-  const loc = res.headers.get("X-jsonblob") || res.headers.get("Location") || "";
-  const id = (loc.match(/jsonBlob\/([A-Za-z0-9-]+)/) || loc.match(/([A-Za-z0-9-]{8,})$/) || [,loc])[1];
-  if(!id) throw new Error("no-id");
-  return id;
-}
-async function cloudPut(id){
-  const res = await fetch("https://jsonblob.com/api/jsonBlob/" + encodeURIComponent(id), {
-    method:"PUT",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify(cloudPayload())
-  });
-  if(!res.ok) throw new Error("put-failed "+res.status);
-}
-async function cloudGet(id){
-  const res = await fetch("https://jsonblob.com/api/jsonBlob/" + encodeURIComponent(id), {
-    headers:{"Accept":"application/json"}
-  });
-  if(!res.ok) throw new Error("get-failed "+res.status);
-  return res.json();
-}
-async function saveToCloud(){
-  collectAdminFields();
-  await saveData();
-  const status = $("cloudStatus");
-  try{
-    let id = getCloudId();
-    if(!id){
-      id = await cloudCreate();
-      setCloudId(id);
-    }else{
-      try{ await cloudPut(id); }
-      catch(err){
-        id = await cloudCreate();
-        setCloudId(id);
-      }
-    }
-    if(status) status.textContent = "Connected. Sync Code: " + id + " — isi code ko doosre phone ke Admin mein paste karo.";
-    toast("Saved to cloud — other phones can load this code");
-    return id;
-  }catch(err){
-    if(status) status.textContent = "Cloud blocked on this network. Text still saved on this phone.";
-    toast("Cloud save failed. This phone still has the changes.");
-    return null;
-  }
-}
-async function loadFromCloud(){
-  const status = $("cloudStatus");
-  const id = getCloudId();
-  if(!id){ toast("Pehle Sync Code paste karo"); return; }
-  try{
-    const remote = await cloudGet(id);
-    if(!remote || typeof remote !== "object") throw new Error("bad");
-    data = {...structuredClone(defaultData), ...remote};
+
+async function pullLiveSite(){
+  const res = await fetch(CLOUD_URL, {cache:"no-store"});
+  if(!res.ok) throw new Error("get "+res.status);
+  const remote = await res.json();
+  if(remote && remote.payload && typeof remote.payload === "object"){
+    data = {...structuredClone(defaultData), ...remote.payload};
     if(!Array.isArray(data.projects)) data.projects = structuredClone(defaultData.projects);
-    setCloudId(id);
-    await saveData();
-    applyToPage();
-    loadAdminFields();
-    if($("aCloudId")) $("aCloudId").value = id;
-    if(status) status.textContent = "Loaded from cloud: " + id;
-    toast("Loaded from cloud");
-  }catch(err){
-    if(status) status.textContent = "Could not load that Sync Code.";
-    toast("Cloud load failed");
+    if(!Array.isArray(data.services)) data.services = structuredClone(defaultData.services);
+    if(!Array.isArray(data.tools)) data.tools = structuredClone(defaultData.tools);
+    return true;
   }
+  return false;
 }
 
-
-
-async function exportClientWebsite(){
-  collectAdminFields();
-  await saveData();
-  let raw = "";
-  try{
-    raw = await fetch(location.href).then(r=>r.text());
-  }catch(err){
-    raw = "";
-  }
-  if(!raw || raw.indexOf("const defaultData =") < 0){
-    toast("Is file ko computer/phone pe save karke browser se open karo, phir download dabaao");
-    return;
-  }
-  const start = raw.indexOf("const defaultData =");
-  const end = raw.indexOf("let data = structuredClone(defaultData);");
-  if(start < 0 || end < 0){
-    toast("Export failed");
-    return;
-  }
-  const stamp = "client-" + Date.now();
-  const payload = JSON.stringify(data);
-  const next = raw.slice(0, raw.indexOf("const BAKED_STAMP")) +
-    'const BAKED_STAMP = "' + stamp + '";\nconst defaultData = ' + payload + ";\n\n" +
-    raw.slice(end);
-  const blob = new Blob([next], {type:"text/html;charset=utf-8"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "ZAID-RAZA-client.html";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
-  toast("Client wali file download ho gayi — yahi bhejo");
+async function pushLiveSite(){
+  const body = {
+    owner: "zaid-raza",
+    updated: Date.now(),
+    payload: cloudReadyPayload()
+  };
+  const res = await fetch(CLOUD_URL, {
+    method:"PUT",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(body)
+  });
+  if(!res.ok) throw new Error("put "+res.status);
+  const status = document.getElementById("cloudStatus");
+  if(status) status.textContent = "Live. Anyone who opens this file will see these changes.";
 }
+
 
 const $ = id => document.getElementById(id);
 function toast(message){
@@ -1275,7 +1178,6 @@ function loadAdminFields(){
   $("aFilters").value = (data.filters || []).join(", ");
   $("aMarquee").value = (data.marquee || []).join(", ");
   $("profileUrl").value = data.profile && !String(data.profile).startsWith("data:") ? data.profile : "";
-  if($("aCloudId")) $("aCloudId").value = localStorage.getItem(CLOUD_LS) || $("aCloudId").value || "";
   renderServiceEditor();
   renderToolEditor();
   const sel = $("pTag");
@@ -1332,8 +1234,9 @@ function collectAdminFields(){
 function commitChanges(message, viewSite){
   collectAdminFields();
   Promise.resolve(saveData()).then(async ()=>{
-    if(getCloudId()){
-      try{ await cloudPut(getCloudId()); }catch(e){}
+    try{ await pushLiveSite(); }catch(e){
+      const status = document.getElementById("cloudStatus");
+      if(status) status.textContent = "Saved on this phone. Live update failed — check internet and press SAVE ALL again.";
     }
     currentFilter = "ALL";
     applyToPage();
@@ -1383,10 +1286,6 @@ $("saveContact").onclick = ()=>commitChanges("Contact saved", false);
 $("saveTools").onclick = ()=>commitChanges("Tools saved", false);
 $("saveWork").onclick = ()=>commitChanges("Work section text saved", false);
 $("saveAllBtn").onclick = ()=>commitChanges("All changes are live — check the Work section", true);
-$("cloudSave").onclick = ()=>saveToCloud();
-$("cloudLoad").onclick = ()=>loadFromCloud();
-$("exportClient").onclick = ()=>exportClientWebsite();
-if($("exportClientTop")) $("exportClientTop").onclick = ()=>exportClientWebsite();
 
 
 
@@ -1472,7 +1371,8 @@ $("addProject").onclick = async ()=>{
   if(prev){ prev.style.display = "none"; prev.removeAttribute("src"); }
   currentFilter = "ALL";
   applyToPage();
-  toast(ok ? "Added to Work — press SAVE ALL & VIEW" : "Added on screen. Storage was full, so refresh may lose it.");
+  try{ await pushLiveSite(); toast("Added and live for everyone"); }
+  catch(err){ toast(ok ? "Added here. Press SAVE ALL to publish" : "Added on screen only"); }
 };
 
 function renderAdminProjects(){
@@ -1493,6 +1393,7 @@ function renderAdminProjects(){
       if(confirm("Delete this project?")){
         data.projects.splice(index,1);
         await saveData();
+        try{ await pushLiveSite(); }catch(e){}
         applyToPage();
         toast("Project deleted");
       }
@@ -1504,6 +1405,7 @@ function renderAdminProjects(){
 $("previewSite").onclick = async ()=>{
   collectAdminFields();
   await saveData();
+  try{ await pushLiveSite(); }catch(e){}
   currentFilter = "ALL";
   applyToPage();
   $("adminOverlay").classList.remove("open");
@@ -1641,17 +1543,10 @@ $("contactForm").addEventListener("submit", async function(e){
 
 window.addEventListener("load", async ()=>{
   await loadSaved();
-  const existing = localStorage.getItem(CLOUD_LS);
-  if(existing){
-    try{
-      const remote = await cloudGet(existing);
-      if(remote && typeof remote === "object"){
-        data = {...structuredClone(defaultData), ...remote};
-        if(!Array.isArray(data.projects)) data.projects = structuredClone(defaultData.projects);
-        await saveData();
-      }
-    }catch(e){}
-  }
+  try{
+    const live = await pullLiveSite();
+    if(live) await saveData();
+  }catch(e){}
   currentFilter = "ALL";
   renderWebsite();
   observeReveal();

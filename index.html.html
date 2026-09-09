@@ -3,626 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#08080a">
 <meta name="description" content="ZAID RAZA — Graphic Designer & Visual Creator">
 <title>ZAID RAZA — Graphic Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#efece5;
-  --bg-2:#e6e2d8;
-  --surface:#f6f3ec;
-  --card:#fffcf7;
-  --text:#101010;
-  --muted:#6e6b64;
-  --line:#d6d1c6;
-  --ink:#0b0b0b;
-  --gold:#b8943c;
-  --gold-soft:#e8d7a3;
-  --shadow:0 28px 70px rgba(12,10,6,.16);
-  --radius:30px;
+  --bg:#08080a;
+  --bg2:#111116;
+  --card:#16161c;
+  --text:#f3efe6;
+  --muted:#9a958b;
+  --line:#2a2a33;
+  --accent:#ff4d1c;
+  --accent2:#c8f542;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:"DM Sans",sans-serif;
-  overflow-x:hidden;
-  min-height:100vh;
-}
-button,input,textarea,select{font:inherit}
-button,a{-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
 img{max-width:100%;display:block}
-h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
-::selection{background:#111;color:#fff}
+button,a{-webkit-tap-highlight-color:transparent}
+::selection{background:var(--accent);color:#fff}
+.wrap{width:min(1240px,calc(100% - 36px));margin-inline:auto}
 
-.noise{
-  pointer-events:none;position:fixed;inset:0;z-index:9;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
-.orb.a{width:460px;height:460px;background:#fff;top:-120px;right:-80px;opacity:.75}
-.orb.b{width:360px;height:360px;background:#d9c89a;bottom:8%;left:-100px;opacity:.28}
-.orb.c{width:240px;height:240px;background:#111;opacity:.05;top:46%;right:10%}
-
-.cursor{
-  position:fixed;width:14px;height:14px;border-radius:50%;
-  background:#111;pointer-events:none;z-index:99998;
-  transform:translate(-50%,-50%);transition:.16s ease;
-  mix-blend-mode:difference;
-}
-.cursor.big{width:54px;height:54px;background:#fff}
-@media(max-width:800px){.cursor{display:none}}
-
-.loader{
-  position:fixed;inset:0;z-index:99999;background:#0b0b0b;color:#fff;
-  display:flex;align-items:center;justify-content:center;transition:.7s ease;
-}
+.loader{position:fixed;inset:0;z-index:99999;background:#050506;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:.6s}
 .loader.hide{opacity:0;visibility:hidden;pointer-events:none}
-.loader-inner{width:230px;text-align:center;perspective:900px}
-.loader-logo{font-family:"Space Grotesk";font-size:30px;font-weight:700;letter-spacing:-1.4px;margin-bottom:22px}
-.loader-cube{
-  width:56px;height:56px;margin:0 auto 22px;position:relative;
-  transform-style:preserve-3d;animation:spin3d 2.4s linear infinite;
-}
-.loader-cube span{
-  position:absolute;inset:0;border:1px solid rgba(255,255,255,.38);
-  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(184,148,60,.18));
-}
-.loader-cube span:nth-child(1){transform:rotateY(0deg) translateZ(28px)}
-.loader-cube span:nth-child(2){transform:rotateY(90deg) translateZ(28px)}
-.loader-cube span:nth-child(3){transform:rotateY(180deg) translateZ(28px)}
-.loader-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(28px)}
-.loader-cube span:nth-child(5){transform:rotateX(90deg) translateZ(28px)}
-.loader-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(28px)}
-@keyframes spin3d{to{transform:rotateX(360deg) rotateY(360deg)}}
-.loader-line{height:3px;background:#2a2a2a;overflow:hidden;border-radius:10px}
-.loader-line i{display:block;width:0;height:100%;background:#fff;animation:load 1.5s ease forwards}
+.loader b{font-family:"Bebas Neue",sans-serif;font-size:42px;letter-spacing:.12em}
+.loader span{width:90px;height:2px;background:#222;display:block;overflow:hidden}
+.loader span i{display:block;height:100%;width:0;background:var(--accent);animation:load 1s ease forwards}
 @keyframes load{to{width:100%}}
 
-.nav{
-  position:fixed;top:0;left:0;width:100%;z-index:900;transition:.35s ease;
-}
-.nav.scrolled{
-  background:rgba(239,236,229,.82);
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid var(--line);
-}
-.nav-inner{
-  max-width:1440px;margin:auto;padding:18px 5%;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.logo{
-  font-family:"Space Grotesk";font-size:21px;font-weight:700;
-  letter-spacing:-1.1px;cursor:pointer;user-select:none;
-}
-.logo span.slash{color:#9a968d}
-.logo #logoZaid{position:relative}
-.nav-links{display:flex;gap:32px;font-size:13px;font-weight:600}
-.nav-links a{position:relative}
-.nav-links a:after{
-  content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:#111;transition:.3s;
-}
-.nav-links a:hover:after{width:100%}
-.nav-btn{
-  border:1px solid #111;border-radius:100px;padding:10px 18px;
-  font-size:12px;font-weight:700;transition:.3s;
-}
-.nav-btn:hover{background:#111;color:#fff}
-.menu{display:none;border:0;background:none;font-size:24px}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:50;transition:.3s}
+.nav.scrolled{background:rgba(8,8,10,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:.08em;cursor:pointer;user-select:none}
+.logo em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:22px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav-links a:hover{color:#fff}
+.nav-btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:999px;padding:9px 16px;font-size:11px;font-weight:800;letter-spacing:.08em}
+.menu{display:none;background:none;border:0;color:#fff;font-size:22px}
 
-.hero{
-  min-height:100svh;padding:150px 5% 90px;position:relative;overflow:hidden;
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:72px 72px;
-}
-.hero-inner{
-  max-width:1440px;margin:auto;position:relative;z-index:2;
-  display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:70px;
-}
-.eyebrow{
-  text-transform:uppercase;letter-spacing:.28em;font-size:11px;font-weight:700;color:var(--muted);
-}
-.hero-title{
-  font-size:clamp(58px,8.6vw,138px);line-height:.78;letter-spacing:-.07em;margin:26px 0 22px;
-}
-.italic{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400}
-.hero-description{max-width:540px;font-size:18px;line-height:1.7;color:var(--muted)}
-.hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.btn{
-  border:1px solid #111;padding:15px 24px;border-radius:100px;font-weight:700;
-  font-size:13px;transition:.3s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
-}
-.btn-dark{background:#111;color:#fff}
-.btn:hover{transform:translateY(-3px)}
-.btn:not(.btn-dark):hover{background:#111;color:#fff}
+.hero{min-height:100svh;padding:130px 0 70px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(64px,12vw,148px);line-height:.82;letter-spacing:.01em;margin:12px 0 18px}
+h1 i{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);max-width:42ch;line-height:1.7}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{border:1px solid #fff;padding:12px 18px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.btn-hot{background:var(--accent);border-color:var(--accent);color:#fff}
 
-.hero-art{max-width:500px;width:100%;margin-left:auto;position:relative;perspective:1400px}
-.stage3d{transform-style:preserve-3d;animation:floatY 6s ease-in-out infinite}
-@keyframes floatY{50%{transform:translateY(-12px)}}
-.art-frame{
-  aspect-ratio:4/5;background:#111;border-radius:40px;overflow:hidden;position:relative;
-  box-shadow:var(--shadow), 0 0 0 1px rgba(0,0,0,.08);
-  transform:rotateY(-8deg) rotateX(4deg);
-  transition:.6s cubic-bezier(.2,.8,.2,1);
-}
-.hero-art:hover .art-frame{transform:rotateY(0) rotateX(0) scale(1.02)}
-.art-frame img{width:100%;height:100%;object-fit:cover}
-.art-placeholder{
-  width:100%;height:100%;
-  background:
-    radial-gradient(circle at 72% 22%,#fff 0 3%,transparent 3.4%),
-    radial-gradient(circle at 18% 78%,#4a4a4a 0 8%,transparent 8.4%),
-    linear-gradient(145deg,#141414,#5a5a5a);
-  display:flex;align-items:center;justify-content:center;color:#fff;
-  font-family:"Space Grotesk";font-size:clamp(78px,12vw,148px);
-  font-weight:700;letter-spacing:-.09em;
-}
-.art-tag{
-  position:absolute;padding:11px 14px;background:#fff;color:#111;
-  font-size:10px;font-weight:800;letter-spacing:.08em;
-}
-.art-tag.top{left:18px;top:18px}
-.art-tag.bottom{right:18px;bottom:18px;background:#111;color:#fff}
-.round-badge{
-  position:absolute;width:126px;height:126px;border-radius:50%;
-  background:var(--bg);border:1px solid #111;bottom:-36px;left:-42px;
-  display:flex;justify-content:center;align-items:center;text-align:center;
-  font-size:10px;font-weight:800;line-height:1.45;transform:rotate(-12deg);
-  box-shadow:0 16px 30px rgba(0,0,0,.1);
-}
-.float-chip{
-  position:absolute;right:-18px;top:18%;
-  background:#111;color:#fff;border-radius:16px;padding:12px 14px;
-  font-size:10px;font-weight:800;letter-spacing:.08em;
-  transform:rotate(8deg);box-shadow:var(--shadow);
-}
+.portrait{position:relative}
+.shot{aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:#1c1c22;border:1px solid var(--line)}
+.shot img,.ph{width:100%;height:100%;object-fit:cover}
+.ph{display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",sans-serif;font-size:120px;background:linear-gradient(160deg,#141418,#3a2218)}
+.tag{position:absolute;font-size:10px;font-weight:800;letter-spacing:.12em;padding:8px 10px;background:#fff;color:#111}
+.tag.t{top:14px;left:14px}
+.tag.b{right:14px;bottom:14px;background:var(--accent);color:#fff}
+.badge{position:absolute;left:-12px;bottom:-12px;width:92px;height:92px;border-radius:50%;background:var(--bg);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;line-height:1.3}
+.chip{position:absolute;right:-10px;top:18%;background:var(--accent2);color:#111;padding:8px 10px;font-size:10px;font-weight:800;letter-spacing:.1em}
 
-.marquee{
-  margin:0 18px;border-radius:26px;background:#111;color:#fff;
-  overflow:hidden;white-space:nowrap;padding:20px 0;
-  box-shadow:0 20px 50px rgba(0,0,0,.18);
-}
-.marquee-track{display:inline-block;animation:marquee 26s linear infinite}
-.marquee-item{display:inline-block;margin:0 26px;font-size:12px;font-weight:700;letter-spacing:.2em}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{background:var(--accent);color:#fff;overflow:hidden;white-space:nowrap;padding:12px 0;margin:10px 0 0}
+.ticker-track{display:inline-block;animation:tick 22s linear infinite}
+.ticker-item{display:inline-block;margin:0 22px;font-family:"Bebas Neue",sans-serif;font-size:22px;letter-spacing:.12em}
+@keyframes tick{to{transform:translateX(-50%)}}
 
-.section{max-width:1440px;margin:auto;padding:120px 5%;position:relative;z-index:2}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:54px}
-.section-number{color:#9a968d;font-size:11px;letter-spacing:.25em;font-weight:700;text-transform:uppercase}
-.section-title{font-size:clamp(48px,6.8vw,92px);line-height:.88;letter-spacing:-.06em;margin-top:10px}
-.section-info{max-width:340px;color:var(--muted);line-height:1.7;font-size:14px}
+section{padding:88px 0 10px}
+.sec-k{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+.sec-t{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,88px);line-height:.88;margin:6px 0 10px}
+.sec-i{color:var(--muted);max-width:46ch}
 
-.work-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.filter{
-  border:1px solid var(--line);border-radius:100px;background:transparent;
-  padding:9px 15px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s;
-}
-.filter.active,.filter:hover{background:#111;color:#fff;border-color:#111}
-.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;perspective:1200px}
-.project{
-  background:var(--card);border:1px solid var(--line);border-radius:30px;
-  overflow:hidden;cursor:pointer;transition:.45s cubic-bezier(.2,.8,.2,1);
-  transform:rotateX(0) rotateY(0);
-}
-.project:hover{transform:translateY(-10px) rotateX(2deg);box-shadow:var(--shadow)}
-.project-image{aspect-ratio:16/10;overflow:hidden;background:#ddd}
-.project-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.filter{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 14px;font-size:11px;font-weight:800;letter-spacing:.08em;cursor:pointer}
+.filter.active,.filter:hover{background:#fff;color:#111;border-color:#fff}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.project{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;transition:.3s}
+.project:hover{transform:translateY(-6px);border-color:#555}
+.project-image{aspect-ratio:16/10;overflow:hidden;background:#222}
+.project-image img{width:100%;height:100%;object-fit:cover;transition:.5s}
 .project:hover img{transform:scale(1.06)}
-.project-info{padding:20px 22px 23px;display:flex;justify-content:space-between;gap:20px}
-.project-title{font-size:20px;font-weight:700}
-.project-tag{color:#888;font-size:10px;font-weight:800;letter-spacing:.12em;margin-top:5px}
-.project-arrow{
-  width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+.project-info{padding:14px 16px;display:flex;justify-content:space-between;gap:10px}
+.project-title{font-weight:800}
+.project-tag{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.12em;margin-top:4px}
 
-.services{background:#111;color:#fff;max-width:none;position:relative;overflow:hidden}
-.services:before{
-  content:"";position:absolute;width:500px;height:500px;border-radius:50%;
-  background:#b8943c;filter:blur(140px);opacity:.12;top:-160px;right:-80px;
-}
-.services-inner{max-width:1440px;margin:auto;padding:120px 5%;position:relative}
-.services .section-number{color:#777}
-.services .section-info{color:#9a9a9a}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;perspective:1200px}
-.service{
-  min-height:350px;padding:30px;border-radius:30px;background:#181818;
-  border:1px solid #2a2a2a;transition:.4s;display:flex;flex-direction:column;
-  transform-style:preserve-3d;
-}
-.service:hover{background:#222;transform:translateY(-8px) rotateX(3deg)}
-.service-number{color:#666;font-size:12px}
-.service h3{margin-top:auto;font-size:30px;line-height:1.05}
-.service p{color:#999;line-height:1.6;margin-top:18px;font-size:14px}
+.services{background:#050506;margin:60px calc(50% - 50vw);padding:80px 0}
+.services .wrap{width:min(1240px,calc(100% - 36px))}
+.svc-grid{display:grid;gap:0;margin-top:28px;border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:80px 1fr 1.2fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--line)}
+.svc-n{font-family:"Bebas Neue",sans-serif;font-size:28px;color:var(--accent)}
+.svc h3{font-family:"Bebas Neue",sans-serif;font-size:34px;letter-spacing:.02em}
+.svc p{color:var(--muted);line-height:1.7}
 
-.about-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:90px;align-items:center}
-.about-mark{
-  font-size:clamp(110px,17vw,250px);font-family:"Space Grotesk";
-  font-weight:700;letter-spacing:-.12em;line-height:.7;
-  background:linear-gradient(180deg,#111 20%,#bbb);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.about-text h2{font-size:clamp(40px,5vw,72px);line-height:.98;letter-spacing:-.055em}
-.about-text p{color:var(--muted);line-height:1.8;max-width:650px;margin-top:28px}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);
-  margin-top:34px;padding-top:24px;gap:20px;
-}
-.stat b{font-family:"Space Grotesk";font-size:40px}
-.stat span{display:block;margin-top:4px;color:#888;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.about{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}
+.mark{font-family:"Bebas Neue",sans-serif;font-size:clamp(110px,20vw,240px);line-height:.75;color:transparent;-webkit-text-stroke:1px #444}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.stat{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:10px}
+.stat b{display:block;font-family:"Bebas Neue",sans-serif;font-size:40px}
+.stat span{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 
-.tools{background:var(--bg-2)}
-.tools-grid{
-  max-width:1440px;margin:auto;padding:90px 5%;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
-}
-.tool{
-  background:var(--card);border:1px solid var(--line);border-radius:24px;
-  padding:28px;min-height:170px;transition:.35s;
-}
-.tool:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.tool strong{display:block;font-size:22px;margin-bottom:10px}
-.tool span{color:#888;font-size:12px}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tool{background:var(--card);border:1px solid var(--line);padding:20px;min-height:140px;border-radius:10px}
+.tool strong{display:block;font-size:18px;margin-bottom:8px}
+.tool span{color:var(--muted);font-size:13px}
 
-.contact{background:#ddd9cf}
-.contact-inner{
-  max-width:1440px;margin:auto;padding:120px 5%;
-  display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;
-}
-.contact-title{font-size:clamp(52px,6.8vw,96px);line-height:.86;letter-spacing:-.065em;margin-top:14px}
-.contact-copy{color:#777;line-height:1.7;margin-top:22px;max-width:400px}
-.contact-form{display:grid;gap:12px}
-.field{
-  width:100%;border:1px solid #c4bfb3;background:#ebe7dc;padding:18px;
-  border-radius:16px;outline:none;color:#111;
-}
-.field:focus{border-color:#111}
-textarea.field{resize:vertical;min-height:150px}
-.submit{
-  background:#111;color:#fff;border:0;padding:19px;border-radius:16px;
-  font-weight:700;cursor:pointer;transition:.3s;
-}
-.submit:hover{transform:translateY(-2px)}
+.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;margin-top:18px}
+.field,.admin-input,.admin-textarea,.admin-select{width:100%;border:1px solid var(--line);background:#101014;border-radius:10px;padding:13px;outline:none}
+.field:focus,.admin-input:focus,.admin-textarea:focus{border-color:var(--accent)}
+.contact-form{display:grid;gap:10px}
+.submit,.admin-save{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:14px;font-weight:800;letter-spacing:.08em;cursor:pointer}
+.form-status{min-height:18px;font-size:13px;color:#8fd18f}
+.form-status.err{color:#ff8a7a}
+.honeypot{position:absolute;left:-9999px;opacity:0;height:0}
 
-footer{background:#0b0b0b;color:#fff;padding:38px 5%}
-.footer-inner{
-  max-width:1440px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:30px;
-}
-.footer-logo{font-family:"Space Grotesk";font-size:20px;font-weight:700}
-.footer-links{display:flex;gap:20px;color:#999;font-size:12px}
-.footer-copy{color:#555;font-size:11px}
+footer{margin-top:50px;padding:22px 0 40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.footer-links{display:flex;gap:16px}
 
-.reveal{opacity:0;transform:translateY(28px);transition:.8s ease}
+.preview{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:20px}
+.preview.open{display:flex}
+.preview-box{max-width:1100px;width:100%}
+.preview-close{width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#111;cursor:pointer;float:right;margin-bottom:10px}
+.preview-image{width:100%;max-height:78vh;object-fit:contain;clear:both}
+.preview-title{margin-top:12px;font-weight:800}
+
+.login-overlay,.admin-overlay{position:fixed;inset:0;z-index:5000;display:none;overflow:auto}
+.login-overlay{z-index:6000;background:rgba(0,0,0,.72);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px}
+.login-overlay.open,.admin-overlay.open{display:flex}
+.admin-overlay{background:#0b0b0e;color:var(--text);flex-direction:column}
+.login-box{width:100%;max-width:400px;background:#16161c;border:1px solid var(--line);border-radius:18px;padding:24px}
+.login-box h2{font-family:"Bebas Neue",sans-serif;font-size:48px;margin:6px 0 14px}
+.login-error{color:#ff8a7a;font-size:12px;margin:6px 0;display:none}
+.admin-wrap{max-width:1200px;margin:auto;padding:16px 16px 70px;width:100%}
+.admin-top{position:sticky;top:10px;z-index:20;background:rgba(16,16,20,.94);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.admin-brand{font-family:"Bebas Neue",sans-serif;font-size:24px}
+.admin-brand small{display:block;font-family:Manrope;font-size:9px;letter-spacing:.16em;color:#888}
+.admin-actions{display:flex;gap:6px;flex-wrap:wrap}
+.admin-btn{border:1px solid #444;background:transparent;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.admin-btn.solid{background:var(--accent);border-color:var(--accent)}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.admin-card{background:#141418;border:1px solid var(--line);border-radius:16px;padding:16px}
+.admin-card.full{grid-column:1/-1}
+.admin-card h3{margin-bottom:12px}
+.admin-card h3 span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#888;margin-bottom:4px}
+.admin-field{margin-bottom:10px}
+.admin-field label{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:5px}
+.admin-textarea{min-height:84px;resize:vertical}
+.upload-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.upload-label{display:flex;align-items:center;justify-content:center;min-height:70px;border:1px dashed #444;border-radius:10px;cursor:pointer;color:#888;font-size:11px;font-weight:800;text-align:center}
+.upload-label input{display:none}
+.admin-projects{display:grid;gap:8px;margin-top:12px}
+.admin-project{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:10px;padding:8px;background:#101014;border:1px solid var(--line);border-radius:12px}
+.admin-project img{width:84px;height:56px;object-fit:cover;border-radius:8px;background:#222}
+.delete-btn{border:1px solid #633;color:#f6a;background:#1a0d0d;border-radius:8px;padding:8px;cursor:pointer;font-size:10px;font-weight:800}
+.admin-note{background:#101014;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#aaa;margin-bottom:10px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,16px);background:#fff;color:#111;padding:12px 18px;border-radius:999px;z-index:99999;opacity:0;pointer-events:none;transition:.3s;font-size:12px;font-weight:800;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(16px);transition:.6s}
 .reveal.show{opacity:1;transform:none}
 
-.preview{
-  position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.94);
-  display:none;align-items:center;justify-content:center;padding:25px;
-}
-.preview.open{display:flex}
-.preview-box{max-width:1100px;width:100%;max-height:95vh}
-.preview-close{
-  width:45px;height:45px;border:0;border-radius:50%;background:#fff;
-  cursor:pointer;font-size:20px;float:right;margin-bottom:12px;
-}
-.preview-image{width:100%;max-height:78vh;object-fit:contain;border-radius:20px;clear:both}
-.preview-title{color:#fff;font-size:22px;font-weight:700;margin-top:15px}
-
-.login-overlay,.admin-overlay{
-  position:fixed;inset:0;z-index:5000;display:none;overflow:auto;
-}
-.login-overlay{
-  z-index:6000;background:rgba(11,11,11,.72);backdrop-filter:blur(16px);
-  align-items:center;justify-content:center;padding:20px;
-}
-.login-overlay.open,.admin-overlay.open{display:flex}
-.admin-overlay{
-  background:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px),
-    var(--bg);
-  background-size:72px 72px,72px 72px,auto;
-  color:var(--text);flex-direction:column;
-}
-.login-box{
-  width:100%;max-width:420px;background:var(--card);
-  border:1px solid var(--line);color:var(--text);
-  border-radius:32px;padding:32px;box-shadow:var(--shadow);
-  transform:rotateX(2deg);
-}
-.login-box h2{font-size:42px;margin:8px 0 22px}
-.login-close,.admin-x{
-  float:right;border:0;background:none;cursor:pointer;font-size:22px;
-}
-.login-error{color:#b42318;font-size:12px;margin:6px 0;display:none}
-
-.admin-wrap{max-width:1440px;margin:auto;padding:24px 4% 80px;width:100%}
-.admin-top{
-  position:sticky;top:14px;z-index:20;
-  background:rgba(239,236,229,.88);backdrop-filter:blur(18px);
-  border:1px solid var(--line);border-radius:24px;
-  padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.06);
-}
-.admin-brand{font-family:"Space Grotesk";font-weight:700;font-size:22px}
-.admin-brand small{
-  display:block;color:#7a766e;font-family:"DM Sans";font-size:9px;
-  letter-spacing:.2em;margin-top:4px;
-}
-.admin-actions{display:flex;gap:8px;flex-wrap:wrap}
-.admin-btn{
-  border:1px solid #111;color:#111;background:transparent;border-radius:100px;
-  padding:10px 16px;font-size:11px;font-weight:700;cursor:pointer;transition:.25s;
-}
-.admin-btn:hover,.admin-btn.solid{background:#111;color:#fff}
-.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;perspective:1400px}
-.admin-card{
-  background:var(--card);border:1px solid var(--line);border-radius:28px;
-  padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.04);
-  transition:.35s;
-}
-.admin-card:hover{transform:translateY(-4px)}
-.admin-card.full{grid-column:1/-1}
-.admin-card h3{font-size:22px;margin-bottom:18px}
-.admin-card h3 span{
-  display:block;font-family:"DM Sans";color:#8a867e;font-size:9px;
-  letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px;
-}
-.admin-field{margin-bottom:12px}
-.admin-field label{
-  display:block;color:#7a766e;font-size:10px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;
-}
-.admin-input,.admin-textarea,.admin-select{
-  width:100%;border:1px solid var(--line);border-radius:14px;
-  background:#f3efe6;color:#111;padding:13px;outline:none;
-}
-.admin-input:focus,.admin-textarea:focus,.admin-select:focus{border-color:#111;background:#fff}
-.admin-textarea{min-height:96px;resize:vertical}
-.admin-save{
-  width:100%;background:#111;color:#fff;border:0;border-radius:14px;
-  padding:15px;font-weight:800;cursor:pointer;margin-top:6px;
-}
-.admin-save:hover{background:#000}
-.upload-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.upload-label{
-  display:flex;align-items:center;justify-content:center;min-height:80px;
-  border:1px dashed #b7b1a4;border-radius:15px;cursor:pointer;color:#888;
-  text-align:center;font-size:11px;font-weight:700;
-}
-.upload-label:hover{border-color:#111;color:#111}
-.upload-label input{display:none}
-.admin-projects{display:grid;gap:10px;margin-top:14px}
-.admin-project{
-  display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px;
-  padding:10px;background:#f3efe6;border:1px solid var(--line);border-radius:16px;
-}
-.admin-project img{width:84px;height:56px;object-fit:cover;border-radius:10px;background:#ddd}
-.admin-project-info strong{display:block;font-size:13px}
-.admin-project-info small{color:#777}
-.delete-btn{
-  border:1px solid #e4b4b0;color:#9a2a22;background:#fff6f5;
-  border-radius:10px;padding:8px 10px;cursor:pointer;font-size:10px;font-weight:700;
-}
-
-.toast{
-  position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);
-  background:#111;color:#fff;border:1px solid #333;padding:13px 20px;
-  border-radius:100px;z-index:99999;opacity:0;pointer-events:none;
-  transition:.3s;font-size:12px;font-weight:700;max-width:90%;text-align:center;
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.form-status{
-  min-height:22px;font-size:13px;font-weight:600;color:#3d6b3d;
-}
-.form-status.err{color:#9a2a22}
-.honeypot{position:absolute;left:-9999px;opacity:0;height:0;width:0}
-.admin-note{
-  background:#f3efe6;border:1px solid var(--line);border-radius:14px;
-  padding:12px 14px;font-size:12px;line-height:1.55;color:#5c584f;margin-bottom:12px;
-}
-
 @media(max-width:900px){
-  .nav-links{display:none}
-  .menu{display:block}
-  .nav-btn{display:none}
-  .hero{padding-top:120px}
-  .hero-inner,.about-grid,.contact-inner,.admin-grid{grid-template-columns:1fr}
-  .hero-title{font-size:16vw}
-  .hero-art{max-width:420px;margin:auto}
-  .section,.services-inner,.contact-inner{padding:86px 5%}
-  .section-head{display:block;margin-bottom:36px}
-  .section-info{margin-top:16px}
-  .work-grid,.services-grid{grid-template-columns:1fr}
-  .tools-grid{grid-template-columns:1fr 1fr;padding:70px 5%}
-  .about-mark{font-size:34vw}
-  .footer-inner{flex-direction:column;align-items:flex-start}
-  .admin-card.full{grid-column:auto}
-}
-@media(max-width:500px){
-  .hero-buttons{flex-direction:column}
-  .hero-buttons .btn{justify-content:center}
-  .round-badge{width:90px;height:90px;left:-8px;bottom:-18px;font-size:8px}
+  .nav-links{display:none}.menu{display:block}.nav-btn{display:none}
+  .hero,.about,.contact-box,.admin-grid,.work-grid,.tools-grid{grid-template-columns:1fr}
+  .svc{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
-  .tools-grid{grid-template-columns:1fr}
-  .upload-row{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .stats,.upload-row{grid-template-columns:1fr}
   .admin-project{grid-template-columns:64px 1fr}
   .delete-btn{grid-column:2;justify-self:start}
+  .actions{flex-direction:column}
 }
 </style>
 </head>
 <body>
-<div class="noise"></div>
-<div class="orb a"></div>
-<div class="orb b"></div>
-<div class="orb c"></div>
-<div class="loader" id="loader">
-  <div class="loader-inner">
-    <div class="loader-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    <div class="loader-logo">ZAID/RAZA</div>
-    <div class="loader-line"><i></i></div>
-  </div>
-</div>
-<div class="cursor" id="cursor"></div>
-
+<div class="loader" id="loader"><b>ZAID RAZA</b><span><i></i></span></div>
 <nav class="nav" id="nav">
-  <div class="nav-inner">
-    <div class="logo" id="siteLogo" title="Studio">
-      <span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA
-    </div>
+  <div class="wrap nav-in">
+    <div class="logo"><span id="logoZaid">ZAID</span><em> RAZA</em></div>
     <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
     </div>
-    <a class="nav-btn" href="#contact">Let's talk ↗</a>
+    <a class="nav-btn" href="#contact">Let's talk</a>
     <button class="menu" id="mobileMenu" aria-label="Menu">☰</button>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-inner">
+<main class="wrap">
+  <header class="hero">
     <div class="reveal">
-      <div class="eyebrow" id="heroEyebrow">Graphic Designer · Visual Creator</div>
-      <h1 class="hero-title" id="heroTitle">I MAKE<br><span class="italic">VISUALS</span><br>MOVE.</h1>
-      <p class="hero-description" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.</p>
-      <div class="hero-buttons">
-        <a class="btn btn-dark" href="#work">Explore my work ↓</a>
-        <a class="btn" href="#contact">Start a project ↗</a>
+      <div class="kicker" id="heroEyebrow">Graphic Designer · Visual Creator</div>
+      <h1 id="heroTitle">I MAKE<br><i>VISUALS</i><br>MOVE.</h1>
+      <p class="lead" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.</p>
+      <div class="actions">
+        <a class="btn btn-hot" href="#work">Explore work</a>
+        <a class="btn" href="#contact">Start a project</a>
       </div>
     </div>
-    <div class="hero-art reveal">
-      <div class="stage3d">
-        <div class="art-frame" id="profileFrame">
-          <div class="art-placeholder" id="profilePlaceholder">ZR</div>
-          <img id="profileImage" style="display:none" alt="Zaid Raza">
-          <div class="art-tag top" id="tagTop">BASED IN INDIA</div>
-          <div class="art-tag bottom" id="tagBottom">AVAILABLE ↗</div>
-        </div>
-        <div class="round-badge" id="roundBadge">DESIGN<br>WITH<br>INTENT</div>
-        <div class="float-chip" id="floatChip">3D STUDIO</div>
+    <div class="portrait reveal">
+      <div class="shot">
+        <div class="ph" id="profilePlaceholder">ZR</div>
+        <img id="profileImage" alt="Zaid Raza" style="display:none">
+        <div class="tag t" id="tagTop">BASED IN INDIA</div>
+        <div class="tag b" id="tagBottom">AVAILABLE ↗</div>
       </div>
+      <div class="badge" id="roundBadge">DESIGN<br>WITH<br>INTENT</div>
+      <div class="chip" id="floatChip">STUDIO</div>
     </div>
-  </div>
-</header>
+  </header>
+</main>
+<div class="ticker"><div class="ticker-track" id="marqueeTrack"></div></div>
 
-<div class="marquee">
-  <div class="marquee-track" id="marqueeTrack"></div>
-</div>
-
-<section class="section" id="work">
-  <div class="section-head reveal">
-    <div>
-      <div class="section-number">01 / Selected Work</div>
-      <h2 class="section-title">The work.</h2>
-    </div>
-    <p class="section-info" id="workInfo">A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.</p>
-  </div>
-  <div class="work-filter" id="workFilter"></div>
-  <div class="work-grid" id="workGrid"></div>
-</section>
+<main class="wrap">
+  <section id="work">
+    <div class="sec-k">01 / Selected Work</div>
+    <h2 class="sec-t">The work.</h2>
+    <p class="sec-i" id="workInfo">A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.</p>
+    <div class="filters" id="workFilter"></div>
+    <div class="work-grid" id="workGrid"></div>
+  </section>
+</main>
 
 <section class="services" id="services">
-  <div class="services-inner">
-    <div class="section-head reveal">
-      <div>
-        <div class="section-number">02 / Services</div>
-        <h2 class="section-title">What I do.</h2>
-      </div>
-      <p class="section-info" id="servicesInfo">Design focused on attention, clarity and strong visual communication.</p>
-    </div>
-    <div class="services-grid" id="servicesGrid"></div>
+  <div class="wrap">
+    <div class="sec-k">02 / Services</div>
+    <h2 class="sec-t">What I do.</h2>
+    <p class="sec-i" id="servicesInfo">Design focused on attention, clarity and strong visual communication.</p>
+    <div class="svc-grid" id="servicesGrid"></div>
   </div>
 </section>
 
-<section class="section" id="about">
-  <div class="about-grid">
-    <div class="reveal"><div class="about-mark" id="aboutMark">ZR.</div></div>
-    <div class="about-text reveal">
-      <div class="section-number">03 / About</div>
-      <h2 id="aboutTitle">Design isn't decoration.<br><span class="italic">It's communication.</span></h2>
-      <p id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.</p>
-      <div class="stats">
-        <div class="stat"><b id="stat1">2+</b><span id="stat1Label">Years creating</span></div>
-        <div class="stat"><b id="stat2">50+</b><span id="stat2Label">Projects</span></div>
-        <div class="stat"><b id="stat3">24H</b><span id="stat3Label">Response</span></div>
+<main class="wrap">
+  <section id="about">
+    <div class="about">
+      <div class="reveal"><div class="mark" id="aboutMark">ZR.</div></div>
+      <div class="reveal">
+        <div class="sec-k">03 / About</div>
+        <h2 class="sec-t" id="aboutTitle">Design isn't decoration.<br>It's communication.</h2>
+        <p class="lead" id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.</p>
+        <div class="stats">
+          <div class="stat"><b id="stat1">2+</b><span id="stat1Label">Years creating</span></div>
+          <div class="stat"><b id="stat2">50+</b><span id="stat2Label">Projects</span></div>
+          <div class="stat"><b id="stat3">24H</b><span id="stat3Label">Response</span></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="tools">
-  <div class="tools-grid" id="toolsGrid"></div>
-</section>
-
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="reveal">
-      <div class="section-number">04 / Contact</div>
-      <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
-      <p class="contact-copy" id="contactText">Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.</p>
+  </section>
+  <section><div class="tools-grid" id="toolsGrid"></div></section>
+  <section id="contact">
+    <div class="sec-k">04 / Contact</div>
+    <h2 class="sec-t">Let's make something stand out.</h2>
+    <div class="contact-box">
+      <p class="lead" id="contactText">Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.</p>
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
+        <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+        <input class="field" required name="name" id="cName" placeholder="Your name *">
+        <input class="field" required type="email" name="email" id="cEmail" placeholder="Email address *">
+        <input class="field" name="project" id="cProject" placeholder="What do you need?">
+        <textarea class="field" required name="message" id="cMessage" placeholder="Tell me about your project..." style="min-height:120px"></textarea>
+        <button class="submit" type="submit" id="sendBtn">SEND INQUIRY</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
     </div>
-    <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
-      <input type="hidden" name="_url" value="https://zaidraza.studio/contact">
-      <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
-      <input class="field" required name="name" id="cName" placeholder="Your name *">
-      <input class="field" required type="email" name="email" id="cEmail" placeholder="Email address *">
-      <input class="field" name="project" id="cProject" placeholder="What do you need?">
-      <textarea class="field" required name="message" id="cMessage" placeholder="Tell me about your project..."></textarea>
-      <button class="submit" type="submit" id="sendBtn">SEND INQUIRY ↗</button>
-      <div class="form-status" id="formStatus"></div>
-    </form>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZAID/RAZA</div>
+  </section>
+  <footer>
+    <div>ZAID RAZA</div>
     <div class="footer-links">
       <a id="instagramLink" href="#" target="_blank" rel="noopener">Instagram</a>
       <a id="behanceLink" href="#" target="_blank" rel="noopener">Behance</a>
       <a id="youtubeLink" href="#" target="_blank" rel="noopener">YouTube</a>
     </div>
-    <div class="footer-copy" id="footerCopy">© 2026 — VISUAL DESIGNER</div>
-  </div>
-</footer>
+    <div id="footerCopy">© 2026 — VISUAL DESIGNER</div>
+  </footer>
+</main>
 
-<div class="preview" id="preview">
-  <div class="preview-box">
-    <button class="preview-close" id="previewClose">×</button>
-    <img class="preview-image" id="previewImage" alt="">
-    <div class="preview-title" id="previewTitle"></div>
-  </div>
-</div>
-
+<div class="preview" id="preview"><div class="preview-box"><button class="preview-close" id="previewClose">×</button><img class="preview-image" id="previewImage" alt=""><div class="preview-title" id="previewTitle"></div></div></div>
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
-    <button class="login-close" id="loginClose">×</button>
-    <div class="eyebrow">Private Access</div>
+    <button id="loginClose" style="float:right;border:0;background:none;color:#fff;font-size:22px;cursor:pointer">×</button>
+    <div class="kicker">Private Access</div>
     <h2>Admin.</h2>
-    <p style="color:var(--muted);margin:-8px 0 18px;font-size:14px">Studio control room. Same look as the site — edit every section.</p>
-    <input class="admin-input" id="loginUser" placeholder="Username" autocomplete="username" style="margin-bottom:10px">
-    <input class="admin-input" id="loginPass" type="password" placeholder="Password" autocomplete="current-password">
+    <input class="admin-input" id="loginUser" placeholder="Username" style="margin-bottom:8px">
+    <input class="admin-input" id="loginPass" type="password" placeholder="Password">
     <div class="login-error" id="loginError">Invalid username or password.</div>
-    <button class="admin-save" id="loginButton">ENTER DASHBOARD</button>
+    <button class="admin-save" id="loginButton">ENTER</button>
   </div>
 </div>
-
 <div class="admin-overlay" id="adminOverlay">
   <div class="admin-wrap">
     <div class="admin-top">
-      <div class="admin-brand">ZAID/RAZA<small>3D STUDIO CONTROL CENTER</small></div>
+      <div class="admin-brand">ZAID RAZA<small>SAVE ALL = LIVE</small></div>
       <div class="admin-actions">
         <button class="admin-btn solid" id="saveAllBtn">SAVE ALL & VIEW</button>
         <button class="admin-btn" id="previewSite">VIEW WEBSITE</button>
@@ -631,926 +304,412 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
       </div>
     </div>
     <div class="admin-grid">
-      <div class="admin-card">
-        <h3><span>01</span>Hero Section</h3>
-        <div class="admin-field"><label>Small Label</label><input class="admin-input" id="aEyebrow"></div>
-        <div class="admin-field"><label>Main Headline</label><textarea class="admin-textarea" id="aTitle"></textarea></div>
+      <div class="admin-card full">
+        <h3><span>00</span>Save</h3>
+        <div class="admin-note">SAVE ALL dabaao. Isi phone par refresh ke baad bhi rahega. Internet on ho to doosri devices bhi yahi latest version dekhenge.</div>
+        <p id="cloudStatus" style="font-size:12px;color:#8fd18f">Ready.</p>
+      </div>
+      <div class="admin-card"><h3><span>01</span>Hero</h3>
+        <div class="admin-field"><label>Label</label><input class="admin-input" id="aEyebrow"></div>
+        <div class="admin-field"><label>Headline</label><textarea class="admin-textarea" id="aTitle"></textarea></div>
         <div class="admin-field"><label>Description</label><textarea class="admin-textarea" id="aDescription"></textarea></div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Top Tag</label><input class="admin-input" id="aTagTop"></div>
-          <div class="admin-field"><label>Bottom Tag</label><input class="admin-input" id="aTagBottom"></div>
-        </div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Round Badge</label><textarea class="admin-textarea" id="aBadge" style="min-height:70px"></textarea></div>
-          <div class="admin-field"><label>Floating Chip</label><input class="admin-input" id="aChip"></div>
-        </div>
-        <div class="admin-field">
-          <label>Profile Photo</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="profileUpload" accept="image/*">UPLOAD PHOTO</label>
-            <input class="admin-input" id="profileUrl" placeholder="Or paste image URL">
-          </div>
-        </div>
+        <div class="upload-row"><div class="admin-field"><label>Top tag</label><input class="admin-input" id="aTagTop"></div><div class="admin-field"><label>Bottom tag</label><input class="admin-input" id="aTagBottom"></div></div>
+        <div class="upload-row"><div class="admin-field"><label>Badge</label><textarea class="admin-textarea" id="aBadge" style="min-height:70px"></textarea></div><div class="admin-field"><label>Chip</label><input class="admin-input" id="aChip"></div></div>
+        <div class="admin-field"><label>Profile photo</label><div class="upload-row"><label class="upload-label"><input type="file" id="profileUpload" accept="image/*">UPLOAD</label><input class="admin-input" id="profileUrl" placeholder="Or image URL"></div></div>
         <button class="admin-save" id="saveHero">SAVE HERO</button>
       </div>
-
-      <div class="admin-card">
-        <h3><span>02</span>About Section</h3>
-        <div class="admin-field"><label>Giant Mark</label><input class="admin-input" id="aAboutMark"></div>
+      <div class="admin-card"><h3><span>02</span>About</h3>
+        <div class="admin-field"><label>Mark</label><input class="admin-input" id="aAboutMark"></div>
         <div class="admin-field"><label>Heading</label><textarea class="admin-textarea" id="aAboutTitle"></textarea></div>
-        <div class="admin-field"><label>About Text</label><textarea class="admin-textarea" id="aAboutText"></textarea></div>
+        <div class="admin-field"><label>About text</label><textarea class="admin-textarea" id="aAboutText"></textarea></div>
         <div class="upload-row">
           <div class="admin-field"><label>Stat 1</label><input class="admin-input" id="aStat1"></div>
-          <div class="admin-field"><label>Stat 1 Label</label><input class="admin-input" id="aStat1Label"></div>
+          <div class="admin-field"><label>Stat 1 label</label><input class="admin-input" id="aStat1Label"></div>
           <div class="admin-field"><label>Stat 2</label><input class="admin-input" id="aStat2"></div>
-          <div class="admin-field"><label>Stat 2 Label</label><input class="admin-input" id="aStat2Label"></div>
+          <div class="admin-field"><label>Stat 2 label</label><input class="admin-input" id="aStat2Label"></div>
           <div class="admin-field"><label>Stat 3</label><input class="admin-input" id="aStat3"></div>
-          <div class="admin-field"><label>Stat 3 Label</label><input class="admin-input" id="aStat3Label"></div>
+          <div class="admin-field"><label>Stat 3 label</label><input class="admin-input" id="aStat3Label"></div>
         </div>
         <button class="admin-save" id="saveAbout">SAVE ABOUT</button>
       </div>
-
-      <div class="admin-card">
-        <h3><span>03</span>Services</h3>
-        <div class="admin-field"><label>Section intro</label><textarea class="admin-textarea" id="aServicesInfo"></textarea></div>
+      <div class="admin-card"><h3><span>03</span>Services</h3>
+        <div class="admin-field"><label>Intro</label><textarea class="admin-textarea" id="aServicesInfo"></textarea></div>
         <div id="serviceEditor"></div>
         <button class="admin-save" id="saveServices">SAVE SERVICES</button>
       </div>
-
-      <div class="admin-card">
-        <h3><span>04</span>Contact & Socials</h3>
-        <div class="admin-field"><label>Contact Description</label><textarea class="admin-textarea" id="aContactText"></textarea></div>
-        <div class="admin-field"><label>Instagram URL</label><input class="admin-input" id="aInstagram"></div>
-        <div class="admin-field"><label>Behance URL</label><input class="admin-input" id="aBehance"></div>
-        <div class="admin-field"><label>YouTube URL</label><input class="admin-input" id="aYoutube"></div>
-        <div class="admin-field"><label>Footer line</label><input class="admin-input" id="aFooter"></div>
-        <div class="admin-field"><label>Gmail that receives form messages</label><input class="admin-input" id="aContactEmail" placeholder="you@gmail.com"></div>
-        <div class="admin-note" id="mailHelp">
-          Messages go to the Gmail above. The first test sends an activation mail from FormSubmit — open Gmail (and Spam), then click Activate. After that, new inquiries arrive in Inbox.
-        </div>
+      <div class="admin-card"><h3><span>04</span>Contact</h3>
+        <div class="admin-field"><label>Contact text</label><textarea class="admin-textarea" id="aContactText"></textarea></div>
+        <div class="admin-field"><label>Instagram</label><input class="admin-input" id="aInstagram"></div>
+        <div class="admin-field"><label>Behance</label><input class="admin-input" id="aBehance"></div>
+        <div class="admin-field"><label>YouTube</label><input class="admin-input" id="aYoutube"></div>
+        <div class="admin-field"><label>Footer</label><input class="admin-input" id="aFooter"></div>
+        <div class="admin-field"><label>Gmail</label><input class="admin-input" id="aContactEmail"></div>
         <button class="admin-save" id="saveContact">SAVE CONTACT</button>
       </div>
-
-      <div class="admin-card">
-        <h3><span>05</span>Tools & Marquee</h3>
-        <div class="admin-field"><label>Marquee items (comma separated)</label><textarea class="admin-textarea" id="aMarquee"></textarea></div>
+      <div class="admin-card"><h3><span>05</span>Tools</h3>
+        <div class="admin-field"><label>Marquee (comma)</label><textarea class="admin-textarea" id="aMarquee"></textarea></div>
         <div id="toolEditor"></div>
-        <button class="admin-save" id="saveTools">SAVE TOOLS & MARQUEE</button>
+        <button class="admin-save" id="saveTools">SAVE TOOLS</button>
       </div>
-
-      <div class="admin-card">
-        <h3><span>06</span>Work intro & filters</h3>
-        <div class="admin-field"><label>Work section text</label><textarea class="admin-textarea" id="aWorkInfo"></textarea></div>
-        <div class="admin-field"><label>Filter tags (comma separated)</label><input class="admin-input" id="aFilters"></div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 12px">ALL is always included. Use the same tags when adding projects.</p>
-        <button class="admin-save" id="saveWork">SAVE WORK SECTION</button>
+      <div class="admin-card"><h3><span>06</span>Work intro</h3>
+        <div class="admin-field"><label>Work text</label><textarea class="admin-textarea" id="aWorkInfo"></textarea></div>
+        <div class="admin-field"><label>Filters (comma)</label><input class="admin-input" id="aFilters"></div>
+        <button class="admin-save" id="saveWork">SAVE WORK</button>
       </div>
-
-      <div class="admin-card full">
-        <h3><span>00</span>Live website</h3>
-        <div class="admin-note">
-          Sirf <b>SAVE ALL & VIEW</b> dabaao. Jo bhi is HTML file ko kholega — client, doosra phone, laptop — use wahi latest site dikhegi.
-          Badi photos ke liye image URL lagana better hai.
-        </div>
-        <p id="cloudStatus" style="margin-top:6px;font-size:12px;color:#5c584f">Saving goes live for everyone.</p>
-      </div>
-      <div class="admin-card full">
-        <h3><span>07</span>Portfolio Manager</h3>
-        <div class="admin-note">
-          Upload the poster or thumbnail, type a title, pick a category, then press <b>+ ADD PROJECT</b>.
-          It saves immediately. Then press <b>SAVE ALL & VIEW</b> and open Work → ALL to see it.
-        </div>
+      <div class="admin-card full"><h3><span>07</span>Portfolio</h3>
+        <div class="admin-note">Title + image, then + ADD PROJECT, then SAVE ALL & VIEW.</div>
         <div class="upload-row">
-          <div class="admin-field"><label>Project Title</label><input class="admin-input" id="pTitle" placeholder="Example: YouTube Thumbnail"></div>
-          <div class="admin-field"><label>Category</label>
-            <select class="admin-select" id="pTag"></select>
-            <input class="admin-input" id="pTagCustom" placeholder="Or type a new category" style="margin-top:8px">
-          </div>
+          <div class="admin-field"><label>Title</label><input class="admin-input" id="pTitle"></div>
+          <div class="admin-field"><label>Category</label><select class="admin-select" id="pTag"></select><input class="admin-input" id="pTagCustom" placeholder="Or new category" style="margin-top:8px"></div>
         </div>
-        <div class="admin-field">
-          <label>Project Image</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="projectUpload" accept="image/*">UPLOAD POSTER / THUMBNAIL</label>
-            <input class="admin-input" id="pImage" placeholder="Or paste image URL">
-          </div>
-          <img id="projectPreview" alt="" style="display:none;margin-top:10px;max-height:140px;border-radius:14px;border:1px solid var(--line)">
-        </div>
+        <div class="admin-field"><label>Image</label><div class="upload-row"><label class="upload-label"><input type="file" id="projectUpload" accept="image/*">UPLOAD</label><input class="admin-input" id="pImage" placeholder="Or image URL"></div>
+        <img id="projectPreview" alt="" style="display:none;margin-top:10px;max-height:140px;border-radius:10px"></div>
         <button class="admin-save" id="addProject" type="button">+ ADD PROJECT</button>
         <div class="admin-projects" id="adminProjects"></div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="toast" id="toast">Saved successfully</div>
-
+<div class="toast" id="toast">Saved</div>
 <script>
 "use strict";
+const ADMIN_USERNAME="ZAIDX9119";
+const ADMIN_PASSWORD="Zaid@9119";
+const LS_KEY="zaidLiveV7";
+const IDB_NAME="zaidLiveDB7";
+const IDB_STORE="store";
+const CLOUD_URL="https://crudcrud.com/api/4eb6d471fe2744f5bbbe7d277ac476f8/site/6aa12ce7c5140303e80bad6f";
 
-const ADMIN_USERNAME = "ZAIDX9119";
-const ADMIN_PASSWORD = "Zaid@9119";
-
-function makeImage(text, sub){
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111"/><stop offset="1" stop-color="#6a5a32"/></linearGradient></defs>
-<rect width="1600" height="1000" fill="url(#g)"/>
-<circle cx="1260" cy="220" r="250" fill="#fff" opacity=".08"/>
-<circle cx="280" cy="800" r="350" fill="#b8943c" opacity=".16"/>
-<text x="90" y="690" fill="white" font-family="Arial" font-weight="700" font-size="100">${text}</text>
-<text x="95" y="770" fill="#ddd" font-family="Arial" font-size="34" letter-spacing="8">${sub}</text>
-</svg>`;
-  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+function makeImage(text,sub){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000"><rect width="1600" height="1000" fill="#141418"/><text x="80" y="700" fill="white" font-family="Arial" font-size="90">${text}</text><text x="80" y="780" fill="#ff4d1c" font-family="Arial" font-size="32">${sub}</text></svg>`;
+  return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
 }
-
-const BAKED_STAMP = "baked-1";
-const defaultData = {
+const defaultData={
+  updated:0,
   eyebrow:"Graphic Designer · Visual Creator",
   title:"I MAKE\nVISUALS\nMOVE.",
   description:"I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.",
-  profile:"",
-  tagTop:"BASED IN INDIA",
-  tagBottom:"AVAILABLE ↗",
-  badge:"DESIGN\nWITH\nINTENT",
-  chip:"3D STUDIO",
-  aboutMark:"ZR.",
-  aboutTitle:"Design isn't decoration.\nIt's communication.",
+  profile:"", tagTop:"BASED IN INDIA", tagBottom:"AVAILABLE ↗",
+  badge:"DESIGN\nWITH\nINTENT", chip:"STUDIO",
+  aboutMark:"ZR.", aboutTitle:"Design isn't decoration.\nIt's communication.",
   aboutText:"I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.",
-  stat1:"2+", stat1Label:"Years creating",
-  stat2:"50+", stat2Label:"Projects",
-  stat3:"24H", stat3Label:"Response",
+  stat1:"2+", stat1Label:"Years creating", stat2:"50+", stat2Label:"Projects", stat3:"24H", stat3Label:"Response",
   workInfo:"A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.",
   servicesInfo:"Design focused on attention, clarity and strong visual communication.",
   contactText:"Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.",
-  instagram:"", behance:"", youtube:"",
-  footerCopy:"© 2026 — VISUAL DESIGNER",
+  instagram:"", behance:"", youtube:"", footerCopy:"© 2026 — VISUAL DESIGNER",
   contactEmail:"mdzaidraza9119@gmail.com",
   filters:["YOUTUBE","THUMBNAIL","GAMING","SOCIAL","POSTER"],
   marquee:["THUMBNAILS","YOUTUBE","POSTERS","SOCIAL MEDIA","GAMING","BRANDING","VISUAL STORYTELLING"],
-  tools:[
-    {title:"Photoshop", text:"Advanced visual composition"},
-    {title:"Canva", text:"Fast creative design"},
-    {title:"CapCut", text:"Motion & video content"},
-    {title:"Creative AI", text:"Concept development"}
-  ],
+  tools:[{title:"Photoshop",text:"Advanced visual composition"},{title:"Canva",text:"Fast creative design"},{title:"CapCut",text:"Motion & video content"},{title:"Creative AI",text:"Concept development"}],
   services:[
-    {number:"01", title:"YouTube Thumbnails", text:"Bold composition, strong hierarchy and visual storytelling designed to make viewers stop scrolling."},
-    {number:"02", title:"Social Visuals", text:"Clean, recognizable graphics for reels, posts, campaigns, events and digital brands."},
-    {number:"03", title:"Creative Direction", text:"From the first idea to the final frame, I help shape a visual direction that makes sense."}
+    {number:"01",title:"YouTube Thumbnails",text:"Bold composition, strong hierarchy and visual storytelling designed to make viewers stop scrolling."},
+    {number:"02",title:"Social Visuals",text:"Clean, recognizable graphics for reels, posts, campaigns, events and digital brands."},
+    {number:"03",title:"Creative Direction",text:"From the first idea to the final frame, I help shape a visual direction that makes sense."}
   ],
   projects:[
-    {title:"Cinematic Visual", tag:"YOUTUBE", img:makeImage("CINEMATIC","VISUAL CONCEPT")},
-    {title:"Gaming Energy", tag:"GAMING", img:makeImage("GAMING","HIGH ENERGY")},
-    {title:"Social Campaign", tag:"SOCIAL", img:makeImage("SOCIAL","CREATIVE CAMPAIGN")},
-    {title:"Creative Poster", tag:"POSTER", img:makeImage("POSTER","VISUAL DESIGN")},
-    {title:"YouTube Story", tag:"YOUTUBE", img:makeImage("STORY","DIGITAL STORYTELLING")},
-    {title:"Gaming Concept", tag:"GAMING", img:makeImage("PLAY","GAMING CONCEPT")}
+    {title:"Cinematic Visual",tag:"YOUTUBE",img:makeImage("CINEMATIC","VISUAL CONCEPT")},
+    {title:"Gaming Energy",tag:"GAMING",img:makeImage("GAMING","HIGH ENERGY")},
+    {title:"Social Campaign",tag:"SOCIAL",img:makeImage("SOCIAL","CREATIVE CAMPAIGN")},
+    {title:"Creative Poster",tag:"POSTER",img:makeImage("POSTER","VISUAL DESIGN")}
   ]
 };
-
-let data = structuredClone(defaultData);
-const IDB_NAME = "zaidPortfolioDB";
-const IDB_STORE = "store";
-
+let data=structuredClone(defaultData);
+const $=id=>document.getElementById(id);
+function toast(m){$("toast").textContent=m;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2400);}
+function escapeHTML(v){return String(v??"").replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">").replace(/"/g,""");}
+function escapeAttr(v){return escapeHTML(v);}
+function normalize(src){
+  const d={...structuredClone(defaultData),...(src||{})};
+  if(!Array.isArray(d.projects)||!d.projects.length) d.projects=structuredClone(defaultData.projects);
+  if(!Array.isArray(d.services)) d.services=structuredClone(defaultData.services);
+  if(!Array.isArray(d.tools)) d.tools=structuredClone(defaultData.tools);
+  if(!Array.isArray(d.filters)||!d.filters.length) d.filters=structuredClone(defaultData.filters);
+  return d;
+}
 function idbOpen(){
-  return new Promise((resolve, reject)=>{
-    if(!window.indexedDB){ reject(new Error("no-idb")); return; }
-    const req = indexedDB.open(IDB_NAME, 1);
-    req.onupgradeneeded = ()=>{
-      if(!req.result.objectStoreNames.contains(IDB_STORE)){
-        req.result.createObjectStore(IDB_STORE);
-      }
-    };
-    req.onsuccess = ()=> resolve(req.result);
-    req.onerror = ()=> reject(req.error);
+  return new Promise((resolve,reject)=>{
+    if(!window.indexedDB){reject(new Error("no"));return;}
+    const req=indexedDB.open(IDB_NAME,1);
+    req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(IDB_STORE)) req.result.createObjectStore(IDB_STORE);};
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
   });
 }
-function idbPut(key, value){
-  return idbOpen().then(db=>new Promise((resolve, reject)=>{
-    const tx = db.transaction(IDB_STORE, "readwrite");
-    tx.objectStore(IDB_STORE).put(value, key);
-    tx.oncomplete = ()=> resolve(true);
-    tx.onerror = ()=> reject(tx.error);
-  }));
-}
-function idbGet(key){
-  return idbOpen().then(db=>new Promise((resolve, reject)=>{
-    const tx = db.transaction(IDB_STORE, "readonly");
-    const req = tx.objectStore(IDB_STORE).get(key);
-    req.onsuccess = ()=> resolve(req.result);
-    req.onerror = ()=> reject(req.error);
-  }));
-}
+function idbPut(val){return idbOpen().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction(IDB_STORE,"readwrite");tx.objectStore(IDB_STORE).put(val,"full");tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);}));}
+function idbGet(){return idbOpen().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction(IDB_STORE,"readonly");const req=tx.objectStore(IDB_STORE).get("full");req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);}));}
 
 async function loadSaved(){
-  const localStamp = localStorage.getItem("zaidBakedStamp");
-  const useLocal = localStamp === BAKED_STAMP;
-  try{
-    if(useLocal){
-      const full = await idbGet("fullData");
-      if(full && typeof full === "object"){
-        data = {...structuredClone(defaultData), ...full};
-      }else{
-        const raw = localStorage.getItem("zaidPortfolioV4");
-        if(raw) data = {...structuredClone(defaultData), ...JSON.parse(raw)};
-      }
-    }else{
-      data = structuredClone(defaultData);
-      localStorage.setItem("zaidBakedStamp", BAKED_STAMP);
-    }
-  }catch(e){
+  let local=null;
+  try{local=await idbGet();}catch(e){}
+  if(!local){
+    try{const raw=localStorage.getItem(LS_KEY); if(raw) local=JSON.parse(raw);}catch(e){}
+  }
+  if(local && typeof local==="object") data=normalize(local);
+  else data=structuredClone(defaultData);
+}
+async function saveLocal(){
+  data.updated=Date.now();
+  try{await idbPut(data);}catch(e){}
+  try{localStorage.setItem(LS_KEY, JSON.stringify(data));}catch(e){
     try{
-      const raw = localStorage.getItem("zaidPortfolioV4");
-      if(raw) data = {...structuredClone(defaultData), ...JSON.parse(raw)};
-    }catch(err){
-      data = structuredClone(defaultData);
-    }
+      const slim={...data,profile:(data.profile&&String(data.profile).startsWith("data:"))?"":data.profile};
+      localStorage.setItem(LS_KEY, JSON.stringify(slim));
+    }catch(err){toast("This phone storage is full"); return false;}
   }
-  if(!Array.isArray(data.projects)) data.projects = structuredClone(defaultData.projects);
-  if(!Array.isArray(data.services)) data.services = structuredClone(defaultData.services);
-  if(!Array.isArray(data.tools)) data.tools = structuredClone(defaultData.tools);
-  if(!Array.isArray(data.filters) || !data.filters.length){
-    data.filters = structuredClone(defaultData.filters);
-  }
+  return true;
 }
-
-async function saveData(){
-  let ok = false;
-  try{
-    await idbPut("fullData", data);
-    ok = true;
-  }catch(e){}
-  try{
-    const slim = {
-      ...data,
-      profile: (data.profile && String(data.profile).startsWith("data:")) ? "" : data.profile,
-      projects: (data.projects || []).map(p=>({
-        title: p.title,
-        tag: p.tag,
-        img: (p.img && String(p.img).startsWith("data:") && String(p.img).length > 80000) ? makeImage(p.title||"WORK", p.tag||"PROJECT") : p.img
-      }))
-    };
-    localStorage.setItem("zaidBakedStamp", BAKED_STAMP);
-    localStorage.setItem("zaidPortfolioV4", JSON.stringify(ok ? {
-      ...data,
-      profile: (data.profile && String(data.profile).startsWith("data:")) ? "[idb]" : data.profile,
-      projects: (data.projects || []).map(p=>({title:p.title, tag:p.tag, img: (p.img && String(p.img).startsWith("data:")) ? "[idb]" : p.img}))
-    } : slim));
-    ok = true;
-  }catch(err){
-    if(!ok) toast("Browser storage is full. Work was kept on this screen only.");
-  }
-  return ok;
-}
-
-
-
-const CLOUD_KEY = "4eb6d471fe2744f5bbbe7d277ac476f8";
-const CLOUD_DOC = "6aa12ce7c5140303e80bad6f";
-const CLOUD_URL = "https://crudcrud.com/api/" + CLOUD_KEY + "/site/" + CLOUD_DOC;
-
-function cloudReadyPayload(){
-  const slim = {...data};
-  const tooBig = (v)=> v && String(v).startsWith("data:") && String(v).length > 80000;
-  if(tooBig(slim.profile)) slim.profile = "";
-  slim.projects = (slim.projects || []).map(p=>{
-    const img = p.img || "";
-    if(tooBig(img)) return {title:p.title, tag:p.tag, img: makeImage(p.title||"WORK", p.tag||"PROJECT")};
-    return {title:p.title, tag:p.tag, img};
-  });
-  return slim;
-}
-
-async function pullLiveSite(){
-  const res = await fetch(CLOUD_URL, {cache:"no-store"});
-  if(!res.ok) throw new Error("get "+res.status);
-  const remote = await res.json();
-  if(remote && remote.payload && typeof remote.payload === "object"){
-    data = {...structuredClone(defaultData), ...remote.payload};
-    if(!Array.isArray(data.projects)) data.projects = structuredClone(defaultData.projects);
-    if(!Array.isArray(data.services)) data.services = structuredClone(defaultData.services);
-    if(!Array.isArray(data.tools)) data.tools = structuredClone(defaultData.tools);
+async function pullLive(){
+  const res=await fetch(CLOUD_URL,{cache:"no-store"});
+  if(!res.ok) throw new Error("get");
+  const remote=await res.json();
+  if(!remote || !remote.payload || typeof remote.payload!=="object") return false;
+  const remoteUpdated=Number(remote.updated||remote.payload.updated||0);
+  const localUpdated=Number(data.updated||0);
+  if(remoteUpdated>localUpdated){
+    data=normalize(remote.payload);
+    data.updated=remoteUpdated;
+    await saveLocal();
     return true;
   }
   return false;
 }
-
-async function pushLiveSite(){
-  const body = {
-    owner: "zaid-raza",
-    updated: Date.now(),
-    payload: cloudReadyPayload()
-  };
-  const res = await fetch(CLOUD_URL, {
-    method:"PUT",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify(body)
-  });
-  if(!res.ok) throw new Error("put "+res.status);
-  const status = document.getElementById("cloudStatus");
-  if(status) status.textContent = "Live. Anyone who opens this file will see these changes.";
+async function pushLive(){
+  const body={owner:"zaid-raza",updated:data.updated||Date.now(),payload:data};
+  const res=await fetch(CLOUD_URL,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(!res.ok) throw new Error("put");
+  if($("cloudStatus")) $("cloudStatus").textContent="Saved on this phone + live for others.";
 }
 
-
-const $ = id => document.getElementById(id);
-function toast(message){
-  $("toast").textContent = message;
-  $("toast").classList.add("show");
-  setTimeout(()=>$("toast").classList.remove("show"), 2200);
-}
-function escapeHTML(value){
-  return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-function escapeAttr(value){ return escapeHTML(value); }
-
-function setLink(el, url){
-  if(url && url.trim()){
-    el.href = url; el.style.opacity = "1";
-  }else{
-    el.href = "#"; el.style.opacity = ".45";
-  }
-}
-
-function renderMarquee(){
-  const items = (data.marquee || []).map(t => `<span class="marquee-item">${escapeHTML(t)} ✦</span>`).join("");
-  $("marqueeTrack").innerHTML = items + items;
-}
-
-function renderFilters(){
-  const tags = ["ALL", ...[...new Set(data.filters || [])]];
-  const active = currentFilter || "ALL";
-  $("workFilter").innerHTML = tags.map(t=>`<button class="filter${t===active?" active":""}" data-filter="${escapeAttr(t)}">${escapeHTML(t)}</button>`).join("");
-  document.querySelectorAll(".filter").forEach(button=>{
-    button.addEventListener("click", ()=>{
-      document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
-      button.classList.add("active");
-      currentFilter = button.dataset.filter;
-      renderProjects();
-    });
-  });
-  const sel = $("pTag");
-  if(sel){
-    const keep = sel.value;
-    sel.innerHTML = (data.filters || []).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
-    if(keep && data.filters.includes(keep)) sel.value = keep;
-  }
-}
-
-function renderTools(){
-  $("toolsGrid").innerHTML = (data.tools || []).map(tool=>`
-    <div class="tool reveal">
-      <strong>${escapeHTML(tool.title)}</strong>
-      <span>${escapeHTML(tool.text)}</span>
-    </div>`).join("");
-}
-
-function formatTitle(text, italicWord){
-  let html = escapeHTML(text || "").replace(/\n/g,"<br>");
-  if(italicWord){
-    const esc = escapeHTML(italicWord);
-    if(html.includes(esc)){
-      html = html.replace(esc, '<span class="italic">'+esc+'</span>');
-    }
-  }
+function setLink(el,url){if(url&&url.trim()){el.href=url;el.style.opacity="1";}else{el.href="#";el.style.opacity=".45";}}
+function formatTitle(text,word){
+  let html=escapeHTML(text||"").replace(/\n/g,"<br>");
+  if(word){const esc=escapeHTML(word); if(html.includes(esc)) html=html.replace(esc,"<i>"+esc+"</i>");}
   return html;
 }
-
+let currentFilter="ALL";
+function renderMarquee(){const items=(data.marquee||[]).map(t=>`<span class="ticker-item">${escapeHTML(t)} ✦</span>`).join("");$("marqueeTrack").innerHTML=items+items;}
+function renderFilters(){
+  const tags=["ALL",...new Set(data.filters||[])];
+  $("workFilter").innerHTML=tags.map(t=>`<button class="filter${t===currentFilter?" active":""}" data-filter="${escapeAttr(t)}">${escapeHTML(t)}</button>`).join("");
+  document.querySelectorAll(".filter").forEach(btn=>{btn.onclick=()=>{currentFilter=btn.dataset.filter;renderFilters();renderProjects();};});
+  const sel=$("pTag"); if(sel){const keep=sel.value; sel.innerHTML=(data.filters||[]).map(t=>`<option>${escapeHTML(t)}</option>`).join(""); if(keep&&data.filters.includes(keep)) sel.value=keep;}
+}
+function renderTools(){$("toolsGrid").innerHTML=(data.tools||[]).map(t=>`<div class="tool reveal"><strong>${escapeHTML(t.title)}</strong><span>${escapeHTML(t.text)}</span></div>`).join("");}
+function renderServices(){
+  $("servicesGrid").innerHTML="";
+  (data.services||[]).forEach(s=>{
+    const el=document.createElement("div"); el.className="svc reveal";
+    el.innerHTML=`<div class="svc-n">${escapeHTML(s.number)}</div><h3>${escapeHTML(s.title)}</h3><p>${escapeHTML(s.text)}</p>`;
+    $("servicesGrid").appendChild(el);
+  });
+}
+function renderProjects(){
+  const grid=$("workGrid"); grid.innerHTML="";
+  const list=currentFilter==="ALL"?data.projects:data.projects.filter(p=>p.tag===currentFilter);
+  if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;padding:40px;color:#888;text-align:center">No projects yet.</div>`;return;}
+  list.forEach(p=>{
+    const card=document.createElement("article"); card.className="project reveal";
+    card.innerHTML=`<div class="project-image"><img src="${escapeAttr(p.img)}" alt="${escapeAttr(p.title)}"></div><div class="project-info"><div><div class="project-title">${escapeHTML(p.title)}</div><div class="project-tag">${escapeHTML(p.tag)}</div></div><div>↗</div></div>`;
+    card.onclick=()=>openPreview(p); grid.appendChild(card);
+  });
+}
 function applyToPage(){
-  $("heroEyebrow").textContent = data.eyebrow;
-  $("heroTitle").innerHTML = formatTitle(data.title, "VISUALS");
-  $("heroDescription").textContent = data.description;
-  $("tagTop").textContent = data.tagTop || "BASED IN INDIA";
-  $("tagBottom").textContent = data.tagBottom || "AVAILABLE ↗";
-  $("roundBadge").innerHTML = escapeHTML(data.badge || "DESIGN\nWITH\nINTENT").replace(/\n/g,"<br>");
-  $("floatChip").textContent = data.chip || "3D STUDIO";
-  $("aboutMark").textContent = data.aboutMark || "ZR.";
-  $("aboutTitle").innerHTML = formatTitle(data.aboutTitle, "It's communication.");
-  $("aboutText").textContent = data.aboutText;
-  $("stat1").textContent = data.stat1;
-  $("stat1Label").textContent = data.stat1Label;
-  $("stat2").textContent = data.stat2;
-  $("stat2Label").textContent = data.stat2Label;
-  $("stat3").textContent = data.stat3;
-  $("stat3Label").textContent = data.stat3Label;
-  $("workInfo").textContent = data.workInfo;
-  $("servicesInfo").textContent = data.servicesInfo;
-  $("contactText").textContent = data.contactText;
-  $("footerCopy").textContent = data.footerCopy || "© 2026 — VISUAL DESIGNER";
-  setLink($("instagramLink"), data.instagram);
-  setLink($("behanceLink"), data.behance);
-  setLink($("youtubeLink"), data.youtube);
-  const form = $("contactForm");
-  const inbox = (data.contactEmail || "mdzaidraza9119@gmail.com").trim();
-  if(form) form.action = "https://formsubmit.co/" + inbox;
-  renderMarquee();
-  renderFilters();
-  renderServices();
-  renderProjects();
-  renderTools();
-  renderAdminProjects();
-  if(data.profile){
-    $("profileImage").src = data.profile;
-    $("profileImage").style.display = "block";
-    $("profilePlaceholder").style.display = "none";
-  }else{
-    $("profileImage").style.display = "none";
-    $("profilePlaceholder").style.display = "flex";
-  }
+  $("heroEyebrow").textContent=data.eyebrow;
+  $("heroTitle").innerHTML=formatTitle(data.title,"VISUALS");
+  $("heroDescription").textContent=data.description;
+  $("tagTop").textContent=data.tagTop||"BASED IN INDIA";
+  $("tagBottom").textContent=data.tagBottom||"AVAILABLE ↗";
+  $("roundBadge").innerHTML=escapeHTML(data.badge||"DESIGN\nWITH\nINTENT").replace(/\n/g,"<br>");
+  $("floatChip").textContent=data.chip||"STUDIO";
+  $("aboutMark").textContent=data.aboutMark||"ZR.";
+  $("aboutTitle").innerHTML=formatTitle(data.aboutTitle,"It's communication.");
+  $("aboutText").textContent=data.aboutText;
+  $("stat1").textContent=data.stat1; $("stat1Label").textContent=data.stat1Label;
+  $("stat2").textContent=data.stat2; $("stat2Label").textContent=data.stat2Label;
+  $("stat3").textContent=data.stat3; $("stat3Label").textContent=data.stat3Label;
+  $("workInfo").textContent=data.workInfo; $("servicesInfo").textContent=data.servicesInfo;
+  $("contactText").textContent=data.contactText; $("footerCopy").textContent=data.footerCopy||"© 2026 — VISUAL DESIGNER";
+  setLink($("instagramLink"),data.instagram); setLink($("behanceLink"),data.behance); setLink($("youtubeLink"),data.youtube);
+  const form=$("contactForm"); const inbox=(data.contactEmail||"mdzaidraza9119@gmail.com").trim(); if(form) form.action="https://formsubmit.co/"+inbox;
+  renderMarquee(); renderFilters(); renderServices(); renderProjects(); renderTools(); renderAdminProjects();
+  if(data.profile){$("profileImage").src=data.profile;$("profileImage").style.display="block";$("profilePlaceholder").style.display="none";}
+  else{$("profileImage").style.display="none";$("profilePlaceholder").style.display="flex";}
   observeReveal();
 }
+function openPreview(p){$("previewImage").src=p.img;$("previewTitle").textContent=p.title+" — "+p.tag;$("preview").classList.add("open");document.body.style.overflow="hidden";}
+function closePreview(){$("preview").classList.remove("open");document.body.style.overflow="";}
+$("previewClose").onclick=closePreview;
+$("preview").addEventListener("click",e=>{if(e.target===$("preview")) closePreview();});
 
-function renderWebsite(){
-  applyToPage();
-}
-
-function renderServices(){
-  $("servicesGrid").innerHTML = "";
-  (data.services || []).forEach(service=>{
-    const card = document.createElement("div");
-    card.className = "service reveal";
-    card.innerHTML = `
-      <div class="service-number">${escapeHTML(service.number)}</div>
-      <h3>${escapeHTML(service.title).replace(/\n/g,"<br>")}</h3>
-      <p>${escapeHTML(service.text)}</p>`;
-    $("servicesGrid").appendChild(card);
-  });
-}
-
-let currentFilter = "ALL";
-function renderProjects(){
-  const grid = $("workGrid");
-  grid.innerHTML = "";
-  const list = currentFilter === "ALL" ? data.projects : data.projects.filter(p=>p.tag===currentFilter);
-  if(!list.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;padding:70px;text-align:center;color:#888">No projects in this category yet.</div>`;
-    return;
-  }
-  list.forEach(project=>{
-    const card = document.createElement("article");
-    card.className = "project reveal";
-    card.innerHTML = `
-      <div class="project-image">
-        <img src="${escapeAttr(project.img)}" alt="${escapeAttr(project.title)}" onerror="this.src='${makeImage("PROJECT","IMAGE")}';">
-      </div>
-      <div class="project-info">
-        <div>
-          <div class="project-title">${escapeHTML(project.title)}</div>
-          <div class="project-tag">${escapeHTML(project.tag)}</div>
-        </div>
-        <div class="project-arrow">↗</div>
-      </div>`;
-    card.addEventListener("click", ()=>openPreview(project));
-    grid.appendChild(card);
-  });
-}
-
-function openPreview(project){
-  $("previewImage").src = project.img;
-  $("previewTitle").textContent = project.title + " — " + project.tag;
-  $("preview").classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-function closePreview(){
-  $("preview").classList.remove("open");
-  document.body.style.overflow = "";
-}
-$("previewClose").onclick = closePreview;
-$("preview").addEventListener("click", e=>{ if(e.target===$("preview")) closePreview(); });
-
-let zaidClicks = 0;
-let zaidTimer = null;
-$("logoZaid").addEventListener("click", e=>{
-  e.preventDefault();
-  e.stopPropagation();
-  zaidClicks += 1;
-  clearTimeout(zaidTimer);
-  if(zaidClicks >= 4){
-    zaidClicks = 0;
-    $("loginOverlay").classList.add("open");
-    $("loginUser").focus();
-    return;
-  }
-  zaidTimer = setTimeout(()=>{ zaidClicks = 0; }, 1800);
+let clicks=0,ct=null;
+$("logoZaid").addEventListener("click",e=>{
+  e.preventDefault(); e.stopPropagation(); clicks++; clearTimeout(ct);
+  if(clicks>=4){clicks=0;$("loginOverlay").classList.add("open");$("loginUser").focus();return;}
+  ct=setTimeout(()=>{clicks=0;},1800);
 });
-
-$("loginClose").onclick = ()=>$("loginOverlay").classList.remove("open");
-$("loginButton").onclick = login;
-$("loginPass").addEventListener("keydown", e=>{ if(e.key==="Enter") login(); });
-
+$("loginClose").onclick=()=>$("loginOverlay").classList.remove("open");
+$("loginButton").onclick=login;
+$("loginPass").addEventListener("keydown",e=>{if(e.key==="Enter") login();});
 function login(){
-  const username = $("loginUser").value.trim();
-  const password = $("loginPass").value;
-  if(username === ADMIN_USERNAME && password === ADMIN_PASSWORD){
-    $("loginError").style.display = "none";
-    $("loginOverlay").classList.remove("open");
-    $("adminOverlay").classList.add("open");
-    document.body.style.overflow = "hidden";
-    loadAdminFields();
-  }else{
-    $("loginError").style.display = "block";
-  }
+  if($("loginUser").value.trim()===ADMIN_USERNAME && $("loginPass").value===ADMIN_PASSWORD){
+    $("loginError").style.display="none"; $("loginOverlay").classList.remove("open");
+    $("adminOverlay").classList.add("open"); document.body.style.overflow="hidden"; loadAdminFields();
+  } else $("loginError").style.display="block";
 }
-
 function loadAdminFields(){
-  $("aEyebrow").value = data.eyebrow || "";
-  $("aTitle").value = data.title || "";
-  $("aDescription").value = data.description || "";
-  $("aTagTop").value = data.tagTop || "";
-  $("aTagBottom").value = data.tagBottom || "";
-  $("aBadge").value = data.badge || "";
-  $("aChip").value = data.chip || "";
-  $("aAboutMark").value = data.aboutMark || "";
-  $("aAboutTitle").value = data.aboutTitle || "";
-  $("aAboutText").value = data.aboutText || "";
-  $("aStat1").value = data.stat1 || "";
-  $("aStat1Label").value = data.stat1Label || "";
-  $("aStat2").value = data.stat2 || "";
-  $("aStat2Label").value = data.stat2Label || "";
-  $("aStat3").value = data.stat3 || "";
-  $("aStat3Label").value = data.stat3Label || "";
-  $("aContactText").value = data.contactText || "";
-  $("aInstagram").value = data.instagram || "";
-  $("aBehance").value = data.behance || "";
-  $("aYoutube").value = data.youtube || "";
-  $("aFooter").value = data.footerCopy || "";
-  $("aContactEmail").value = data.contactEmail || "mdzaidraza9119@gmail.com";
-  $("aServicesInfo").value = data.servicesInfo || "";
-  $("aWorkInfo").value = data.workInfo || "";
-  $("aFilters").value = (data.filters || []).join(", ");
-  $("aMarquee").value = (data.marquee || []).join(", ");
-  $("profileUrl").value = data.profile && !String(data.profile).startsWith("data:") ? data.profile : "";
-  renderServiceEditor();
-  renderToolEditor();
-  const sel = $("pTag");
-  if(sel) sel.innerHTML = (data.filters || []).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
+  $("aEyebrow").value=data.eyebrow||""; $("aTitle").value=data.title||""; $("aDescription").value=data.description||"";
+  $("aTagTop").value=data.tagTop||""; $("aTagBottom").value=data.tagBottom||""; $("aBadge").value=data.badge||""; $("aChip").value=data.chip||"";
+  $("aAboutMark").value=data.aboutMark||""; $("aAboutTitle").value=data.aboutTitle||""; $("aAboutText").value=data.aboutText||"";
+  $("aStat1").value=data.stat1||""; $("aStat1Label").value=data.stat1Label||"";
+  $("aStat2").value=data.stat2||""; $("aStat2Label").value=data.stat2Label||"";
+  $("aStat3").value=data.stat3||""; $("aStat3Label").value=data.stat3Label||"";
+  $("aContactText").value=data.contactText||""; $("aInstagram").value=data.instagram||""; $("aBehance").value=data.behance||""; $("aYoutube").value=data.youtube||"";
+  $("aFooter").value=data.footerCopy||""; $("aContactEmail").value=data.contactEmail||"mdzaidraza9119@gmail.com";
+  $("aServicesInfo").value=data.servicesInfo||""; $("aWorkInfo").value=data.workInfo||"";
+  $("aFilters").value=(data.filters||[]).join(", "); $("aMarquee").value=(data.marquee||[]).join(", ");
+  $("profileUrl").value=data.profile&&!String(data.profile).startsWith("data:")?data.profile:"";
+  renderServiceEditor(); renderToolEditor();
+  const sel=$("pTag"); if(sel) sel.innerHTML=(data.filters||[]).map(t=>`<option>${escapeHTML(t)}</option>`).join("");
 }
-
 function collectAdminFields(){
-  data.eyebrow = $("aEyebrow").value;
-  data.title = $("aTitle").value;
-  data.description = $("aDescription").value;
-  data.tagTop = $("aTagTop").value;
-  data.tagBottom = $("aTagBottom").value;
-  data.badge = $("aBadge").value;
-  data.chip = $("aChip").value;
-  const url = $("profileUrl").value.trim();
-  if(url) data.profile = url;
-  data.aboutMark = $("aAboutMark").value;
-  data.aboutTitle = $("aAboutTitle").value;
-  data.aboutText = $("aAboutText").value;
-  data.stat1 = $("aStat1").value; data.stat1Label = $("aStat1Label").value;
-  data.stat2 = $("aStat2").value; data.stat2Label = $("aStat2Label").value;
-  data.stat3 = $("aStat3").value; data.stat3Label = $("aStat3Label").value;
-  data.contactText = $("aContactText").value;
-  data.instagram = $("aInstagram").value.trim();
-  data.behance = $("aBehance").value.trim();
-  data.youtube = $("aYoutube").value.trim();
-  data.footerCopy = $("aFooter").value;
-  data.contactEmail = ($("aContactEmail").value || "").trim() || "mdzaidraza9119@gmail.com";
-  data.servicesInfo = $("aServicesInfo").value;
-  data.workInfo = $("aWorkInfo").value;
-  data.marquee = $("aMarquee").value.split(",").map(s=>s.trim()).filter(Boolean);
-  const typedFilters = $("aFilters").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
-  const projectTags = (data.projects || []).map(p=>String(p.tag||"").toUpperCase()).filter(Boolean);
-  data.filters = [...new Set([...typedFilters, ...projectTags])];
-  if(!data.filters.length) data.filters = structuredClone(defaultData.filters);
-  document.querySelectorAll(".service-title").forEach(input=>{
-    const i = Number(input.dataset.index);
-    if(data.services[i]) data.services[i].title = input.value;
-  });
-  document.querySelectorAll(".service-text").forEach(input=>{
-    const i = Number(input.dataset.index);
-    if(data.services[i]) data.services[i].text = input.value;
-  });
-  document.querySelectorAll(".tool-title").forEach(input=>{
-    const i = Number(input.dataset.index);
-    if(data.tools[i]) data.tools[i].title = input.value;
-  });
-  document.querySelectorAll(".tool-text").forEach(input=>{
-    const i = Number(input.dataset.index);
-    if(data.tools[i]) data.tools[i].text = input.value;
-  });
+  data.eyebrow=$("aEyebrow").value; data.title=$("aTitle").value; data.description=$("aDescription").value;
+  data.tagTop=$("aTagTop").value; data.tagBottom=$("aTagBottom").value; data.badge=$("aBadge").value; data.chip=$("aChip").value;
+  const url=$("profileUrl").value.trim(); if(url) data.profile=url;
+  data.aboutMark=$("aAboutMark").value; data.aboutTitle=$("aAboutTitle").value; data.aboutText=$("aAboutText").value;
+  data.stat1=$("aStat1").value; data.stat1Label=$("aStat1Label").value;
+  data.stat2=$("aStat2").value; data.stat2Label=$("aStat2Label").value;
+  data.stat3=$("aStat3").value; data.stat3Label=$("aStat3Label").value;
+  data.contactText=$("aContactText").value; data.instagram=$("aInstagram").value.trim(); data.behance=$("aBehance").value.trim(); data.youtube=$("aYoutube").value.trim();
+  data.footerCopy=$("aFooter").value; data.contactEmail=($("aContactEmail").value||"").trim()||"mdzaidraza9119@gmail.com";
+  data.servicesInfo=$("aServicesInfo").value; data.workInfo=$("aWorkInfo").value;
+  data.marquee=$("aMarquee").value.split(",").map(s=>s.trim()).filter(Boolean);
+  const typed=$("aFilters").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
+  const tags=(data.projects||[]).map(p=>String(p.tag||"").toUpperCase()).filter(Boolean);
+  data.filters=[...new Set([...typed,...tags])];
+  document.querySelectorAll(".service-title").forEach(i=>{const n=Number(i.dataset.index); if(data.services[n]) data.services[n].title=i.value;});
+  document.querySelectorAll(".service-text").forEach(i=>{const n=Number(i.dataset.index); if(data.services[n]) data.services[n].text=i.value;});
+  document.querySelectorAll(".tool-title").forEach(i=>{const n=Number(i.dataset.index); if(data.tools[n]) data.tools[n].title=i.value;});
+  document.querySelectorAll(".tool-text").forEach(i=>{const n=Number(i.dataset.index); if(data.tools[n]) data.tools[n].text=i.value;});
 }
-
-function commitChanges(message, viewSite){
+async function commitChanges(msg,view){
   collectAdminFields();
-  Promise.resolve(saveData()).then(async ()=>{
-    try{ await pushLiveSite(); }catch(e){
-      const status = document.getElementById("cloudStatus");
-      if(status) status.textContent = "Saved on this phone. Live update failed — check internet and press SAVE ALL again.";
-    }
-    currentFilter = "ALL";
-    applyToPage();
-    toast(message || "Saved");
-    if(viewSite){
-      $("adminOverlay").classList.remove("open");
-      document.body.style.overflow = "";
-      document.getElementById("work").scrollIntoView({behavior:"smooth"});
-    }
-  });
+  const ok=await saveLocal();
+  try{await pushLive();}catch(e){if($("cloudStatus")) $("cloudStatus").textContent="Saved on this phone. Live publish needs internet.";}
+  currentFilter="ALL"; applyToPage();
+  toast(ok?(msg||"Saved"):"Could not save");
+  if(view){$("adminOverlay").classList.remove("open"); document.body.style.overflow=""; document.getElementById("work").scrollIntoView({behavior:"smooth"});}
 }
-
 function renderServiceEditor(){
-  $("serviceEditor").innerHTML = "";
-  (data.services || []).forEach((service, index)=>{
-    const box = document.createElement("div");
-    box.style.cssText = "margin-bottom:14px;padding:14px;background:#f3efe6;border:1px solid var(--line);border-radius:16px";
-    box.innerHTML = `
-      <div class="admin-field"><label>Service ${index+1} Title</label>
-        <input class="admin-input service-title" data-index="${index}" value="${escapeAttr(service.title)}"></div>
-      <div class="admin-field"><label>Description</label>
-        <textarea class="admin-textarea service-text" data-index="${index}">${escapeHTML(service.text)}</textarea></div>`;
+  $("serviceEditor").innerHTML="";
+  (data.services||[]).forEach((s,i)=>{
+    const box=document.createElement("div");
+    box.style.cssText="margin-bottom:10px;padding:10px;background:#101014;border:1px solid var(--line);border-radius:10px";
+    box.innerHTML=`<div class="admin-field"><label>Service ${i+1}</label><input class="admin-input service-title" data-index="${i}" value="${escapeAttr(s.title)}"></div><div class="admin-field"><label>Text</label><textarea class="admin-textarea service-text" data-index="${i}">${escapeHTML(s.text)}</textarea></div>`;
     $("serviceEditor").appendChild(box);
   });
 }
-
 function renderToolEditor(){
-  $("toolEditor").innerHTML = "";
-  (data.tools || []).forEach((tool, index)=>{
-    const box = document.createElement("div");
-    box.style.cssText = "margin:10px 0;padding:14px;background:#f3efe6;border:1px solid var(--line);border-radius:16px";
-    box.innerHTML = `
-      <div class="upload-row">
-        <div class="admin-field"><label>Tool ${index+1}</label>
-          <input class="admin-input tool-title" data-index="${index}" value="${escapeAttr(tool.title)}"></div>
-        <div class="admin-field"><label>Note</label>
-          <input class="admin-input tool-text" data-index="${index}" value="${escapeAttr(tool.text)}"></div>
-      </div>`;
+  $("toolEditor").innerHTML="";
+  (data.tools||[]).forEach((t,i)=>{
+    const box=document.createElement("div");
+    box.style.cssText="margin:8px 0;padding:10px;background:#101014;border:1px solid var(--line);border-radius:10px";
+    box.innerHTML=`<div class="upload-row"><div class="admin-field"><label>Tool ${i+1}</label><input class="admin-input tool-title" data-index="${i}" value="${escapeAttr(t.title)}"></div><div class="admin-field"><label>Note</label><input class="admin-input tool-text" data-index="${i}" value="${escapeAttr(t.text)}"></div></div>`;
     $("toolEditor").appendChild(box);
   });
 }
+$("saveHero").onclick=()=>commitChanges("Hero saved",false);
+$("saveAbout").onclick=()=>commitChanges("About saved",false);
+$("saveServices").onclick=()=>commitChanges("Services saved",false);
+$("saveContact").onclick=()=>commitChanges("Contact saved",false);
+$("saveTools").onclick=()=>commitChanges("Tools saved",false);
+$("saveWork").onclick=()=>commitChanges("Work saved",false);
+$("saveAllBtn").onclick=()=>commitChanges("Saved",true);
 
-$("saveHero").onclick = ()=>commitChanges("Hero saved", false);
-$("saveAbout").onclick = ()=>commitChanges("About saved", false);
-$("saveServices").onclick = ()=>commitChanges("Services saved", false);
-$("saveContact").onclick = ()=>commitChanges("Contact saved", false);
-$("saveTools").onclick = ()=>commitChanges("Tools saved", false);
-$("saveWork").onclick = ()=>commitChanges("Work section text saved", false);
-$("saveAllBtn").onclick = ()=>commitChanges("All changes are live — check the Work section", true);
-
-
-
-function compressImageFile(file, maxWidth, quality){
-  return new Promise((resolve, reject)=>{
-    const img = new Image();
-    const blobUrl = URL.createObjectURL(file);
-    img.onload = ()=>{
-      const scale = Math.min(1, maxWidth / Math.max(img.width, 1));
-      const canvas = document.createElement("canvas");
-      canvas.width = Math.max(1, Math.round(img.width * scale));
-      canvas.height = Math.max(1, Math.round(img.height * scale));
-      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(blobUrl);
-      resolve(canvas.toDataURL("image/jpeg", quality));
-    };
-    img.onerror = ()=>reject(new Error("image"));
-    img.src = blobUrl;
+function compressImageFile(file,maxWidth,quality){
+  return new Promise((resolve,reject)=>{
+    const img=new Image(); const url=URL.createObjectURL(file);
+    img.onload=()=>{const s=Math.min(1,maxWidth/Math.max(img.width,1)); const c=document.createElement("canvas"); c.width=Math.max(1,Math.round(img.width*s)); c.height=Math.max(1,Math.round(img.height*s)); c.getContext("2d").drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url); resolve(c.toDataURL("image/jpeg",quality));};
+    img.onerror=()=>reject(new Error("image")); img.src=url;
   });
 }
-
-function showProjectPreview(src){
-  const el = $("projectPreview");
-  if(!el || !src) return;
-  el.src = src;
-  el.style.display = "block";
-}
-
-$("profileUpload").addEventListener("change", async function(){
-  const file = this.files[0];
-  if(!file) return;
-  if(file.size > 8*1024*1024){ toast("Photo must be under 8MB"); this.value=""; return; }
-  try{
-    data.profile = await compressImageFile(file, 1200, 0.72);
-    $("profileUrl").value = "";
-    collectAdminFields();
-    await saveData();
-    applyToPage();
-    toast("Profile photo updated");
-  }catch(err){
-    toast("Could not read that photo");
-  }
+$("profileUpload").addEventListener("change",async function(){
+  const file=this.files[0]; if(!file) return;
+  if(file.size>8*1024*1024){toast("Photo under 8MB"); this.value=""; return;}
+  try{data.profile=await compressImageFile(file,1200,.72); $("profileUrl").value=""; collectAdminFields(); await saveLocal(); applyToPage(); toast("Photo saved");}catch(e){toast("Could not read photo");}
 });
-
-let uploadedProjectImage = "";
-$("projectUpload").addEventListener("change", async function(){
-  const file = this.files[0];
-  if(!file) return;
-  if(file.size > 8*1024*1024){ toast("Image must be under 8MB"); this.value=""; return; }
-  try{
-    toast("Preparing image...");
-    uploadedProjectImage = await compressImageFile(file, 1200, 0.72);
-    showProjectPreview(uploadedProjectImage);
-    toast("Image ready — click + ADD PROJECT");
-  }catch(err){
-    toast("Could not read that image");
-  }
+let uploadedProjectImage="";
+$("projectUpload").addEventListener("change",async function(){
+  const file=this.files[0]; if(!file) return;
+  if(file.size>8*1024*1024){toast("Image under 8MB"); this.value=""; return;}
+  try{uploadedProjectImage=await compressImageFile(file,1200,.72); const el=$("projectPreview"); el.src=uploadedProjectImage; el.style.display="block"; toast("Image ready");}catch(e){toast("Could not read image");}
 });
-
-$("addProject").onclick = async ()=>{
-  const title = $("pTitle").value.trim();
-  const custom = ($("pTagCustom").value || "").trim().toUpperCase();
-  const tag = custom || $("pTag").value || "POSTER";
-  let image = uploadedProjectImage || $("pImage").value.trim();
-  const file = $("projectUpload").files && $("projectUpload").files[0];
-  if(!title){ toast("Enter a project title first"); return; }
-  if(!image && file){
-    toast("Preparing image...");
-    try{ image = await compressImageFile(file, 1200, 0.72); }
-    catch(err){ toast("Could not read that image"); return; }
-  }
-  if(!image){ toast("Upload a poster/thumbnail or paste an image URL"); return; }
+$("addProject").onclick=async()=>{
+  const title=$("pTitle").value.trim();
+  const custom=($("pTagCustom").value||"").trim().toUpperCase();
+  const tag=custom||$("pTag").value||"POSTER";
+  let image=uploadedProjectImage||$("pImage").value.trim();
+  const file=$("projectUpload").files&&$("projectUpload").files[0];
+  if(!title){toast("Enter a title"); return;}
+  if(!image&&file){try{image=await compressImageFile(file,1200,.72);}catch(e){toast("Could not read image"); return;}}
+  if(!image){toast("Upload image or URL"); return;}
   if(!data.filters.includes(tag)) data.filters.push(tag);
-  data.projects.unshift({title, tag, img:image});
-  $("aFilters").value = data.filters.join(", ");
-  const ok = await saveData();
-  $("pTitle").value = "";
-  $("pImage").value = "";
-  $("pTagCustom").value = "";
-  $("projectUpload").value = "";
-  uploadedProjectImage = "";
-  const prev = $("projectPreview");
-  if(prev){ prev.style.display = "none"; prev.removeAttribute("src"); }
-  currentFilter = "ALL";
-  applyToPage();
-  try{ await pushLiveSite(); toast("Added and live for everyone"); }
-  catch(err){ toast(ok ? "Added here. Press SAVE ALL to publish" : "Added on screen only"); }
+  data.projects.unshift({title,tag,img:image});
+  $("aFilters").value=data.filters.join(", ");
+  await saveLocal();
+  try{await pushLive();}catch(e){}
+  $("pTitle").value=""; $("pImage").value=""; $("pTagCustom").value=""; $("projectUpload").value=""; uploadedProjectImage="";
+  const prev=$("projectPreview"); if(prev){prev.style.display="none"; prev.removeAttribute("src");}
+  currentFilter="ALL"; applyToPage(); toast("Project saved");
 };
-
 function renderAdminProjects(){
-  const box = $("adminProjects");
-  if(!box) return;
-  box.innerHTML = "";
-  data.projects.forEach((project, index)=>{
-    const row = document.createElement("div");
-    row.className = "admin-project";
-    row.innerHTML = `
-      <img src="${escapeAttr(project.img)}" onerror="this.src='${makeImage("IMAGE","PROJECT")}';">
-      <div class="admin-project-info">
-        <strong>${escapeHTML(project.title)}</strong>
-        <small>${escapeHTML(project.tag)}</small>
-      </div>
-      <button class="delete-btn" data-index="${index}">DELETE</button>`;
-    row.querySelector(".delete-btn").onclick = async ()=>{
-      if(confirm("Delete this project?")){
-        data.projects.splice(index,1);
-        await saveData();
-        try{ await pushLiveSite(); }catch(e){}
-        applyToPage();
-        toast("Project deleted");
-      }
-    };
+  const box=$("adminProjects"); if(!box) return; box.innerHTML="";
+  data.projects.forEach((p,i)=>{
+    const row=document.createElement("div"); row.className="admin-project";
+    row.innerHTML=`<img src="${escapeAttr(p.img)}"><div><strong>${escapeHTML(p.title)}</strong><br><small>${escapeHTML(p.tag)}</small></div><button class="delete-btn">DELETE</button>`;
+    row.querySelector(".delete-btn").onclick=async()=>{if(confirm("Delete this project?")){data.projects.splice(i,1); await saveLocal(); try{await pushLive();}catch(e){} applyToPage(); toast("Deleted");}};
     box.appendChild(row);
   });
 }
+$("previewSite").onclick=async()=>{collectAdminFields(); await saveLocal(); try{await pushLive();}catch(e){} currentFilter="ALL"; applyToPage(); $("adminOverlay").classList.remove("open"); document.body.style.overflow=""; toast("Saved");};
+$("logoutAdmin").onclick=()=>{$("adminOverlay").classList.remove("open"); document.body.style.overflow=""; $("loginUser").value=""; $("loginPass").value="";};
+$("resetSite").onclick=async()=>{if(!confirm("Reset website?")) return; data=structuredClone(defaultData); await saveLocal(); try{await pushLive();}catch(e){} currentFilter="ALL"; applyToPage(); loadAdminFields(); toast("Reset");};
 
-$("previewSite").onclick = async ()=>{
-  collectAdminFields();
-  await saveData();
-  try{ await pushLiveSite(); }catch(e){}
-  currentFilter = "ALL";
-  applyToPage();
-  $("adminOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-  document.getElementById("work").scrollIntoView({behavior:"smooth"});
-  toast("Website updated — Work section is below");
-};
-$("logoutAdmin").onclick = ()=>{
-  $("adminOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-  $("loginUser").value = ""; $("loginPass").value = "";
-};
-$("resetSite").onclick = async ()=>{
-  if(!confirm("Reset the complete website to the original data?")) return;
-  data = structuredClone(defaultData);
-  await saveData();
-  currentFilter = "ALL";
-  applyToPage();
-  loadAdminFields();
-  toast("Website reset");
-};
-
-const cursor = $("cursor");
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
-document.querySelectorAll("a,button,.project,.logo").forEach(el=>{
-  el.addEventListener("mouseenter", ()=>cursor.classList.add("big"));
-  el.addEventListener("mouseleave", ()=>cursor.classList.remove("big"));
-});
-
-window.addEventListener("scroll", ()=>{
-  $("nav").classList.toggle("scrolled", window.scrollY > 30);
-});
-
+window.addEventListener("scroll",()=>$("nav").classList.toggle("scrolled",window.scrollY>20));
 function observeReveal(){
-  const items = document.querySelectorAll(".reveal:not(.observed)");
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("show","observed");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.1});
-  items.forEach(item=>observer.observe(item));
+  const items=document.querySelectorAll(".reveal:not(.observed)");
+  const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("show","observed"); ob.unobserve(e.target);}});},{threshold:.12});
+  items.forEach(i=>ob.observe(i));
 }
-
-$("mobileMenu").onclick = ()=>{
-  const links = document.querySelector(".nav-links");
-  if(getComputedStyle(links).display === "none"){
-    Object.assign(links.style, {
-      display:"flex", position:"absolute", top:"70px", left:"5%", right:"5%",
-      padding:"20px", borderRadius:"20px", background:"rgba(239,236,229,.97)",
-      flexDirection:"column", gap:"20px", border:"1px solid #ddd"
-    });
-  }else{
-    links.removeAttribute("style");
-  }
+$("mobileMenu").onclick=()=>{
+  const links=document.querySelector(".nav-links");
+  if(getComputedStyle(links).display==="none") Object.assign(links.style,{display:"flex",position:"absolute",top:"62px",left:"16px",right:"16px",padding:"16px",borderRadius:"14px",background:"#111116",flexDirection:"column",gap:"12px",border:"1px solid #2a2a33"});
+  else links.removeAttribute("style");
 };
-
-document.addEventListener("keydown", e=>{
-  if(e.key === "Escape"){
-    closePreview();
-    $("loginOverlay").classList.remove("open");
-  }
-});
-
-function setFormStatus(text, isError){
-  const el = $("formStatus");
-  el.textContent = text;
-  el.classList.toggle("err", !!isError);
-}
-
-$("contactForm").addEventListener("submit", async function(e){
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closePreview(); $("loginOverlay").classList.remove("open");}});
+function setFormStatus(t,err){const el=$("formStatus"); el.textContent=t; el.classList.toggle("err",!!err);}
+$("contactForm").addEventListener("submit",async function(e){
   e.preventDefault();
-  const honey = this.querySelector("[name='_honey']");
-  if(honey && honey.value) return;
-  const inbox = (data.contactEmail || "mdzaidraza9119@gmail.com").trim();
-  const name = $("cName").value.trim();
-  const email = $("cEmail").value.trim();
-  const project = $("cProject").value.trim();
-  const message = $("cMessage").value.trim();
-  if(!name || !email || !message){
-    setFormStatus("Please fill name, email and message.", true);
-    return;
-  }
-  const btn = $("sendBtn");
-  btn.disabled = true;
-  btn.textContent = "SENDING...";
-  setFormStatus("Sending your message...");
-
-  const payload = {
-    name,
-    email,
-    project: project || "Not specified",
-    message,
-    _subject: "New Portfolio Inquiry — Zaid Raza",
-    _template: "table",
-    _captcha: "false"
-  };
-
-  let sent = false;
+  const honey=this.querySelector("[name='_honey']"); if(honey&&honey.value) return;
+  const inbox=(data.contactEmail||"mdzaidraza9119@gmail.com").trim();
+  const name=$("cName").value.trim(), email=$("cEmail").value.trim(), project=$("cProject").value.trim(), message=$("cMessage").value.trim();
+  if(!name||!email||!message){setFormStatus("Fill name, email and message.",true); return;}
+  const btn=$("sendBtn"); btn.disabled=true; btn.textContent="SENDING..."; setFormStatus("Sending...");
   try{
-    const res = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(inbox), {
-      method: "POST",
-      headers: {"Content-Type":"application/json","Accept":"application/json"},
-      body: JSON.stringify(payload)
-    });
-    const out = await res.json().catch(()=>({}));
-    if(res.ok && String(out.success) !== "false"){
-      sent = true;
-      setFormStatus("Sent. If this is the first message, open Gmail / Spam and click the FormSubmit Activate link. After that, inquiries arrive in Inbox.");
-      toast("Message sent");
-      this.reset();
-    }else if(out && /web server|HTML files/i.test(out.message || "")){
-      throw new Error("local-file");
-    }else if(out && out.message){
-      throw new Error(out.message);
-    }else{
-      throw new Error("not-sent");
-    }
+    const res=await fetch("https://formsubmit.co/ajax/"+encodeURIComponent(inbox),{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name,email,project:project||"Not specified",message,_subject:"New Portfolio Inquiry — Zaid Raza",_captcha:"false"})});
+    const out=await res.json().catch(()=>({}));
+    if(res.ok&&String(out.success)!=="false"){setFormStatus("Sent."); toast("Message sent"); this.reset();}
+    else throw new Error("not");
   }catch(err){
-    const subject = encodeURIComponent("Portfolio inquiry from " + name);
-    const body = encodeURIComponent(
-      "Name: " + name + "\nEmail: " + email + "\nProject: " + (project || "-") + "\n\n" + message
-    );
-    setFormStatus("Could not send from this file preview. Your email app will open so the message can go to " + inbox + ".", true);
-    window.location.href = "mailto:" + inbox + "?subject=" + subject + "&body=" + body;
+    window.location.href="mailto:"+inbox+"?subject="+encodeURIComponent("Portfolio inquiry from "+name)+"&body="+encodeURIComponent("Name: "+name+"\nEmail: "+email+"\nProject: "+(project||"-")+"\n\n"+message);
   }
-  btn.disabled = false;
-  btn.textContent = "SEND INQUIRY ↗";
+  btn.disabled=false; btn.textContent="SEND INQUIRY";
 });
-
-window.addEventListener("load", async ()=>{
+window.addEventListener("load",async()=>{
   await loadSaved();
-  try{
-    const live = await pullLiveSite();
-    if(live) await saveData();
-  }catch(e){}
-  currentFilter = "ALL";
-  renderWebsite();
-  observeReveal();
-  setTimeout(()=>$("loader").classList.add("hide"), 1000);
+  try{await pullLive();}catch(e){}
+  currentFilter="ALL"; applyToPage(); observeReveal();
+  setTimeout(()=>$("loader").classList.add("hide"),700);
 });
 </script>
 </body>

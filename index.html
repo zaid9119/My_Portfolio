@@ -1,6 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAID / RAZA - Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Header & Hero Section */
+    header {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 40px 20px;
+    }
+
+    /* 3D Box Styling */
+    .box-container {
+      perspective: 1000px;
+      margin-bottom: 25px;
+    }
+
+    .cube {
+      width: 70px;
+      height: 70px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 8s infinite linear;
+    }
+
+    .face {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .front  { transform: translateZ(35px); }
+    .back   { transform: rotateY(180deg) translateZ(35px); }
+    .right  { transform: rotateY(90deg) translateZ(35px); }
+    .left   { transform: rotateY(-90deg) translateZ(35px); }
+    .top    { transform: rotateX(90deg) translateZ(35px); }
+    .bottom { transform: rotateX(-90deg) translateZ(35px); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(15deg) rotateY(0deg); }
+      100% { transform: rotateX(15deg) rotateY(360deg); }
+    }
+
+    /* Hero Text & Profile */
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .divider {
+      width: 180px;
+      height: 3px;
+      background-color: #ffffff;
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+
+    /* Portfolio / Works Section */
+    .works-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card-info h3 {
+      font-size: 1.1rem;
+      color: #e0e0e0;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #222;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Header Section -->
+  <header>
+    <!-- 3D Box Animation -->
+    <div class="box-container">
+      <div class="cube">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
+
+    <!-- Profile Image -->
+    <img src="profile.jpg" alt="Zaid Raza" class="profile-img">
+
+    <!-- Name & Line -->
+    <h1>ZAID/RAZA</h1>
+    <div class="divider"></div>
+  </header>
+
+  <!-- Works Showcase Section -->
+  <section class="works-section">
+    <h2 class="section-title">Featured Works</h2>
+
+    <div class="grid">
+      <div class="card">
+        <img src="work1.png" alt="Reel Competition Making Poster">
+        <div class="card-info">
+          <h3>Reel Competition Poster</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work2.png" alt="Magic Face Wash Design">
+        <div class="card-info">
+          <h3>Magic Face Wash Ad</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work3.png" alt="Wings of Freedom Poster">
+        <div class="card-info">
+          <h3>Wings of Freedom Design</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work4.png" alt="Taj Mahal Poster">
+        <div class="card-info">
+          <h3>Taj Mahal Artwork</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work5.png" alt="Delicious Biryani Design">
+        <div class="card-info">
+          <h3>Biryani Food Banner</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work6.png" alt="Nike Dunk Low Poster">
+        <div class="card-info">
+          <h3>Nike Product Design</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work7.png" alt="The Adventure Capital Thumbnail">
+        <div class="card-info">
+          <h3>YouTube Thumbnail Design</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="work8.png" alt="Opening Ceremony Poster">
+        <div class="card-info">
+          <h3>Opening Ceremony Banner</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ZAID/RAZA. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0b0b">

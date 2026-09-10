@@ -154,19 +154,9 @@ h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
 }
 .hero-art:hover .art-frame{transform:rotateY(0) rotateX(0) scale(1.02)}
 .art-frame img{width:100%;height:100%;object-fit:cover}
-.art-placeholder{
-  width:100%;height:100%;
-  background:
-    radial-gradient(circle at 72% 22%,#fff 0 3%,transparent 3.4%),
-    radial-gradient(circle at 18% 78%,#4a4a4a 0 8%,transparent 8.4%),
-    linear-gradient(145deg,#141414,#5a5a5a);
-  display:flex;align-items:center;justify-content:center;color:#fff;
-  font-family:"Space Grotesk";font-size:clamp(78px,12vw,148px);
-  font-weight:700;letter-spacing:-.09em;
-}
 .art-tag{
   position:absolute;padding:11px 14px;background:#fff;color:#111;
-  font-size:10px;font-weight:800;letter-spacing:.08em;
+  font-size:10px;font-weight:800;letter-spacing:.08em;z-index:2;
 }
 .art-tag.top{left:18px;top:18px}
 .art-tag.bottom{right:18px;bottom:18px;background:#111;color:#fff}
@@ -175,13 +165,13 @@ h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif}
   background:var(--bg);border:1px solid #111;bottom:-36px;left:-42px;
   display:flex;justify-content:center;align-items:center;text-align:center;
   font-size:10px;font-weight:800;line-height:1.45;transform:rotate(-12deg);
-  box-shadow:0 16px 30px rgba(0,0,0,.1);
+  box-shadow:0 16px 30px rgba(0,0,0,.1);z-index:3;
 }
 .float-chip{
   position:absolute;right:-18px;top:18%;
   background:#111;color:#fff;border-radius:16px;padding:12px 14px;
   font-size:10px;font-weight:800;letter-spacing:.08em;
-  transform:rotate(8deg);box-shadow:var(--shadow);
+  transform:rotate(8deg);box-shadow:var(--shadow);z-index:3;
 }
 
 .marquee{
@@ -459,317 +449,280 @@ footer{background:#0b0b0b;color:#fff;padding:38px 5%}
 </style>
 </head>
 <body>
+
 <div class="noise"></div>
 <div class="orb a"></div>
 <div class="orb b"></div>
 <div class="orb c"></div>
+
 <div class="loader" id="loader">
   <div class="loader-inner">
-    <div class="loader-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    <div class="loader-logo">ZAID/RAZA</div>
+    <div class="loader-logo">ZAID RAZA</div>
+    <div class="loader-cube">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
     <div class="loader-line"><i></i></div>
   </div>
 </div>
+
 <div class="cursor" id="cursor"></div>
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <div class="logo" id="siteLogo" title="Studio">
-      <span id="logoZaid">ZAID</span><span class="slash">/</span>RAZA
+    <div class="logo">
+      <span id="logoZaid">ZAID RAZA</span> <span class="slash">/</span> DESIGN
     </div>
     <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">WORK</a>
+      <a href="#services">SERVICES</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
     </div>
-    <a class="nav-btn" href="#contact">Let's talk ↗</a>
-    <button class="menu" id="mobileMenu" aria-label="Menu">☰</button>
+    <a href="#contact" class="nav-btn">GET IN TOUCH</a>
+    <button class="menu" aria-label="Menu">☰</button>
   </div>
 </nav>
 
-<header class="hero">
+<section class="hero">
   <div class="hero-inner">
-    <div class="reveal">
-      <div class="eyebrow" id="heroEyebrow">Graphic Designer · Visual Creator</div>
-      <h1 class="hero-title" id="heroTitle">I MAKE<br><span class="italic">VISUALS</span><br>MOVE.</h1>
-      <p class="hero-description" id="heroDescription">I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.</p>
+    <div>
+      <div class="eyebrow">GRAPHIC DESIGNER & VISUAL CREATOR</div>
+      <h1 class="hero-title">I MAKE <br><span class="italic">VISUALS</span> MOVE.</h1>
+      <p class="hero-description">High-impact thumbnails, brand identity, and custom social graphics designed to capture instant attention and drive engagement.</p>
       <div class="hero-buttons">
-        <a class="btn btn-dark" href="#work">Explore my work ↓</a>
-        <a class="btn" href="#contact">Start a project ↗</a>
+        <a href="#work" class="btn btn-dark">VIEW MY WORK ↓</a>
+        <a href="#contact" class="btn">LET'S TALK</a>
       </div>
     </div>
-    <div class="hero-art reveal">
+    
+    <div class="hero-art">
       <div class="stage3d">
-        <div class="art-frame" id="profileFrame">
-          <div class="art-placeholder" id="profilePlaceholder">ZR</div>
-          <img id="profileImage" style="display:none" alt="Zaid Raza">
-          <div class="art-tag top" id="tagTop">BASED IN INDIA</div>
-          <div class="art-tag bottom" id="tagBottom">AVAILABLE ↗</div>
+        <div class="art-frame">
+          <div class="art-tag top">VISUAL CREATOR</div>
+          <img src="1000004258_2.png" alt="Zaid Raza Profile Picture">
+          <div class="art-tag bottom">ZAID RAZA</div>
         </div>
-        <div class="round-badge" id="roundBadge">DESIGN<br>WITH<br>INTENT</div>
-        <div class="float-chip" id="floatChip">3D STUDIO</div>
+        <div class="round-badge">
+          <span>DESIGN<br>THAT<br>WORKS</span>
+        </div>
+        <div class="float-chip">AVAILABLE FOR HIRE</div>
       </div>
     </div>
   </div>
-</header>
+</section>
 
 <div class="marquee">
-  <div class="marquee-track" id="marqueeTrack"></div>
+  <div class="marquee-track">
+    <span class="marquee-item">THUMBNAIL DESIGN</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">BRANDING</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">POSTER ART</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">SOCIAL GRAPHICS</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">VISUAL EXPERIMENTS</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">THUMBNAIL DESIGN</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">BRANDING</span>
+    <span class="marquee-item">•</span>
+    <span class="marquee-item">POSTER ART</span>
+    <span class="marquee-item">•</span>
+  </div>
 </div>
 
 <section class="section" id="work">
   <div class="section-head reveal">
     <div>
-      <div class="section-number">01 / Selected Work</div>
-      <h2 class="section-title">The work.</h2>
+      <div class="section-number">01 / SELECTED WORK</div>
+      <h2 class="section-title">PORTFOLIO</h2>
     </div>
-    <p class="section-info" id="workInfo">A collection of thumbnail concepts, social graphics, posters and visual experiments created to make ideas stand out.</p>
+    <div class="section-info">
+      A collection of recent design projects focusing on strong composition and high click-through engagement.
+    </div>
   </div>
-  <div class="work-filter" id="workFilter"></div>
-  <div class="work-grid" id="workGrid"></div>
+
+  <div class="work-filter reveal">
+    <button class="filter active">ALL</button>
+    <button class="filter">THUMBNAILS</button>
+    <button class="filter">POSTERS</button>
+    <button class="filter">BRANDING</button>
+  </div>
+
+  <div class="work-grid reveal">
+    <div class="project">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Visual Composition">
+      </div>
+      <div class="project-info">
+        <div>
+          <div class="project-title">Cyberpunk Aesthetics</div>
+          <div class="project-tag">POSTERS / ART</div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Tech Branding">
+      </div>
+      <div class="project-info">
+        <div>
+          <div class="project-title">Future Tech Media</div>
+          <div class="project-tag">THUMBNAILS</div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="services" id="services">
   <div class="services-inner">
     <div class="section-head reveal">
       <div>
-        <div class="section-number">02 / Services</div>
-        <h2 class="section-title">What I do.</h2>
+        <div class="section-number">02 / WHAT I DO</div>
+        <h2 class="section-title">SERVICES</h2>
       </div>
-      <p class="section-info" id="servicesInfo">Design focused on attention, clarity and strong visual communication.</p>
+      <div class="section-info">
+        Clear, bold visual solutions tailored to expand your audience footprint and brand recognition.
+      </div>
     </div>
-    <div class="services-grid" id="servicesGrid"></div>
+
+    <div class="services-grid reveal">
+      <div class="service">
+        <span class="service-number">01</span>
+        <h3>YouTube Thumbnails</h3>
+        <p>High CTR concepts designed to stand out in saturated feeds and maximize views.</p>
+      </div>
+      <div class="service">
+        <span class="service-number">02</span>
+        <h3>Brand Identity</h3>
+        <p>Logos, typography systems, and color palettes that create a cohesive visual style.</p>
+      </div>
+      <div class="service">
+        <span class="service-number">03</span>
+        <h3>Social Graphics</h3>
+        <p>Custom promotional assets, posters, and campaign layouts engineered for engagement.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section" id="about">
-  <div class="about-grid">
-    <div class="reveal"><div class="about-mark" id="aboutMark">ZR.</div></div>
-    <div class="about-text reveal">
-      <div class="section-number">03 / About</div>
-      <h2 id="aboutTitle">Design isn't decoration.<br><span class="italic">It's communication.</span></h2>
-      <p id="aboutText">I'm Md Zaid Raza, a graphic designer and visual content creator. I focus on the first impression — what people notice, what they understand and what makes them want to look twice.</p>
+  <div class="about-grid reveal">
+    <div class="about-mark">ZR</div>
+    <div class="about-text">
+      <h2>DESIGN IS COMMUNICATION.</h2>
+      <p>I focus on creating bold, clear, and high-impact visuals designed to capture attention instantly. Good design isn't just about decoration—it's about driving key messaging forward effectively.</p>
       <div class="stats">
-        <div class="stat"><b id="stat1">2+</b><span id="stat1Label">Years creating</span></div>
-        <div class="stat"><b id="stat2">50+</b><span id="stat2Label">Projects</span></div>
-        <div class="stat"><b id="stat3">24H</b><span id="stat3Label">Response</span></div>
+        <div class="stat">
+          <b>2+</b>
+          <span>Years Exp.</span>
+        </div>
+        <div class="stat">
+          <b>50+</b>
+          <span>Projects</span>
+        </div>
+        <div class="stat">
+          <b>24h</b>
+          <span>Turnaround</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="tools">
-  <div class="tools-grid" id="toolsGrid"></div>
+  <div class="tools-grid reveal">
+    <div class="tool">
+      <strong>Photoshop</strong>
+      <span>Compositing & Retouching</span>
+    </div>
+    <div class="tool">
+      <strong>Illustrator</strong>
+      <span>Vector & Branding</span>
+    </div>
+    <div class="tool">
+      <strong>Figma</strong>
+      <span>UI Layout & Mockups</span>
+    </div>
+    <div class="tool">
+      <strong>Lightroom</strong>
+      <span>Color Grading</span>
+    </div>
+  </div>
 </section>
 
 <section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="reveal">
-      <div class="section-number">04 / Contact</div>
-      <h2 class="contact-title">Let's make<br><span class="italic">something</span><br>stand out.</h2>
-      <p class="contact-copy" id="contactText">Have a thumbnail, poster, social campaign or visual project? Send the details and let's turn the idea into something people notice.</p>
+  <div class="contact-inner reveal">
+    <div>
+      <div class="section-number">03 / START A PROJECT</div>
+      <h2 class="contact-title">LET'S WORK TOGETHER</h2>
+      <p class="contact-copy">Have an idea or need custom visual content? Reach out directly and let's craft something remarkable.</p>
     </div>
-    <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/mdzaidraza9119@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_subject" value="New Portfolio Inquiry — Zaid Raza">
-      <input type="hidden" name="_url" value="https://zaidraza.studio/contact">
-      <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
-      <input class="field" required name="name" id="cName" placeholder="Your name *">
-      <input class="field" required type="email" name="email" id="cEmail" placeholder="Email address *">
-      <input class="field" name="project" id="cProject" placeholder="What do you need?">
-      <textarea class="field" required name="message" id="cMessage" placeholder="Tell me about your project..."></textarea>
-      <button class="submit" type="submit" id="sendBtn">SEND INQUIRY ↗</button>
-      <div class="form-status" id="formStatus"></div>
-    </form>
+    <div>
+      <form class="contact-form" onsubmit="event.preventDefault();">
+        <input type="text" class="field" placeholder="Your Name" required>
+        <input type="email" class="field" placeholder="Your Email" required>
+        <textarea class="field" placeholder="Project details or message..." required></textarea>
+        <button type="submit" class="submit">SEND MESSAGE →</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">ZAID/RAZA</div>
+    <div class="footer-logo">ZAID RAZA</div>
     <div class="footer-links">
-      <a id="instagramLink" href="#" target="_blank" rel="noopener">Instagram</a>
-      <a id="behanceLink" href="#" target="_blank" rel="noopener">Behance</a>
-      <a id="youtubeLink" href="#" target="_blank" rel="noopener">YouTube</a>
+      <a href="#work">WORK</a>
+      <a href="#services">SERVICES</a>
+      <a href="#about">ABOUT</a>
     </div>
-    <div class="footer-copy" id="footerCopy">© 2026 — VISUAL DESIGNER</div>
+    <div class="footer-copy">© All rights reserved.</div>
   </div>
 </footer>
 
-<div class="preview" id="preview">
-  <div class="preview-box">
-    <button class="preview-close" id="previewClose">×</button>
-    <img class="preview-image" id="previewImage" alt="">
-    <div class="preview-title" id="previewTitle"></div>
-  </div>
-</div>
-
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <button class="login-close" id="loginClose">×</button>
-    <div class="eyebrow">Private Access</div>
-    <h2>Admin.</h2>
-    <p style="color:var(--muted);margin:-8px 0 18px;font-size:14px">Studio control room. Same look as the site — edit every section.</p>
-    <input class="admin-input" id="loginUser" placeholder="Username" autocomplete="username" style="margin-bottom:10px">
-    <input class="admin-input" id="loginPass" type="password" placeholder="Password" autocomplete="current-password">
-    <div class="login-error" id="loginError">Invalid username or password.</div>
-    <button class="admin-save" id="loginButton">ENTER DASHBOARD</button>
-  </div>
-</div>
-
-<div class="admin-overlay" id="adminOverlay">
-  <div class="admin-wrap">
-    <div class="admin-top">
-      <div class="admin-brand">ZAID/RAZA<small>3D STUDIO CONTROL CENTER</small></div>
-      <div class="admin-actions">
-        <button class="admin-btn solid" id="saveAllBtn">SAVE ALL & VIEW</button>
-        <button class="admin-btn" id="previewSite">VIEW WEBSITE</button>
-        <button class="admin-btn" id="resetSite">RESET</button>
-        <button class="admin-btn" id="logoutAdmin">LOGOUT</button>
-      </div>
-    </div>
-    <div class="admin-grid">
-      <div class="admin-card full">
-        <h3><span>00</span>Save</h3>
-        <div class="admin-note">
-          <b>SAVE ALL & VIEW</b> dabaao. Isi browser mein refresh ke baad bhi rahega.
-          Internet on ho to doosra phone bhi yahi latest version dekhega (yahi file kholo).
-        </div>
-        <p id="cloudStatus" style="font-size:12px;color:#3d6b3d;margin:0">Ready to save.</p>
-      </div>
-      <div class="admin-card">
-        <h3><span>01</span>Hero Section</h3>
-        <div class="admin-field"><label>Small Label</label><input class="admin-input" id="aEyebrow"></div>
-        <div class="admin-field"><label>Main Headline</label><textarea class="admin-textarea" id="aTitle"></textarea></div>
-        <div class="admin-field"><label>Description</label><textarea class="admin-textarea" id="aDescription"></textarea></div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Top Tag</label><input class="admin-input" id="aTagTop"></div>
-          <div class="admin-field"><label>Bottom Tag</label><input class="admin-input" id="aTagBottom"></div>
-        </div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Round Badge</label><textarea class="admin-textarea" id="aBadge" style="min-height:70px"></textarea></div>
-          <div class="admin-field"><label>Floating Chip</label><input class="admin-input" id="aChip"></div>
-        </div>
-        <div class="admin-field">
-          <label>Profile Photo</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="profileUpload" accept="image/*">UPLOAD PHOTO</label>
-            <input class="admin-input" id="profileUrl" placeholder="Or paste image URL">
-          </div>
-        </div>
-        <button class="admin-save" id="saveHero">SAVE HERO</button>
-      </div>
-
-      <div class="admin-card">
-        <h3><span>02</span>About Section</h3>
-        <div class="admin-field"><label>Giant Mark</label><input class="admin-input" id="aAboutMark"></div>
-        <div class="admin-field"><label>Heading</label><textarea class="admin-textarea" id="aAboutTitle"></textarea></div>
-        <div class="admin-field"><label>About Text</label><textarea class="admin-textarea" id="aAboutText"></textarea></div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Stat 1</label><input class="admin-input" id="aStat1"></div>
-          <div class="admin-field"><label>Stat 1 Label</label><input class="admin-input" id="aStat1Label"></div>
-          <div class="admin-field"><label>Stat 2</label><input class="admin-input" id="aStat2"></div>
-          <div class="admin-field"><label>Stat 2 Label</label><input class="admin-input" id="aStat2Label"></div>
-          <div class="admin-field"><label>Stat 3</label><input class="admin-input" id="aStat3"></div>
-          <div class="admin-field"><label>Stat 3 Label</label><input class="admin-input" id="aStat3Label"></div>
-        </div>
-        <button class="admin-save" id="saveAbout">SAVE ABOUT</button>
-      </div>
-
-      <div class="admin-card">
-        <h3><span>03</span>Services</h3>
-        <div class="admin-field"><label>Section intro</label><textarea class="admin-textarea" id="aServicesInfo"></textarea></div>
-        <div id="serviceEditor"></div>
-        <button class="admin-save" id="saveServices">SAVE SERVICES</button>
-      </div>
-
-      <div class="admin-card">
-        <h3><span>04</span>Contact & Socials</h3>
-        <div class="admin-field"><label>Contact Description</label><textarea class="admin-textarea" id="aContactText"></textarea></div>
-        <div class="admin-field"><label>Instagram URL</label><input class="admin-input" id="aInstagram"></div>
-        <div class="admin-field"><label>Behance URL</label><input class="admin-input" id="aBehance"></div>
-        <div class="admin-field"><label>YouTube URL</label><input class="admin-input" id="aYoutube"></div>
-        <div class="admin-field"><label>Footer line</label><input class="admin-input" id="aFooter"></div>
-        <div class="admin-field"><label>Gmail that receives form messages</label><input class="admin-input" id="aContactEmail" placeholder="you@gmail.com"></div>
-        <div class="admin-note" id="mailHelp">
-          Messages go to the Gmail above. The first test sends an activation mail from FormSubmit — open Gmail (and Spam), then click Activate. After that, new inquiries arrive in Inbox.
-        </div>
-        <button class="admin-save" id="saveContact">SAVE CONTACT</button>
-      </div>
-
-      <div class="admin-card">
-        <h3><span>05</span>Tools & Marquee</h3>
-        <div class="admin-field"><label>Marquee items (comma separated)</label><textarea class="admin-textarea" id="aMarquee"></textarea></div>
-        <div id="toolEditor"></div>
-        <button class="admin-save" id="saveTools">SAVE TOOLS & MARQUEE</button>
-      </div>
-
-      <div class="admin-card">
-        <h3><span>06</span>Work intro & filters</h3>
-        <div class="admin-field"><label>Work section text</label><textarea class="admin-textarea" id="aWorkInfo"></textarea></div>
-        <div class="admin-field"><label>Filter tags (comma separated)</label><input class="admin-input" id="aFilters"></div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 12px">ALL is always included. Use the same tags when adding projects.</p>
-        <button class="admin-save" id="saveWork">SAVE WORK SECTION</button>
-      </div>
-
-      <div class="admin-card full">
-        <h3><span>07</span>Portfolio Manager</h3>
-        <div class="admin-note">
-          Upload the poster or thumbnail, type a title, pick a category, then press <b>+ ADD PROJECT</b>.
-          It saves immediately. Then press <b>SAVE ALL & VIEW</b> and open Work → ALL to see it.
-        </div>
-        <div class="upload-row">
-          <div class="admin-field"><label>Project Title</label><input class="admin-input" id="pTitle" placeholder="Example: YouTube Thumbnail"></div>
-          <div class="admin-field"><label>Category</label>
-            <select class="admin-select" id="pTag"></select>
-            <input class="admin-input" id="pTagCustom" placeholder="Or type a new category" style="margin-top:8px">
-          </div>
-        </div>
-        <div class="admin-field">
-          <label>Project Image</label>
-          <div class="upload-row">
-            <label class="upload-label"><input type="file" id="projectUpload" accept="image/*">UPLOAD POSTER / THUMBNAIL</label>
-            <input class="admin-input" id="pImage" placeholder="Or paste image URL">
-          </div>
-          <img id="projectPreview" alt="" style="display:none;margin-top:10px;max-height:140px;border-radius:14px;border:1px solid var(--line)">
-        </div>
-        <button class="admin-save" id="addProject" type="button">+ ADD PROJECT</button>
-        <div class="admin-projects" id="adminProjects"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast">Saved successfully</div>
-
 <script>
-"use strict";
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add('hide');
+    }, 1200);
+  }
+});
 
-const ADMIN_USERNAME = "ZAIDX9119";
-const ADMIN_PASSWORD = "Zaid@9119";
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', (e) => {
+  if (cursor) {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  }
+});
 
-function makeImage(text, sub){
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111"/><stop offset="1" stop-color="#6a5a32"/></linearGradient></defs>
-<rect width="1600" height="1000" fill="url(#g)"/>
-<circle cx="1260" cy="220" r="250" fill="#fff" opacity=".08"/>
-<circle cx="280" cy="800" r="350" fill="#b8943c" opacity=".16"/>
-<text x="90" y="690" fill="white" font-family="Arial" font-weight="700" font-size="100">${text}</text>
-<text x="95" y="770" fill="#ddd" font-family="Arial" font-size="34" letter-spacing="8">${sub}</text>
-</svg>`;
-  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-}
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 40) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
 
-const defaultData = {
-  updated:1788967044021,
-  eyebrow:"Graphic Designer · Visual Creator",
-  title:"I MAKE\nVISUALS\nMOVE.",
-  description:"I turn ordinary ideas into bold, clear and high-impact visuals designed to grab attention and communicate instantly.",
-  profile:"data:image/jpeg;base64,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 * /
-  /* Base64 truncated for display length - original file intact */
-};
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>

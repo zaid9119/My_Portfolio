@@ -330,25 +330,79 @@ const CONFIG = {
   adminPass: 'ZAID999'
 };
 
-/* ============ DEFAULT DATA ============
-   img = Drive share link, Drive file ID, or normal image URL.
-   Leave it empty to show a neat placeholder until you add the image. */
-const DEFAULT_PROJECTS = [
-  { img: '', title: 'Reel Competition Poster', type: 'POSTER',      ratio: '4/5'  },
-  { img: '', title: 'Adventure Capital',       type: 'THUMBNAIL',   ratio: '16/9' },
-  { img: '', title: 'Magic Face Wash Ad',      type: 'AD DESIGN',   ratio: '1/1'  },
-  { img: '', title: 'Wings of Freedom',        type: 'POSTER',      ratio: '4/5'  },
-  { img: '', title: 'Taj Mahal Artwork',       type: 'ARTWORK',     ratio: '4/5'  },
-  { img: '', title: 'Biryani Food Banner',     type: 'FOOD VISUAL', ratio: '16/9' },
-  { img: '', title: 'Nike Product Design',     type: 'PRODUCT',     ratio: '1/1'  }
-];
-const DEFAULT_TEXT = {};
-const TEXT_IDS = ['hero-title','hero-sub','hero-desc','about-text'];
 
-let state = { projects: JSON.parse(JSON.stringify(DEFAULT_PROJECTS)), socials: {insta:'',be:'',yt:''}, text: {} };
+/* ============ DEFAULT DATA ============ 
+   img = Direct Google Drive image URL
+   Replace each FILE_ID with the ID of the matching image.
+*/
+
+const DEFAULT_PROJECTS = [
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_1',
+    title: 'Reel Competition Poster',
+    type: 'POSTER',
+    ratio: '4/5'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_2',
+    title: 'Adventure Capital',
+    type: 'THUMBNAIL',
+    ratio: '16/9'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_3',
+    title: 'Magic Face Wash Ad',
+    type: 'AD DESIGN',
+    ratio: '1/1'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_4',
+    title: 'Wings of Freedom',
+    type: 'POSTER',
+    ratio: '4/5'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_5',
+    title: 'Taj Mahal Artwork',
+    type: 'ARTWORK',
+    ratio: '4/5'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_6',
+    title: 'Biryani Food Banner',
+    type: 'FOOD VISUAL',
+    ratio: '16/9'
+  },
+  {
+    img: 'https://drive.google.com/uc?export=view&id=FILE_ID_7',
+    title: 'Nike Product Design',
+    type: 'PRODUCT',
+    ratio: '1/1'
+  }
+];
+
+const DEFAULT_TEXT = {};
+const TEXT_IDS = [
+  'hero-title',
+  'hero-sub',
+  'hero-desc',
+  'about-text'
+];
+
+let state = {
+  projects: JSON.parse(JSON.stringify(DEFAULT_PROJECTS)),
+  socials: {
+    insta: '',
+    be: '',
+    yt: ''
+  },
+  text: {}
+};
+
 let activeFilter = 'ALL';
 let visible = [];
 let lbIndex = 0;
+
 
 /* ============ HELPERS ============ */
 const $ = id => document.getElementById(id);
